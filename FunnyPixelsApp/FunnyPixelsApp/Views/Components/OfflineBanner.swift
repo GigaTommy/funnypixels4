@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /// P2-3: Offline Mode Banner

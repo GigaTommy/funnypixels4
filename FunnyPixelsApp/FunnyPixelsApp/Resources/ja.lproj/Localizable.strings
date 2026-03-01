@@ -1399,6 +1399,24 @@
 /* ランクティア - Rank Tier */
 "rank.max_tier_reached" = "最高ティアに到達";
 "rank.pixels_to_upgrade" = "アップグレードまであと%dピクセル";
+"rank.guide.title" = "ランクガイド";
+"rank.guide.current_rank" = "現在のランク";
+"rank.pixels_remaining" = "次のランクまで%dピクセル";
+"rank.max_tier_achieved" = "最高ランク達成！";
+"rank.guide.how_it_works" = "仕組み";
+"rank.guide.description" = "ピクセルを累積して昇格します。各ランクには専用特典、高い日次割当、追加機能があります。";
+"rank.min_pixels" = "%dピクセル必要";
+"rank.more_benefits" = "他%d個の特典";
+"rank.exclusive_badges" = "専用バッジ";
+"rank.unlocked_features" = "解除された機能";
+"rank.limits" = "制限";
+"rank.daily_pixel_quota" = "デイリーピクセル割当";
+"rank.max_session_time" = "最大セッション時間";
 
 /* 支払い - Payment */
 "payment.alipay" = "Alipay";
+
+// メッセージセンターカテゴリ
+"message.category.all" = "すべて";
+"message.category.interaction" = "インタラクション";
+"message.category.system" = "システム";

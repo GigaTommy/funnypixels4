@@ -507,6 +507,8 @@ class DrawingStateManager: ObservableObject {
                 Logger.info("✅ Backend session ended: \(backendId)")
                 // 注意：成就检查已由 GPSDrawingService 在绘制像素时内联处理（API 响应直接返回 newAchievements）
                 // 此处不再额外调用 checkAndNotify()，避免重复 API 请求
+                // ✨ 通知每日任务刷新（绘画完成）
+                NotificationCenter.default.post(name: .dailyTasksNeedRefresh, object: nil)
             } catch {
                 Logger.error("Failed to end backend session: \(error.localizedDescription)")
             }

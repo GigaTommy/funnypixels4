@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /// 赛事实时状态 Banner

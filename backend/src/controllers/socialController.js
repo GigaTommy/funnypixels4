@@ -28,6 +28,33 @@ class SocialController {
         // 会话创建失败不影响关注操作
       }
 
+      // ✨ 创建关注通知
+      try {
+        const { db } = require('../config/database');
+        const NotificationController = require('./notificationController');
+
+        const follower = await db('users')
+          .where('id', followerId)
+          .select('display_name', 'username')
+          .first();
+
+        const followerName = follower?.display_name || follower?.username || '某人';
+
+        await NotificationController.createNotification(
+          followingId,  // 被关注者
+          'follow',
+          `${followerName} 关注了你`,
+          `${followerName} 关注了你，快去看看 TA 的主页吧！`,
+          {
+            follower_id: followerId,
+            follower_name: followerName
+          }
+        );
+      } catch (notifError) {
+        console.error('创建关注通知失败:', notifError);
+        // 不影响主流程
+      }
+
       res.json({
         success: true,
         message: '关注成功',

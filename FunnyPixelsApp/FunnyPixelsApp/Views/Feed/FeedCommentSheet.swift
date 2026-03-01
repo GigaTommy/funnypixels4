@@ -29,9 +29,13 @@ struct FeedCommentSheet: View {
                     ScrollView {
                         LazyVStack(spacing: AppSpacing.m) {
                             ForEach(comments) { comment in
-                                CommentRow(comment: comment, onDelete: {
-                                    Task { await deleteComment(comment) }
-                                })
+                                CommentRow(
+                                    comment: comment,
+                                    currentUserId: AuthManager.shared.currentUser?.id,
+                                    onDelete: {
+                                        Task { await deleteComment(comment) }
+                                    }
+                                )
                             }
                         }
                         .padding(AppSpacing.l)
@@ -104,6 +108,8 @@ struct FeedCommentSheet: View {
             if response.success {
                 newComment = ""
                 await loadComments()
+                // ✨ 通知每日任务刷新
+                NotificationCenter.default.post(name: .dailyTasksNeedRefresh, object: nil)
             }
         } catch {
             Logger.error("Failed to add comment: \(error)")
@@ -124,6 +130,7 @@ struct FeedCommentSheet: View {
 
 struct CommentRow: View {
     let comment: FeedService.FeedComment
+    let currentUserId: String?
     let onDelete: () -> Void
 
     var body: some View {
@@ -152,6 +159,14 @@ struct CommentRow: View {
                 Text(comment.content)
                     .font(AppTypography.body())
                     .foregroundColor(AppColors.textPrimary)
+            }
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            // 只有评论作者才能删除自己的评论
+            if currentUserId == comment.user.id {
+                Button(role: .destructive, action: onDelete) {
+                    Label(NSLocalizedString("common.delete", comment: "Delete"), systemImage: "trash")
+                }
             }
         }
     }

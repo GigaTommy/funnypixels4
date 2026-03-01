@@ -15,4 +15,8 @@ router.get('/', SystemMessageController.getUserMessages);
 // Mark message as read
 router.put('/:messageId/read', SystemMessageController.markAsRead);
 
+// Batch operations
+router.put('/batch/read', SystemMessageController.batchMarkAsRead);
+router.delete('/batch', SystemMessageController.batchDeleteMessages);
+
 module.exports = router;

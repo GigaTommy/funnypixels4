@@ -989,6 +989,8 @@ class AuthController {
         created_at: freshUser.created_at,
         last_activity: freshUser.last_activity,
         alliance: alliance,
+        following_count: freshUser.following_count || 0,  // ✨ 关注数（缓存列）
+        followers_count: freshUser.followers_count || 0,  // ✨ 粉丝数（缓存列）
         rankTier: RankTierService.getTierForPixels(totalPixels)
       };
 

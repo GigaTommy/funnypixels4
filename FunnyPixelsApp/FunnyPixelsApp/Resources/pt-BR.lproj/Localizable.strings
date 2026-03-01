@@ -1249,6 +1249,24 @@
 /* Nível de classificação - Rank Tier */
 "rank.max_tier_reached" = "Nível máximo alcançado";
 "rank.pixels_to_upgrade" = "%d pixels para melhorar";
+"rank.guide.title" = "Guia de Níveis";
+"rank.guide.current_rank" = "Nível Atual";
+"rank.pixels_remaining" = "%d pixels até o próximo nível";
+"rank.max_tier_achieved" = "Nível máximo alcançado!";
+"rank.guide.how_it_works" = "Como Funciona";
+"rank.guide.description" = "Avance pelos níveis acumulando pixels. Cada nível desbloquea benefícios exclusivos, cotas diárias mais altas e recursos adicionais.";
+"rank.min_pixels" = "%d pixels necessários";
+"rank.more_benefits" = "+%d benefícios";
+"rank.exclusive_badges" = "Emblemas Exclusivos";
+"rank.unlocked_features" = "Recursos Desbloqueados";
+"rank.limits" = "Limites";
+"rank.daily_pixel_quota" = "Cota Diária de Pixels";
+"rank.max_session_time" = "Tempo Máximo de Sessão";
 
 /* Pagamento - Payment */
 "payment.alipay" = "Alipay";
+
+// Categorias do centro de mensagens
+"message.category.all" = "Todos";
+"message.category.interaction" = "Interações";
+"message.category.system" = "Sistema";

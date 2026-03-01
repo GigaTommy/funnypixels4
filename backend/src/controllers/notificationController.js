@@ -228,6 +228,31 @@ class NotificationController {
 
       const [inserted] = await knex('notifications').insert(notification).returning('*');
 
+      // ✨ WebSocket实时推送通知
+      try {
+        const { getSocketManager, hasSocketManager } = require('../services/socketManagerInstance');
+
+        if (hasSocketManager()) {
+          const socketManager = getSocketManager();
+
+          // 推送新通知事件到用户
+          socketManager.sendToUser(userId, 'new_notification', {
+            id: String(inserted.id),
+            type: inserted.type,
+            title: inserted.title,
+            content: inserted.message,  // message -> content (iOS期望)
+            attachments: inserted.data,
+            is_read: false,
+            created_at: inserted.created_at
+          });
+
+          console.log(`📤 实时推送通知给用户: ${userId}, 类型: ${type}`);
+        }
+      } catch (socketError) {
+        console.error('❌ WebSocket推送通知失败:', socketError);
+        // 不影响通知创建
+      }
+
       // 异步发送推送通知
       this.triggerPushNotification(userId, title, content, data).catch(err => {
         console.error('❌ 发送推送通知失败:', err);

@@ -1165,6 +1165,24 @@
 /* 랭크 티어 - Rank Tier */
 "rank.max_tier_reached" = "최고 티어 도달";
 "rank.pixels_to_upgrade" = "업그레이드까지 %d 픽셀";
+"rank.guide.title" = "등급 가이드";
+"rank.guide.current_rank" = "현재 등급";
+"rank.pixels_remaining" = "다음 등급까지 %d 픽셀";
+"rank.max_tier_achieved" = "최고 등급 달성!";
+"rank.guide.how_it_works" = "작동 방식";
+"rank.guide.description" = "픽셀을 누적하여 등급을 올립니다. 각 등급은 전용 혜택, 높은 일일 할당량 및 추가 기능을 제공합니다.";
+"rank.min_pixels" = "%d 픽셀 필요";
+"rank.more_benefits" = "+%d개 더 보기";
+"rank.exclusive_badges" = "전용 배지";
+"rank.unlocked_features" = "잠금 해제된 기능";
+"rank.limits" = "제한";
+"rank.daily_pixel_quota" = "일일 픽셀 할당량";
+"rank.max_session_time" = "최대 세션 시간";
 
 /* 결제 - Payment */
 "payment.alipay" = "Alipay";
+
+// 메시지 센터 카테고리
+"message.category.all" = "전체";
+"message.category.interaction" = "상호작용";
+"message.category.system" = "시스템";

@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /// A clean, professional background with a frosted glass effect.

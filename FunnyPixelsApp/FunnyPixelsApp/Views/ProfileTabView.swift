@@ -94,9 +94,12 @@ struct ProfileTabView: View {
 
                         // 3. Rank Tier Progress Card
                         if let tier = viewModel.userProfile?.rankTier {
-                            StandardCard(padding: AppSpacing.l) {
-                                RankTierProgressBar(tier: tier)
+                            NavigationLink(destination: RankTierGuideView()) {
+                                StandardCard(padding: AppSpacing.l) {
+                                    RankTierProgressBar(tier: tier)
+                                }
                             }
+                            .buttonStyle(.plain)
                         }
 
                         // 4. Honors Card
@@ -342,6 +345,11 @@ struct ProfileTabView: View {
 
                 NavigationLink(destination: DailyTaskListView()) {
                     StandardListRowContent(title: NSLocalizedString("profile.daily_tasks", comment: ""), icon: "checklist", iconColor: .teal)
+                }
+                Divider().padding(.leading, 56)
+
+                NavigationLink(destination: RankTierGuideView()) {
+                    StandardListRowContent(title: NSLocalizedString("rank.guide.title", comment: ""), icon: "shield.lefthalf.filled", iconColor: .indigo)
                 }
                 Divider().padding(.leading, 56)
 

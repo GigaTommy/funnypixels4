@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /// 联盟徽章组件 - 显示会话使用的联盟旗帜

@@ -45,6 +45,13 @@ struct DailyTaskListView: View {
                 toastOverlay(toast)
             }
         }
+        .overlay {
+            // ✨ Reward claim celebration animation
+            RewardClaimAnimation(
+                points: viewModel.lastClaimedPoints,
+                isPresented: $viewModel.showRewardAnimation
+            )
+        }
     }
 
     // MARK: - Progress Header

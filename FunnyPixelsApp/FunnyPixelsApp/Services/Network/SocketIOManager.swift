@@ -74,6 +74,9 @@ public actor SocketIOManager {
     /// 🌊 漂流瓶沉没发布者
     private let bottleSunkSubject = PassthroughSubject<JourneyCardDetail, Never>()
 
+    /// 🔔 新通知发布者
+    private let newNotificationSubject = PassthroughSubject<NotificationService.SystemMessage, Never>()
+
     /// 连接状态发布者
 
     /// 连接状态发布者
@@ -124,7 +127,12 @@ public actor SocketIOManager {
     var bottleSunkPublisher: AnyPublisher<JourneyCardDetail, Never> {
         bottleSunkSubject.eraseToAnyPublisher()
     }
-    
+
+    /// 🔔 新通知发布者
+    public var newNotificationPublisher: AnyPublisher<NotificationService.SystemMessage, Never> {
+        newNotificationSubject.eraseToAnyPublisher()
+    }
+
     // MARK: - Initialization
 
     /// 当前连接状态
@@ -417,6 +425,27 @@ public actor SocketIOManager {
                 await self.handleBottleSunk(data)
             }
         }
+
+        // 🔔 新通知事件
+        socket.on("new_notification") { [weak self] data, ack in
+            guard let self = self else { return }
+
+            // 在非 actor 上下文中解码
+            guard let dict = data.first as? [String: Any],
+                  let jsonData = try? JSONSerialization.data(withJSONObject: dict) else {
+                Logger.warning("Invalid new_notification data")
+                return
+            }
+
+            // 使用 nonisolated 上下文解码
+            Task.detached {
+                guard let notification = try? JSONDecoder().decode(NotificationService.SystemMessage.self, from: jsonData) else {
+                    Logger.warning("Failed to decode notification")
+                    return
+                }
+                await self.handleNewNotification(notification)
+            }
+        }
     }
 
     // MARK: - Event Handlers
@@ -558,6 +587,12 @@ public actor SocketIOManager {
         }
         Logger.debug("Received bottle sunk: \(detail.bottleId)")
         bottleSunkSubject.send(detail)
+    }
+
+    /// 处理新通知事件
+    private func handleNewNotification(_ notification: NotificationService.SystemMessage) async {
+        Logger.info("🔔 收到新通知: \(notification.title)")
+        newNotificationSubject.send(notification)
     }
 
     // MARK: - Authentication

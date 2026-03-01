@@ -162,6 +162,9 @@
 "feed.social.empty_hint" = "关注其他玩家并开始绘画，动态将会出现在这里";
 "feed.filter.following" = "关注";
 "feed.filter.all" = "全部";
+"feed.filter.alliance" = "联盟";
+"feed.filter.nearby" = "附近";
+"feed.nearby.location_required" = "需要位置权限才能查看附近动态";
 "feed.time.just_now" = "刚刚";
 "feed.time.minutes_ago" = "%d分钟前";
 "feed.time.hours_ago" = "%d小时前";
@@ -1458,6 +1461,19 @@
 /* 等级段位 - Rank Tier */
 "rank.max_tier_reached" = "已达最高段位";
 "rank.pixels_to_upgrade" = "还差 %d 像素升级";
+"rank.guide.title" = "段位指南";
+"rank.guide.current_rank" = "当前段位";
+"rank.pixels_remaining" = "还需 %d 像素";
+"rank.max_tier_achieved" = "已达最高段位！";
+"rank.guide.how_it_works" = "段位说明";
+"rank.guide.description" = "通过累计绘制像素数量提升段位，每个段位都有专属福利。段位越高，每日配额越多，解锁功能越丰富。";
+"rank.min_pixels" = "需要 %d 像素";
+"rank.more_benefits" = "+%d 项福利";
+"rank.exclusive_badges" = "专属徽章";
+"rank.unlocked_features" = "解锁功能";
+"rank.limits" = "段位限制";
+"rank.daily_pixel_quota" = "每日像素配额";
+"rank.max_session_time" = "最长绘制时长";
 
 /* 支付 - Payment */
 "payment.alipay" = "支付宝";
@@ -1473,3 +1489,10 @@
 "profile.personal" = "个人";
 "profile.leaderboard" = "排行";
 "profile.more" = "更多";
+"common.delete" = "删除";
+"daily_task.points_earned" = "积分";
+
+// 消息中心分类
+"message.category.all" = "全部";
+"message.category.interaction" = "互动";
+"message.category.system" = "系统";

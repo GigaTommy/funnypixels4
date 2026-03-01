@@ -103,16 +103,24 @@ class FeedService {
     // MARK: - API Methods
 
     /// 获取动态流
-    func getFeed(filter: String = "following", limit: Int = 20, offset: Int = 0) async throws -> FeedResponse {
+    func getFeed(filter: String = "following", limit: Int = 20, offset: Int = 0, lat: Double? = nil, lng: Double? = nil) async throws -> FeedResponse {
         let baseURLString = "\(APIEndpoint.baseURL)/feed"
         guard let url = URL(string: baseURLString) else { throw NetworkError.invalidURL }
 
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.queryItems = [
+        var queryItems = [
             URLQueryItem(name: "filter", value: filter),
             URLQueryItem(name: "limit", value: String(limit)),
             URLQueryItem(name: "offset", value: String(offset))
         ]
+
+        // ✨ 添加位置参数（用于nearby筛选）
+        if let lat = lat, let lng = lng {
+            queryItems.append(URLQueryItem(name: "lat", value: String(lat)))
+            queryItems.append(URLQueryItem(name: "lng", value: String(lng)))
+        }
+
+        components.queryItems = queryItems
 
         guard let finalURL = components.url else { throw NetworkError.invalidURL }
 

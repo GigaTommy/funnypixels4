@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import CoreLocation
 
 /// 社交动态 Feed 视图模型
 @MainActor
@@ -8,7 +9,7 @@ class FeedViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var isLoadingMore = false
     @Published var hasMore = true
-    @Published var filter: String = "following"  // "following" or "all"
+    @Published var filter: String = "all"  // "all", "following", "alliance", or "nearby"
     @Published var errorMessage: String?
 
     private let feedService = FeedService.shared
@@ -34,10 +35,25 @@ class FeedViewModel: ObservableObject {
         defer { isLoading = false }
 
         do {
+            // ✨ 获取位置参数（nearby筛选需要）
+            var lat: Double? = nil
+            var lng: Double? = nil
+            if filter == "nearby" {
+                if let location = LocationManager.shared.currentLocation {
+                    lat = location.coordinate.latitude
+                    lng = location.coordinate.longitude
+                } else {
+                    errorMessage = NSLocalizedString("feed.nearby.location_required", comment: "Location permission required for nearby feed")
+                    return
+                }
+            }
+
             let response = try await feedService.getFeed(
                 filter: filter,
                 limit: pageSize,
-                offset: 0
+                offset: 0,
+                lat: lat,
+                lng: lng
             )
             if response.success, let data = response.data {
                 items = data.items  // 原子替换
@@ -57,10 +73,20 @@ class FeedViewModel: ObservableObject {
         defer { isLoadingMore = false }
 
         do {
+            // ✨ 获取位置参数（nearby筛选需要）
+            var lat: Double? = nil
+            var lng: Double? = nil
+            if filter == "nearby", let location = LocationManager.shared.currentLocation {
+                lat = location.coordinate.latitude
+                lng = location.coordinate.longitude
+            }
+
             let response = try await feedService.getFeed(
                 filter: filter,
                 limit: pageSize,
-                offset: items.count
+                offset: items.count,
+                lat: lat,
+                lng: lng
             )
             if response.success, let data = response.data {
                 items.append(contentsOf: data.items)
@@ -85,6 +111,8 @@ class FeedViewModel: ObservableObject {
                 _ = try await feedService.unlikeFeedItem(id: item.id)
             } else {
                 _ = try await feedService.likeFeedItem(id: item.id)
+                // ✨ 通知每日任务刷新
+                NotificationCenter.default.post(name: .dailyTasksNeedRefresh, object: nil)
             }
         } catch {
             // 回滚：恢复原始状态

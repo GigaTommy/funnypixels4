@@ -89,4 +89,7 @@ public extension DateFormatter {
 public extension Notification.Name {
     /// 地图追踪状态改变（用于识别用户是否平移了地图）
     static let mapTrackingStateChanged = Notification.Name("mapTrackingStateChanged")
+
+    /// 每日任务需要刷新
+    static let dailyTasksNeedRefresh = Notification.Name("dailyTasksNeedRefresh")
 }

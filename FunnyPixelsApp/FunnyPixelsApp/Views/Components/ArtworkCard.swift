@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /// 作品卡片 - 画廊风格的会话展示卡片（带视觉增强）

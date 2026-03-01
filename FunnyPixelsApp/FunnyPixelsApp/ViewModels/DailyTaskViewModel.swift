@@ -16,8 +16,22 @@ class DailyTaskViewModel: ObservableObject {
     @Published var claimingTaskId: Int?
     @Published var claimingBonus = false
     @Published var toastMessage: String?
+    @Published var showRewardAnimation = false
+    @Published var lastClaimedPoints = 0
 
     private let service = DailyTaskService.shared
+    private var cancellables = Set<AnyCancellable>()
+
+    init() {
+        // ✨ 监听任务刷新通知
+        NotificationCenter.default.publisher(for: .dailyTasksNeedRefresh)
+            .sink { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    await self?.loadTasks()
+                }
+            }
+            .store(in: &cancellables)
+    }
 
     func loadTasks() async {
         isLoading = true
@@ -49,6 +63,10 @@ class DailyTaskViewModel: ObservableObject {
             // ✨ Success feedback
             HapticManager.shared.notification(type: .success)
             SoundManager.shared.playSuccess()
+
+            // ✨ Show celebration animation
+            lastClaimedPoints = points
+            showRewardAnimation = true
 
             toastMessage = "+\(points) pts"
 
@@ -96,6 +114,10 @@ class DailyTaskViewModel: ObservableObject {
             // ✨ Success feedback
             HapticManager.shared.notification(type: .success)
             SoundManager.shared.playSuccess()
+
+            // ✨ Show celebration animation
+            lastClaimedPoints = points
+            showRewardAnimation = true
 
             toastMessage = "+\(points) pts"
             bonusClaimed = true

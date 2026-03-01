@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /// 紧凑型成就徽章视图（用于个人主页展示）

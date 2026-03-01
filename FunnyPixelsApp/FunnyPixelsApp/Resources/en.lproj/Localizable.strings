@@ -161,6 +161,9 @@
 "feed.social.empty_hint" = "Follow other players and start drawing to see activity here";
 "feed.filter.following" = "Following";
 "feed.filter.all" = "All";
+"feed.filter.alliance" = "Alliance";
+"feed.filter.nearby" = "Nearby";
+"feed.nearby.location_required" = "Location permission required to view nearby activity";
 "feed.time.just_now" = "Just now";
 "feed.time.minutes_ago" = "%d min ago";
 "feed.time.hours_ago" = "%d hr ago";
@@ -1460,6 +1463,19 @@
 /* Rank Tier */
 "rank.max_tier_reached" = "Max tier reached";
 "rank.pixels_to_upgrade" = "%d pixels to upgrade";
+"rank.guide.title" = "Rank Guide";
+"rank.guide.current_rank" = "Current Rank";
+"rank.pixels_remaining" = "%d pixels to next rank";
+"rank.max_tier_achieved" = "Maximum rank achieved!";
+"rank.guide.how_it_works" = "How It Works";
+"rank.guide.description" = "Advance through ranks by accumulating pixels. Each rank unlocks exclusive benefits, higher daily quotas, and additional features.";
+"rank.min_pixels" = "%d pixels required";
+"rank.more_benefits" = "+%d more benefits";
+"rank.exclusive_badges" = "Exclusive Badges";
+"rank.unlocked_features" = "Unlocked Features";
+"rank.limits" = "Limits";
+"rank.daily_pixel_quota" = "Daily Pixel Quota";
+"rank.max_session_time" = "Max Session Time";
 
 /* Payment */
 "payment.alipay" = "Alipay";
@@ -1475,3 +1491,10 @@
 "profile.personal" = "Personal";
 "profile.leaderboard" = "Leaderboard";
 "profile.more" = "More";
+"common.delete" = "Delete";
+"daily_task.points_earned" = "Points";
+
+// Message center categories
+"message.category.all" = "All";
+"message.category.interaction" = "Interactions";
+"message.category.system" = "System";

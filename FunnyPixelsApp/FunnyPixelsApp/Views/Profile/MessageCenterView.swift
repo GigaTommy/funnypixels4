@@ -2,14 +2,46 @@ import SwiftUI
 import Combine
 import CoreLocation
 
+/// 消息分类枚举
+enum MessageCategory: String, CaseIterable {
+    case all = "all"
+    case interaction = "interaction"
+    case system = "system"
+
+    var displayName: String {
+        switch self {
+        case .all: return NSLocalizedString("message.category.all", comment: "全部")
+        case .interaction: return NSLocalizedString("message.category.interaction", comment: "互动")
+        case .system: return NSLocalizedString("message.category.system", comment: "系统")
+        }
+    }
+
+    /// 对应的后端type参数（nil表示不筛选）
+    var apiTypes: [String]? {
+        switch self {
+        case .all: return nil
+        case .interaction: return ["like", "comment", "follow"]
+        case .system: return ["achievement", "reward", "territory_battle", "system"]
+        }
+    }
+}
+
 /// 消息中心视图
 struct MessageCenterView: View {
     @StateObject private var viewModel = MessageCenterViewModel()
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
-        List {
-            if viewModel.isLoading && viewModel.messages.isEmpty {
+        VStack(spacing: 0) {
+            // 分类选择器
+            CategoryPicker(selectedCategory: $viewModel.selectedCategory)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(Color(uiColor: .systemGroupedBackground))
+
+            // 消息列表
+            List {
+                if viewModel.isLoading && viewModel.messages.isEmpty {
                 HStack {
                     Spacer()
                     ProgressView("加载中...")
@@ -29,23 +61,38 @@ struct MessageCenterView: View {
                 .listRowBackground(Color.clear)
             } else {
                 ForEach(viewModel.messages) { message in
-                    MessageRow(message: message)
-                        .onTapGesture {
+                    MessageRow(
+                        message: message,
+                        isEditMode: viewModel.isEditMode,
+                        isSelected: viewModel.selectedMessageIds.contains(message.id)
+                    )
+                    .onTapGesture {
+                        if viewModel.isEditMode {
+                            viewModel.toggleSelection(message.id)
+                        } else {
                             viewModel.selectMessage(message)
                         }
+                    }
                 }
             }
+            }
+            .listStyle(.plain)
         }
         .navigationTitle("消息中心")
         .navigationBarTitleDisplayMode(.inline)
         .hideTabBar()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("全部忽略") {
-                    Task { await viewModel.markAllAsRead() }
+                Button(viewModel.isEditMode ? "完成" : "编辑") {
+                    viewModel.toggleEditMode()
                 }
                 .font(.subheadline)
                 .disabled(viewModel.messages.isEmpty)
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            if viewModel.isEditMode {
+                BatchActionsToolbar(viewModel: viewModel)
             }
         }
         .task {
@@ -69,12 +116,113 @@ struct MessageCenterView: View {
     }
 }
 
+/// 批量操作工具栏
+struct BatchActionsToolbar: View {
+    @ObservedObject var viewModel: MessageCenterViewModel
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Divider()
+
+            HStack(spacing: 20) {
+                // 全选/取消全选
+                Button(action: {
+                    viewModel.toggleSelectAll()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: viewModel.isAllSelected ? "checkmark.square.fill" : "square")
+                        Text(viewModel.isAllSelected ? "取消全选" : "全选")
+                    }
+                    .font(.system(size: 15))
+                }
+
+                Spacer()
+
+                // 标记已读
+                Button(action: {
+                    Task {
+                        await viewModel.batchMarkAsRead()
+                    }
+                }) {
+                    Label("标记已读", systemImage: "envelope.open")
+                        .font(.system(size: 15))
+                }
+                .disabled(viewModel.selectedMessageIds.isEmpty)
+
+                Spacer()
+
+                // 删除
+                Button(role: .destructive, action: {
+                    viewModel.showDeleteConfirmation = true
+                }) {
+                    Label("删除", systemImage: "trash")
+                        .font(.system(size: 15))
+                }
+                .disabled(viewModel.selectedMessageIds.isEmpty)
+            }
+            .padding()
+            .background(Color(uiColor: .systemBackground))
+        }
+        .confirmationDialog(
+            "确认删除",
+            isPresented: $viewModel.showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("删除 \(viewModel.selectedMessageIds.count) 条消息", role: .destructive) {
+                Task {
+                    await viewModel.batchDelete()
+                }
+            }
+            Button("取消", role: .cancel) {}
+        } message: {
+            Text("删除后无法恢复")
+        }
+    }
+}
+
+/// 分类选择器
+struct CategoryPicker: View {
+    @Binding var selectedCategory: MessageCategory
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(MessageCategory.allCases, id: \.self) { category in
+                Button(action: {
+                    selectedCategory = category
+                }) {
+                    VStack(spacing: 4) {
+                        Text(category.displayName)
+                            .font(.system(size: 15, weight: selectedCategory == category ? .semibold : .regular))
+                            .foregroundColor(selectedCategory == category ? .blue : .secondary)
+
+                        // 下划线指示器
+                        Rectangle()
+                            .fill(selectedCategory == category ? Color.blue : Color.clear)
+                            .frame(height: 2)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+            }
+        }
+        .frame(height: 44)
+    }
+}
+
 /// 消息行视图
 struct MessageRow: View {
     let message: NotificationService.SystemMessage
-    
+    var isEditMode: Bool = false
+    var isSelected: Bool = false
+
     var body: some View {
         HStack(spacing: 12) {
+            // 编辑模式：显示选择框
+            if isEditMode {
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(isSelected ? .blue : .gray)
+                    .font(.system(size: 22))
+            }
+
             // 类型图标
             ZStack {
                 Circle()
@@ -281,12 +429,76 @@ class MessageCenterViewModel: ObservableObject {
     @Published var messages: [NotificationService.SystemMessage] = []
     @Published var isLoading = false
     @Published var selectedMessage: NotificationService.SystemMessage?
-    
+    @Published var selectedCategory: MessageCategory = .all {
+        didSet {
+            // 切换分类时重新加载
+            if oldValue != selectedCategory {
+                Task {
+                    await fetchMessages()
+                }
+            }
+        }
+    }
+
+    // 批量操作状态
+    @Published var isEditMode = false
+    @Published var selectedMessageIds: Set<String> = []
+    @Published var showDeleteConfirmation = false
+
+    /// 是否全选
+    var isAllSelected: Bool {
+        !messages.isEmpty && selectedMessageIds.count == messages.count
+    }
+
+    private var cancellables = Set<AnyCancellable>()
+
+    init() {
+        // ✨ 订阅实时通知
+        Task {
+            let publisher = await SocketIOManager.shared.newNotificationPublisher
+            publisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] newNotification in
+                    guard let self = self else { return }
+                    Logger.info("🔔 收到实时通知，刷新列表")
+
+                    // 检查新通知是否符合当前分类
+                    let shouldAdd: Bool
+                    if let apiTypes = self.selectedCategory.apiTypes {
+                        shouldAdd = apiTypes.contains(newNotification.type)
+                    } else {
+                        shouldAdd = true // "全部"分类
+                    }
+
+                    // 将新通知插入到列表顶部（如果符合当前分类）
+                    if shouldAdd {
+                        self.messages.insert(newNotification, at: 0)
+                    }
+
+                    // 刷新未读数
+                    Task {
+                        await self.refreshUnreadCount()
+                    }
+                }
+                .store(in: &cancellables)
+        }
+    }
+
     func fetchMessages() async {
         isLoading = true
         defer { isLoading = false }
         do {
-            messages = try await NotificationService.shared.getMessages()
+            // 获取所有消息
+            let allMessages = try await NotificationService.shared.getMessages()
+
+            // 根据选中的分类筛选
+            if let apiTypes = selectedCategory.apiTypes {
+                messages = allMessages.filter { message in
+                    apiTypes.contains(message.type)
+                }
+            } else {
+                messages = allMessages
+            }
         } catch {
             Logger.error("Failed to fetch messages: \(error)")
         }
@@ -331,6 +543,86 @@ class MessageCenterViewModel: ObservableObject {
             }
         } catch {
             Logger.error("Failed to refresh unread count: \(error)")
+        }
+    }
+
+    // MARK: - 批量操作方法
+
+    /// 切换编辑模式
+    func toggleEditMode() {
+        isEditMode.toggle()
+        if !isEditMode {
+            // 退出编辑模式时清空选择
+            selectedMessageIds.removeAll()
+        }
+    }
+
+    /// 切换单个消息的选中状态
+    func toggleSelection(_ messageId: String) {
+        if selectedMessageIds.contains(messageId) {
+            selectedMessageIds.remove(messageId)
+        } else {
+            selectedMessageIds.insert(messageId)
+        }
+    }
+
+    /// 全选/取消全选
+    func toggleSelectAll() {
+        if isAllSelected {
+            selectedMessageIds.removeAll()
+        } else {
+            selectedMessageIds = Set(messages.map { $0.id })
+        }
+    }
+
+    /// 批量标记为已读
+    func batchMarkAsRead() async {
+        guard !selectedMessageIds.isEmpty else { return }
+
+        do {
+            try await NotificationService.shared.batchMarkAsRead(ids: Array(selectedMessageIds))
+
+            // 更新本地状态
+            for id in selectedMessageIds {
+                if let index = messages.firstIndex(where: { $0.id == id }) {
+                    messages[index].is_read = true
+                }
+            }
+
+            // 清空选择
+            selectedMessageIds.removeAll()
+
+            // 刷新未读数
+            await refreshUnreadCount()
+
+            Logger.info("✅ 批量标记已读成功")
+        } catch {
+            Logger.error("Failed to batch mark as read: \(error)")
+        }
+    }
+
+    /// 批量删除
+    func batchDelete() async {
+        guard !selectedMessageIds.isEmpty else { return }
+
+        do {
+            try await NotificationService.shared.batchDelete(ids: Array(selectedMessageIds))
+
+            // 从本地列表中移除
+            messages.removeAll { selectedMessageIds.contains($0.id) }
+
+            // 清空选择
+            selectedMessageIds.removeAll()
+
+            // 退出编辑模式
+            isEditMode = false
+
+            // 刷新未读数
+            await refreshUnreadCount()
+
+            Logger.info("✅ 批量删除成功")
+        } catch {
+            Logger.error("Failed to batch delete: \(error)")
         }
     }
 }

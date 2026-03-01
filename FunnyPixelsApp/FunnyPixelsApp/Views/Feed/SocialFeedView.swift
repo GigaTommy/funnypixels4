@@ -78,18 +78,28 @@ struct FeedFilterPicker: View {
     @Binding var filter: String
 
     var body: some View {
-        HStack(spacing: AppSpacing.m) {
-            FilterChip(
-                title: NSLocalizedString("feed.filter.following", comment: "Following"),
-                isSelected: filter == "following"
-            ) { filter = "following" }
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: AppSpacing.m) {
+                FilterChip(
+                    title: NSLocalizedString("feed.filter.all", comment: "All"),
+                    isSelected: filter == "all"
+                ) { filter = "all" }
 
-            FilterChip(
-                title: NSLocalizedString("feed.filter.all", comment: "All"),
-                isSelected: filter == "all"
-            ) { filter = "all" }
+                FilterChip(
+                    title: NSLocalizedString("feed.filter.following", comment: "Following"),
+                    isSelected: filter == "following"
+                ) { filter = "following" }
 
-            Spacer()
+                FilterChip(
+                    title: NSLocalizedString("feed.filter.alliance", comment: "Alliance"),
+                    isSelected: filter == "alliance"
+                ) { filter = "alliance" }
+
+                FilterChip(
+                    title: NSLocalizedString("feed.filter.nearby", comment: "Nearby"),
+                    isSelected: filter == "nearby"
+                ) { filter = "nearby" }
+            }
         }
     }
 }

@@ -498,6 +498,7 @@ app.use('/api/debug', require('./routes/debugRoutes'));
 app.use('/api/test', require('./routes/testAmap'));
 app.use('/api/battles', require('./routes/battleRoutes'));
 app.use('/api/v1/localization', require('./routes/localizationRoutes'));
+app.use('/api/rank-tiers', require('./routes/rankTierRoutes'));
 
 // 初始化WebSocket管理器
 const socketManager = new SocketManager(io);

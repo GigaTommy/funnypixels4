@@ -18,12 +18,11 @@ class ProfileController {
       }
 
       // 并行获取所有附加数据（原先为 8 个串行查询，现在并行执行）
+      // ✨ 优化：关注数/粉丝数使用缓存列，无需COUNT查询
       const [
         allianceResult,
         isFollowing,
         isLiked,
-        followersCount,
-        followingCount,
         likesCount,
         userPoints,
         pixelState
@@ -48,15 +47,11 @@ class ProfileController {
           .where('target_id', userId)
           .first()
           .catch(() => null),
-        // 4. 关注者数
-        db('user_follows').where('following_id', userId).count('* as count').first(),
-        // 5. 关注数
-        db('user_follows').where('follower_id', userId).count('* as count').first(),
-        // 6. 点赞数
+        // 4. 点赞数
         db('user_likes').where('target_type', 'user').where('target_id', userId).count('* as count').first(),
-        // 7. 用户积分
+        // 5. 用户积分
         User.getUserPoints(user.id).catch(() => 0),
-        // 8. 像素状态
+        // 6. 像素状态
         UserPixelState.refreshState(userId).catch(() => null)
       ]);
 
@@ -103,8 +98,8 @@ class ProfileController {
           alliance: alliance,
           is_following: !!isFollowing,
           is_liked: !!isLiked,
-          followers_count: parseInt(followersCount?.count || 0),
-          following_count: parseInt(followingCount?.count || 0),
+          followers_count: parseInt(user.followers_count || 0),  // ✨ 使用缓存列
+          following_count: parseInt(user.following_count || 0),  // ✨ 使用缓存列
           likes_count: parseInt(likesCount?.count || 0),
           profile_settings: profileSettings,
           rankTier: RankTierService.getTierForPixels(user.total_pixels)

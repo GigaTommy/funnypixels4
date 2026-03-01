@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /// 成就分享卡片视图（用于生成分享图片）

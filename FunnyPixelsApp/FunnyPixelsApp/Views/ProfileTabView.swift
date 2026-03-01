@@ -114,7 +114,6 @@ struct ProfileTabView: View {
                 .padding(.horizontal, AppSpacing.l)
                 .padding(.top, AppSpacing.l)
                 .padding(.bottom, 90)
-            }
         }
     }
 

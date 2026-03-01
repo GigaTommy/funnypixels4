@@ -68,8 +68,6 @@ extension Notification.Name {
     static let navigateToTab = Notification.Name("navigateToTab")
     /// Navigate to daily tasks page
     static let navigateToDailyTasks = Notification.Name("navigateToDailyTasks")
-    /// Navigate to a map location (object: CLLocationCoordinate2D)
-    static let navigateToMapLocation = Notification.Name("navigateToMapLocation")
     /// Request to start GPS drawing
     static let requestStartDrawing = Notification.Name("requestStartDrawing")
 }

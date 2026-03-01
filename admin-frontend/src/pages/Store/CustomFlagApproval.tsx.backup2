@@ -1,0 +1,667 @@
+import React, { useState } from 'react';
+import {
+  Card,
+  Table,
+  Button,
+  Space,
+  Tag,
+  Modal,
+  Descriptions,
+  Image,
+  Input,
+  Row,
+  Col,
+  Statistic,
+  message,
+  Form,
+  Input as AntInput
+} from 'antd';
+import {
+  SearchOutlined,
+  EyeOutlined,
+  CheckOutlined,
+  CloseOutlined,
+  FlagOutlined,
+  UserOutlined,
+  ClockCircleOutlined
+} from '@ant-design/icons';
+import type { ColumnsType } from 'antd/es/table';
+import dayjs from 'dayjs';
+import { api } from '../../utils/api';
+
+const { TextArea } = AntInput;
+
+interface CustomFlagOrder {
+  id: string;
+  user_id: string;
+  pattern_name: string;
+  pattern_description: string;
+  original_image_url: string;
+  status: string;
+  price: number;
+  admin_notes?: string;
+  created_at: string;
+  updated_at: string;
+  processed_at?: string;
+  applicantName: string;
+  applicantAvatar?: string;
+  submittedAt: string;
+}
+
+interface CustomFlagStats {
+  total: number;
+  pending: number;
+  approved: number;
+  rejected: number;
+  approvalRate: string;
+}
+
+const CustomFlagApproval: React.FC = () => {
+  const [orders, setOrders] = useState<CustomFlagOrder[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0
+  });
+  const [searchText, setSearchText] = useState('');
+  const [detailModalVisible, setDetailModalVisible] = useState(false);
+  const [approveModalVisible, setApproveModalVisible] = useState(false);
+  const [rejectModalVisible, setRejectModalVisible] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<CustomFlagOrder | null>(null);
+  const [stats, setStats] = useState<CustomFlagStats>({
+    total: 0,
+    pending: 0,
+    approved: 0,
+    rejected: 0,
+    approvalRate: '0'
+  });
+  const [approveForm] = Form.useForm();
+  const [rejectForm] = Form.useForm();
+
+  // 获取待审核订单列表
+  const fetchPendingOrders = async (params: any = {}) => {
+    setLoading(true);
+    try {
+      const queryParams: any = {
+        current: params.current || pagination.current,
+        pageSize: params.pageSize || pagination.pageSize
+      };
+
+      if (searchText) {
+        queryParams.pattern_name = searchText;
+      }
+
+      const response = await api.get('/api/v1/admin/custom-flags/pending', { params: queryParams });
+
+      if (response.data.success) {
+        setOrders(response.data.data.list);
+        setPagination({
+          current: response.data.data.current,
+          pageSize: response.data.data.pageSize,
+          total: response.data.data.total
+        });
+      }
+    } catch (error) {
+      message.error('获取待审核订单失败');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 获取统计数据
+  const fetchStats = async () => {
+    try {
+      const response = await api.get('/api/v1/admin/stats/comprehensive', {
+        params: { period: '30d' }
+      });
+
+      if (response.data.success) {
+        const data = response.data.data.customFlags;
+        setStats({
+          total: data.total,
+          pending: data.pending,
+          approved: data.approved,
+          rejected: data.rejected,
+          approvalRate: data.approvalRate
+        });
+      }
+    } catch (error) {
+      console.error('获取统计数据失败:', error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchPendingOrders();
+    fetchStats();
+  }, []);
+
+  // 查看订单详情
+  const handleViewDetail = async (record: CustomFlagOrder) => {
+    try {
+      const response = await api.get(`/api/v1/admin/custom-flags/${record.id}`);
+
+      if (response.data.success) {
+        setSelectedOrder(response.data.data);
+        setDetailModalVisible(true);
+      }
+    } catch (error) {
+      message.error('获取订单详情失败');
+    }
+  };
+
+  // 批准订单
+  const handleApprove = (record: CustomFlagOrder) => {
+    setSelectedOrder(record);
+    setApproveModalVisible(true);
+    approveForm.resetFields();
+  };
+
+  const handleApproveSubmit = async () => {
+    if (!selectedOrder) return;
+
+    try {
+      const values = await approveForm.validateFields();
+      const response = await api.post(
+        `/api/v1/admin/custom-flags/approve/${selectedOrder.id}`,
+        {
+          notes: values.notes
+        }
+      );
+
+      if (response.data.success) {
+        message.success('自定义旗帜批准成功');
+        setApproveModalVisible(false);
+        fetchPendingOrders();
+        fetchStats();
+      }
+    } catch (error) {
+      message.error('批准失败');
+    }
+  };
+
+  // 拒绝订单
+  const handleReject = (record: CustomFlagOrder) => {
+    setSelectedOrder(record);
+    setRejectModalVisible(true);
+    rejectForm.resetFields();
+  };
+
+  const handleRejectSubmit = async () => {
+    if (!selectedOrder) return;
+
+    try {
+      const values = await rejectForm.validateFields();
+      const response = await api.post(
+        `/api/v1/admin/custom-flags/reject/${selectedOrder.id}`,
+        {
+          reason: values.reason
+        }
+      );
+
+      if (response.data.success) {
+        message.success('自定义旗帜拒绝成功');
+        setRejectModalVisible(false);
+        fetchPendingOrders();
+        fetchStats();
+      }
+    } catch (error) {
+      message.error('拒绝失败');
+    }
+  };
+
+  // 搜索处理
+  const handleSearch = (value: string) => {
+    setSearchText(value);
+    fetchPendingOrders({ current: 1, keyword: value });
+  };
+
+  const columns: ColumnsType<CustomFlagOrder> = [
+    {
+      title: '订单ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: 220,
+      ellipsis: true,
+    },
+    {
+      title: '图案名称',
+      dataIndex: 'pattern_name',
+      key: 'pattern_name',
+      render: (text: string, record: CustomFlagOrder) => (
+        <div>
+          <div style={{ fontWeight: 'bold' }}>{text}</div>
+          <div style={{ fontSize: '12px', color: '#666' }}>
+            ¥{record.price}
+          </div>
+        </div>
+      )
+    },
+    {
+      title: '申请人',
+      dataIndex: 'applicantName',
+      key: 'applicantName',
+      render: (name: string, record: CustomFlagOrder) => (
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <UserOutlined style={{ marginRight: '4px' }} />
+            {name}
+          </div>
+          <div style={{ fontSize: '12px', color: '#666' }}>
+            ID: {record.user_id.substring(0, 8)}...
+          </div>
+        </div>
+      )
+    },
+    {
+      title: '图案描述',
+      dataIndex: 'pattern_description',
+      key: 'pattern_description',
+      ellipsis: true,
+      width: 200,
+    },
+    {
+      title: '提交时间',
+      dataIndex: 'submittedAt',
+      key: 'submittedAt',
+      width: 180,
+      render: (date: string) => dayjs(date).format('YYYY-MM-DD HH:mm:ss'),
+      sorter: (a, b) => new Date(a.submittedAt).getTime() - new Date(b.submittedAt).getTime(),
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      key: 'status',
+      width: 100,
+      render: (status: string) => (
+        <Tag
+          color="orange"
+          style={{
+            fontWeight: '500',
+            borderRadius: '4px',
+            padding: '2px 8px'
+          }}
+        >
+          <ClockCircleOutlined style={{ marginRight: '4px' }} />
+          待审核
+        </Tag>
+      )
+    },
+    {
+      title: '操作',
+      key: 'action',
+      width: 200,
+      render: (_, record: CustomFlagOrder) => (
+        <Space size="small">
+          <Button
+            type="link"
+            icon={<EyeOutlined />}
+            onClick={() => handleViewDetail(record)}
+            style={{
+              color: '#1890ff',
+              fontWeight: '500'
+            }}
+          >
+            详情
+          </Button>
+          <Button
+            type="link"
+            icon={<CheckOutlined />}
+            onClick={() => handleApprove(record)}
+            style={{
+              color: '#52c41a',
+              fontWeight: '500'
+            }}
+          >
+            批准
+          </Button>
+          <Button
+            type="link"
+            icon={<CloseOutlined />}
+            onClick={() => handleReject(record)}
+            style={{
+              color: '#ff4d4f',
+              fontWeight: '500'
+            }}
+          >
+            拒绝
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <div style={{
+      position: 'relative',
+      minHeight: '100vh'
+    }}>
+      {/* 页面标题区域 */}
+      <div style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: '16px',
+        padding: '24px',
+        marginBottom: '24px',
+        border: '1px solid #e5e7eb',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '16px'
+        }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            backgroundColor: '#6366f1',
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: '16px'
+          }}>
+            <span style={{
+              color: 'white',
+              fontSize: '20px'
+            }}>🎌</span>
+          </div>
+          <div>
+            <h1 style={{
+              margin: 0,
+              fontSize: '28px',
+              fontWeight: '700',
+              color: '#1f2937',
+              lineHeight: '1.2'
+            }}>
+              自定义旗帜审批
+            </h1>
+            <p style={{
+              margin: '4px 0 0 0',
+              fontSize: '14px',
+              color: '#6b7280',
+              lineHeight: '1.4'
+            }}>
+              审核用户提交的自定义旗帜申请
+            </p>
+          </div>
+        </div>
+        <Space>
+          <Button
+            icon={<SearchOutlined />}
+            onClick={() => fetchPendingOrders()}
+            style={{
+              borderRadius: '8px',
+              fontWeight: '500'
+            }}
+          >
+            刷新
+          </Button>
+        </Space>
+      </div>
+
+      {/* 统计卡片 */}
+      <Row gutter={16} style={{ marginBottom: '24px' }}>
+        <Col span={6}>
+          <Card style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '16px',
+            border: '1px solid #e5e7eb',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+          }}>
+            <Statistic
+              title="总申请数"
+              value={stats.total}
+              prefix={<FlagOutlined style={{ color: '#6366f1' }} />}
+              valueStyle={{ color: '#6366f1' }}
+            />
+            <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>自定义旗帜申请总量</p>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '16px',
+            border: '1px solid #e5e7eb',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+          }}>
+            <Statistic
+              title="待审核"
+              value={stats.pending}
+              prefix={<ClockCircleOutlined style={{ color: '#f59e0b' }} />}
+              valueStyle={{ color: '#f59e0b' }}
+            />
+            <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>等待审核的申请</p>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '16px',
+            border: '1px solid #e5e7eb',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+          }}>
+            <Statistic
+              title="已批准"
+              value={stats.approved}
+              prefix={<CheckOutlined style={{ color: '#10b981' }} />}
+              valueStyle={{ color: '#10b981' }}
+            />
+            <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>已批准的申请</p>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '16px',
+            border: '1px solid #e5e7eb',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+          }}>
+            <Statistic
+              title="批准率"
+              value={stats.approvalRate}
+              suffix="%"
+              prefix={<CheckOutlined style={{ color: '#8b5cf6' }} />}
+              valueStyle={{ color: '#8b5cf6' }}
+            />
+            <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>申请通过率</p>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* 搜索和筛选区域 */}
+      <div style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: '16px',
+        padding: '20px',
+        marginBottom: '24px',
+        border: '1px solid #e5e7eb',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+      }}>
+        <div style={{
+          display: 'flex',
+          gap: '16px',
+          alignItems: 'center',
+          flexWrap: 'wrap'
+        }}>
+          <Input.Search
+            placeholder="搜索图案名称"
+            allowClear
+            enterButton={<SearchOutlined />}
+            onSearch={handleSearch}
+            onChange={(e) => {
+              if (!e.target.value) {
+                handleSearch('');
+              }
+            }}
+            style={{
+              width: 280,
+              borderRadius: '8px'
+            }}
+          />
+          <Button
+            icon={<SearchOutlined />}
+            onClick={() => fetchPendingOrders()}
+            style={{
+              borderRadius: '8px',
+              fontWeight: '500',
+              backgroundColor: '#6366f1',
+              borderColor: '#6366f1'
+            }}
+          >
+            刷新
+          </Button>
+        </div>
+      </div>
+
+      {/* 主要内容区域 */}
+      <div style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: '16px',
+        border: '1px solid #e5e7eb',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        padding: '24px'
+      }}>
+          columns={columns}
+          dataSource={orders}
+          rowKey="id"
+          loading={loading}
+          pagination={{
+            ...pagination,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: (total, range) =>
+              `第 ${range[0]}-${range[1]} 条/共 ${total} 条`,
+            onChange: (page, pageSize) => {
+              fetchPendingOrders({ current: page, pageSize });
+            },
+          }}
+          scroll={{ x: 1000 }}
+          style={{
+            borderRadius: '12px'
+          }}
+/>
+      </div>
+      </Card>
+
+      {/* 订单详情弹窗 */}
+      <Modal
+        title="自定义旗帜订单详情"
+        open={detailModalVisible}
+        onCancel={() => setDetailModalVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setDetailModalVisible(false)}>
+            关闭
+          </Button>
+        ]}
+        width={800}
+        style={{
+          borderRadius: '16px'
+        }}
+      >
+        {selectedOrder && (
+          <Descriptions column={2} bordered>
+            <Descriptions.Item label="订单ID" span={2}>
+              {selectedOrder.id}
+            </Descriptions.Item>
+            <Descriptions.Item label="图案名称" span={2}>
+              {selectedOrder.pattern_name}
+            </Descriptions.Item>
+            <Descriptions.Item label="图案描述" span={2}>
+              {selectedOrder.pattern_description || '-'}
+            </Descriptions.Item>
+            <Descriptions.Item label="申请人">
+              {selectedOrder.applicantName}
+            </Descriptions.Item>
+            <Descriptions.Item label="用户ID">
+              {selectedOrder.user_id}
+            </Descriptions.Item>
+            <Descriptions.Item label="价格">
+              ¥{selectedOrder.price}
+            </Descriptions.Item>
+            <Descriptions.Item label="状态">
+              <Tag
+                color="orange"
+                style={{
+                  fontWeight: '500',
+                  borderRadius: '4px',
+                  padding: '2px 8px'
+                }}
+              >
+                待审核
+              </Tag>
+            </Descriptions.Item>
+            <Descriptions.Item label="提交时间">
+              {dayjs(selectedOrder.submittedAt).format('YYYY-MM-DD HH:mm:ss')}
+            </Descriptions.Item>
+            <Descriptions.Item label="创建时间">
+              {dayjs(selectedOrder.created_at).format('YYYY-MM-DD HH:mm:ss')}
+            </Descriptions.Item>
+            <Descriptions.Item label="原图" span={2}>
+              <Image
+                width={300}
+                src={selectedOrder.original_image_url}
+                alt="自定义旗帜原图"
+                style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'contain' }}
+              />
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Modal>
+
+      {/* 批准弹窗 */}
+      <Modal
+        title="批准自定义旗帜"
+        open={approveModalVisible}
+        onOk={handleApproveSubmit}
+        onCancel={() => setApproveModalVisible(false)}
+        okText="确认批准"
+        cancelText="取消"
+      >
+        <Form form={approveForm} layout="vertical">
+          <Form.Item
+            label="批准备注"
+            name="notes"
+            rules={[{ required: true, message: '请输入批准备注' }]}
+          >
+            <TextArea
+              rows={4}
+              placeholder="请输入批准原因或备注..."
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* 拒绝弹窗 */}
+      <Modal
+        title="拒绝自定义旗帜"
+        open={rejectModalVisible}
+        onOk={handleRejectSubmit}
+        onCancel={() => setRejectModalVisible(false)}
+        okText="确认拒绝"
+        cancelText="取消"
+      >
+        <Form form={rejectForm} layout="vertical">
+          <Form.Item
+            label="拒绝原因"
+            name="reason"
+            rules={[{ required: true, message: '请输入拒绝原因' }]}
+          >
+            <TextArea
+              rows={4}
+              placeholder="请输入拒绝原因..."
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
+
+export default CustomFlagApproval;

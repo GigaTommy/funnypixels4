@@ -1,0 +1,18 @@
+{
+  "task_completed": {
+    "title": "🎉 Task Completed!",
+    "body": "Congratulations! You completed the task \"{{title}}\" and earned {{reward}} points!"
+  },
+  "all_tasks_completed": {
+    "title": "🏆 Perfect Attendance Bonus!",
+    "body": "Amazing! You've completed all daily tasks today. Keep it up tomorrow!"
+  },
+  "streak_reward": {
+    "title": "🔥 {{days}} Day Streak!",
+    "body": "You've completed all daily tasks for {{days}} consecutive days! Keep going for even better rewards!"
+  },
+  "task_reminder": {
+    "title": "⏰ Tasks Not Completed",
+    "body": "You still have unfinished tasks today. Complete all tasks for bonus rewards!"
+  }
+}

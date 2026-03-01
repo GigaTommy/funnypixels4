@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Atlas Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+        .warning { color: orange; }
+        canvas { border: 1px solid #000; margin: 10px 0; }
+        img { max-width: 200px; height: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔥 Emoji Atlas Debug Tool</h1>
+
+    <div class="section">
+        <h2>1. Atlas文件访问测试</h2>
+        <div id="atlas-test">测试中...</div>
+    </div>
+
+    <div class="section">
+        <h2>2. Emoji Map测试</h2>
+        <div id="map-test">测试中...</div>
+    </div>
+
+    <div class="section">
+        <h2>3. WebGL纹理测试</h2>
+        <canvas id="test-canvas" width="256" height="256"></canvas>
+        <div id="webgl-test">测试中...</div>
+    </div>
+
+    <div class="section">
+        <h2>4. Emoji加载测试</h2>
+        <div id="emoji-test">测试中...</div>
+        <canvas id="emoji-canvas" width="64" height="64"></canvas>
+    </div>
+
+    <script>
+        // 测试1: Atlas文件访问
+        async function testAtlasAccess() {
+            // 使用相对于当前HTML文件的路径
+            const atlasUrl = '../assets/emoji/atlas.png';
+            const mapUrl = '../assets/emoji/emoji_map.json';
+            const result = document.getElementById('atlas-test');
+
+            try {
+                // 测试atlas.png
+                const atlasResponse = await fetch(atlasUrl);
+                if (atlasResponse.ok) {
+                    const atlasBlob = await atlasResponse.blob();
+                    result.innerHTML += `<div class="success">✅ atlas.png 加载成功 (${(atlasBlob.size / 1024).toFixed(1)}KB)</div>`;
+
+                    // 显示图片预览
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(atlasBlob);
+                    img.alt = 'Atlas Preview';
+                    result.appendChild(img);
+                } else {
+                    result.innerHTML += `<div class="error">❌ atlas.png 加载失败: ${atlasResponse.status}</div>`;
+                }
+
+                // 测试emoji_map.json
+                const mapResponse = await fetch(mapUrl);
+                if (mapResponse.ok) {
+                    const mapData = await mapResponse.json();
+                    result.innerHTML += `<div class="success">✅ emoji_map.json 加载成功 (${mapData.meta.totalEmojis} 个emoji)</div>`;
+
+                    // 检查🔥是否在map中
+                    if (mapData.emojis['🔥']) {
+                        const fireData = mapData.emojis['🔥'];
+                        result.innerHTML += `<div class="success">✅ 🔥 找到: key=${fireData.key}, UV=(${fireData.uv.u0.toFixed(4)}, ${fireData.uv.v0.toFixed(4)}, ${fireData.uv.u1.toFixed(4)}, ${fireData.uv.v1.toFixed(4)})</div>`;
+                    } else {
+                        result.innerHTML += `<div class="error">❌ 🔥 不在 emoji_map.json 中</div>`;
+                    }
+
+                    // 显示前几个emoji
+                    const emojiKeys = Object.keys(mapData.emojis).slice(0, 10);
+                    result.innerHTML += `<div class="success">📋 Atlas中的emoji示例: ${emojiKeys.join(' ')}</div>`;
+                } else {
+                    result.innerHTML += `<div class="error">❌ emoji_map.json 加载失败: ${mapResponse.status}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML += `<div class="error">❌ Atlas访问测试失败: ${error.message}</div>`;
+            }
+        }
+
+        // 测试2: WebGL支持
+        function testWebGLSupport() {
+            const canvas = document.getElementById('test-canvas');
+            const result = document.getElementById('webgl-test');
+
+            try {
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+                if (!gl) {
+                    result.innerHTML += `<div class="error">❌ WebGL 不支持</div>`;
+                    return;
+                }
+
+                result.innerHTML += `<div class="success">✅ WebGL 支持正常</div>`;
+                result.innerHTML += `<div class="success">📊 WebGL信息: Vendor=${gl.getParameter(gl.VENDOR)}, Renderer=${gl.getParameter(gl.RENDERER)}</div>`;
+                result.innerHTML += `<div class="success">📊 最大纹理尺寸: ${gl.getParameter(gl.MAX_TEXTURE_SIZE)}px</div>`;
+
+                // 测试双纹理支持
+                const maxTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
+                if (maxTextureUnits >= 2) {
+                    result.innerHTML += `<div class="success">✅ 支持双纹理 (最大${maxTextureUnits}个纹理单元)</div>`;
+                } else {
+                    result.innerHTML += `<div class="error">❌ 纹理单元不足 (只有${maxTextureUnits}个)</div>`;
+                }
+            } catch (error) {
+                result.innerHTML += `<div class="error">❌ WebGL测试失败: ${error.message}</div>`;
+            }
+        }
+
+        // 测试3: Emoji渲染测试
+        async function testEmojiRendering() {
+            const canvas = document.getElementById('emoji-canvas');
+            const ctx = canvas.getContext('2d');
+            const result = document.getElementById('emoji-test');
+
+            try {
+                // 加载atlas
+                const atlasResponse = await fetch('../assets/emoji/atlas.png');
+                if (!atlasResponse.ok) {
+                    result.innerHTML += `<div class="error">❌ 无法加载atlas图片</div>`;
+                    return;
+                }
+
+                const atlasBlob = await atlasResponse.blob();
+                const atlasImage = new Image();
+                atlasImage.onload = function() {
+                    // 加载emoji map
+                    fetch('../assets/emoji/emoji_map.json')
+                        .then(response => response.json())
+                        .then(mapData => {
+                            const fireData = mapData.emojis['🔥'];
+                            if (!fireData) {
+                                result.innerHTML += `<div class="error">❌ 🔥 不在emoji map中</div>`;
+                                return;
+                            }
+
+                            // 从atlas中绘制🔥
+                            const { u0, v0, u1, v1 } = fireData.uv;
+                            const sx = u0 * atlasImage.width;
+                            const sy = v0 * atlasImage.height;
+                            const sw = (u1 - u0) * atlasImage.width;
+                            const sh = (v1 - v0) * atlasImage.height;
+
+                            ctx.drawImage(atlasImage, sx, sy, sw, sh, 0, 0, 64, 64);
+
+                            result.innerHTML += `<div class="success">✅ 🔥 从atlas绘制成功</div>`;
+                            result.innerHTML += `<div class="success">📊 源坐标: (${sx.toFixed(1)}, ${sy.toFixed(1)}, ${sw.toFixed(1)}, ${sh.toFixed(1)})</div>`;
+                        })
+                        .catch(error => {
+                            result.innerHTML += `<div class="error">❌ 加载emoji map失败: ${error.message}</div>`;
+                        });
+                };
+                atlasImage.onerror = function() {
+                    result.innerHTML += `<div class="error">❌ Atlas图片加载失败</div>`;
+                };
+                atlasImage.src = URL.createObjectURL(atlasBlob);
+
+            } catch (error) {
+                result.innerHTML += `<div class="error">❌ Emoji渲染测试失败: ${error.message}</div>`;
+            }
+        }
+
+        // 运行所有测试
+        window.addEventListener('load', function() {
+            testAtlasAccess();
+            testWebGLSupport();
+            testEmojiRendering();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私政策 - FunnyPixels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1890ff;
+            cursor: default;
+        }
+
+        .document-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .back-btn {
+            background: #1890ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #40a9ff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 40px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+
+        .content .effective-date {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .content .intro {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #f0f7ff;
+            border-left: 4px solid #1890ff;
+            border-radius: 4px;
+        }
+
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            color: #333;
+            border-left: 4px solid #1890ff;
+            padding-left: 16px;
+        }
+
+        .content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 25px 0 12px 0;
+            color: #333;
+        }
+
+        .content p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        .content ul, .content ol {
+            margin: 16px 0;
+            padding-left: 30px;
+        }
+
+        .content li {
+            margin-bottom: 10px;
+        }
+
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .content table th,
+        .content table td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .content table th {
+            background: #fafafa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .content table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .content .highlight-box {
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 6px;
+            background: #fff7e6;
+            border-left: 4px solid #faad14;
+        }
+
+        .content .info-box {
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 6px;
+            background: #f0f7ff;
+            border-left: 4px solid #1890ff;
+        }
+
+        .content .success-box {
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 6px;
+            background: #f6ffed;
+            border-left: 4px solid #52c41a;
+        }
+
+        .content .divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 30px 0;
+        }
+
+        .content .contact-info {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .content .update-time {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .content strong {
+            color: #1890ff;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 16px;
+            }
+
+            .container {
+                padding: 20px 16px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .document-title {
+                font-size: 18px;
+            }
+
+            .content h1 {
+                font-size: 24px;
+            }
+
+            .content h2 {
+                font-size: 20px;
+            }
+
+            .content table {
+                font-size: 14px;
+            }
+
+            .content table th,
+            .content table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <span class="logo">FunnyPixels</span>
+            <h1 class="document-title">隐私政策</h1>
+            <a href="javascript:void(0)" onclick="handleBack()" class="back-btn">返回</a>
+        </div>
+    </div>
+
+    <script>
+        function handleBack() {
+            // 检查是否有浏览器历史记录
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // 没有历史记录，尝试关闭窗口
+                window.close();
+                // 如果窗口无法关闭（浏览器可能阻止），显示提示
+                setTimeout(() => {
+                    if (!window.closed) {
+                        alert('请关闭此标签页');
+                    }
+                }, 100);
+            }
+        }
+    </script>
+
+    <div class="container">
+        <div class="content">
+            <h1>《有趣的像素》隐私政策</h1>
+            <p class="effective-date">生效日期：2025年10月30日</p>
+
+            <div class="intro">
+                <p><strong>《有趣的像素》</strong>（以下简称"我们"或"本平台"）由【有趣像素科技股份有限公司】运营。我们深知个人信息对您的重要性，并始终将保护您的个人信息安全与隐私权益作为基本原则。</p>
+                <p>本《隐私政策》旨在清晰、透明地说明我们在您使用《有趣的像素》服务过程中，如何收集、使用、存储、共享、保护您的个人信息，以及您依法享有的权利。请您在注册、登录或使用本平台任何功能前，仔细阅读并充分理解本政策全部内容。</p>
+                <p><strong>一旦您点击"同意"、完成注册、或以任何方式使用本服务，即视为您已明确同意我们按照本政策处理您的个人信息。</strong></p>
+                <p>如您不同意本政策任何条款，请立即停止使用本平台服务。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2>一、我们如何收集和使用您的个人信息</h2>
+            <p>我们仅在实现服务功能所必需的最小范围内收集个人信息，并严格区分"必需信息"与"可选信息"。</p>
+
+            <h3>（一）为实现基本服务功能所必需的信息</h3>
+            <p>拒绝提供以下信息将导致无法使用核心功能：</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>功能场景</th>
+                        <th>收集的个人信息</th>
+                        <th>使用目的</th>
+                        <th>法律依据</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>账号注册与登录</td>
+                        <td>手机号码、短信验证码</td>
+                        <td>验证身份真实性，创建并登录账号，防止恶意注册</td>
+                        <td>履行合同所必需（《民法典》）</td>
+                    </tr>
+                    <tr>
+                        <td>创作与发布像素作品</td>
+                        <td>作品数据（像素图、标题、标签）、创作时间、设备型号（如 iOS/Android 版本）</td>
+                        <td>存储与展示您的作品，优化编辑体验，保障内容安全</td>
+                        <td>履行合同所必需</td>
+                    </tr>
+                    <tr>
+                        <td>服务安全与稳定运行</td>
+                        <td>IP 地址、浏览器/操作系统类型、访问日志、错误日志</td>
+                        <td>识别异常行为（如刷量、攻击），排查故障，保障系统稳定</td>
+                        <td>为履行法定义务及保障网络安全（《网络安全法》第22条）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <p>🔒 <strong>隐私承诺：</strong>我们不会在未明确告知并获得同意的情况下，收集您的通讯录、地理位置、相册、麦克风、摄像头等敏感权限（除非您主动上传作品或使用特定功能）。</p>
+            </div>
+
+            <h3>（二）为提供增强服务或个性化体验所收集的信息</h3>
+            <p>以下信息收集是可选的，您可随时关闭：</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>功能场景</th>
+                        <th>收集的个人信息</th>
+                        <th>使用目的</th>
+                        <th>是否可拒绝</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>内容推荐</td>
+                        <td>浏览记录、点赞、收藏、关注行为</td>
+                        <td>向您推荐可能感兴趣的像素作品或创作者</td>
+                        <td>✅ 可关闭（路径："我的 → 设置 → 隐私 → 关闭个性化推荐"）</td>
+                    </tr>
+                    <tr>
+                        <td>客服与反馈</td>
+                        <td>您主动提交的文字、截图、设备信息</td>
+                        <td>响应您的问题，改进产品体验</td>
+                        <td>✅ 可选择不提供</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>（三）为履行法定义务或保护合法权益</h3>
+            <p>在以下情形中，我们可能处理您的个人信息，无需事先征得同意：</p>
+            <ul>
+                <li>响应司法机关、行政机关依法提出的调查、调取要求</li>
+                <li>为防止欺诈、安全漏洞、违规行为（如发布违法内容）</li>
+                <li>为执行《用户使用协议》《数字内容交易规则》等约定</li>
+                <li>为保护您或他人的生命、财产等重大合法权益，且难以及时获得同意</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h2>二、我们如何使用 Cookie 和同类技术</h2>
+            <ul>
+                <li><strong>Web 端：</strong>我们使用 Cookie 存储登录状态、语言偏好、安全令牌等，以提升访问体验。您可通过浏览器设置拒绝或删除 Cookie，但可能导致部分功能无法使用。</li>
+                <li><strong>移动端（iOS/Android）：</strong>我们使用本地存储（如 UserDefaults、SharedPreferences）实现类似功能，不涉及追踪型 Cookie。</li>
+                <li><strong>隐私保护：</strong>我们不会使用 Cookie 进行跨站用户画像或精准广告推送。</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h2>三、我们如何共享、转让、公开披露您的个人信息</h2>
+            <p>我们不会向任何无关第三方出售、出租、共享您的个人信息，除非符合以下情形之一：</p>
+
+            <h3>（一）经您明确同意</h3>
+            <p>例如：您授权我们将作品信息同步至第三方平台（如未来支持导出至社交网络）。</p>
+
+            <h3>（二）为履行合同或提供服务所必需</h3>
+            <p>我们仅向必要合作方传输最小必要信息，并签订严格的数据处理协议：</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>合作方</th>
+                        <th>处理目的</th>
+                        <th>传输的信息</th>
+                        <th>保护措施</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>阿里云</td>
+                        <td>短信验证码发送、服务器托管</td>
+                        <td>手机号（仅用于发短信）、日志数据</td>
+                        <td>签订《数据处理协议》，数据存储于中国大陆</td>
+                    </tr>
+                    <tr>
+                        <td>微信支付 / 支付宝</td>
+                        <td>打赏、付费功能结算</td>
+                        <td>订单号、金额、用户标识（非支付密码）</td>
+                        <td>通过 PCI-DSS 安全认证，信息加密传输</td>
+                    </tr>
+                    <tr>
+                        <td>Sentry / 阿里云日志服务</td>
+                        <td>错误监控与性能分析</td>
+                        <td>匿名化设备信息、错误堆栈</td>
+                        <td>数据脱敏，无法关联个人身份</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>（三）根据法律法规或监管要求</h3>
+            <p>如配合公安、网信、市场监管等部门依法履职。</p>
+
+            <h3>（四）为保护公共利益或重大合法权益</h3>
+            <p>如发现用户涉嫌诈骗、传播违法信息等行为。</p>
+
+            <div class="success-box">
+                <p>🌐 <strong>数据本地化承诺：</strong>所有个人信息均存储于中华人民共和国境内，不会跨境传输。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2>四、我们如何保护您的个人信息安全</h2>
+            <p>我们采取符合行业标准的安全措施，包括但不限于：</p>
+            <ul>
+                <li><strong>传输加密：</strong>全站启用 HTTPS（TLS 1.3）</li>
+                <li><strong>存储安全：</strong>密码经 bcrypt 哈希加密，敏感数据脱敏存储</li>
+                <li><strong>访问控制：</strong>员工实行最小权限原则，签署保密协议</li>
+                <li><strong>安全审计：</strong>定期进行漏洞扫描与渗透测试</li>
+                <li><strong>应急响应：</strong>制定《数据安全事件应急预案》，发生泄露时及时通知用户与监管部门</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p>⚠️ <strong>安全提醒：</strong>尽管我们已采取合理措施，但互联网环境不存在绝对安全。请您务必妥善保管账号密码，避免在公共设备登录。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2>五、您享有的个人信息权利</h2>
+            <p>根据《中华人民共和国个人信息保护法》，您有权：</p>
+            <ul>
+                <li><strong>查阅与复制：</strong>获取我们持有的您的个人信息清单</li>
+                <li><strong>更正与补充：</strong>修改不准确或不完整的信息</li>
+                <li><strong>删除：</strong>在以下情形下要求删除信息：
+                    <ul>
+                        <li>处理目的已实现</li>
+                        <li>您撤回同意</li>
+                        <li>我们停止提供服务</li>
+                    </ul>
+                </li>
+                <li><strong>撤回同意：</strong>对非必要信息处理（如个性化推荐）随时撤回</li>
+                <li><strong>限制处理：</strong>在信息准确性争议期间，要求暂停使用</li>
+                <li><strong>可携带权：</strong>获取结构化、通用格式的个人信息副本（如作品数据、行为日志）</li>
+                <li><strong>注销账号：</strong>彻底终止服务关系</li>
+            </ul>
+
+            <h3>如何行使权利？</h3>
+            <ul>
+                <li><strong>线上操作：</strong>登录《有趣的像素》 → "我的" → "设置" → "隐私与账号"</li>
+                <li><strong>邮件申请：</strong>发送请求至 funnypixels@163.com（请附身份证明）</li>
+                <li>我们将在 <strong>15 个工作日</strong> 内完成核查并响应</li>
+            </ul>
+
+            <div class="info-box">
+                <p>为保障安全，我们可能要求您验证身份。若请求明显重复或滥用，我们可收取合理成本费用。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2>六、账号注销与信息留存</h2>
+
+            <h3>（一）注销流程</h3>
+            <ol>
+                <li>进入 "我的 → 设置 → 账号与安全 → 注销/删除账号"</li>
+                <li>阅读注销须知（包括：虚拟权益清零、数据不可恢复）</li>
+                <li>完成身份验证（短信验证码）</li>
+                <li>提交申请，7 天冷静期后自动注销（防止误操作）</li>
+            </ol>
+
+            <h3>（二）注销后数据处理</h3>
+            <ul>
+                <li><strong>个人信息：</strong>30 日内删除或匿名化</li>
+                <li><strong>您创作的公开作品：</strong>
+                    <ul>
+                        <li>若已被他人收藏、二次创作或产生交易，为保护第三方合法权益，将保留作品数据但脱敏作者信息</li>
+                        <li>若无关联，将彻底删除</li>
+                    </ul>
+                </li>
+                <li><strong>交易与打赏记录：</strong>依法保存 3 年（《电子商务法》第31条，用于税务与审计）</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h2>七、未成年人保护</h2>
+            <ul>
+                <li>我们不主动向未满 14 周岁的儿童提供服务</li>
+                <li>如发现儿童在未获监护人同意下提供个人信息，请立即联系我们删除（邮箱：funnypixels@163.com）</li>
+                <li>若您为 14–18 周岁未成年人，请在监护人指导下使用本平台</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h2>八、本政策的更新</h2>
+            <ul>
+                <li>我们将根据法律法规变化或业务调整适时更新本政策</li>
+                <li>更新后将通过<strong>网站公告、App 弹窗、站内信</strong>等显著方式通知</li>
+                <li>若您继续使用服务，视为接受更新</li>
+                <li>涉及处理目的、方式、范围的重大变更，我们将单独提示并重新获取您的同意</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h2>九、联系我们</h2>
+            <p>如您对本政策有任何疑问、投诉或建议，可通过以下方式联系我们的个人信息保护负责人：</p>
+
+            <div class="contact-info">
+                <ul style="list-style: none; padding-left: 0;">
+                    <li>📧 <strong>专用邮箱：</strong>funnypixels@163.com</li>
+                    <li>💬 <strong>客服通道：</strong>《有趣的像素》 App 内 "我的 → 帮助与反馈"</li>
+                    <li>📍 <strong>通信地址：</strong>广东省广州市</li>
+                </ul>
+                <p style="margin-top: 16px; margin-bottom: 0;">我们承诺在 <strong>15 个工作日内</strong> 给予答复。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="success-box" style="text-align: center; font-size: 18px;">
+                <p><strong>感谢您选择《有趣的像素》！</strong></p>
+                <p>愿您在这里安心创作，自由表达。</p>
+                <p style="margin-bottom: 0;">🛡️ 我们承诺：您的隐私，值得被认真对待。</p>
+            </div>
+
+            <div class="update-time">
+                最后更新时间：2025年10月30日
+            </div>
+        </div>
+    </div>
+</body>
+</html>

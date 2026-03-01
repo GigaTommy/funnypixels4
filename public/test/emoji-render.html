@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji Atlas 渲染测试</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .test-section {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 4px;
+    }
+    #webglCanvas {
+      border: 1px solid #ddd;
+      display: block;
+      margin: 10px 0;
+    }
+    .log {
+      background: #263238;
+      color: #aed581;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      height: 200px;
+      overflow-y: auto;
+    }
+    .status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-left: 4px solid #4CAF50;
+    }
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+      border-left: 4px solid #f44336;
+    }
+    .status.info {
+      background: #e3f2fd;
+      color: #1565c0;
+      border-left: 4px solid #2196F3;
+    }
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+      gap: 5px;
+      margin: 15px 0;
+    }
+    .emoji-item {
+      width: 40px;
+      height: 40px;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .emoji-item:hover {
+      background: #e8f5e9;
+      border-color: #4CAF50;
+      transform: scale(1.1);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 4px;
+      border-left: 4px solid #4CAF50;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Emoji Atlas 渲染测试</h1>
+    <p>测试 WebGL Emoji Atlas 预渲染系统</p>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-value" id="totalEmojis">-</div>
+        <div class="stat-label">总 Emoji 数量</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="atlasSize">4096×4096</div>
+        <div class="stat-label">Atlas 尺寸</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="loadStatus">⏳</div>
+        <div class="stat-label">加载状态</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="renderStatus">待测试</div>
+        <div class="stat-label">渲染状态</div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h3>📍 文件访问测试</h3>
+      <div id="fileStatus"></div>
+    </div>
+
+    <div class="test-section">
+      <h3>🎮 WebGL 渲染测试</h3>
+      <canvas id="webglCanvas" width="800" height="400"></canvas>
+      <div id="webglStatus"></div>
+    </div>
+
+    <div class="test-section">
+      <h3>🎯 选择要测试的 Emoji</h3>
+      <div id="emojiGrid" class="emoji-grid">
+        <!-- 动态加载常用 emoji -->
+      </div>
+      <p>点击上方 emoji 在 WebGL canvas 中渲染</p>
+    </div>
+
+    <div class="test-section">
+      <h3>📝 测试日志</h3>
+      <div class="log" id="logContainer"></div>
+    </div>
+  </div>
+
+  <script>
+    // 全局状态
+    let gl, canvas, emojiAtlasLoader, renderer;
+    let emojiMap = null;
+    let currentEmoji = '😀';
+
+    // 日志函数
+    function log(message, type = 'info') {
+      const logContainer = document.getElementById('logContainer');
+      const logItem = document.createElement('div');
+      logItem.className = `log-item`;
+      const timestamp = new Date().toLocaleTimeString();
+      logItem.textContent = `[${timestamp}] ${message}`;
+      logContainer.appendChild(logItem);
+      logContainer.scrollTop = logContainer.scrollHeight;
+      console.log(message);
+    }
+
+    // 状态显示函数
+    function showStatus(elementId, message, type = 'info') {
+      const element = document.getElementById(elementId);
+      element.innerHTML = `<div class="status ${type}">${message}</div>`;
+    }
+
+    // 简化版 Emoji Atlas Loader
+    class SimpleEmojiAtlasLoader {
+      constructor(gl) {
+        this.gl = gl;
+        this.atlasTexture = null;
+        this.emojiMap = new Map();
+      }
+
+      async load() {
+        log('🎨 开始加载 Emoji Atlas...');
+
+        // 并行加载图片和映射
+        const [atlasImage, mapData] = await Promise.all([
+          this.loadAtlasImage(),
+          this.loadEmojiMap()
+        ]);
+
+        this.createAtlasTexture(atlasImage);
+        this.buildEmojiMap(mapData);
+
+        log('✅ Emoji Atlas 加载完成');
+        return true;
+      }
+
+      async loadAtlasImage() {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          image.onload = () => resolve(image);
+          image.onerror = () => reject(new Error('Failed to load atlas image'));
+          image.crossOrigin = 'anonymous';
+          image.src = '/assets/emoji/atlas.png';
+        });
+      }
+
+      async loadEmojiMap() {
+        const response = await fetch('/assets/emoji/emoji_map.json');
+        if (!response.ok) {
+          throw new Error(`Failed to load emoji map: ${response.status}`);
+        }
+        return await response.json();
+      }
+
+      createAtlasTexture(image) {
+        const gl = this.gl;
+        this.atlasTexture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, this.atlasTexture);
+
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+
+        // 设置纹理参数
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+        gl.bindTexture(gl.TEXTURE_2D, null);
+      }
+
+      buildEmojiMap(mapData) {
+        Object.entries(mapData.emojis).forEach(([unicode, entry]) => {
+          this.emojiMap.set(unicode, entry.uv);
+        });
+      }
+
+      getEmojiUV(unicode) {
+        return this.emojiMap.get(unicode);
+      }
+
+      getTexture() {
+        return this.atlasTexture;
+      }
+    }
+
+    // 简化版 WebGL Emoji 渲染器
+    class SimpleEmojiRenderer {
+      constructor(gl, canvas) {
+        this.gl = gl;
+        this.canvas = canvas;
+        this.program = null;
+        this.emojiLoader = new SimpleEmojiAtlasLoader(gl);
+        this.locations = {};
+      }
+
+      async init() {
+        const gl = this.gl;
+
+        // 顶点着色器
+        const vertexShaderSource = `
+          attribute vec2 a_position;
+          attribute vec2 a_texCoord;
+          varying vec2 v_texCoord;
+
+          void main() {
+            gl_Position = vec4(a_position, 0.0, 1.0);
+            v_texCoord = a_texCoord;
+          }
+        `;
+
+        // 片段着色器
+        const fragmentShaderSource = `
+          precision mediump float;
+          varying vec2 v_texCoord;
+          uniform sampler2D u_texture;
+
+          void main() {
+            vec4 texColor = texture2D(u_texture, v_texCoord);
+            if (texColor.a < 0.01) {
+              discard;
+            }
+            gl_FragColor = texColor;
+          }
+        `;
+
+        // 编译着色器
+        const vertexShader = this.compileShader(gl.VERTEX_SHADER, vertexShaderSource);
+        const fragmentShader = this.compileShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+
+        // 创建程序
+        this.program = gl.createProgram();
+        gl.attachShader(this.program, vertexShader);
+        gl.attachShader(this.program, fragmentShader);
+        gl.linkProgram(this.program);
+
+        if (!gl.getProgramParameter(this.program, gl.LINK_STATUS)) {
+          throw new Error('Failed to link shader program');
+        }
+
+        // 设置属性和uniform位置
+        this.locations = {
+          a_position: gl.getAttribLocation(this.program, 'a_position'),
+          a_texCoord: gl.getAttribLocation(this.program, 'a_texCoord'),
+          u_texture: gl.getUniformLocation(this.program, 'u_texture')
+        };
+
+        // 加载 emoji atlas
+        await this.emojiLoader.load();
+
+        log('✅ WebGL 渲染器初始化完成');
+        return true;
+      }
+
+      compileShader(type, source) {
+        const gl = this.gl;
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          const info = gl.getShaderInfoLog(shader);
+          throw new Error(`Shader compilation failed: ${info}`);
+        }
+
+        return shader;
+      }
+
+      renderEmoji(unicode) {
+        const gl = this.gl;
+        const uv = this.emojiLoader.getEmojiUV(unicode);
+
+        if (!uv) {
+          log(`❌ Emoji ${unicode} 不在 Atlas 中`, 'error');
+          return false;
+        }
+
+        // 清空画布
+        gl.clearColor(0.9, 0.9, 0.9, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        // 使用着色器程序
+        gl.useProgram(this.program);
+
+        // 设置顶点数据（中心化的大方形）
+        const positions = new Float32Array([
+          -0.5, -0.5,
+           0.5, -0.5,
+           0.5,  0.5,
+          -0.5,  0.5
+        ]);
+
+        // 设置纹理坐标（从 Atlas 中选择正确的区域）
+        const texCoords = new Float32Array([
+          uv.u0, uv.v1,
+          uv.u1, uv.v1,
+          uv.u1, uv.v0,
+          uv.u0, uv.v0
+        ]);
+
+        // 创建并绑定顶点缓冲
+        const positionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(this.locations.a_position);
+        gl.vertexAttribPointer(this.locations.a_position, 2, gl.FLOAT, false, 0, 0);
+
+        // 创建并绑定纹理坐标缓冲
+        const texCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, texCoords, gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(this.locations.a_texCoord);
+        gl.vertexAttribPointer(this.locations.a_texCoord, 2, gl.FLOAT, false, 0, 0);
+
+        // 绑定 emoji 纹理
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.emojiLoader.getTexture());
+        gl.uniform1i(this.locations.u_texture, 0);
+
+        // 启用混合（支持透明度）
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+        // 绘制
+        gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+        log(`🎨 成功渲染 emoji: ${unicode}`);
+        return true;
+      }
+    }
+
+    // 加载常用 emoji 列表
+    function loadEmojiGrid() {
+      const grid = document.getElementById('emojiGrid');
+      const commonEmojis = ['😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '🙂', '🙃',
+                          '😉', '😊', '😇', '🥰', '😍', '🤩', '😘', '😗', '😚', '😙',
+                          '🎈', '🎉', '🎊', '🎁', '🎀', '🎯', '🎪', '🎭', '🎨', '🎬',
+                          '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯',
+                          '🌟', '⭐', '✨', '💫', '☄️', '🔥', '💥', '💢', '🪄', '✨'];
+
+      commonEmojis.forEach(emoji => {
+        const item = document.createElement('div');
+        item.className = 'emoji-item';
+        item.textContent = emoji;
+        item.title = emoji;
+        item.onclick = () => {
+          currentEmoji = emoji;
+          if (renderer) {
+            const success = renderer.renderEmoji(emoji);
+            if (success) {
+              log(`🎯 用户选择渲染 emoji: ${emoji}`);
+            }
+          }
+        };
+        grid.appendChild(item);
+      });
+    }
+
+    // 主初始化函数
+    async function main() {
+      log('🚀 开始 Emoji Atlas 渲染测试...');
+
+      // 步骤1：检查文件访问
+      try {
+        log('🔍 检查 atlas.png 文件...');
+        const atlasResponse = await fetch('/assets/emoji/atlas.png', { method: 'HEAD' });
+        if (atlasResponse.ok) {
+          showStatus('fileStatus', '✅ atlas.png 文件可访问', 'success');
+          log('✅ atlas.png 文件可访问');
+        } else {
+          throw new Error(`HTTP ${atlasResponse.status}`);
+        }
+      } catch (error) {
+        showStatus('fileStatus', `❌ atlas.png 文件访问失败: ${error.message}`, 'error');
+        log(`❌ atlas.png 文件访问失败: ${error.message}`);
+        return;
+      }
+
+      try {
+        log('🔍 检查 emoji_map.json 文件...');
+        const mapResponse = await fetch('/assets/emoji/emoji_map.json');
+        if (mapResponse.ok) {
+          emojiMap = await mapResponse.json();
+          showStatus('fileStatus', `✅ emoji_map.json 文件可访问 (${emojiMap.meta.totalEmojis} 个 emoji)`, 'success');
+          document.getElementById('totalEmojis').textContent = emojiMap.meta.totalEmojis;
+          document.getElementById('loadStatus').textContent = '✅';
+          log(`✅ emoji_map.json 文件可访问，包含 ${emojiMap.meta.totalEmojis} 个 emoji`);
+        } else {
+          throw new Error(`HTTP ${mapResponse.status}`);
+        }
+      } catch (error) {
+        showStatus('fileStatus', `❌ emoji_map.json 文件访问失败: ${error.message}`, 'error');
+        log(`❌ emoji_map.json 文件访问失败: ${error.message}`);
+        return;
+      }
+
+      // 步骤2：初始化 WebGL
+      log('🔍 初始化 WebGL...');
+      canvas = document.getElementById('webglCanvas');
+      gl = canvas.getContext('webgl');
+
+      if (!gl) {
+        showStatus('webglStatus', '❌ WebGL 不支持', 'error');
+        document.getElementById('renderStatus').textContent = '❌';
+        log('❌ WebGL 不支持');
+        return;
+      }
+
+      showStatus('webglStatus', '✅ WebGL 上下文创建成功', 'success');
+      log('✅ WebGL 上下文创建成功');
+
+      // 步骤3：初始化渲染器
+      try {
+        renderer = new SimpleEmojiRenderer(gl, canvas);
+        await renderer.init();
+        document.getElementById('renderStatus').textContent = '✅';
+        showStatus('webglStatus', '✅ WebGL 渲染器初始化成功', 'success');
+        log('✅ WebGL 渲染器初始化成功');
+
+        // 步骤4：渲染默认 emoji
+        setTimeout(() => {
+          const success = renderer.renderEmoji(currentEmoji);
+          if (success) {
+            log(`🎨 默认 emoji 渲染成功: ${currentEmoji}`);
+          }
+        }, 500);
+
+      } catch (error) {
+        document.getElementById('renderStatus').textContent = '❌';
+        showStatus('webglStatus', `❌ 渲染器初始化失败: ${error.message}`, 'error');
+        log(`❌ 渲染器初始化失败: ${error.message}`);
+        return;
+      }
+
+      // 步骤5：加载 emoji 选择器
+      loadEmojiGrid();
+
+      log('✅ 测试页面初始化完成');
+    }
+
+    // 页面加载完成后执行
+    window.addEventListener('load', main);
+  </script>
+</body>
+</html>

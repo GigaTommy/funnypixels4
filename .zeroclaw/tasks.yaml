@@ -1,0 +1,28 @@
+project_name: FunnyPixels
+project_path: /Users/ginochow/code/funnypixels3
+monitoring_interval: 6h  # 每6小时运行
+
+tasks:
+  # 代码质量检查
+  - name: code_quality_check
+    description: "检查代码质量、潜在Bug和性能问题"
+    command: "zeroclaw agent -m '分析 FunnyPixelsApp 目录下的 Swift 代码，识别潜在Bug、性能问题和代码异味'"
+    schedule: daily
+
+  # 病毒式营销功能开发
+  - name: viral_features
+    description: "开发和优化病毒式营销功能"
+    command: "zeroclaw agent -m '根据病毒式营销清单，优先实现高优先级功能'"
+    schedule: weekly
+
+  # 商业化优化
+  - name: monetization_optimization
+    description: "优化商业化路径和用户付费转化"
+    command: "zeroclaw agent -m '分析用户付费数据，优化商城定价和推荐策略'"
+    schedule: weekly
+
+  # 性能监控
+  - name: performance_monitoring
+    description: "监控应用性能指标"
+    command: "zeroclaw agent -m '分析应用性能日志，识别瓶颈并提出优化方案'"
+    schedule: daily

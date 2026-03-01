@@ -1,0 +1,1170 @@
+/* GPS Drawing Control */
+"gps.session.title" = "세션 그리기 완료";
+"gps.session.unit" = "px";
+"gps.session.label" = "세션";
+"gps.stop.button" = "중지";
+/* Telemetry */
+"gps.telemetry.ammo" = "잔여량";
+"gps.telemetry.lifetime" = "누적";
+"gps.telemetry.frozen" = "정지됨";
+/* Authentication */
+"auth.title" = "FunnyPixels";
+"auth.slogan" = "글로벌 캔버스에 나만의 발자취를 남기세요";
+"auth.login.tab" = "로그인";
+"auth.join.tab" = "회원가입";
+"auth.email.label" = "이메일 주소";
+"auth.email.placeholder" = "이메일을 입력하세요";
+"auth.password.label" = "비밀번호";
+"auth.password.placeholder" = "비밀번호를 입력하세요";
+"auth.username.label" = "사용자 이름";
+"auth.username.placeholder" = "고유한 사용자 이름을 선택하세요";
+"auth.button.login" = "로그인";
+"auth.button.signup" = "계정 만들기";
+"auth.terms.prefix" = "다음에 동의합니다";
+"auth.terms.link" = "이용약관";
+"auth.privacy.link" = "개인정보 처리방침";
+"auth.and" = " 및 ";
+"auth.error.missing" = "모든 항목을 입력해 주세요";
+"auth.error.invalid_phone" = "올바른 전화번호를 입력해 주세요";
+"auth.error.send_code_failed" = "코드 전송에 실패했습니다. 다시 시도해 주세요";
+"auth.error.login_failed" = "로그인에 실패했습니다";
+"auth.error.register_failed" = "회원가입에 실패했습니다";
+"auth.error.username_length" = "사용자 이름은 2~20자여야 합니다";
+"auth.button.resend" = "재전송";
+"auth.button.send_code" = "코드 전송";
+"auth.button.resend_countdown" = "%ds 후 재전송";
+"auth.toggle.to_signup" = "계정이 없으신가요? 회원가입";
+"auth.toggle.to_login" = "이미 계정이 있으신가요? 로그인";
+"auth.or_continue_with" = "또는 이메일로 로그인";
+"auth.google.sign_in" = "Google로 로그인";
+"auth.apple.sign_in" = "Apple로 로그인";
+/* Session */
+"session.validating" = "세션 확인 중...";
+"session.expired" = "세션이 만료되었습니다. 다시 로그인해 주세요";
+
+/* Launch Screen */
+"launch.slogan" = "함께 세계를 그려요";
+"launch.tip.long_press" = "픽셀을 길게 눌러 창작자 확인";
+"launch.tip.color_palette" = "스와이프로 컬러 팔레트 전환";
+"launch.tip.zoom_out" = "축소하여 글로벌 걸작 감상";
+"launch.tip.daily_tasks" = "일일 과제로 보너스 포인트 획득";
+"launch.tip.alliance" = "동맹에 가입하여 지도 장악";
+"launch.tip.consecutive_login" = "연속 로그인으로 보상 잠금 해제";
+"launch.tip.gps_drawing" = "GPS 그리기로 대형 작품 제작";
+"launch.tip.like_pixels" = "좋아요로 창작자 지원";
+/* Policy Sheet */
+"policy.loading" = "로딩 중...";
+"policy.retry" = "다시 시도";
+"policy.close" = "닫기";
+"policy.terms.title" = "이용약관";
+"policy.privacy.title" = "개인정보 처리방침";
+/* General */
+"common.cancel" = "취소";
+"common.share" = "공유";
+"common.save" = "저장";
+"common.close" = "닫기";
+"common.loading" = "로딩 중...";
+/* Tab Bar */
+"tab.map" = "지도";
+"tab.history" = "기록";
+"tab.feed" = "피드";
+"tab.alliance" = "연맹";
+"tab.leaderboard" = "순위";
+"tab.profile" = "내 정보";
+/* Session Summary */
+"summary.map.generating" = "지도 생성 중...";
+"summary.title" = "방금 여기에 그렸어요";
+"summary.subtitle" = "실제 세계의 픽셀 창작";
+"summary.share.title" = "공유하기";
+"summary.created_by" = "✍️ FunnyPixels로 만들었어요";
+"summary.join_now" = "지금 참여하기";
+"summary.pixels" = "픽셀";
+"summary.time" = "시간";
+"summary.km" = "KM";
+"summary.share_text" = "FunnyPixels 지도에서 그림을 완성했어요. 내 픽셀 아트를 확인해 보세요!";
+"summary.artwork_tag" = "📍 현실 세계 · 픽셀 아트";
+"summary.watermark" = "FunnyPixels";
+"summary.activity_description" = "%@, 지도 위에 그림을 완성했어요";
+"summary.stats.pixels_label" = "이번 세션: %d 픽셀";
+"summary.stats.duration_label" = "소요 시간: %@초";
+"summary.stats.action_fast" = "빠른 그리기 세션";
+"summary.stats.action_area" = "지도에서 작은 영역을 해금했어요";
+"summary.cta" = "스캔하여 지도를 열고 픽셀 여행을 시작하세요";
+"summary.button.close" = "닫기";
+"summary.button.share" = "내 픽셀 공유하기";
+/* Session Detail Share */
+"session_detail.share.title" = "내 그리기 기록";
+"session_detail.share.subtitle" = "지도 위에 남긴 발자취";
+"session_detail.share.cta" = "스캔하여 전체 기록 보기";
+"session_detail.share.button" = "내 픽셀 공유하기";
+"session_detail.generating_map" = "지도 생성 중...";
+/* Share Actions */
+"share.link_copied" = "링크가 복사되었습니다";
+"share.save_success" = "이미지가 저장되었습니다";
+"share.save_failed" = "저장에 실패했습니다";
+"share.opened" = " 열림";
+/* Artwork Gallery */
+"gallery.title" = "작품 갤러리";
+"gallery.empty.title" = "작품이 없습니다";
+"gallery.empty.message" = "첫 번째 작품을 시작하세요";
+"gallery.guest.title" = "창의력을 기록하세요";
+"gallery.guest.message" = "로그인하여 모든 픽셀 작품을 확인하세요";
+/* Artwork Tags */
+/* Detail Modes */
+"detail.mode.artwork" = "작품";
+"detail.mode.data" = "데이터";
+"detail.creation_info" = "작품 정보";
+"detail.behavior_info" = "행동 정보";
+"detail.path_shape" = "경로 형태";
+"detail.covered_grids" = "채워진 칸";
+/* Leaderboard */
+"leaderboard.title" = "리더보드";
+"leaderboard.period.day" = "일간";
+"leaderboard.period.week" = "주간";
+"leaderboard.period.month" = "월간";
+"leaderboard.type.personal" = "개인";
+"leaderboard.type.alliance" = "연맹";
+"leaderboard.type.city" = "도시";
+"leaderboard.empty" = "데이터 없음";
+"leaderboard.pixel" = "픽셀";
+"leaderboard.users" = "사용자";
+"leaderboard.period.alltime" = "전체 기간";
+"leaderboard.picker.period" = "기간";
+"leaderboard.picker.type" = "유형";
+"leaderboard.type.friends" = "친구";
+"leaderboard.friends.empty" = "아직 친구가 없습니다";
+"leaderboard.friends.emptyHint" = "다른 플레이어를 팔로우하면 리더보드에 표시됩니다";
+
+/* Feed Center */
+"feed.title" = "피드";
+"feed.tab.social" = "피드";
+"feed.tab.records" = "기록";
+"feed.tab.dashboard" = "데이터";
+"feed.social.coming_soon" = "소셜 피드 준비 중";
+"feed.social.coming_soon_hint" = "친구들의 작품을 확인하세요";
+"feed.dashboard.coming_soon" = "대시보드 준비 중";
+"feed.dashboard.coming_soon_hint" = "그림 데이터와 진행 상황을 추적하세요";
+"feed.social.empty" = "아직 활동이 없습니다";
+"feed.social.empty_hint" = "다른 플레이어를 팔로우하고 그림을 시작하세요";
+"feed.filter.following" = "팔로잉";
+"feed.filter.all" = "전체";
+"feed.time.just_now" = "방금";
+"feed.time.minutes_ago" = "%d분 전";
+"feed.time.hours_ago" = "%d시간 전";
+"feed.time.days_ago" = "%d일 전";
+"feed.drawing.description" = "%d 픽셀을 그렸습니다";
+"feed.achievement.unlocked" = "업적 달성!";
+"feed.checkin.description" = "오늘 체크인 완료";
+"feed.alliance.joined" = "연맹에 가입: %@";
+"feed.comments.title" = "댓글";
+"feed.comments.empty" = "아직 댓글이 없습니다";
+"feed.comments.placeholder" = "댓글을 작성하세요...";
+
+/* Dashboard */
+"dashboard.heatmap.title" = "활동 캘린더";
+"dashboard.heatmap.less" = "적음";
+"dashboard.heatmap.more" = "많음";
+"dashboard.weekly.title" = "주간 추세";
+"dashboard.cities.title" = "도시 발자국";
+"dashboard.cities.sessions" = "세션";
+"dashboard.stat.pixels" = "픽셀";
+"dashboard.stat.sessions" = "세션";
+"dashboard.stat.cities" = "도시";
+"dashboard.stat.streak" = "연속 일수";
+
+/* Alliance Checkin */
+"alliance.checkin.title" = "일일 출석";
+"alliance.checkin.button" = "출석하기";
+"alliance.checkin.done" = "출석 완료";
+"alliance.checkin.today_count" = "오늘: %d명 출석";
+
+/* Alliance Contribution */
+"alliance.contribution.title" = "기여 순위";
+"alliance.contribution.empty" = "아직 기여 데이터가 없습니다";
+
+/* Profile Enhanced */
+"profile.following" = "팔로잉";
+"profile.followers" = "팔로워";
+"profile.total_pixels" = "픽셀";
+"profile.achievements_count" = "업적";
+"profile.today" = "오늘";
+"profile.today_pixels" = "픽셀";
+"profile.today_sessions" = "세션";
+"profile.today_duration" = "시간";
+"profile.streak_days" = "%d일";
+
+/* Social */
+"social.following" = "팔로잉";
+"social.followers" = "팔로워";
+"social.following.empty" = "아직 아무도 팔로우하지 않았습니다";
+"social.followers.empty" = "아직 팔로워가 없습니다";
+"social.following_btn" = "팔로잉";
+"social.follow_btn" = "팔로우";
+
+/* Daily Tasks */
+"daily_task.title" = "일일 과제";
+"daily_task.progress" = "오늘의 진행 상황";
+"daily_task.bonus_title" = "전체 완료 보너스";
+"daily_task.bonus_desc" = "모든 과제를 완료하면 보너스 포인트를 획득할 수 있습니다";
+"daily_task.bonus_claimed" = "보너스 수령 완료";
+"daily_task.claim_bonus" = "보너스 받기";
+"daily_task.bonus_locked" = "전체 %d개 과제 완료 필요";
+"daily_task.claim_failed" = "수령 실패";
+"daily_task.empty" = "오늘 과제가 없습니다";
+"profile.daily_tasks" = "일일 과제";
+
+/* Nearby Players */
+"nearby.drawing" = "그리는 중";
+"nearby.away" = "거리";
+"nearby.follow" = "팔로우";
+
+/* Quick Stats */
+"quick_stats.today" = "오늘";
+"quick_stats.pixels" = "픽셀";
+"quick_stats.sessions" = "세션";
+"quick_stats.duration" = "시간";
+"quick_stats.tasks" = "작업";
+"quick_stats.view_tasks" = "작업 보기";
+
+/* Territory */
+"territory.detail_title" = "영토 제어";
+"territory.total_pixels" = "총 픽셀";
+
+/* Common */
+"common.confirm" = "확인";
+"common.error" = "오류";
+"common.success" = "성공";
+"common.login_required" = "로그인이 필요합니다";
+/* Drawing History */
+"history.title" = "그리기 기록";
+"history.empty.title" = "기록 없음";
+"history.empty.message" = "GPS 그리기를 시작하면 여기에서 기록을 확인할 수 있습니다.";
+"history.guest.title" = "창의력을 기록하세요";
+"history.guest.message" = "로그인하여 GPS 경로, 통계, 재생 등 모든 그리기 기록을 확인하세요.";
+"history.login_register" = "로그인 / 회원가입";
+"history.filter.status" = "상태";
+"history.filter.type" = "유형";
+"history.filter.date" = "기간";
+"history.filter.enable_date" = "기간 필터 사용";
+"history.filter.start_date" = "시작일";
+"history.filter.end_date" = "종료일";
+"history.filter.title" = "필터";
+"history.filter.done" = "완료";
+"history.filter.reset" = "초기화";
+"history.filter.city" = "도시";
+"history.filter.city_placeholder" = "도시 이름 입력";
+"history.stats.pixels" = "픽셀";
+"history.duration" = "소요 시간";
+"history.distance" = "거리";
+"history.status.active" = "활성";
+/* Alliance - all keys */
+"alliance.tab.my" = "내 연맹";
+"alliance.tab.search" = "검색";
+"alliance.title" = "연맹";
+"alliance.create" = "연맹 만들기";
+"alliance.invite.title" = "초대 코드";
+"alliance.invite.copy" = "복사";
+"alliance.invite.message" = "초대 코드:\n%@\n\n24시간 동안 유효합니다";
+"alliance.members" = "멤버";
+"alliance.total_pixels" = "총 픽셀";
+"alliance.rank" = "순위";
+"alliance.menu.members" = "멤버 목록";
+"alliance.menu.members.subtitle" = "멤버 관리";
+"alliance.menu.stats" = "통계";
+"alliance.menu.stats.subtitle" = "영토 및 순위 보기";
+"alliance.menu.applications" = "가입 신청";
+"alliance.menu.applications.subtitle" = "건 대기 중";
+"alliance.notice.empty" = "공지 없음";
+"alliance.menu.invite" = "멤버 초대";
+"alliance.menu.invite.subtitle" = "링크 공유";
+"alliance.action.transfer" = "리더 이전";
+"alliance.action.leave" = "연맹 탈퇴";
+"alliance.error.transfer_required" = "리더는 탈퇴 전에 리더 권한을 이전해야 합니다.";
+"alliance.action.dissolve" = "해산 및 탈퇴";
+"alliance.msg.dissolve" = "마지막 멤버이므로 탈퇴 시 연맹이 해산됩니다.";
+"alliance.dissolve.title" = "연맹 해산";
+"alliance.dissolve.message" = "정말 연맹을 해산하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+"alliance.leave.title" = "연맹 탈퇴";
+"alliance.leave.message" = "정말 연맹을 탈퇴하시겠습니까?";
+"alliance.leave.success" = "연맹을 탈퇴했습니다";
+"alliance.role.leader" = "리더";
+"alliance.role.admin" = "관리자";
+"alliance.role.member" = "멤버";
+"alliance.search.popular" = "인기 연맹";
+"alliance.search.searching" = "검색 중...";
+"alliance.search.no_results" = "검색 결과가 없습니다";
+"alliance.search.placeholder" = "연맹 이름 입력";
+"alliance.guest.title" = "참여 및 생성";
+"alliance.guest.message" = "로그인하여 연맹에 가입하거나 만들고, 지도에서 협력하고, 리더보드에서 경쟁하세요.";
+"alliance.empty.title" = "연맹 없음";
+"alliance.empty.message" = "연맹을 만들거나 가입하여 시작하세요.";
+"alliance.create.name" = "연맹 이름";
+"alliance.create.success" = "연맹이 성공적으로 생성되었습니다!";
+"alliance.btn.apply" = "신청";
+"alliance.btn.join" = "가입";
+"alliance.btn.create_action" = "만들기";
+"alliance.form.name" = "연맹 이름";
+"alliance.form.desc" = "설명 (선택사항)";
+"alliance.form.basic" = "기본 정보";
+"alliance.form.visibility" = "공개 설정";
+"alliance.form.public" = "공개";
+"alliance.form.private" = "비공개";
+"alliance.form.approval" = "승인 필요";
+"alliance.form.settings" = "설정";
+"alliance.form.flag" = "연맹 깃발";
+"alliance.form.pattern" = "깃발 패턴";
+"alliance.form.notice" = "공지";
+"alliance.edit.title" = "연맹 편집";
+"alliance.edit.info" = "기본 정보";
+"alliance.flag.select" = "깃발 선택";
+"alliance.flag.type" = "패턴 유형";
+"alliance.flag.color" = "색상";
+"alliance.flag.emoji" = "이모지";
+"alliance.flag.complex" = "복합";
+"alliance.flag.empty" = "패턴 없음";
+"alliance.limit.title" = "연맹 제한";
+"alliance.limit.usage" = "생성됨";
+"alliance.update.success" = "연맹이 성공적으로 수정되었습니다";
+"alliance.limit.needed" = "해금하려면 %d 픽셀을 더 그려야 합니다.";
+"alliance.limit.max" = "최대 한도에 도달했습니다.";
+"alliance.members.title" = "멤버";
+"alliance.transfer.title" = "리더 이전";
+"alliance.transfer.message" = "정말 %@에게 리더 권한을 이전하시겠습니까? 일반 멤버가 됩니다.";
+"alliance.member.join_date" = "가입일: %@";
+"alliance.action.promote" = "관리자로 지정";
+"alliance.action.demote" = "관리자 해제";
+"alliance.action.kick" = "연맹에서 추방";
+"alliance.applications.empty" = "가입 신청 없음";
+"alliance.applications.title" = "가입 신청";
+"alliance.applications.review_placeholder" = "검토 의견 (선택사항)";
+"alliance.applications.approve_title" = "신청 승인";
+"alliance.applications.reject_title" = "신청 거절";
+"alliance.stats.title" = "통계";
+"alliance.stats.core" = "핵심 지표";
+"alliance.stats.realtime" = "실시간";
+"alliance.stats.cached" = "캐시됨";
+"alliance.stats.total_pixels" = "총 픽셀";
+"alliance.stats.members" = "멤버";
+"alliance.stats.ownership" = "점유율";
+"alliance.stats.rank" = "순위";
+"alliance.stats.comparison" = "데이터 비교";
+"alliance.stats.total_draw_pixels" = "총 그린 픽셀";
+"alliance.stats.current_ownership" = "현재 점유율";
+"alliance.stats.comparison_note" = "* 실제 데이터에는 아이템(광고, 폭탄 등)으로 인한 픽셀이 제외됩니다.";
+"alliance.stats.no_comparison" = "비교 데이터가 없습니다";
+"alliance.stats.real" = "실제";
+"alliance.stats.prop_contribution" = "아이템 기여";
+"alliance.stats.influence" = "연맹 영향력";
+"alliance.stats.world_rank" = "세계 순위";
+"alliance.stats.territory" = "글로벌 영토";
+
+/* Alliance Activity Log */
+"alliance.activity.title" = "최근 활동";
+"alliance.activity.empty" = "최근 활동 없음";
+"alliance.activity.joined" = "%@님이 가입했습니다";
+"alliance.activity.left" = "%@님이 탈퇴했습니다";
+"alliance.activity.kicked" = "%@님이 추방되었습니다";
+"alliance.activity.promoted" = "%@님이 관리자로 승격되었습니다";
+"alliance.activity.demoted" = "%@님이 멤버로 강등되었습니다";
+"alliance.activity.transfer" = "%@님이 새 리더가 되었습니다";
+"alliance.activity.checkin" = "%@님이 출석했습니다";
+"alliance.activity.levelup" = "동맹이 %@(으)로 레벨 업";
+
+/* Alliance Kick Confirmation */
+"alliance.kick.confirm.title" = "멤버 추방";
+"alliance.kick.confirm.message" = "%@님을 동맹에서 추방하시겠습니까?";
+
+/* Alliance Sorting */
+"alliance.sort.role" = "역할순";
+"alliance.sort.pixels" = "픽셀순";
+"alliance.sort.date" = "가입일순";
+
+/* Alliance Application Filters */
+"alliance.applications.filter.pending" = "대기 중";
+"alliance.applications.filter.all" = "전체";
+
+/* Alliance Share */
+"alliance.share.invite" = "초대 공유";
+
+/* Alliance Dissolve */
+"alliance.dissolve.success" = "동맹이 해산되었습니다";
+
+/* Common - add if missing */
+"common.select" = "선택";
+"common.approve" = "승인";
+"common.reject" = "거절";
+
+/* Profile */
+"profile.points" = "포인트";
+"profile.honors" = "명예";
+"profile.view_all" = "전체 보기";
+"profile.features" = "기능";
+"profile.shop" = "상점";
+"profile.messages" = "메시지 센터";
+"profile.items" = "내 아이템";
+"profile.settings" = "설정";
+"profile.invite_friends" = "친구 초대";
+"profile.logout" = "로그아웃";
+/* Invite/Referral */
+"invite.title" = "친구 초대";
+"invite.subtitle" = "친구에게 코드를 공유하세요. 둘 다 포인트를 받습니다!";
+"invite.nav_title" = "친구 초대";
+"invite.your_code" = "내 초대 코드";
+"invite.copy" = "복사";
+"invite.copied" = "복사되었습니다!";
+"invite.share" = "공유";
+"invite.share_message" = "FunnyPixels에서 함께해요! 내 초대 코드를 사용하세요: %@";
+"invite.rewards_title" = "보상";
+"invite.inviter_reward" = "초대 1건당 %d 포인트 획득";
+"invite.invitee_reward" = "친구에게 %d 웰컴 포인트 제공";
+"invite.stats_invited" = "초대한 친구";
+"invite.stats_earned" = "획득한 포인트";
+"invite.redeem_title" = "초대 코드가 있으신가요?";
+"invite.redeem_placeholder" = "코드 입력";
+"invite.redeem_button" = "사용하기";
+"invite.redeem_success" = "코드가 적용되었습니다! %d 포인트를 받았습니다.";
+"invite.error_invalid" = "유효하지 않은 초대 코드입니다";
+"invite.error_self" = "본인의 코드는 사용할 수 없습니다";
+"invite.error_already" = "이미 초대 코드를 사용했습니다";
+"invite.error_generic" = "코드 사용에 실패했습니다";
+"profile.guest.title" = "로그인하여 모든 기능을 이용하세요";
+"profile.guest.message" = "로그인하여 연맹 가입, 업적 확인, 그리기 기록 저장 등을 이용하세요.";
+"profile.logout.confirm.title" = "로그아웃 확인";
+"profile.logout.confirm.message" = "정말 로그아웃하시겠습니까?";
+"settings.display" = "디스플레이 및 밝기";
+"settings.font_size" = "글꼴 크기";
+"settings.preview" = "미리보기";
+"settings.font_desc" = "읽기 습관에 맞게 글꼴 크기를 조정하세요. 기본값은 작게입니다.";
+"settings.privacy" = "개인정보";
+"settings.pixel_privacy" = "픽셀 개인정보";
+"settings.about" = "정보";
+"settings.help" = "도움말 및 피드백";
+"settings.version" = "버전";
+"settings.font.small" = "작게 (기본값)";
+"settings.font.medium" = "보통";
+"settings.font.large" = "크게";
+"privacy.hide_nickname" = "닉네임 숨기기";
+"privacy.hide_alliance" = "연맹 정보 숨기기";
+"privacy.hide_flag" = "연맹 깃발 숨기기";
+"privacy.shield_title" = "개인정보 보호";
+"privacy.shield_desc" = "활성화하면 다른 사용자가 내 픽셀을 볼 때 위의 개인정보가 익명 처리됩니다.";
+"privacy.title" = "개인정보 설정";
+"error.load_failed" = "불러오기 실패";
+"error.update_failed" = "업데이트 실패";
+/* Achievements */
+"profile.achievements" = "업적";
+"achievement.empty.title" = "업적 없음";
+"achievement.empty.message" = "활동을 완료하여 업적을 잠금 해제하세요";
+"achievement.stats.title" = "통계";
+"achievement.stats.unlocked" = "달성";
+"achievement.stats.total" = "전체";
+"achievement.stats.pixels" = "픽셀";
+"achievement.stats.likes" = "좋아요";
+"achievement.claimable" = "보상 수령 가능";
+"achievement.completed" = "달성 완료";
+"achievement.btn.claim" = "받기";
+"achievement.claim.success" = "%d 포인트를 받았습니다";
+/* Achievement Categories */
+"category.all" = "전체";
+"category.pixel" = "픽셀";
+"category.pixels" = "그리기";
+"category.social" = "소셜";
+"category.alliance" = "연맹";
+"category.shop" = "상점";
+"category.special" = "특별";
+"category.likes" = "좋아요";
+"category.activity" = "활동";
+/* Achievement Rarity */
+"rarity.common" = "일반";
+"rarity.uncommon" = "고급";
+"rarity.rare" = "희귀";
+"rarity.epic" = "영웅";
+"rarity.legendary" = "전설";
+/* Achievement Errors */
+"error.achievement_list_failed" = "업적 목록을 불러오지 못했습니다";
+"error.user_achievement_failed" = "사용자 업적을 불러오지 못했습니다";
+"error.completed_achievement_failed" = "달성한 업적을 불러오지 못했습니다";
+"error.achievement_stats_failed" = "업적 통계를 불러오지 못했습니다";
+"error.achievement_highlights_failed" = "업적 하이라이트를 불러오지 못했습니다";
+"error.leaderboard_failed" = "리더보드를 불러오지 못했습니다";
+"error.rank_failed" = "순위를 불러오지 못했습니다";
+"error.check_achievement_failed" = "업적 확인에 실패했습니다";
+/* Dynamic Achievement Names */
+"Pixel Novice" = "픽셀 초보자";
+"pixel novice" = "픽셀 초보자";
+"Pixel Artist" = "픽셀 아티스트";
+"pixel artist" = "픽셀 아티스트";
+"Pixel Master" = "픽셀 마스터";
+"pixel master" = "픽셀 마스터";
+"Social Butterfly" = "소셜 나비";
+"social butterfly" = "소셜 나비";
+/* Achievement Descriptions */
+"draw 1 pixel" = "1 픽셀 그리기";
+"Draw 1 pixel" = "1 픽셀 그리기";
+"draw 10 pixels" = "10 픽셀 그리기";
+"Draw 10 pixels" = "10 픽셀 그리기";
+"draw 100 pixels" = "100 픽셀 그리기";
+"Draw 100 pixels" = "100 픽셀 그리기";
+"draw 1000 pixels" = "1000 픽셀 그리기";
+"Draw 1000 pixels" = "1000 픽셀 그리기";
+"draw 10000 pixels" = "10000 픽셀 그리기";
+"Draw 10000 pixels" = "10000 픽셀 그리기";
+/* Achievement Share */
+"achievement.share.unlock" = "업적 달성";
+/* Additional Achievement Descriptions */
+"Receive 10 likes" = "좋아요 10개 받기";
+"receive 10 likes" = "좋아요 10개 받기";
+"Receive 100 likes" = "좋아요 100개 받기";
+"receive 100 likes" = "좋아요 100개 받기";
+"Have 5 friends" = "친구 5명 사귀기";
+"have 5 friends" = "친구 5명 사귀기";
+"Invite 5 friends" = "친구 5명 초대하기";
+"invite 5 friends" = "친구 5명 초대하기";
+"Active for 3 days" = "3일 연속 활동";
+"active for 3 days" = "3일 연속 활동";
+"Active for 7 days" = "7일 연속 활동";
+"active for 7 days" = "7일 연속 활동";
+/* Social Achievements */
+"follow 5 users" = "5명 팔로우하기";
+"Follow 5 users" = "5명 팔로우하기";
+"follow 10 users" = "10명 팔로우하기";
+"Follow 10 users" = "10명 팔로우하기";
+"follow 20 users" = "20명 팔로우하기";
+"Follow 20 users" = "20명 팔로우하기";
+"connect with 5 friends" = "친구 5명과 연결하기";
+"Connect with 5 friends" = "친구 5명과 연결하기";
+"share 10 times" = "10회 공유하기";
+"Share 10 times" = "10회 공유하기";
+"post 5 comments" = "댓글 5개 작성하기";
+"Post 5 comments" = "댓글 5개 작성하기";
+"receive 50 likes" = "좋아요 50개 받기";
+"Receive 50 likes" = "좋아요 50개 받기";
+"receive 500 likes" = "좋아요 500개 받기";
+"Receive 500 likes" = "좋아요 500개 받기";
+"check-in  with a photo 5 times" = "그리기 5회 완료하기";
+"check-in with a photo 5 times" = "그리기 5회 완료하기";
+
+/* Achievement Names (Chinese keys from backend) */
+"像素新手" = "픽셀 초보자";
+"像素爱好者" = "픽셀 애호가";
+"像素大师" = "픽셀 마스터";
+"像素传奇" = "픽셀 레전드";
+"连续绘制" = "연속 그리기";
+"社交新手" = "소셜 초보자";
+"聊天达人" = "채팅 달인";
+"社交明星" = "소셜 스타";
+"私信达人" = "메시지 달인";
+"联盟新手" = "동맹 초보자";
+"联盟领袖" = "동맹 리더";
+"联盟活跃分子" = "동맹 활동가";
+"购物新手" = "쇼핑 초보자";
+"购物达人" = "쇼핑 달인";
+"土豪" = "큰손";
+"早起鸟" = "얼리버드";
+"夜猫子" = "올빼미";
+"幸运儿" = "행운아";
+
+/* Achievement Descriptions (Chinese keys from backend) */
+"绘制第一个像素" = "첫 번째 픽셀 그리기";
+"绘制100个像素" = "픽셀 100개 그리기";
+"绘制1000个像素" = "픽셀 1000개 그리기";
+"绘制10000个像素" = "픽셀 10000개 그리기";
+"连续7天每天至少绘制1个像素" = "7일 연속 매일 최소 1개의 픽셀 그리기";
+"发送第一条聊天消息" = "첫 번째 채팅 메시지 보내기";
+"发送100条聊天消息" = "채팅 메시지 100개 보내기";
+"发送1000条聊天消息" = "채팅 메시지 1000개 보내기";
+"发送10条私信" = "개인 메시지 10개 보내기";
+"加入第一个联盟" = "첫 번째 동맹 가입";
+"创建第一个联盟" = "첫 번째 동맹 생성";
+"在联盟中活跃7天" = "동맹에서 7일간 활동하기";
+"购买第一个商品" = "첫 번째 상품 구매";
+"购买10个商品" = "상품 10개 구매";
+"消费1000金币" = "골드 1000개 소비";
+"在早上6-9点之间绘制像素" = "오전 6~9시 사이에 픽셀 그리기";
+"在晚上10-12点之间绘制像素" = "밤 10~12시 사이에 픽셀 그리기";
+"在特殊活动中获得奖励" = "특별 이벤트에서 보상 획득";
+
+/* Drawing Detail Page */
+"drawing_detail.start_point" = "시작";
+"drawing_detail.end_point" = "종료";
+"drawing_detail.statistics" = "통계 정보";
+"drawing_detail.stat.pixels" = "픽셀 수";
+"drawing_detail.stat.duration" = "소요 시간";
+"drawing_detail.stat.distance" = "거리";
+"drawing_detail.stat.avg_speed" = "평균 속도";
+"drawing_detail.stat.efficiency" = "효율 (px/분)";
+"drawing_detail.stat.unique_grids" = "고유 그리드";
+"drawing_detail.pixel_details" = "픽셀 상세";
+"drawing_detail.showing_pixels" = "처음 10개 표시, 총 %d개";
+
+/* Drawing History / Gallery */
+"gallery.offline_mode" = "오프라인 모드 - 캐시 데이터 표시 중";
+
+/* Artwork Tags */
+"artwork.tag.first_today" = "오늘 첫 번째";
+"artwork.tag.new_area" = "새 지역";
+"artwork.tag.fast" = "빠른 완료";
+"artwork.tag.long_distance" = "장거리";
+"artwork.tag.high_density" = "고밀도";
+
+/* Share Platform Names */
+"share.platform.wechat_session" = "WeChat";
+"share.platform.wechat_timeline" = "모멘트";
+"share.platform.weibo" = "Weibo";
+"share.platform.xiaohongshu" = "샤오홍슈";
+"share.platform.save_image" = "이미지 저장";
+"share.platform.copy_link" = "링크 복사";
+
+/* Session Detail Share */
+"session_detail.share.distance" = "거리: %@";
+
+/* Achievement Toast */
+"achievement.unlock.title" = "🎉 업적 달성!";
+"common.points" = "포인트";
+/* Event Rewards */
+"event.rewards.title" = "이벤트 보상";
+"event.rewards.subtitle" = "보상은 이벤트 종료 후 자동으로 지급됩니다.";
+"rank.1st" = "1위";
+"rank.2nd" = "2위";
+"rank.3rd" = "3위";
+"reward.target.members" = "모든 연맹 멤버";
+"reward.target.leader" = "연맹 리더만";
+"reward.flag" = "한정 깃발";
+"common.pixels" = "픽셀";
+/* Event Center */
+"profile.event_center" = "이벤트 센터";
+"event.center.title" = "이벤트 센터";
+"event.center.tab.active" = "진행 중";
+"event.center.tab.my" = "내 이벤트";
+"event.center.tab.ended" = "종료됨";
+"event.stats.participated" = "참여함";
+"event.stats.active" = "진행 중";
+"event.stats.completed" = "완료됨";
+"event.empty.active" = "진행 중인 이벤트가 없습니다";
+"event.empty.my" = "참여한 이벤트가 없습니다";
+"event.empty.ended" = "종료된 이벤트가 없습니다";
+"event.status.active" = "진행 중";
+"event.status.published" = "예정";
+"event.status.ended" = "종료됨";
+"event.status.draft" = "초안";
+"event.type.leaderboard" = "리더보드";
+"event.type.territory" = "영토 전쟁";
+"event.type.cooperation" = "협동";
+"event.type.war" = "진영 전쟁";
+"event.joined_at" = "참여함";
+"event.result.title" = "이벤트 결과";
+"event.result.share" = "결과 공유";
+"event.settled" = "정산 완료";
+"event.participants" = "참가자";
+"event.total_pixels" = "총 픽셀";
+"event.pixel_logs" = "픽셀 로그";
+"event.final_rankings" = "최종 순위";
+"event.no_rankings" = "순위 데이터가 없습니다";
+"event.rewards_config" = "보상";
+"event.target.alliance_members" = "전체 멤버";
+"event.target.alliance_leader" = "리더만";
+"event.target.user" = "개인";
+/* Event Preannounce HUD */
+"event.preannounce.title" = "이벤트 미리보기";
+"event.preannounce.starts_in" = "시작까지";
+"event.preannounce.starting_soon" = "곧 시작";
+"event.preannounce.started" = "시작되었습니다!";
+"event.preannounce.view_detail" = "상세 보기";
+/* Event Signup Sheet */
+"event.signup.title" = "이벤트 참여";
+"event.signup.individual" = "개인으로 참여";
+"event.signup.individual.desc" = "혼자서 경쟁하기";
+"event.signup.or_with_alliance" = "또는 연맹과 함께 참여";
+"event.signup.alliance.desc" = "연맹 멤버로 참여";
+"event.signup_prompt" = "전투에 참여하고 보상을 받으세요!";
+"event.signup_btn" = "지금 참여하기";
+"event.signup_closed" = "참여 마감";
+/* Event Zone Notifications */
+"event.zone.entered.title" = "이벤트 구역 진입";
+"event.zone.entered.subtitle" = "\"%@\" 구역에 들어왔습니다";
+"event.zone.exited.title" = "이벤트 구역 이탈";
+"event.zone.exited.subtitle" = "\"%@\" 구역을 떠났습니다";
+"event.zone.ending.title" = "이벤트 곧 종료";
+"event.zone.ending.subtitle" = "\"%@\" 이벤트가 %d분 후 종료됩니다";
+"event.zone.ended.title" = "이벤트 종료";
+"event.zone.ended.subtitle" = "\"%@\" 이벤트가 종료되었습니다";
+"loading" = "로딩 중...";
+/* Profile Edit */
+"profile.edit.title" = "프로필 편집";
+"profile.edit.info" = "기본 정보";
+"profile.edit.nickname" = "닉네임";
+"profile.edit.motto" = "한줄 소개";
+"profile.edit.save" = "변경사항 저장";
+"profile.edit.cancel" = "취소";
+/* Alliance Selection & Patterns */
+"alliance.select.title" = "연맹 선택";
+"pattern.default_color" = "기본 색상";
+"pattern.alliance_flag_emoji" = "연맹 깃발 (이모지)";
+"pattern.alliance_flag" = "연맹 깃발";
+"pattern.alliance_color" = "연맹 색상";
+/* Drawing Detail */
+"drawing_detail.title" = "그리기 상세";
+"drawing_detail.share_button" = "그리기 공유";
+"drawing_detail.replay_button" = "그리기 재생";
+/* Explore Sheet */
+"explore.title" = "탐험";
+"explore.empty" = "아직 핫스팟이 없습니다";
+"explore.empty.hint" = "그리기를 시작하여 전 세계에 핫스팟을 만들어 보세요";
+/* FAB Tooltip & First Pixel */
+"tooltip.fab.start_drawing" = "탭하여 그리기 시작!";
+"tooltip.fab.flag_switch" = "길게 눌러 깃발 전환";
+
+// MARK: - 깃발 선택
+"flag.picker.title" = "깃발 선택";
+"flag.section.personal" = "내 깃발";
+"flag.section.alliance" = "동맹 깃발";
+"flag.personal_color" = "내 색상";
+"flag.my_avatar" = "내 아바타";
+"celebration.first_pixel.title" = "첫 번째 픽셀!";
+"celebration.first_pixel.subtitle" = "GPS 그리기 여행이 시작됩니다!";
+/* Location Pre-Education */
+"location.pre_edu.title" = "위치 서비스 활성화";
+"location.pre_edu.subtitle" = "FunnyPixels는 걸으면서 GPS 픽셀 아트를 그리기 위해 위치 정보가 필요합니다";
+"location.pre_edu.feature1.title" = "GPS 그리기";
+"location.pre_edu.feature1.desc" = "걸으며 실제 지도에 픽셀 아트를 그려보세요";
+"location.pre_edu.feature2.title" = "주변 핫스팟";
+"location.pre_edu.feature2.desc" = "근처의 픽셀 아트와 플레이어를 발견하세요";
+"location.pre_edu.feature3.title" = "개인정보 보호";
+"location.pre_edu.feature3.desc" = "위치는 그리기 중에만 사용됩니다";
+"location.pre_edu.enable" = "위치 서비스 켜기";
+"location.pre_edu.skip" = "나중에";
+/* Check-in */
+"checkin.recovery.title" = "연속 기록이 끊겼습니다!";
+"checkin.recovery.desc" = "%d일 연속 기록을 잃었습니다. 지금 복구하세요!";
+"checkin.recovery.btn" = "연속 기록 복구 (월 1회)";
+"checkin.rewards.title" = "보상 마일스톤";
+"checkin.rewards.day" = "%d일차";
+"checkin.week_cycle" = "주간 보상";
+"checkin.milestones.title" = "마일스톤";
+"checkin.milestone.days" = "%d일";
+/* Map Mode */
+"map.mode.drawing" = "%d 픽셀";
+/* Shop & Store - ALL keys */
+"shop.title" = "상점";
+"shop.backpack" = "배낭";
+"shop.my_points" = "내 포인트";
+"shop.empty.title" = "아이템 없음";
+"shop.empty.message" = "상점에 아이템이 없습니다";
+"shop.item.used" = "%@ 사용함";
+"shop.price_points" = "%d 포인트";
+"shop.category.all" = "전체";
+"shop.category.consumable" = "소모품";
+"shop.category.special" = "특별";
+"shop.category.cosmetic" = "꾸미기";
+"shop.purchase.confirm_title" = "구매 확인";
+"shop.purchase.button" = "구매";
+"shop.purchase.confirm_message" = "%d 포인트를 사용하여 %@을(를) 구매하시겠습니까?";
+"shop.error.load_failed" = "불러오기 실패: %@";
+"shop.error.inventory_load_failed" = "인벤토리 불러오기 실패: %@";
+"shop.error.purchase_failed" = "구매 실패: %@";
+"shop.error.use_failed" = "아이템 사용 실패: %@";
+"shop.error.recharge_failed" = "충전 생성 실패: %@";
+"shop.insufficient_points.title" = "포인트 부족";
+"shop.insufficient_points.message" = "현재 포인트: %d, 필요: %d 포인트";
+"shop.insufficient_points.recharge" = "충전하기";
+"shop.insufficient_points.hint" = "포인트가 부족합니다. 먼저 충전해 주세요";
+/* Approval */
+"approval.section.price_info" = "가격 정보";
+"approval.price_label" = "아이템 가격";
+"approval.balance_label" = "현재 포인트";
+/* Inventory */
+"inventory.title" = "내 배낭";
+"inventory.empty.title" = "아이템 없음";
+"inventory.empty.message" = "배낭이 비어 있습니다. 상점을 방문해 보세요!";
+"inventory.use" = "사용";
+/* Wallet */
+"wallet.title" = "지갑";
+"wallet.tab.recharge" = "충전";
+"wallet.tab.bills" = "내역";
+"wallet.done" = "완료";
+"wallet.payment_hint" = "결제";
+"wallet.select_amount" = "금액 선택";
+"wallet.loading_products" = "상품 로딩 중...";
+"wallet.no_products" = "사용 가능한 상품이 없습니다";
+"wallet.retry_load" = "다시 시도";
+"wallet.restore_purchases" = "구매 복원";
+"wallet.restore_completed" = "복원 완료";
+"wallet.recharge_history" = "충전 내역";
+"wallet.spending_history" = "사용 내역";
+"wallet.empty_recharge.title" = "충전 내역 없음";
+"wallet.empty_recharge.message" = "아직 충전한 적이 없습니다";
+"wallet.recharge_points" = "%d 포인트 충전";
+"wallet.empty_spending.title" = "구매 내역 없음";
+"wallet.empty_spending.message" = "아직 구매한 적이 없습니다";
+"wallet.payment_success" = "결제 완료! %d 포인트를 받았습니다";
+"wallet.product_load_failed" = "상품을 불러오지 못했습니다. 다시 시도해 주세요.";
+"order.status.pending" = "대기 중";
+"order.status.completed" = "완료됨";
+"order.status.failed" = "실패";
+/* Purchase Approval - ALL */
+"approval.section.basic_info" = "기본 정보";
+"approval.ad_title" = "광고 제목";
+"approval.pattern_name" = "패턴 이름";
+"approval.ad_desc" = "광고 설명";
+"approval.desc" = "설명";
+"approval.ad_hint" = "짧고 읽기 쉽게 작성하세요. 작은 글씨는 피하면 픽셀이 더 선명합니다.";
+"approval.pattern_hint" = "팁: 짧은 이름이 목록에서 더 잘 보입니다.";
+"approval.section.image" = "이미지 업로드";
+"approval.select_image" = "이미지 선택";
+"approval.image_hint" = "고대비 이미지를 사용하면 픽셀 미리보기가 더 선명합니다.";
+"approval.section.ad_preview" = "광고 미리보기";
+"approval.preview.generating" = "미리보기 생성 중...";
+"approval.preview.size" = "미리보기 크기: %dx%d";
+"approval.preview.empty" = "이미지를 선택하여 픽셀 효과를 미리 확인하세요.";
+"approval.preview.tip" = "프레임 안에서 이미지를 조정하여 최종 광고 결과를 확인하세요.";
+"approval.preview.crop_tip" = "드래그 및 확대/축소하여 자르기 영역을 조정하세요.";
+"approval.section.deploy" = "배포 설정";
+"approval.deploy_time" = "예정 시간";
+"approval.deploy_location" = "위치";
+"approval.tap_to_select" = "탭하여 선택";
+"approval.location_hint" = "광고가 표시될 위치를 선택하세요.";
+"approval.uploading" = "업로드 중...";
+"approval.submit" = "심사 제출";
+"approval.nav_title.ad" = "광고 제출";
+"approval.nav_title.flag" = "커스텀 깃발 제출";
+"approval.upload_failed" = "업로드 실패";
+"approval.unknown_error" = "알 수 없는 오류";
+"approval.image_upload_failed" = "이미지 업로드 실패: %@";
+"approval.select_location" = "위치 선택";
+"approval.location.loading" = "위치 확인 중...";
+"approval.location.nearby" = "%@ 근처";
+"approval.location.unknown" = "선택된 위치";
+/* Bomb */
+"bomb.select_location" = "설치 위치 선택";
+"bomb.place_here" = "여기에 설치";
+"bomb.confirm_title" = "설치 확인";
+"bomb.confirm_use" = "확인";
+"bomb.confirm_message" = "이 위치에 %@을(를) 사용하시겠습니까?";
+/* Transactions */
+"transaction.title" = "거래 내역";
+"transaction.date.start" = "시작";
+"transaction.date.end" = "종료";
+"transaction.empty.title" = "기록 없음";
+"transaction.empty.message" = "아직 거래 내역이 없습니다";
+"transaction.type.purchase" = "구매";
+"transaction.type.use" = "사용";
+"transaction.type.refund" = "환불";
+"transaction.type.other" = "기타";
+"transaction.status.completed" = "완료됨";
+"transaction.status.pending" = "처리 중";
+"transaction.status.failed" = "실패";
+"transaction.points.used" = "사용됨";
+/* Common additional */
+"common.done" = "완료";
+"common.hint" = "알림";
+/* Settings - Language */
+"settings.language" = "언어";
+"settings.language.system" = "시스템 기본값";
+"settings.language.restart_hint" = "일부 변경 사항은 앱을 다시 시작해야 완전히 적용됩니다.";
+
+/* Settings - Sound */
+"settings.sound" = "소리";
+"settings.sound_effects" = "효과음";
+/* Onboarding */
+"onboarding.title.explore" = "픽셀 세계를 탐험하세요";
+"onboarding.desc.explore" = "지도를 드래그하여 전 세계 픽셀을 감상하세요.\n아무 픽셀이나 탭하면 상세 정보를 볼 수 있고,\n나만의 영토를 발견하세요.";
+"onboarding.title.gps" = "GPS 그리기";
+"onboarding.desc.gps" = "그리고 싶은 영역으로 이동하세요.\nGPS 자동 그리기를 켜면,\n이동 경로가 픽셀이 됩니다.";
+"onboarding.title.alliance" = "연맹 전쟁";
+"onboarding.desc.alliance" = "연맹에 가입하여 함께 도시를 정복하세요.\n픽셀이 많아지면,\n깃발이 지도에 나타납니다.";
+"onboarding.skip" = "건너뛰기";
+"onboarding.next" = "다음";
+"onboarding.start" = "시작하기";
+/* Drawing */
+"drawing.color.current" = "현재 색상";
+"drawing.color.presets" = "프리셋 색상";
+"drawing.color.select_title" = "색상 선택";
+"drawing.emoji.current" = "현재 이모지";
+"drawing.emoji.tap_to_select" = "탭하여 이모지 선택";
+"drawing.emoji.select_title" = "이모지 선택";
+"drawing.mode.title" = "그리기 모드";
+"drawing.mode.none" = "둘러보기";
+"drawing.mode.color" = "색상";
+"drawing.mode.emoji" = "이모지";
+"drawing.mode.complex" = "패턴";
+"drawing.mode.gps" = "GPS 그리기";
+"drawing.gps.title" = "GPS 그리기";
+"drawing.gps.session_title" = "GPS 세션";
+"drawing.gps.session_pixels" = "%d 픽셀 그림";
+"drawing.gps.active" = "활성";
+"drawing.gps.idle" = "대기";
+"drawing.gps.start" = "그리기 시작";
+"drawing.gps.stop" = "그리기 중지";
+"drawing.gps.not_active" = "GPS 비활성";
+/* Pattern */
+"pattern.type.color" = "색상";
+"pattern.type.emoji" = "이모지";
+"pattern.type.complex" = "패턴";
+"pattern.loading_alliance_flag" = "연맹 깃발 로딩 중...";
+/* Help & Feedback */
+"help.segment.title" = "모드";
+"help.segment.manual" = "도움말";
+"help.segment.feedback" = "피드백";
+"help.title" = "도움말 및 피드백";
+"help.manual.welcome_title" = "👋 FunnyPixels에 오신 것을 환영합니다";
+"help.manual.welcome_desc" = "FunnyPixels는 전 세계 플레이어가 함께 만드는 픽셀 지도입니다. GPS로 이동하며 픽셀 아트를 그리고, 동맹에 가입하여 영토를 점령하고, 전 세계 플레이어가 그린 픽셀 세계를 탐험하세요.";
+"help.manual.getting_started_title" = "시작하기";
+"help.manual.getting_started_desc" = "FunnyPixels를 실행하면 위치 권한을 요청합니다 — GPS 그리기에 필수입니다.\n\n내비게이션:\n- 지도: 글로벌 픽셀 캔버스 탐색, 주변 플레이어와 영토 확인\n- 피드: 소셜 피드, 그리기 기록, 데이터 대시보드\n- 동맹: 팀 가입 또는 생성, 함께 레벨업\n- 랭킹: 랭크 티어와 친구 랭킹이 포함된 리더보드\n- 마이: 프로필, 일일 작업, 업적, 설정\n\n오른쪽 하단의 둥근 버튼으로 GPS 그리기를 시작합니다. 길게 누르면 그리기 깃발을 전환합니다.\n\n빠른 통계: 지도의 플로팅 위젯으로 오늘의 픽셀, 세션, 일일 작업 진행률을 한눈에 확인하세요.";
+"help.manual.gps_drawing_title" = "GPS 그리기";
+"help.manual.gps_drawing_desc" = "GPS 그리기는 실제 이동 경로를 지도 위 픽셀 아트로 변환합니다.\n\n시작 방법:\n1. 그리고 싶은 지역으로 이동\n2. 원형 버튼을 탭하여 GPS 세션 시작\n3. 걸으면 경로가 픽셀로 변환\n4. 완료 후 정지 탭\n\n팁:\n- 시작 전 깃발 선택 (개인 색상, 아바타, 동맹 깃발)\n- 나침반이 이동 방향 표시\n- 픽셀 수, 거리, 속도 등 실시간 업데이트\n- 장시간 걷기에는 저전력 모드 사용 가능";
+"help.manual.manual_drawing_title" = "수동 그리기";
+"help.manual.manual_drawing_desc" = "지도를 탭하여 직접 픽셀을 배치합니다.\n\n그리기 모드:\n- 색상: 프리셋 색상에서 선택하거나 커스텀 색상을 고른 후 지도 탭\n- 이모지: 이모지를 선택하고 탭하여 배치\n- 패턴: 동맹 깃발이나 커스텀 패턴 사용\n\n지도 화면 하단의 그리기 모드 패널에서 모드를 전환합니다.";
+"help.manual.map_explore_title" = "지도 및 탐색";
+"help.manual.map_explore_desc" = "지도가 당신의 캔버스입니다.\n\n- 핀치로 확대/축소, 드래그로 전 세계 탐색\n- 픽셀을 탭하여 누가 언제 그렸는지 확인\n- 팀이 지배하는 지역에 동맹 깃발 표시\n- 탐색 패널로 주변 핫스팟 발견\n- 활성 대회 중 이벤트 존 하이라이트\n\n지도 기능:\n- 주변 플레이어: 실시간으로 주변에서 그리기 중인 플레이어 확인\n- 지역 정보 바: 지역 이름, 활성 플레이어 수, 픽셀 수, 지배 동맹 표시\n- 영토 제어: 동맹 영토가 색상 존으로 지도에 표시\n- 빠른 통계: 오늘의 픽셀, 세션, 일일 작업 진행률을 보여주는 플로팅 위젯";
+"help.manual.history_title" = "피드 센터";
+"help.manual.history_desc" = "피드 탭은 세 개의 섹션으로 구성된 콘텐츠 허브입니다:\n\n- 피드: 팔로우하는 플레이어의 그리기 활동, 업적 달성, 랭크 변동을 확인. 좋아요와 댓글 가능. \"날아가기\"를 탭하여 지도에서 그리기 위치를 방문.\n- 기록: 갤러리 또는 목록 형식으로 과거 그리기를 탐색. 세션을 탭하여 상세 정보, 통계, 지도 리플레이 확인. SNS 공유 또는 이미지 저장 가능.\n- 통계: 활동 캘린더(히트맵), 주간 트렌드, 도시 발자국을 포함한 개인 데이터 대시보드 — 그리기 여정을 추적.";
+"help.manual.shop_title" = "상점 및 아이템";
+"help.manual.shop_desc" = "포인트로 상점에서 아이템을 구매합니다.\n\n아이템 종류:\n- 폭탄: 대상 영역의 다른 플레이어 픽셀 제거\n- 부스트 카드: GPS 그리기 효율 향상\n- 광고: 커스텀 이미지를 지도에 게시 (심사 필요)\n- 커스텀 깃발: 동맹용 맞춤 깃발 업로드\n\n포인트 및 지갑:\n- 출석, 업적, 이벤트, 초대로 포인트 획득\n- WeChat Pay 또는 Alipay로 포인트 충전\n- 구매한 아이템은 '내 아이템'에서 확인";
+"help.manual.alliance_title" = "동맹과 영토";
+"help.manual.alliance_desc" = "다른 플레이어와 팀을 이루어 영토를 정복하세요.\n\n동맹 생성:\n- 동맹 탭에서 생성을 탭\n- 이름, 설명, 공개 설정, 깃발 패턴 설정\n\n동맹 깃발:\n- 색상: 단색 깃발\n- 이모지: 이모지 아이콘이 있는 깃발\n- 복합: 커스텀 패턴 이미지 업로드\n\n동맹 성장:\n- 동맹 레벨: 멤버 활동으로 XP를 획득하고 동맹을 레벨업하여 혜택 해제\n- 동맹 체크인: 멤버가 매일 체크인하여 동맹에 포인트 획득\n- 기여 랭킹: 가장 많은 픽셀을 기여한 멤버 확인\n\n관리:\n- 리더는 관리자 승격, 멤버 추방, 리더십 이전 가능\n- 초대 코드로 새 멤버 초대\n- 동맹 통계 확인: 총 픽셀, 영토, 세계 랭킹\n\n영토:\n- 지역을 지배하는 동맹이 해당 영토를 제어\n- 영토 존은 색상 오버레이로 지도에 표시\n- 영토를 탭하여 동맹 비율 상세 확인";
+"help.manual.achievements_title" = "업적";
+"help.manual.achievements_desc" = "활동을 완료하여 업적을 해제합니다.\n\n카테고리: 그리기, 소셜, 동맹, 상점, 활동, 특별\n\n희귀도: 일반, 고급, 희귀, 에픽, 전설\n\n작동 방식:\n- 플레이 중 자동으로 업적 해제\n- 업적 페이지(나 > 업적)에서 포인트 보상 수령\n- 업적 카드를 소셜 미디어에 공유\n- 획득한 배지는 프로필 명예의 벽에 표시";
+"help.manual.events_title" = "이벤트 및 챌린지";
+"help.manual.events_desc" = "기간 한정 이벤트에서 특별 보상을 획득합니다.\n\n이벤트 유형:\n- 리더보드 스프린트: 최다 픽셀을 그려 상위 랭크\n- 영토 전쟁: 지도 영역 지배권 경쟁\n- 협동: 모든 플레이어가 공동 목표 달성\n- 진영전: 동맹 대 동맹 대결\n\n참여 방법:\n- 이벤트 센터(나 > 이벤트 센터)에서 확인\n- 개인 또는 동맹으로 참가 신청\n- 지도에서 이벤트 존에 진입하여 기여\n- 이벤트 종료 시 보상 배분";
+"help.manual.drift_bottle_title" = "표류병";
+"help.manual.drift_bottle_desc" = "표류병에 메시지를 넣어 전 세계 낯선 사람에게 보내세요.\n\n표류병 획득:\n- 픽셀을 그려 표류병 획득 (화면에 진행 상황 표시)\n\n만들기:\n- 그리기 세션 후 짧은 메시지(최대 50자)를 작성하고 던지기\n\n발견:\n- 그리기 중 표류병과 조우\n- 열어서 메시지를 읽고, 자신의 메시지를 남기거나 계속 떠돌게 놓아주기\n\n여정 카드:\n- 5명이 표류병을 열면 침몰하고 모든 참여자가 여정 카드를 수령\n- 나 > 여정 컬렉션에서 수집";
+"help.manual.leaderboard_title" = "리더보드";
+"help.manual.leaderboard_desc" = "다른 플레이어와의 랭킹을 확인하세요.\n\n기간: 일간, 주간, 월간, 전체\n\n랭킹 유형:\n- 개인: 개인 픽셀 수\n- 동맹: 동맹 총 픽셀과 영토\n- 도시: 세계에서 가장 활발한 도시\n- 친구: 팔로우하는 플레이어 랭킹\n\n기능:\n- 랭크 티어: 픽셀 수에 따라 랭크 배지 획득 (브론즈부터 레전드)\n- 개인 랭크 카드: 상단에 랭크, 티어 배지, 통계 표시\n- Top 3 포디움: 상위 3명을 특별 포디움으로 소개\n- 랭크 변동: 애니메이션 인디케이터로 랭크 변화 표시";
+"help.manual.daily_tasks_title" = "일일 작업";
+"help.manual.daily_tasks_desc" = "일일 작업을 완료하여 보너스 보상을 획득하세요.\n\n방법:\n- 매일 작업 세트가 생성됩니다 (예: 픽셀 그리기, 체크인, 지도 탐색)\n- 프로그레스 바로 각 작업의 진행률 추적\n- 완료된 작업의 보상 수령\n- 모든 작업을 완료하면 특별 보너스 보상 해제\n\n일일 작업 접근:\n- 마이 > 일일 작업\n- 지도의 빠른 통계 위젯 (\"작업 보기\" 탭)\n\n작업 진행률은 플레이 중 자동 업데이트됩니다. 잊지 마세요 — 작업은 매일 리셋!";
+"help.manual.social_title" = "소셜 & 팔로우";
+"help.manual.social_desc" = "다른 플레이어와 연결하고 커뮤니티를 구축하세요.\n\n팔로우 시스템:\n- 프로필, 리더보드, 주변 플레이어 카드에서 플레이어를 팔로우\n- 프로필에서 팔로워와 팔로잉 목록 확인\n- 피드 탭에서 팔로우하는 플레이어의 활동 확인\n\n주변 플레이어:\n- 근처에서 그리기 중인 활성 플레이어가 지도에 표시\n- 플레이어 칩을 탭하여 정보 확인 및 팔로우\n- 지역 정보 바에서 지역 내 활성 플레이어 수 확인\n\n소셜 피드:\n- 그리기 작품과 업적에 좋아요와 댓글\n- 그리기 게시물의 \"날아가기\"를 탭하여 지도에서 위치 방문";
+"help.manual.invite_title" = "친구 초대";
+"help.manual.invite_desc" = "친구를 초대하고 보너스 포인트를 획득합니다.\n\n초대 방법:\n- 나 > 친구 초대로 이동\n- 고유 초대 코드를 복사 또는 공유\n- 친구가 가입 후 코드 입력\n\n보상:\n- 초대 성공마다 포인트 획득\n- 친구에게도 환영 보너스 포인트 제공\n- 초대 페이지에서 초대 통계 확인";
+"help.manual.settings_title" = "설정 및 프로필";
+"help.manual.settings_desc" = "경험을 맞춤 설정하세요.\n\n- 프로필 편집: 닉네임, 한줄 메시지, 아바타 변경\n- 표시: 글꼴 크기 조정 (컴팩트, 미디엄, 라지)\n- 언어: 앱 언어 전환 또는 시스템 설정 따르기\n- 사운드: 효과음 켜기/끄기\n- 개인정보: 다른 플레이어에게 닉네임, 동맹 정보, 깃발 숨기기\n- 일일 체크인: 매일 체크인하여 연속 보상, 주간 보상 사이클, 마일스톤 보너스 (30/90/180/365일) 획득\n- 일일 작업: 픽셀 그리기, 체크인, 지도 탐색 등의 일일 작업을 완료하여 보너스 보상 획득\n- 팔로우 & 팬: 프로필에서 팔로워와 팔로잉 목록 확인";
+"help.feedback.section" = "피드백 작성";
+"help.feedback.placeholder" = "제안이나 문제를 알려주세요...";
+"help.feedback.contact_title" = "연락처 (선택사항)";
+"help.feedback.contact_placeholder" = "전화번호 / 이메일";
+"help.feedback.submit" = "피드백 제출";
+"help.feedback.success_title" = "제출 완료";
+"help.feedback.success_message" = "피드백을 주셔서 감사합니다!";
+/* Disclaimer */
+"disclaimer.title" = "콘텐츠 가이드라인";
+"disclaimer.avatar" = "업로드한 아바타에 대한 책임은 사용자에게 있습니다. 음란, 폭력, 불법 콘텐츠가 포함되지 않도록 하고, 타인의 지적 재산권을 침해하지 않도록 해 주세요. 플랫폼은 가이드라인을 위반하는 콘텐츠를 삭제할 권리를 보유합니다.";
+"disclaimer.ad_image" = "업로드한 이미지 콘텐츠에 대한 책임은 사용자에게 있습니다. 관련 법률을 준수하고, 음란, 폭력, 불법 자료가 포함되지 않도록 하며, 타인의 지적 재산권이나 초상권을 침해하지 않도록 해 주세요. 모든 제출물은 심사 대상이며, 플랫폼은 위반 사항을 거부하거나 삭제할 권리를 보유합니다.";
+"disclaimer.flag" = "선택하거나 업로드한 깃발 디자인에 대한 책임은 사용자에게 있습니다. 음란, 폭력, 불법 콘텐츠가 포함되지 않도록 하고, 타인의 지적 재산권을 침해하지 않도록 해 주세요. 플랫폼은 가이드라인을 위반하는 콘텐츠를 삭제할 권리를 보유합니다.";
+"disclaimer.info_hint" = "콘텐츠 가이드라인";
+/* Drift Bottle */
+"drift_bottle.far_away" = "먼 곳";
+"drift_bottle.somewhere" = "어딘가";
+"drift_bottle.unknown" = "알 수 없음";
+"drift_bottle.encounter.from" = "%@에서 떠내려 왔어요";
+"drift_bottle.encounter.stats" = "%@km · %d/%d번째 정류장";
+"drift_bottle.encounter.open" = "열기";
+"drift_bottle.create.prompt" = "%d 픽셀을 그렸어요! 유리병을 남겨볼까요?";
+"drift_bottle.create.yes" = "남기기";
+"drift_bottle.create.later" = "나중에";
+"drift_bottle.create.title" = "메시지 남기기";
+"drift_bottle.create.placeholder" = "메시지를 작성하세요... (최대 50자)";
+"drift_bottle.create.throw" = "던지기";
+"drift_bottle.create.success" = "유리병이 바다로 떠났어요!";
+"drift_bottle.indicator.count" = "유리병 ×%d";
+"drift_bottle.indicator.progress" = "%d 픽셀을 더 그리면 새 유리병 획득";
+"drift_bottle.indicator.frozen" = "배낭이 가득 찼어요. 유리병을 사용하면 더 얻을 수 있어요";
+"drift_bottle.indicator.earned" = "유리병을 획득했어요!";
+"drift_bottle.quota.daily_free" = "일일 무료";
+"drift_bottle.quota.pixel_bonus" = "픽셀 보너스";
+"drift_bottle.quota.pixels_needed" = "%d 픽셀을 더 그리면 보너스 유리병 획득";
+"drift_bottle.open.opening" = "열고 있어요...";
+"drift_bottle.open.from" = "%@이(가) 보냄";
+"drift_bottle.open.days" = "%d일";
+"drift_bottle.open.station" = "%d/%d번째 정류장";
+"drift_bottle.open.messages_title" = "여행 메시지";
+"drift_bottle.open.last_stop" = "당신이 마지막 정류장이에요";
+"drift_bottle.open.write_message" = "메시지 작성하기";
+"drift_bottle.open.release" = "건너뛰고 보내기";
+"drift_bottle.open.leave_footprint" = "발자취 남기기";
+"drift_bottle.open.placeholder" = "메시지를 작성하세요...";
+"drift_bottle.open.submit_release" = "완료, 보내기";
+"drift_bottle.open.released" = "유리병이 여행을 계속합니다...";
+"drift_bottle.open.sunk_title" = "유리병이 깊은 바다 속으로 가라앉았어요";
+"drift_bottle.open.sunk_message" = "모든 참여자에게 여행 카드가 전달됩니다";
+"drift_bottle.open.ok" = "확인";
+"drift_bottle.open.mini_stats" = "%d 정류장 · %@km · %d일";
+"drift_bottle.reunion.title" = "이건 당신의 유리병 같아요!";
+"drift_bottle.reunion.subtitle" = "다시 돌아왔어요!";
+"drift_bottle.reunion.opened" = "열린 횟수";
+"drift_bottle.reunion.km" = "km";
+"drift_bottle.reunion.days" = "일";
+"drift_bottle.reunion.others_messages" = "다른 사람들의 메시지";
+"drift_bottle.reunion.read_story" = "이야기 읽기";
+"drift_bottle.reunion.let_drift" = "계속 떠돌게 하기";
+"drift_bottle.journey.title" = "여행 카드";
+"drift_bottle.journey.load_failed" = "불러오기 실패";
+"drift_bottle.journey.stations" = "%d 정류장";
+"drift_bottle.journey.days" = "%d일";
+"drift_bottle.journey.sunk" = "가라앉음";
+"drift_bottle.journey.route" = "여행 경로";
+"drift_bottle.journey.origin" = "출발지";
+"drift_bottle.journey.messages" = "여행 메시지";
+"drift_bottle.journey_list.title" = "여행 컬렉션";
+"drift_bottle.journey_list.empty.title" = "여행 카드가 없습니다";
+"drift_bottle.journey_list.empty.message" = "5명이 열어본 유리병이 가라앉으면\n여행 카드를 받을 수 있어요";
+"drift_bottle.role.creator" = "만든 사람";
+"drift_bottle.station_number" = "%d번째 정류장";
+"drift_bottle.days_count" = "%d일";
+"profile.journey_collection" = "여행 컬렉션";
+
+/* Leaderboard Empty States */
+"leaderboard.personal.empty" = "데이터 없음";
+"leaderboard.personal.emptyHint" = "그림을 그려 리더보드에 올라보세요";
+"leaderboard.alliance.empty" = "동맹 데이터 없음";
+"leaderboard.alliance.emptyHint" = "동맹에 가입하여 함께 그리기";
+"leaderboard.city.empty" = "도시 데이터 없음";
+"leaderboard.city.emptyHint" = "활성 플레이어가 있는 도시가 여기에 표시됩니다";
+
+/* MyRankCard */
+"leaderboard.myrank.label" = "내 순위";
+"leaderboard.myrank.pixels" = "%d 픽셀";
+"leaderboard.myrank.gap" = "다음 순위까지 %d 픽셀";
+"leaderboard.myrank.first" = "1위입니다!";
+"leaderboard.myrank.percentile" = "상위 %.1f%%";
+
+/* Player Detail */
+"leaderboard.playerdetail.rank" = "순위";
+
+/* Nearby Empty */
+"nearby.empty" = "근처에 플레이어가 없습니다";
+
+/* Social Toast */
+"social.followed" = "팔로우됨";
+"social.unfollowed" = "팔로우 취소됨";
+
+/* Daily Reward Summary */
+"reward.summary.title" = "일일 랭킹 보상";
+"reward.summary.subtitle" = "어제의 랭킹 결산";
+"reward.summary.personal" = "개인 랭킹";
+"reward.summary.alliance" = "동맹 랭킹";
+"reward.summary.friends" = "친구 랭킹";
+"reward.summary.no_rank" = "순위 없음";
+"reward.summary.total" = "총 획득";
+"reward.summary.points" = "+%d 포인트";
+"reward.summary.dismiss" = "확인";
+"reward.summary.rank" = "%d위";
+
+/* Alliance Sub-Pages */
+"alliance.contribution.view_all" = "전체 보기";
+"alliance.contribution.empty.title" = "랭킹 없음";
+"alliance.contribution.empty.message" = "멤버들이 아직 픽셀을 기여하지 않았습니다.";
+"alliance.contribution.you" = "내 순위";
+"alliance.contribution.all" = "전체 멤버";
+"alliance.menu.contributions" = "기여 랭킹";
+"alliance.menu.contributions.subtitle" = "멤버 기여도 보기";
+"alliance.members.count" = "%d명의 멤버";
+"alliance.members.search" = "멤버 검색";
+"alliance.stats.empty.title" = "통계 없음";
+"alliance.stats.empty.message" = "통계 데이터를 아직 사용할 수 없습니다.";
+"alliance.status.approved" = "승인됨";
+"alliance.status.rejected" = "거절됨";
+"alliance.status.pending" = "대기 중";
+
+// MARK: - Missing Keys Added
+
+// MARK: Challenge
+"challenge.claim" = "받기";
+"challenge.error.claim_failed" = "보상 수령에 실패했습니다";
+"challenge.error.fetch_failed" = "일일 챌린지를 불러오지 못했습니다";
+"challenge.title" = "일일 챌린지";
+
+// MARK: Check-in
+"checkin.btn.checkin" = "출석하기";
+"checkin.btn.done" = "오늘 출석 완료";
+"checkin.error.calendar_failed" = "출석 캘린더를 불러오지 못했습니다";
+"checkin.error.failed" = "출석에 실패했습니다";
+"checkin.error.stats_failed" = "출석 통계를 불러오지 못했습니다";
+"checkin.reward_points" = "+%d 포인트";
+"checkin.stat.max_streak" = "최장 연속";
+"checkin.stat.total" = "총 출석";
+"checkin.stat.total_points" = "총 포인트";
+"checkin.streak_count" = "%d일 연속";
+"checkin.streak_days" = "연속 일수";
+"checkin.title" = "일일 출석";
+
+// MARK: Common
+"common.retry" = "재시도";
+
+// MARK: Dashboard
+"dashboard.empty.message" = "그리기를 시작하면 통계를 볼 수 있습니다";
+"dashboard.empty.title" = "아직 데이터가 없습니다";
+"dashboard.error.title" = "불러오기 실패";
+
+// MARK: Event
+"event.end_time" = "종료";
+"event.pixel_score" = "픽셀 점수";
+"event.rewards.empty" = "이 이벤트에는 보상이 설정되지 않았습니다.";
+"event.rewards.subtitle_short" = "탭하여 자세히 보기";
+"event.signed_up" = "참가 신청 완료!";
+"event.start_time" = "시작";
+
+// MARK: Help
+"help.manual.how_desc" = "FunnyPixels 플레이 방법을 알아보세요";
+"help.manual.how_title" = "플레이 방법";
+
+// MARK: Map
+"map.mode.peace" = "탐험";
+
+// MARK: Weekday
+"weekday.fri" = "금";
+"weekday.mon" = "월";
+"weekday.sat" = "토";
+"weekday.sun" = "일";
+"weekday.thu" = "목";
+"weekday.tue" = "화";
+"weekday.wed" = "수";
+
+// MARK: Avatar
+"avatar.preview.title" = "아바타";
+"avatar.menu.title" = "옵션";
+"avatar.menu.change" = "아바타 변경";
+"avatar.menu.take_photo" = "사진 촬영";
+"avatar.menu.save" = "사진에 저장";
+"avatar.menu.guidelines" = "콘텐츠 가이드라인";
+
+/* 지도 관련 - Map Related */
+"map.roaming_to" = "%@(으)로 로밍 중";
+"map.unavailable_platform" = "이 플랫폼에서는 지도 보기를 사용할 수 없습니다";
+
+/* 그리기 기능 - Drawing Features */
+"drawing.complex_pattern" = "복잡한 패턴";
+"drawing.loading_alliance_flag" = "얼라이언스 플래그 로딩 중...";
+"drawing.tap_to_exit_power_saving" = "화면을 탭하여 절전 모드 종료";
+"drawing.focus_mode_enabled" = "집중 그리기 모드 활성화됨";
+"drawing.focus_mode_description" = "GPS 정확도 유지, 화면 전력 감소\n언제든지 화면을 탭하여 종료";
+
+/* 세션 재생 - Session Replay */
+"session.replay_progress" = "진행률: %d%%";
+
+/* 이벤트 - Events */
+"event.ended" = "종료됨";
+"event.my_rank" = "내 순위";
+"event.swipe_up_to_close" = "위로 스와이프하여 닫기";
+
+/* 메시지 센터 - Message Center */
+"message.no_messages" = "메시지 없음";
+"message.go_to_view" = "보기로 이동";
+"message.attachment_reward" = "첨부 보상";
+"message.claim_reward" = "보상 받기";
+
+/* 영토 전투 - Territory Battle */
+"territory.someone_invaded" = "누군가 당신의 영토를 침공했습니다!";
+"battle.no_attacks_yet" = "아직 아무도 당신의 영토를 공격하지 않았습니다";
+"battle.reclaim" = "탈환";
+
+/* 픽셀 상호작용 - Pixel Interaction */
+"pixel.feedback_thanks" = "피드백 감사합니다. 곧 처리하겠습니다.";
+"pixel.history" = "기록";
+"pixel.no_more_history" = "더 이상 기록이 없습니다...";
+
+/* 랭크 티어 - Rank Tier */
+"rank.max_tier_reached" = "최고 티어 도달";
+"rank.pixels_to_upgrade" = "업그레이드까지 %d 픽셀";
+
+/* 결제 - Payment */
+"payment.alipay" = "Alipay";

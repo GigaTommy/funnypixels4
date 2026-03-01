@@ -1,0 +1,1475 @@
+/* GPS Drawing Control */
+"gps.session.title" = "本次绘制";
+"gps.session.unit" = "像素";
+"gps.session.label" = "SESSION";
+"gps.stop.button" = "停止";
+
+/* Telemetry */
+"gps.telemetry.ammo" = "剩余点数";
+"gps.telemetry.lifetime" = "生涯总计";
+"gps.telemetry.frozen" = "冷却中";
+
+/* Authentication */
+"auth.title" = "FunnyPixels";
+"auth.slogan" = "在全球地图上留下你的像素印记";
+"auth.login.tab" = "登录";
+"auth.join.tab" = "注册";
+"auth.email.label" = "邮箱地址";
+"auth.email.placeholder" = "请输入邮箱";
+"auth.password.label" = "登录密码";
+"auth.password.placeholder" = "请输入密码";
+"auth.username.label" = "用户昵称";
+"auth.username.placeholder" = "取一个独特的昵称";
+"auth.button.login" = "登录";
+"auth.button.signup" = "创建账号";
+"auth.terms.prefix" = "已阅读同意";
+"auth.terms.link" = "服务条款";
+"auth.privacy.link" = "隐私政策";
+"auth.and" = " & ";
+"auth.error.missing" = "请填写完整信息";
+"auth.error.invalid_phone" = "请输入有效的手机号码";
+"auth.error.send_code_failed" = "发送验证码失败，请稍后重试";
+"auth.error.login_failed" = "登录失败";
+"auth.error.register_failed" = "注册失败";
+"auth.error.username_length" = "用户名长度应在2-20个字符之间";
+"auth.button.resend" = "重发";
+"auth.button.send_code" = "发送验证码";
+"auth.button.resend_countdown" = "%ds后重发";
+"auth.toggle.to_signup" = "没有账号？立即注册";
+"auth.toggle.to_login" = "已有账号？立即登录";
+"auth.google.sign_in" = "使用 Google 登录";
+"auth.apple.sign_in" = "使用 Apple 登录";
+"auth.or_continue_with" = "或使用邮箱登录";
+
+/* Session */
+"session.validating" = "验证会话中...";
+"session.expired" = "会话已过期，请重新登录";
+
+/* Launch Screen */
+"launch.slogan" = "一起绘制世界";
+"launch.tip.long_press" = "长按像素可查看创作者";
+"launch.tip.color_palette" = "左右滑动快速切换调色板";
+"launch.tip.zoom_out" = "缩小地图可欣赏全球作品";
+"launch.tip.daily_tasks" = "完成每日任务获得奖励积分";
+"launch.tip.alliance" = "加入联盟，在排行榜上称霸";
+"launch.tip.consecutive_login" = "连续登录天数解锁更多奖励";
+"launch.tip.gps_drawing" = "使用 GPS 绘制创作大型作品";
+"launch.tip.like_pixels" = "点赞优秀作品支持创作者";
+
+/* Policy Sheet */
+"policy.loading" = "加载中...";
+"policy.retry" = "重试";
+"policy.close" = "关闭";
+"policy.terms.title" = "服务条款";
+"policy.privacy.title" = "隐私政策";
+
+/* General */
+"common.cancel" = "取消";
+"common.share" = "分享";
+"common.save" = "保存";
+"common.close" = "关闭";
+"common.loading" = "加载中...";
+"common.done" = "完成";
+
+/* Tab Bar */
+"tab.map" = "地图";
+"tab.history" = "历史";
+"tab.feed" = "动态";
+"tab.alliance" = "联盟";
+"tab.leaderboard" = "排行";
+"tab.profile" = "我的";
+
+/* Session Summary */
+"summary.map.generating" = "地图生成中...";
+"summary.title" = "我刚刚在这里画了一下";
+"summary.subtitle" = "一次真实地图上的像素创作";
+"summary.share.title" = "分享至";
+"summary.created_by" = "✍️ 使用 FunnyPixels 完成创作";
+"summary.join_now" = "立即加入";
+"summary.pixels" = "像素";
+"summary.time" = "时长";
+"summary.km" = "公里";
+"summary.artwork_tag" = "📍 真实世界 · 像素绘制";
+"summary.watermark" = "FunnyPixels";
+"summary.activity_description" = "%@，我在地图上完成了一次绘制";
+"summary.stats.pixels_label" = "本次绘制：%d 个像素";
+"summary.stats.duration_label" = "用时：%@ 秒";
+"summary.stats.action_fast" = "一次快速完成的绘制";
+"summary.stats.action_area" = "在地图上解锁了一小块区域";
+"summary.cta" = "扫码打开地图，开始你的像素绘制";
+"summary.button.close" = "关闭";
+"summary.button.share" = "分享我的像素";
+
+/* Session Detail Share */
+"session_detail.share.title" = "我的绘制记录";
+"session_detail.share.subtitle" = "在地图上留下的足迹";
+"session_detail.share.cta" = "扫码查看完整记录";
+"session_detail.share.button" = "分享我的像素";
+"session_detail.generating_map" = "生成地图中...";
+
+/* Share Actions */
+"share.link_copied" = "链接已复制";
+"share.save_success" = "图片已保存";
+"share.save_failed" = "保存失败";
+"share.opened" = "已打开";
+"summary.share_text" = "我在 FunnyPixels 地图上完成了一次绘制，来看看我的像素作品！";
+
+/* Artwork Gallery */
+"gallery.title" = "作品画廊";
+"gallery.empty.title" = "还没有作品";
+"gallery.empty.message" = "开始你的第一次创作吧";
+"gallery.guest.title" = "记录你的创作";
+"gallery.guest.message" = "登录后查看你的所有像素作品";
+
+/* Artwork Tags */
+
+/* Detail Modes */
+"detail.mode.artwork" = "作品";
+"detail.mode.data" = "数据";
+"detail.creation_info" = "创作信息";
+"detail.behavior_info" = "行为信息";
+"detail.path_shape" = "路径形态";
+"detail.covered_grids" = "覆盖网格";
+
+/* Leaderboard */
+"leaderboard.title" = "排行榜";
+"leaderboard.period.day" = "日榜";
+"leaderboard.period.week" = "周榜";
+"leaderboard.period.month" = "月榜";
+"leaderboard.type.personal" = "个人榜";
+"leaderboard.type.alliance" = "联盟榜";
+"leaderboard.type.city" = "城市榜";
+"leaderboard.empty" = "暂无数据";
+"leaderboard.pixel" = "像素";
+"leaderboard.users" = "人";
+"leaderboard.period.alltime" = "总榜";
+"leaderboard.picker.period" = "时间段";
+"leaderboard.picker.type" = "排行榜类型";
+"leaderboard.type.friends" = "好友榜";
+"leaderboard.friends.empty" = "还没有关注好友";
+"leaderboard.friends.emptyHint" = "关注其他玩家后即可在排行榜中看到他们";
+
+/* Feed Center */
+"feed.title" = "动态";
+"feed.tab.social" = "动态";
+"feed.tab.records" = "记录";
+"feed.tab.dashboard" = "数据";
+"feed.social.coming_soon" = "社交动态即将上线";
+"feed.social.coming_soon_hint" = "查看好友的绘画动态";
+"feed.dashboard.coming_soon" = "数据仪表盘即将上线";
+"feed.dashboard.coming_soon_hint" = "追踪你的绘画数据和进步";
+"feed.social.empty" = "暂无动态";
+"feed.social.empty_hint" = "关注其他玩家并开始绘画，动态将会出现在这里";
+"feed.filter.following" = "关注";
+"feed.filter.all" = "全部";
+"feed.time.just_now" = "刚刚";
+"feed.time.minutes_ago" = "%d分钟前";
+"feed.time.hours_ago" = "%d小时前";
+"feed.time.days_ago" = "%d天前";
+"feed.drawing.description" = "绘制了 %d 个像素";
+"feed.achievement.unlocked" = "解锁成就！";
+"feed.checkin.description" = "今日已签到";
+"feed.alliance.joined" = "加入联盟：%@";
+"feed.comments.title" = "评论";
+"feed.comments.empty" = "暂无评论";
+"feed.comments.placeholder" = "写一条评论...";
+
+/* Dashboard */
+"dashboard.heatmap.title" = "活跃日历";
+"dashboard.heatmap.less" = "少";
+"dashboard.heatmap.more" = "多";
+"dashboard.weekly.title" = "周趋势";
+"dashboard.cities.title" = "城市足迹";
+"dashboard.cities.sessions" = "次绘画";
+"dashboard.stat.pixels" = "像素";
+"dashboard.stat.sessions" = "绘画次数";
+"dashboard.stat.cities" = "城市";
+"dashboard.stat.streak" = "连续天数";
+
+/* Alliance Checkin */
+"alliance.checkin.title" = "每日签到";
+"alliance.checkin.button" = "签到";
+"alliance.checkin.done" = "已签到";
+"alliance.checkin.today_count" = "今日: %d人已签到";
+
+/* Alliance Contribution */
+"alliance.contribution.title" = "贡献排行";
+"alliance.contribution.empty" = "暂无贡献数据";
+
+/* Profile Enhanced */
+"profile.following" = "关注";
+"profile.followers" = "粉丝";
+"profile.total_pixels" = "像素";
+"profile.achievements_count" = "成就";
+"profile.today" = "今日";
+"profile.today_pixels" = "像素";
+"profile.today_sessions" = "会话";
+"profile.today_duration" = "时长";
+"profile.streak_days" = "%d天";
+
+/* Social */
+"social.following" = "关注";
+"social.followers" = "粉丝";
+"social.following.empty" = "还没有关注任何人";
+"social.followers.empty" = "还没有粉丝";
+"social.following_btn" = "已关注";
+"social.follow_btn" = "关注";
+
+/* Daily Tasks */
+"daily_task.title" = "每日任务";
+"daily_task.progress" = "今日进度";
+"daily_task.bonus_title" = "全勤奖励";
+"daily_task.bonus_desc" = "完成所有任务可获得额外奖励积分";
+"daily_task.bonus_claimed" = "奖励已领取";
+"daily_task.claim_bonus" = "领取奖励";
+"daily_task.bonus_locked" = "完成全部 %d 个任务";
+"daily_task.claim_failed" = "领取失败";
+"daily_task.empty" = "今日暂无任务";
+"profile.daily_tasks" = "每日任务";
+
+/* Nearby Players */
+"nearby.drawing" = "绘画中";
+"nearby.away" = "距离";
+"nearby.follow" = "关注";
+
+/* Quick Stats */
+"quick_stats.today" = "今日";
+"quick_stats.pixels" = "像素";
+"quick_stats.sessions" = "会话";
+"quick_stats.duration" = "时长";
+"quick_stats.tasks" = "任务";
+"quick_stats.view_tasks" = "查看任务";
+
+/* Territory */
+"territory.detail_title" = "领地控制";
+"territory.total_pixels" = "总像素数";
+
+/* Common */
+"common.confirm" = "确定";
+"common.error" = "错误";
+"common.success" = "成功";
+"common.login_required" = "需要登录";
+
+/* Drawing History */
+"history.title" = "绘制历史";
+"history.empty.title" = "暂无绘制历史";
+"history.empty.message" = "开始GPS绘制\n记录将自动保存";
+"history.guest.title" = "记录你的每一分创作";
+"history.guest.message" = "登录后您可以查看所有的绘制历史，包括GPS绘制轨迹、统计数据以及作品回放。";
+"history.login_register" = "立即登录 / 注册";
+"history.filter.status" = "状态";
+
+/* Onboarding */
+"onboarding.title.explore" = "探索像素世界";
+"onboarding.desc.explore" = "拖动地图查看全球像素。\n点击任意像素查看详细信息，\n发现属于你的领地。";
+"onboarding.title.gps" = "GPS 绘制";
+"onboarding.desc.gps" = "移动到想要绘制的区域。\n开启 GPS 自动绘制，\n你的轨迹会变成像素。";
+"onboarding.title.alliance" = "联盟争霸";
+"onboarding.desc.alliance" = "加入联盟，与盟友一起占领城市。\n当你们的像素足够多时，\n地图上将飘扬你们的旗帜。";
+"onboarding.skip" = "跳过";
+"onboarding.next" = "下一步";
+"onboarding.start" = "开始探索";
+
+/* Drawing */
+"drawing.color.current" = "当前颜色";
+"drawing.color.presets" = "预设颜色";
+"drawing.color.select_title" = "选择颜色";
+"drawing.emoji.current" = "当前Emoji";
+"drawing.emoji.tap_to_select" = "点击选择表情";
+"drawing.emoji.select_title" = "选择Emoji";
+"drawing.mode.title" = "绘制模式";
+"drawing.mode.none" = "浏览";
+"drawing.mode.color" = "颜色";
+"drawing.mode.emoji" = "Emoji";
+"drawing.mode.complex" = "图案";
+"drawing.mode.gps" = "GPS绘制";
+"drawing.gps.title" = "GPS 绘制";
+"drawing.gps.session_title" = "GPS 绘制";
+"drawing.gps.session_pixels" = "已绘制 %d 个像素";
+"drawing.gps.active" = "活跃";
+"drawing.gps.idle" = "待机";
+"drawing.gps.start" = "开始绘制";
+"drawing.gps.stop" = "停止绘制";
+"drawing.gps.not_active" = "GPS 未开启";
+
+/* Pattern */
+"pattern.type.color" = "颜色";
+"pattern.type.emoji" = "表情";
+"pattern.type.complex" = "图案";
+"pattern.loading_alliance_flag" = "加载联盟旗帜...";
+
+/* Help & Feedback */
+"help.segment.title" = "模式";
+"help.segment.manual" = "操作手册";
+"help.segment.feedback" = "意见反馈";
+"help.title" = "帮助与反馈";
+"help.manual.welcome_title" = "👋 欢迎来到 FunnyPixels";
+"help.manual.welcome_desc" = "FunnyPixels 是一个全球共创的像素地图。通过 GPS 在真实世界中移动来绘制像素画，加入联盟占领领地，探索全球玩家共同绘制的像素世界。";
+"help.manual.getting_started_title" = "新手入门";
+"help.manual.getting_started_desc" = "启动FunnyPixels后，系统会请求位置权限 — 这是GPS绘画的必要条件。\n\n导航：\n- 地图：浏览全球像素画布，查看附近玩家和领地\n- 动态：社交动态流、绘画记录和数据仪表盘\n- 联盟：加入或创建团队，一起升级\n- 排行：排行榜，含段位系统和好友排名\n- 我的：个人资料、每日任务、成就和设置\n\n右下角的圆形按钮可启动GPS绘画。长按可切换绘画旗帜。\n\n快速统计：地图上的浮窗可一目了然查看今日像素、会话和每日任务进度。";
+"help.manual.gps_drawing_title" = "GPS 绘制";
+"help.manual.gps_drawing_desc" = "GPS 绘制将你的真实移动轨迹转化为地图上的像素画。\n\n操作步骤：\n1. 移动到想要绘制的区域\n2. 点击圆形按钮开始 GPS 绘制\n3. 边走边画——你的轨迹会变成像素\n4. 完成后点击停止\n\n实用技巧：\n- 开始前可选择旗帜（个人颜色、头像或联盟旗帜）\n- 指南针显示你的前进方向\n- 像素数、距离、速度等数据实时更新\n- 长时间步行可开启低功耗模式";
+"help.manual.manual_drawing_title" = "手动绘制";
+"help.manual.manual_drawing_desc" = "在地图上点击即可直接放置像素。\n\n绘制模式：\n- 颜色模式：从预设颜色中选择或自定义颜色，点击地图放置\n- Emoji 模式：选择一个表情符号，点击放置\n- 图案模式：使用联盟旗帜或自定义图案\n\n通过地图底部的绘制模式面板切换不同模式。";
+"help.manual.map_explore_title" = "地图与探索";
+"help.manual.map_explore_desc" = "地图就是你的画布。\n\n- 双指缩放，拖动浏览全球\n- 点击任意像素查看谁在何时绘制\n- 联盟旗帜出现在团队主导的区域\n- 使用探索面板发现附近热点\n- 活动期间会高亮显示赛事区域\n\n地图功能：\n- 附近玩家：实时查看谁在附近绘画\n- 区域信息栏：显示区域名称、活跃玩家数、像素总数和控制联盟\n- 领地控制：联盟领地以彩色区域显示在地图上\n- 快速统计：浮窗显示今日像素、会话数和每日任务进度";
+"help.manual.history_title" = "动态中心";
+"help.manual.history_desc" = "动态Tab是你的内容中心，包含三个部分：\n\n- 动态：查看你关注的玩家的绘画活动、成就解锁和排名变化。可以点赞和评论。点击「飞往」可以在地图上查看绘画位置。\n- 记录：以画廊或列表格式查看你的所有绘画历史。点击任意会话查看详情、统计和地图回放。可分享到社交媒体或保存为图片。\n- 统计：个人数据仪表盘，含活动日历（热力图）、每周趋势和城市足迹 — 追踪你的绘画旅程。";
+"help.manual.shop_title" = "商店与道具";
+"help.manual.shop_desc" = "使用积分在商店中购买道具。\n\n道具类型：\n- 炸弹：清除目标区域内其他玩家的像素\n- 加成卡：提升 GPS 绘制效率\n- 广告位：将自定义图片投放到地图上（需审核）\n- 自定义旗帜：为联盟上传专属旗帜图案\n\n积分与钱包：\n- 通过签到、成就、活动和邀请好友获得积分\n- 支持微信支付和支付宝充值\n- 在「我的道具」中查看已购道具";
+"help.manual.alliance_title" = "联盟与领地";
+"help.manual.alliance_desc" = "与其他玩家组队征服领地。\n\n创建联盟：\n- 前往联盟Tab点击创建\n- 设置名称、描述、可见性和旗帜样式\n\n联盟旗帜：\n- 颜色：纯色旗帜\n- 表情：带表情图标的旗帜\n- 复杂：上传自定义图案\n\n联盟成长：\n- 联盟等级：通过成员活动获得经验值，升级联盟解锁福利\n- 联盟签到：成员每日签到为联盟赚取积分\n- 贡献排行：查看哪些成员贡献了最多像素\n\n管理：\n- 盟主可提拔管理员、踢出成员或转让领导权\n- 通过邀请码邀请新成员\n- 查看联盟统计：总像素、领地、世界排名\n\n领地：\n- 在某区域占据主导地位的联盟控制该领地\n- 领地区域以彩色覆盖层显示在地图上\n- 点击领地查看联盟占比详情";
+"help.manual.achievements_title" = "成就系统";
+"help.manual.achievements_desc" = "通过完成各种活动解锁成就。\n\n成就类别：像素绘制、社交、联盟、商店、活跃度、特殊\n\n稀有度：普通、优秀、稀有、史诗、传奇\n\n玩法说明：\n- 使用过程中自动解锁成就\n- 在成就页面（我的 > 成就）领取积分奖励\n- 分享成就卡片到社交媒体\n- 获得的勋章展示在个人主页的荣誉墙上";
+"help.manual.events_title" = "赛事与挑战";
+"help.manual.events_desc" = "参加限时赛事赢取特殊奖励。\n\n赛事类型：\n- 排行冲刺：绘制最多像素争夺排名\n- 领地争夺：争夺地图区域控制权\n- 全服共建：所有玩家共同完成目标\n- 阵营大战：联盟对联盟的对决\n\n如何参与：\n- 在赛事中心查看（我的 > 赛事中心）\n- 以个人或联盟身份报名\n- 在地图上进入赛事区域贡献像素\n- 赛事结束后自动发放奖励";
+"help.manual.drift_bottle_title" = "漂流瓶";
+"help.manual.drift_bottle_desc" = "在漂流瓶中给陌生人留言，让它漂向世界各地。\n\n获得瓶子：\n- 绘制像素即可累积漂流瓶（屏幕上显示进度）\n\n创建瓶子：\n- 绘制结束后，可以写一段短留言（最多50字）并扔出\n\n拾取瓶子：\n- 绘制过程中可能遇到漂流瓶\n- 打开阅读留言，写下你的留言或直接放走\n\n旅途卡片：\n- 当5人打开瓶子后，瓶子沉没，所有参与者获得旅途卡片\n- 在「我的 > 旅途集」中收藏";
+"help.manual.leaderboard_title" = "排行榜";
+"help.manual.leaderboard_desc" = "查看你与其他玩家的排名对比。\n\n时间范围：每日、每周、每月、总榜\n\n排行类型：\n- 个人：个人像素数排名\n- 联盟：联盟总像素和领地排名\n- 城市：全球最活跃城市排名\n- 好友：你关注的玩家排名\n\n功能亮点：\n- 段位系统：根据像素数获得段位徽章（青铜到传奇）\n- 个人排名卡：顶部展示你的排名、段位和统计数据\n- Top 3 展台：前三名玩家以特别展台展示\n- 排名变动：动画指示器显示排名变化";
+"help.manual.daily_tasks_title" = "每日任务";
+"help.manual.daily_tasks_desc" = "完成每日任务获得额外奖励。\n\n玩法说明：\n- 每天系统会生成一组任务（如：绘制像素、签到、探索地图）\n- 通过进度条追踪每个任务的完成进度\n- 完成任务后领取奖励\n- 完成所有任务可解锁特别奖励\n\n访问每日任务：\n- 我的 > 每日任务\n- 地图上的快速统计浮窗（点击「查看任务」）\n\n任务进度会在你游玩时自动更新。别忘了 — 任务每天重置！";
+"help.manual.social_title" = "社交与关注";
+"help.manual.social_desc" = "与其他玩家建立联系，构建你的社区。\n\n关注系统：\n- 从玩家主页、排行榜或附近玩家卡片关注其他玩家\n- 在个人主页查看粉丝和关注列表\n- 在动态Tab查看你关注的玩家的活动\n\n附近玩家：\n- 在你附近绘画的活跃玩家会显示在地图上\n- 点击玩家标签查看信息并关注\n- 区域信息栏显示你所在区域的活跃玩家数\n\n社交动态：\n- 点赞和评论绘画作品和成就\n- 点击绘画帖子上的「飞往」可在地图上查看位置";
+"help.manual.invite_title" = "邀请好友";
+"help.manual.invite_desc" = "邀请好友，双方均可获得积分奖励。\n\n如何邀请：\n- 进入「我的 > 邀请好友」\n- 复制或分享你的专属邀请码\n- 好友注册后输入邀请码即可\n\n奖励说明：\n- 每成功邀请一人，你将获得积分\n- 你的好友同时获得迎新积分\n- 在邀请页面查看邀请统计";
+"help.manual.settings_title" = "设置与个人资料";
+"help.manual.settings_desc" = "自定义你的体验。\n\n- 编辑资料：修改昵称、个性签名和头像\n- 显示：调整字体大小（紧凑、中等、大号）\n- 语言：切换应用语言或跟随系统设置\n- 声音：开关音效\n- 隐私：对其他人隐藏昵称、联盟信息或旗帜\n- 每日签到：每天签到获得连续奖励、每周奖励周期和里程碑奖励（30/90/180/365天）\n- 每日任务：完成绘画像素、签到、探索地图等每日任务获得额外奖励\n- 关注与粉丝：在个人主页查看粉丝和关注列表";
+"help.feedback.section" = "您的意见";
+"help.feedback.placeholder" = "请告诉我们您的建议或遇到的问题...";
+"help.feedback.contact_title" = "联系方式 (选填)";
+"help.feedback.contact_placeholder" = "手机号 / 邮箱";
+"help.feedback.submit" = "提交反馈";
+"help.feedback.success_title" = "提交成功";
+"help.feedback.success_message" = "感谢您的宝贵意见！";
+"history.filter.type" = "类型";
+"history.filter.date" = "日期范围";
+"history.filter.enable_date" = "启用日期筛选";
+"history.filter.start_date" = "开始日期";
+"history.filter.end_date" = "结束日期";
+"history.filter.title" = "筛选";
+"history.filter.done" = "完成";
+"history.filter.reset" = "重置";
+"history.filter.city" = "城市";
+"history.filter.city_placeholder" = "输入城市名称";
+"history.stats.pixels" = "像素";
+"history.duration" = "时长";
+"history.distance" = "距离";
+"history.status.active" = "进行中";
+
+/* Alliance */
+"alliance.tab.my" = "我的联盟";
+"alliance.tab.search" = "发现联盟";
+"alliance.title" = "联盟";
+"alliance.invite.title" = "邀请码";
+"alliance.invite.copy" = "复制";
+"alliance.invite.message" = "您的邀请码是：\n%@\n\n有效时间：24小时";
+"alliance.notice.empty" = "暂无公告";
+"alliance.members" = "成员";
+"alliance.total_pixels" = "总像素";
+"alliance.rank" = "排名";
+"alliance.menu.members" = "成员列表";
+"alliance.menu.members.subtitle" = "查看与管理成员";
+"alliance.menu.stats" = "数据统计";
+"alliance.menu.stats.subtitle" = "查看联盟领土与排名";
+"alliance.menu.applications" = "加入申请";
+"alliance.menu.applications.subtitle" = "项待处理";
+"alliance.menu.invite" = "邀请成员";
+"alliance.menu.invite.subtitle" = "分享链接";
+"alliance.action.transfer" = "转让盟主";
+"alliance.action.leave" = "退出联盟";
+"alliance.error.transfer_required" = "盟主需要先转让盟主位置才能退出联盟";
+"alliance.action.dissolve" = "解散并退出联盟";
+"alliance.msg.dissolve" = "由于联盟内暂无其他成员，只能直接解散退出。";
+"alliance.dissolve.title" = "解散联盟";
+"alliance.dissolve.message" = "确定要解散该联盟吗？此操作不可撤销。";
+"alliance.leave.title" = "退出联盟";
+"alliance.leave.message" = "您确定要退出该联盟吗？";
+"alliance.leave.success" = "已退出联盟";
+"alliance.role.leader" = "盟主";
+"alliance.role.admin" = "管理员";
+"alliance.role.member" = "成员";
+"alliance.search.popular" = "热门联盟";
+"alliance.search.searching" = "搜索中...";
+"alliance.search.no_results" = "未找到匹配的联盟";
+"alliance.search.placeholder" = "输入联盟名称进行搜索";
+"alliance.guest.title" = "加入联盟，共同创作";
+"alliance.guest.message" = "登录后您可以加入或创建策划联盟，与队友协作在地图上绘制精美图案，争夺联盟排行榜。";
+"alliance.empty.title" = "还没有加入联盟";
+"alliance.empty.message" = "创建联盟或搜索现有联盟加入";
+"alliance.create" = "创建联盟";
+"alliance.create.name" = "联盟名称";
+"alliance.create.success" = "联盟创建成功！";
+"alliance.btn.apply" = "申请";
+"alliance.btn.join" = "加入";
+"alliance.btn.create_action" = "创建";
+"alliance.form.name" = "联盟名称";
+"alliance.form.desc" = "联盟描述（可选）";
+"alliance.form.basic" = "基本信息";
+"alliance.form.visibility" = "联盟可见性";
+"alliance.form.public" = "公开联盟";
+"alliance.form.private" = "私密联盟";
+"alliance.form.approval" = "需要审批加入";
+"alliance.form.settings" = "联盟设置";
+"alliance.form.flag" = "联盟旗帜";
+"alliance.form.pattern" = "旗帜图案";
+"alliance.form.notice" = "联盟公告";
+"alliance.edit.title" = "编辑联盟资料";
+"alliance.edit.info" = "基本信息";
+"alliance.flag.select" = "选择旗帜";
+"alliance.flag.type" = "图案类型";
+"alliance.flag.color" = "基础颜色";
+"alliance.flag.emoji" = "Emoji";
+"alliance.flag.complex" = "复杂图案";
+"alliance.flag.empty" = "暂无图案";
+"alliance.limit.title" = "联盟创建限制";
+"alliance.limit.usage" = "已创建";
+"alliance.update.success" = "联盟信息更新成功";
+"alliance.limit.needed" = "再画 %d 个像素即可解锁。";
+"alliance.limit.max" = "已达到最大限制。";
+
+/* Alliance Members */
+"alliance.members.title" = "成员列表";
+"alliance.transfer.title" = "确认转让";
+"alliance.transfer.message" = "确定要将盟主转让给 %@ 吗？转让后您将成为普通成员。";
+"alliance.member.join_date" = "加入时间：%@";
+"alliance.action.promote" = "设为管理员";
+"alliance.action.demote" = "取消管理员";
+"alliance.action.kick" = "踢出联盟";
+
+/* Alliance Applications */
+"alliance.applications.empty" = "暂无申请";
+"alliance.applications.title" = "加入申请";
+"alliance.applications.review_placeholder" = "处理意见（可选）";
+"alliance.applications.approve_title" = "批准申请";
+"alliance.applications.reject_title" = "拒绝申请";
+
+/* Alliance Stats */
+"alliance.stats.title" = "数据统计";
+"alliance.stats.core" = "核心指标";
+"alliance.stats.realtime" = "实时同步";
+"alliance.stats.cached" = "缓存数据";
+"alliance.stats.total_pixels" = "总像素";
+"alliance.stats.members" = "成员数";
+"alliance.stats.ownership" = "占有数";
+"alliance.stats.rank" = "全服排名";
+"alliance.stats.comparison" = "真实数据对比";
+"alliance.stats.total_draw_pixels" = "总绘制像素";
+"alliance.stats.current_ownership" = "当前占有像素";
+"alliance.stats.comparison_note" = "* 真实数据已自动剔除广告、图案炸弹等道具绘制的像素。";
+"alliance.stats.no_comparison" = "暂无详细对比数据";
+"alliance.stats.real" = "真实";
+"alliance.stats.prop_contribution" = "由道具贡献";
+"alliance.stats.influence" = "联盟影响力";
+"alliance.stats.world_rank" = "世界排名";
+"alliance.stats.territory" = "全服领土";
+
+/* Alliance Activity Log */
+"alliance.activity.title" = "最近活动";
+"alliance.activity.empty" = "暂无活动";
+"alliance.activity.joined" = "%@ 加入了联盟";
+"alliance.activity.left" = "%@ 退出了联盟";
+"alliance.activity.kicked" = "%@ 被移出联盟";
+"alliance.activity.promoted" = "%@ 被提升为管理员";
+"alliance.activity.demoted" = "%@ 被设为普通成员";
+"alliance.activity.transfer" = "%@ 成为新盟主";
+"alliance.activity.checkin" = "%@ 签到了";
+"alliance.activity.levelup" = "联盟升级到 %@";
+
+/* Alliance Kick Confirmation */
+"alliance.kick.confirm.title" = "移除成员";
+"alliance.kick.confirm.message" = "确定要将 %@ 移出联盟吗？";
+
+/* Alliance Sorting */
+"alliance.sort.role" = "按角色";
+"alliance.sort.pixels" = "按像素";
+"alliance.sort.date" = "按加入日期";
+
+/* Alliance Application Filters */
+"alliance.applications.filter.pending" = "待审批";
+"alliance.applications.filter.all" = "全部";
+
+/* Alliance Share */
+"alliance.share.invite" = "分享邀请";
+
+/* Alliance Dissolve */
+"alliance.dissolve.success" = "联盟已解散";
+
+/* Profile */
+"profile.points" = "积分";
+"profile.honors" = "荣誉墙";
+"profile.view_all" = "查看全部";
+"profile.features" = "功能";
+"profile.shop" = "商店";
+"profile.messages" = "消息中心";
+"profile.items" = "我的道具";
+"profile.settings" = "设置";
+"profile.invite_friends" = "邀请好友";
+"profile.logout" = "退出登录";
+
+/* Invite/Referral */
+"invite.title" = "邀请好友";
+"invite.subtitle" = "分享邀请码给好友，双方都能获得积分奖励！";
+"invite.nav_title" = "邀请好友";
+"invite.your_code" = "你的邀请码";
+"invite.copy" = "复制";
+"invite.copied" = "已复制！";
+"invite.share" = "分享";
+"invite.share_message" = "来FunnyPixels一起画像素吧！使用我的邀请码：%@";
+"invite.rewards_title" = "奖励说明";
+"invite.inviter_reward" = "每邀请一人你获得 %d 积分";
+"invite.invitee_reward" = "你的好友获得 %d 迎新积分";
+"invite.stats_invited" = "已邀请好友";
+"invite.stats_earned" = "已获得积分";
+"invite.redeem_title" = "有邀请码？";
+"invite.redeem_placeholder" = "输入邀请码";
+"invite.redeem_button" = "兑换";
+"invite.redeem_success" = "兑换成功！获得 %d 积分";
+"invite.error_invalid" = "邀请码无效";
+"invite.error_self" = "不能使用自己的邀请码";
+"invite.error_already" = "你已经使用过邀请码了";
+"invite.error_generic" = "兑换失败，请稍后重试";
+"profile.guest.title" = "登录开启完整体验";
+"profile.guest.message" = "登录后您可以参与联盟、查看成就并保留您的绘制记录";
+"profile.logout.confirm.title" = "确认退出";
+"profile.logout.confirm.message" = "确定要退出登录吗？";
+"settings.display" = "显示与亮度";
+"settings.font_size" = "字体大小";
+"settings.preview" = "示例文本 Preview";
+"settings.font_desc" = "调整字体大小以适合您的阅读习惯。默认采用紧凑布局。";
+"settings.privacy" = "隐私";
+"settings.pixel_privacy" = "像素隐私设置";
+"settings.about" = "关于";
+"settings.help" = "帮助与反馈";
+"settings.version" = "版本";
+"settings.font.small" = "紧凑 (默认)";
+"settings.font.medium" = "中等";
+"settings.font.large" = "大";
+"privacy.hide_nickname" = "隐藏昵称";
+"privacy.hide_alliance" = "隐藏联盟信息";
+"privacy.hide_flag" = "隐藏联盟旗帜";
+"privacy.shield_title" = "隐私信息展示屏蔽";
+"privacy.shield_desc" = "开启后，当其他用户点击您的像素查看详情时，您的上述个人信息将以匿名形式展示。";
+"privacy.title" = "隐私设置";
+"error.load_failed" = "加载失败";
+"error.update_failed" = "更新失败";
+
+/* Achievements */
+"profile.achievements" = "成就";
+"achievement.empty.title" = "暂无成就";
+"achievement.empty.message" = "完成各种活动解锁成就";
+"achievement.stats.title" = "成就统计";
+"achievement.stats.unlocked" = "已解锁";
+"achievement.stats.total" = "总成就";
+"achievement.stats.pixels" = "绘制像素";
+"achievement.stats.likes" = "获得点赞";
+"achievement.claimable" = "可领取奖励";
+"achievement.completed" = "已完成";
+"achievement.btn.claim" = "领取";
+"achievement.claim.success" = "成功领取 %d 积分";
+
+/* Achievement Categories */
+"category.all" = "全部";
+"category.pixel" = "像素";
+"category.pixels" = "像素绘制";
+"category.social" = "社交";
+"category.alliance" = "联盟";
+"category.shop" = "商店";
+"category.special" = "特殊";
+"category.likes" = "点赞";
+"category.activity" = "活跃";
+
+/* Achievement Rarity */
+"rarity.common" = "普通";
+"rarity.uncommon" = "优秀";
+"rarity.rare" = "稀有";
+"rarity.epic" = "史诗";
+"rarity.legendary" = "传奇";
+
+/* Achievement Errors */
+"error.achievement_list_failed" = "获取成就列表失败";
+"error.user_achievement_failed" = "获取用户成就失败";
+"error.completed_achievement_failed" = "获取已完成成就失败";
+"error.achievement_stats_failed" = "获取成就统计失败";
+"error.achievement_highlights_failed" = "获取成就推荐失败";
+"error.leaderboard_failed" = "获取排行榜失败";
+"error.rank_failed" = "获取排名失败";
+"error.check_achievement_failed" = "检查成就失败";
+
+/* Dynamic Achievement Names mapping */
+"Pixel Novice" = "像素新手";
+"pixel novice" = "像素新手";
+
+"Pixel Artist" = "像素艺术家";
+"pixel artist" = "像素艺术家";
+"Pixel Master" = "像素大师";
+"pixel master" = "像素大师";
+"Social Butterfly" = "社交达人";
+"social butterfly" = "社交达人";
+
+/* Achievement Descriptions */
+"draw 1 pixel" = "绘制 1 个像素";
+"Draw 1 pixel" = "绘制 1 个像素";
+"draw 10 pixels" = "累计绘制 10 个像素";
+"Draw 10 pixels" = "累计绘制 10 个像素";
+"draw 100 pixels" = "累计绘制 100 个像素";
+"Draw 100 pixels" = "累计绘制 100 个像素";
+"draw 1000 pixels" = "累计绘制 1000 个像素";
+"Draw 1000 pixels" = "累计绘制 1000 个像素";
+"draw 10000 pixels" = "累计绘制 10000 个像素";
+"Draw 10000 pixels" = "累计绘制 10000 个像素";
+
+/* Achievement Share */
+"achievement.share.unlock" = "解锁成就";
+
+/* Additional Achievement Descriptions (Hypothesized) */
+"Receive 10 likes" = "获得 10 个赞";
+"receive 10 likes" = "获得 10 个赞";
+"Receive 100 likes" = "获得 100 个赞";
+"receive 100 likes" = "获得 100 个赞";
+"Have 5 friends" = "拥有 5 位好友";
+"have 5 friends" = "拥有 5 位好友";
+"Invite 5 friends" = "邀请 5 位好友";
+"invite 5 friends" = "邀请 5 位好友";
+"Active for 3 days" = "活跃 3 天";
+"active for 3 days" = "活跃 3 天";
+"Active for 7 days" = "活跃 7 天";
+"active for 7 days" = "活跃 7 天";
+
+/* Social Achievements (Broad) */
+"follow 5 users" = "关注 5 位用户";
+"Follow 5 users" = "关注 5 位用户";
+"follow 10 users" = "关注 10 位用户";
+"Follow 10 users" = "关注 10 位用户";
+"follow 20 users" = "关注 20 位用户";
+"Follow 20 users" = "关注 20 位用户";
+"connect with 5 friends" = "与 5 位朋友建立联系";
+"Connect with 5 friends" = "与 5 位朋友建立联系";
+"share 10 times" = "分享 10 次";
+"Share 10 times" = "分享 10 次";
+"post 5 comments" = "发表 5 条评论";
+"Post 5 comments" = "发表 5 条评论";
+"receive 50 likes" = "获得 50 个赞";
+"Receive 50 likes" = "获得 50 个赞";
+"receive 500 likes" = "获得 500 个赞";
+"Receive 500 likes" = "获得 500 个赞";
+
+/* Specific Social Achievement */
+
+/* Corrected Achievement Descriptions (Logic Alignment) */
+"check-in with a photo 5 times" = "完成绘制打卡 5 次";
+"check-in  with a photo 5 times" = "完成绘制打卡 5 次";
+
+/* Achievement Names (Chinese keys from backend - identity mapping) */
+"像素新手" = "像素新手";
+"像素爱好者" = "像素爱好者";
+"像素大师" = "像素大师";
+"像素传奇" = "像素传奇";
+"连续绘制" = "连续绘制";
+"社交新手" = "社交新手";
+"聊天达人" = "聊天达人";
+"社交明星" = "社交明星";
+"私信达人" = "私信达人";
+"联盟新手" = "联盟新手";
+"联盟领袖" = "联盟领袖";
+"联盟活跃分子" = "联盟活跃分子";
+"购物新手" = "购物新手";
+"购物达人" = "购物达人";
+"土豪" = "土豪";
+"早起鸟" = "早起鸟";
+"夜猫子" = "夜猫子";
+"幸运儿" = "幸运儿";
+
+/* Achievement Descriptions (Chinese keys from backend - identity mapping) */
+"绘制第一个像素" = "绘制第一个像素";
+"绘制100个像素" = "绘制100个像素";
+"绘制1000个像素" = "绘制1000个像素";
+"绘制10000个像素" = "绘制10000个像素";
+"连续7天每天至少绘制1个像素" = "连续7天每天至少绘制1个像素";
+"发送第一条聊天消息" = "发送第一条聊天消息";
+"发送100条聊天消息" = "发送100条聊天消息";
+"发送1000条聊天消息" = "发送1000条聊天消息";
+"发送10条私信" = "发送10条私信";
+"加入第一个联盟" = "加入第一个联盟";
+"创建第一个联盟" = "创建第一个联盟";
+"在联盟中活跃7天" = "在联盟中活跃7天";
+"购买第一个商品" = "购买第一个商品";
+"购买10个商品" = "购买10个商品";
+"消费1000金币" = "消费1000金币";
+"在早上6-9点之间绘制像素" = "在早上6-9点之间绘制像素";
+"在晚上10-12点之间绘制像素" = "在晚上10-12点之间绘制像素";
+"在特殊活动中获得奖励" = "在特殊活动中获得奖励";
+
+/* Drawing Detail Page */
+"drawing_detail.start_point" = "起点";
+"drawing_detail.end_point" = "终点";
+"drawing_detail.statistics" = "统计信息";
+"drawing_detail.stat.pixels" = "像素数";
+"drawing_detail.stat.duration" = "时长";
+"drawing_detail.stat.distance" = "距离";
+"drawing_detail.stat.avg_speed" = "平均速度";
+"drawing_detail.stat.efficiency" = "效率(像素/分)";
+"drawing_detail.stat.unique_grids" = "唯一网格";
+"drawing_detail.pixel_details" = "像素详情";
+"drawing_detail.showing_pixels" = "显示前10个像素，共%d个";
+
+/* Drawing History / Gallery */
+"gallery.offline_mode" = "离线模式 - 显示缓存数据";
+
+/* Artwork Tags */
+"artwork.tag.first_today" = "今日首次";
+"artwork.tag.new_area" = "新区域";
+"artwork.tag.fast" = "快速完成";
+"artwork.tag.long_distance" = "长距离";
+"artwork.tag.high_density" = "高密度";
+
+/* Share Platform Names */
+"share.platform.wechat_session" = "微信好友";
+"share.platform.wechat_timeline" = "朋友圈";
+"share.platform.weibo" = "微博";
+"share.platform.xiaohongshu" = "小红书";
+"share.platform.save_image" = "保存图片";
+"share.platform.copy_link" = "复制链接";
+
+/* Session Detail Share */
+"session_detail.share.distance" = "距离：%@";
+
+/* Achievement Toast */
+"achievement.unlock.title" = "🎉 成就解锁!";
+"common.points" = "积分";
+
+/* Event Rewards */
+"event.rewards.title" = "赛事奖励";
+"event.rewards.subtitle" = "活动结束后，奖励将自动发放至您的账户。";
+"rank.1st" = "第 1 名";
+"rank.2nd" = "第 2 名";
+"rank.3rd" = "第 3 名";
+"reward.target.members" = "联盟全体成员";
+"reward.target.leader" = "仅限盟主";
+"reward.flag" = "专属旗帜";
+"common.pixels" = "像素点";
+
+/* Event Center */
+"profile.event_center" = "赛事中心";
+"event.center.title" = "赛事中心";
+"event.center.tab.active" = "进行中";
+"event.center.tab.my" = "我的赛事";
+"event.center.tab.ended" = "已结束";
+"event.stats.participated" = "已参与";
+"event.stats.active" = "进行中";
+"event.stats.completed" = "已完成";
+"event.stats.upcoming" = "即将开始";
+"event.empty.active" = "暂无进行中的赛事";
+"event.empty.my" = "您还未参加任何赛事";
+"event.empty.ended" = "暂无已结束的赛事";
+
+/* P1-1: 即将开始的赛事 */
+"event.upcoming.title" = "即将开始的赛事";
+"event.upcoming.starts_in" = "倒计时";
+"event.upcoming.starting_soon" = "即将开始";
+"event.upcoming.joined" = "已报名";
+"event.upcoming.join_now" = "立即报名";
+"event.upcoming.days_hours" = "%d天%d小时";
+"event.upcoming.hours_minutes" = "%d小时%d分钟";
+"event.upcoming.minutes" = "%d分钟";
+
+/* P1-2: 赛事引导教程 */
+"tutorial.skip" = "跳过";
+"tutorial.next" = "下一步";
+"tutorial.get_started" = "开始使用";
+"tutorial.events.intro.title" = "欢迎来到赛事系统";
+"tutorial.events.intro.description" = "参与基于位置的竞技赛事，赢取丰厚奖励。你可以选择个人参赛，或与你的联盟一起征战，争夺荣耀！";
+"tutorial.events.signup.title" = "参加赛事";
+"tutorial.events.signup.description" = "浏览即将开始和正在进行的赛事。选择个人报名或联盟参赛，开始你的竞技之旅。";
+"tutorial.events.participate.title" = "如何参赛";
+"tutorial.events.participate.description" = "在赛事边界内绘制像素来获得积分。实时查看排行榜，与全球玩家竞争，冲击榜首位置。";
+"tutorial.events.rewards.title" = "赢取奖励";
+"tutorial.events.rewards.description" = "攀登排行榜解锁专属奖励。排名越高，赛事结束时获得的奖励越丰厚！";
+
+/* P1-3: 里程碑成就 */
+"milestone.achieved" = "里程碑达成！";
+"milestone.pixels_contributed" = "您已贡献了%d个像素！";
+
+/* P1-4: 排名趋势 */
+"event.rank_trend" = "排名趋势";
+"event.rank_change" = "排名变化";
+"event.trend.6h" = "6小时";
+"event.trend.12h" = "12小时";
+"event.trend.24h" = "24小时";
+"event.trend.no_data" = "暂无趋势数据";
+"event.trend.load_failed" = "加载趋势数据失败";
+
+/* P1-5: 排名变化通知 */
+"rank.change.up" = "排名上升！";
+"rank.change.down" = "排名下降";
+"rank.change.from_to" = "第%d名 → 第%d名";
+"rank.change.positions" = "名";
+
+/* P2-1: 活动分享 */
+"share.title" = "分享活动";
+"share.button" = "分享";
+"share.generating" = "正在生成分享图片...";
+"share.generation_failed" = "生成分享内容失败";
+"share.my_stats" = "我的数据";
+"share.my_contribution" = "我的贡献";
+"share.my_rank" = "我的排名";
+"share.pixels" = "像素";
+"share.rank" = "排名";
+"share.scan_to_join" = "扫码加入";
+"share.invite_link" = "邀请链接";
+"share.message" = "来和我一起玩%@吧！";
+"share.join_now" = "快来加入FunnyPixels一起玩！";
+
+/* P2-2: Event Difficulty Rating */
+"event.difficulty.title" = "难度";
+"event.difficulty.time_commitment" = "时间投入";
+"event.difficulty.competition" = "竞争强度";
+"event.difficulty.time_required" = "所需时间";
+"event.difficulty.skill_level" = "技能要求";
+"event.difficulty.recommended_for" = "推荐对象";
+"event.difficulty.time_minutes" = "%d分钟/天";
+"event.difficulty.time_hours" = "%.0f小时/天";
+"event.difficulty.time_hours_decimal" = "%.1f小时/天";
+"event.difficulty.tag.beginners" = "新手";
+"event.difficulty.tag.casual_players" = "休闲玩家";
+"event.difficulty.tag.active_players" = "活跃玩家";
+"event.difficulty.tag.experienced_players" = "资深玩家";
+"event.difficulty.tag.competitive_alliances" = "竞技型联盟";
+"event.difficulty.tag.alliances" = "联盟";
+"event.difficulty.tag.artists" = "艺术家";
+
+/* P2-3: Offline Mode */
+"offline.mode" = "离线模式";
+"offline.showing_cached_data" = "显示缓存数据";
+"offline.no_cache_available" = "无可用缓存数据";
+"offline.network_error" = "网络错误 - 请检查您的连接";
+
+/* P2-4: Power Saving Mode */
+"power_saving.mode" = "省电模式";
+"power_saving.title" = "省电模式";
+"power_saving.description" = "通过降低更新频率来减少电池消耗";
+"power_saving.auto_enabled" = "已启用省电模式";
+"power_saving.low_battery" = "电量不足：%d%%";
+"power_saving.indicator" = "省电模式已激活";
+"power_saving.settings" = "省电设置";
+"event.status.active" = "进行中";
+"event.status.published" = "即将开始";
+"event.status.ended" = "已结束";
+"event.status.draft" = "草稿";
+"event.type.leaderboard" = "排行榜冲刺";
+"event.type.territory" = "领地争夺";
+"event.type.cooperation" = "全服共建";
+"event.type.war" = "阵营大战";
+"event.joined_at" = "加入时间";
+"event.result.title" = "赛事结果";
+"event.result.share" = "分享成绩";
+"event.settled" = "已结算";
+"event.participants" = "参与者";
+"event.total_pixels" = "总像素数";
+"event.pixel_logs" = "像素日志";
+"event.final_rankings" = "最终排名";
+"event.no_rankings" = "暂无排名数据";
+"event.rewards_config" = "奖励配置";
+"event.target.alliance_members" = "联盟全员";
+"event.target.alliance_leader" = "仅盟主";
+"event.target.user" = "个人";
+
+/* Event Preannounce HUD */
+"event.preannounce.title" = "赛事预告";
+"event.preannounce.starts_in" = "距开始";
+"event.preannounce.starting_soon" = "即将开始";
+"event.preannounce.started" = "已开始!";
+"event.preannounce.view_detail" = "查看详情";
+
+/* Event Signup Sheet */
+"event.signup.title" = "报名参赛";
+"event.signup.individual" = "个人参赛";
+"event.signup.individual.desc" = "以个人身份参赛";
+"event.signup.or_with_alliance" = "或代表联盟参赛";
+"event.signup.alliance.desc" = "以联盟成员身份参赛";
+"event.signup_prompt" = "加入战斗，赢取奖励！";
+"event.signup_btn" = "立即报名";
+"event.signup_closed" = "报名已截止";
+
+/* Event Zone Notifications */
+"event.zone.entered.title" = "进入活动区域";
+"event.zone.entered.subtitle" = "您已进入「%@」";
+"event.zone.exited.title" = "离开活动区域";
+"event.zone.exited.subtitle" = "您已离开「%@」";
+"event.zone.ending.title" = "活动即将结束";
+"event.zone.ending.subtitle" = "「%@」将在 %d 分钟后结束";
+"event.zone.ended.title" = "活动已结束";
+"event.zone.ended.subtitle" = "「%@」已结束";
+
+"loading" = "加载中...";
+
+/* Profile Edit */
+"profile.edit.title" = "编辑资料";
+"profile.edit.info" = "基本信息";
+"profile.edit.nickname" = "昵称";
+"profile.edit.motto" = "个性签名";
+"profile.edit.save" = "保存修改";
+"profile.edit.cancel" = "取消";
+
+/* Alliance Selection & Patterns */
+"alliance.select.title" = "选择出战联盟";
+"pattern.default_color" = "默认颜色";
+"pattern.alliance_flag_emoji" = "联盟旗帜(Emoji)";
+"pattern.alliance_flag" = "联盟旗帜";
+"pattern.alliance_color" = "联盟颜色";
+
+/* Drawing Detail */
+"drawing_detail.title" = "绘制详情";
+"drawing_detail.share_button" = "分享绘制";
+"drawing_detail.replay_button" = "回放绘制过程";
+
+/* Explore Sheet */
+"explore.title" = "探索";
+"explore.empty" = "暂无热门区域";
+"explore.empty.hint" = "开始绘制，创造属于你的热门区域";
+
+/* FAB Tooltip & First Pixel */
+"tooltip.fab.start_drawing" = "点击开始绘制！";
+"tooltip.fab.flag_switch" = "长按切换旗帜";
+
+// MARK: - 旗帜选择
+"flag.picker.title" = "选择旗帜";
+"flag.section.personal" = "我的旗帜";
+"flag.section.alliance" = "联盟旗帜";
+"flag.personal_color" = "我的颜色";
+"flag.my_avatar" = "我的头像";
+"celebration.first_pixel.title" = "第一个像素！";
+"celebration.first_pixel.subtitle" = "你的GPS绘画之旅开始了！";
+
+/* Location Pre-Education */
+"location.pre_edu.title" = "开启位置权限";
+"location.pre_edu.subtitle" = "FunnyPixels 需要你的位置信息，在行走时创作GPS像素画";
+"location.pre_edu.feature1.title" = "GPS绘画";
+"location.pre_edu.feature1.desc" = "边走边在真实地图上绘制像素画";
+"location.pre_edu.feature2.title" = "附近热点";
+"location.pre_edu.feature2.desc" = "发现附近的像素画作品和玩家";
+"location.pre_edu.feature3.title" = "隐私保护";
+"location.pre_edu.feature3.desc" = "位置信息仅在绘制时使用";
+"location.pre_edu.enable" = "开启位置权限";
+"location.pre_edu.skip" = "稍后再说";
+
+/* Check-in Rewards & Recovery */
+"checkin.recovery.title" = "连签中断！";
+"checkin.recovery.desc" = "你的 %d 天连签中断了，立即恢复！";
+"checkin.recovery.btn" = "恢复连签（每月1次）";
+"checkin.rewards.title" = "奖励里程碑";
+"checkin.rewards.day" = "第%d天";
+"checkin.week_cycle" = "每周奖励";
+"checkin.milestones.title" = "签到里程碑";
+"checkin.milestone.days" = "%d 天";
+
+/* Map Mode Indicator */
+"map.mode.drawing" = "%d 像素";
+
+/* Shop & Store */
+"shop.title" = "商店";
+"shop.backpack" = "背包";
+"shop.my_points" = "我的积分";
+"shop.empty.title" = "暂无商品";
+"shop.empty.message" = "商店目前没有任何商品上架";
+"shop.item.used" = "已使用 %@";
+"shop.price_points" = "%d 积分";
+"shop.category.all" = "全部";
+"shop.category.consumable" = "消耗品";
+"shop.category.special" = "特殊";
+"shop.category.cosmetic" = "装饰";
+"shop.purchase.confirm_title" = "确认购买";
+"shop.purchase.button" = "购买";
+"shop.purchase.confirm_message" = "确定要花费 %d 积分购买 %@ 吗？";
+"shop.error.load_failed" = "加载失败: %@";
+"shop.error.inventory_load_failed" = "加载背包失败: %@";
+"shop.error.purchase_failed" = "购买失败: %@";
+"shop.error.use_failed" = "使用道具失败: %@";
+"shop.error.recharge_failed" = "创建充值失败: %@";
+"shop.insufficient_points.title" = "积分不足";
+"shop.insufficient_points.message" = "当前积分: %d，需要: %d 积分";
+"shop.insufficient_points.recharge" = "去充值";
+"shop.insufficient_points.hint" = "积分不足，请先充值";
+
+/* Approval Price Info */
+"approval.section.price_info" = "费用信息";
+"approval.price_label" = "商品价格";
+"approval.balance_label" = "当前积分";
+
+/* Inventory / Backpack */
+"inventory.title" = "我的背包";
+"inventory.empty.title" = "暂无物品";
+"inventory.empty.message" = "你的背包是空的，快去商店看看吧";
+"inventory.use" = "使用";
+
+/* Wallet & Recharge */
+"wallet.title" = "钱包";
+"wallet.tab.recharge" = "充值";
+"wallet.tab.bills" = "账单";
+"wallet.done" = "完成";
+"wallet.payment_hint" = "支付提示";
+"wallet.select_amount" = "选择充值金额";
+"wallet.loading_products" = "加载商品...";
+"wallet.no_products" = "暂无可用商品";
+"wallet.retry_load" = "重试";
+"wallet.restore_purchases" = "恢复购买";
+"wallet.restore_completed" = "恢复完成";
+"wallet.recharge_history" = "充值记录";
+"wallet.spending_history" = "消费记录";
+"wallet.empty_recharge.title" = "暂无充值";
+"wallet.empty_recharge.message" = "您还没有进行过充值";
+"wallet.recharge_points" = "充值 %d 积分";
+"wallet.empty_spending.title" = "暂无消费";
+"wallet.empty_spending.message" = "您还没有购买过商品";
+"wallet.payment_success" = "支付成功！获得 %d 积分";
+"wallet.product_load_failed" = "商品加载失败，请稍后重试";
+"order.status.pending" = "待支付";
+"order.status.completed" = "已完成";
+"order.status.failed" = "失败";
+
+/* Purchase Approval (Ads & Custom Flags) */
+"approval.section.basic_info" = "基本信息";
+"approval.ad_title" = "广告标题";
+"approval.pattern_name" = "图案名称";
+"approval.ad_desc" = "广告描述";
+"approval.desc" = "描述";
+"approval.ad_hint" = "尽量简短清晰，避免过小文字以保证像素可读性。";
+"approval.pattern_hint" = "提示：名称简短更易展示。";
+"approval.section.image" = "图片上传";
+"approval.select_image" = "选择图片";
+"approval.image_hint" = "高对比度图片更利于像素预览清晰。";
+"approval.section.ad_preview" = "广告预览";
+"approval.preview.generating" = "预览生成中...";
+"approval.preview.size" = "预览尺寸: %dx%d";
+"approval.preview.empty" = "请选择图片以生成像素预览。";
+"approval.preview.tip" = "在框内调整图片位置即为最终广告效果。";
+"approval.preview.crop_tip" = "拖动或缩放来调整裁剪区域。";
+"approval.section.deploy" = "投放设置";
+"approval.deploy_time" = "预计投放时间";
+"approval.deploy_location" = "投放地点";
+"approval.tap_to_select" = "点击选择";
+"approval.location_hint" = "选择广告希望展示的投放位置。";
+"approval.uploading" = "上传中...";
+"approval.submit" = "提交审核";
+"approval.nav_title.ad" = "广告投放申请";
+"approval.nav_title.flag" = "自定义旗帜申请";
+"approval.upload_failed" = "上传失败";
+"approval.unknown_error" = "未知错误";
+"approval.image_upload_failed" = "图片上传失败: %@";
+"approval.select_location" = "选择位置";
+"approval.location.loading" = "定位中...";
+"approval.location.nearby" = "%@附近";
+"approval.location.unknown" = "已选择位置";
+
+/* Bomb Placement */
+"bomb.select_location" = "选择放置位置";
+"bomb.place_here" = "放置在此处";
+"bomb.confirm_title" = "确认放置";
+"bomb.confirm_use" = "确认使用";
+"bomb.confirm_message" = "确定要在此位置使用 %@ 吗？";
+
+/* Transactions */
+"transaction.title" = "交易记录";
+"transaction.date.start" = "开始";
+"transaction.date.end" = "结束";
+"transaction.empty.title" = "暂无记录";
+"transaction.empty.message" = "你还没有任何交易记录";
+"transaction.type.purchase" = "购买";
+"transaction.type.use" = "使用";
+"transaction.type.refund" = "退款";
+"transaction.type.other" = "其他";
+"transaction.status.completed" = "已完成";
+"transaction.status.pending" = "处理中";
+"transaction.status.failed" = "失败";
+"transaction.points.used" = "已使用";
+
+/* Common (additional) */
+"common.hint" = "提示";
+"common.select" = "请选择";
+"common.approve" = "批准";
+"common.reject" = "拒绝";
+
+/* Settings - Language */
+"settings.language" = "语言";
+"settings.language.system" = "跟随系统";
+"settings.language.restart_hint" = "部分更改可能需要重启应用后完全生效。";
+
+/* Settings - Sound */
+"settings.sound" = "声音";
+"settings.sound_effects" = "音效";
+
+/* Upload Disclaimer */
+"disclaimer.title" = "内容规范";
+"disclaimer.avatar" = "您需对上传的头像内容承担责任。请确保内容不含淫秽、暴力或违法信息，且不侵犯他人知识产权。平台有权移除违规内容。";
+"disclaimer.ad_image" = "您需对上传的图片内容承担责任。请确保内容符合相关法律法规，不含淫秽、暴力或违法信息，且不侵犯他人知识产权或肖像权。所有提交内容将接受审核，平台有权拒绝或移除违规内容。";
+"disclaimer.flag" = "您需对所选择或上传的旗帜图案承担责任。请确保内容不含淫秽、暴力或违法信息，且不侵犯他人知识产权。平台有权移除违规内容。";
+"disclaimer.info_hint" = "内容规范";
+
+/* Drift Bottle - Common */
+"drift_bottle.title" = "漂流瓶";
+"drift_bottle.far_away" = "远方";
+"drift_bottle.somewhere" = "某地";
+"drift_bottle.unknown" = "未知";
+
+/* Drift Bottle - Encounter Banner */
+"drift_bottle.encounter.from" = "从%@漂来";
+"drift_bottle.encounter.stats" = "%@km · 第%d/%d站";
+"drift_bottle.encounter.open" = "打开";
+
+/* Drift Bottle - Create Prompt */
+"drift_bottle.create.prompt" = "画了%d个像素！留一个漂流瓶吗？";
+"drift_bottle.create.yes" = "留一个";
+"drift_bottle.create.later" = "下次吧";
+"drift_bottle.create.title" = "留下一句话";
+"drift_bottle.create.placeholder" = "写点什么...(50字以内)";
+"drift_bottle.create.throw" = "扔出去";
+"drift_bottle.create.success" = "漂流瓶已出发！";
+
+/* Drift Bottle - Side Indicator */
+"drift_bottle.indicator.count" = "漂流瓶 ×%d";
+"drift_bottle.indicator.progress" = "再画 %d 个像素获得新瓶子";
+"drift_bottle.indicator.frozen" = "背包已满，使用后继续累积";
+"drift_bottle.indicator.earned" = "获得一个漂流瓶！";
+
+/* Drift Bottle - Quota Details */
+"drift_bottle.quota.daily_free" = "每日免费";
+"drift_bottle.quota.pixel_bonus" = "画像素奖励";
+"drift_bottle.quota.pixels_needed" = "再画 %d 像素获得奖励瓶子";
+
+/* Drift Bottle - Open View */
+"drift_bottle.open.opening" = "正在打开...";
+"drift_bottle.open.from" = "来自 %@";
+"drift_bottle.open.days" = "%d天";
+"drift_bottle.open.station" = "第%d/%d站";
+"drift_bottle.open.messages_title" = "旅途留言";
+"drift_bottle.open.last_stop" = "你是最后一站";
+"drift_bottle.open.write_message" = "写一句留言";
+"drift_bottle.open.release" = "不写了，放走";
+"drift_bottle.open.leave_footprint" = "留下你的足迹";
+"drift_bottle.open.placeholder" = "写点什么...";
+"drift_bottle.open.submit_release" = "写好了，放走";
+"drift_bottle.open.released" = "漂流瓶继续旅行了...";
+"drift_bottle.open.sunk_title" = "漂流瓶沉入了海底";
+"drift_bottle.open.sunk_message" = "所有参与者都会收到旅途卡片";
+"drift_bottle.open.ok" = "好的";
+"drift_bottle.open.mini_stats" = "%d站 · %@km · %d天";
+
+/* Drift Bottle - Reunion View */
+"drift_bottle.reunion.title" = "这好像是你自己的瓶子！";
+"drift_bottle.reunion.subtitle" = "它回来了！";
+"drift_bottle.reunion.opened" = "被打开";
+"drift_bottle.reunion.km" = "公里";
+"drift_bottle.reunion.days" = "天";
+"drift_bottle.reunion.others_messages" = "别人的留言";
+"drift_bottle.reunion.read_story" = "读读它的故事";
+"drift_bottle.reunion.let_drift" = "让它继续漂流";
+
+/* Drift Bottle - Journey Card Detail */
+"drift_bottle.journey.title" = "旅途卡片";
+"drift_bottle.journey.load_failed" = "加载失败";
+"drift_bottle.journey.stations" = "%d站";
+"drift_bottle.journey.days" = "%d天";
+"drift_bottle.journey.sunk" = "已沉没";
+"drift_bottle.journey.route" = "旅途路线";
+"drift_bottle.journey.origin" = "起点";
+"drift_bottle.journey.messages" = "旅途留言";
+
+/* Drift Bottle - Journey Card List */
+"drift_bottle.journey_list.title" = "旅途集";
+"drift_bottle.journey_list.empty.title" = "还没有旅途卡片";
+"drift_bottle.journey_list.empty.message" = "当漂流瓶被5人打开后沉没，\n你就会收到旅途卡片";
+"drift_bottle.role.creator" = "创建者";
+"drift_bottle.station_number" = "第%d站";
+"drift_bottle.days_count" = "%d天";
+
+/* Journey Card Filters */
+"drift_bottle.filter.all" = "全部";
+"drift_bottle.filter.created" = "我创建的";
+"drift_bottle.filter.opened" = "我打开的";
+"drift_bottle.filter.sunk" = "已沉没";
+"drift_bottle.filter.empty" = "当前筛选无结果";
+
+/* Profile - Journey Collection */
+"profile.journey_collection" = "旅途集";
+
+/* Drift Bottle - Errors */
+"drift_bottle.error.missing_location" = "缺少位置信息";
+"drift_bottle.error.invalid_coordinates" = "坐标无效";
+"drift_bottle.error.message_too_long" = "留言不能超过50字";
+"drift_bottle.error.missing_bottle_id" = "缺少瓶子ID";
+"drift_bottle.error.throw_failed" = "扔出漂流瓶失败";
+"drift_bottle.error.no_throw_quota" = "配额不足，多画些像素来获得漂流瓶吧";
+"drift_bottle.error.lock_expired" = "锁定已过期，请重新搜索";
+"drift_bottle.error.gps_accuracy_poor" = "GPS精度不足，请到空旷处再试";
+"drift_bottle.error.location_mismatch" = "位置变化太大，请在原地操作";
+"drift_bottle.error.no_quota" = "今日配额已用完";
+"drift_bottle.error.already_opened" = "您已经打开过这个瓶子";
+"drift_bottle.error.bottle_not_found" = "漂流瓶不存在";
+"drift_bottle.error.open_failed" = "打开漂流瓶失败";
+
+/* Drift Bottle - Success Messages */
+"drift_bottle.throw.success" = "漂流瓶已出发！";
+"drift_bottle.open.success" = "打开成功";
+"drift_bottle.lock.success" = "已锁定漂流瓶";
+"drift_bottle.abandon.success" = "已放走";
+
+/* Drift Bottle - Guidance Messages */
+"drift_bottle.guidance.no_quota" = "配额用完了！再画%d个像素或明天再来";
+"drift_bottle.guidance.only_pickup" = "你已捡了%d个瓶子，不如也扔一个？每扔一个可获得%d次额外拾取机会";
+"drift_bottle.guidance.frequent_abandon" = "连续放弃了%d个瓶子，要不要试着留言互动一下？";
+"drift_bottle.guidance.empty_area" = "这附近暂时没有瓶子，去别的地方看看吧";
+"drift_bottle.guidance.new_user" = "欢迎！试试扔出你的第一个漂流瓶，让它环游世界";
+"drift_bottle.guidance.gps_poor" = "GPS信号不佳，请到空旷的地方再试";
+
+/* Drift Bottle - Quota Details */
+"drift_bottle.quota.total_available" = "可用配额";
+"drift_bottle.quota.daily_free_throw" = "每日免费投放";
+"drift_bottle.quota.daily_free_pickup" = "每日免费拾取";
+"drift_bottle.quota.bonus_from_pixels" = "画像素奖励";
+"drift_bottle.quota.bonus_from_throw" = "投放奖励";
+"drift_bottle.quota.pixels_for_next" = "再画%d像素获得奖励";
+"drift_bottle.quota.reset_time" = "重置时间";
+
+/* Drift Bottle - Map Actions */
+"drift_bottle.map.search" = "搜索漂流瓶";
+"drift_bottle.map.searching" = "搜索中...";
+"drift_bottle.map.lock_success" = "已锁定漂流瓶，请在60秒内打开";
+"drift_bottle.map.no_bottles" = "附近暂无漂流瓶";
+
+/* Drift Bottle - Lock Timer */
+"drift_bottle.lock.expires_in" = "锁定剩余%d秒";
+"drift_bottle.lock.expired" = "锁定已过期";
+
+/* Leaderboard Empty States */
+"leaderboard.personal.empty" = "暂无数据";
+"leaderboard.personal.emptyHint" = "开始绘制像素，登上排行榜";
+"leaderboard.alliance.empty" = "暂无联盟数据";
+"leaderboard.alliance.emptyHint" = "加入联盟，一起绘制像素";
+"leaderboard.city.empty" = "暂无城市数据";
+"leaderboard.city.emptyHint" = "有活跃玩家的城市会显示在这里";
+
+/* MyRankCard */
+"leaderboard.myrank.label" = "我的排名";
+"leaderboard.myrank.pixels" = "%d 像素";
+"leaderboard.myrank.gap" = "距上一名还差 %d 像素";
+"leaderboard.myrank.first" = "你是第一名!";
+"leaderboard.myrank.percentile" = "击败了 %.1f%% 的玩家";
+
+/* Player Detail */
+"leaderboard.playerdetail.rank" = "排名";
+
+/* Nearby Empty */
+"nearby.empty" = "附近没有玩家";
+
+/* Social Toast */
+"social.followed" = "已关注";
+"social.unfollowed" = "已取消关注";
+
+/* Daily Reward Summary */
+"reward.summary.title" = "每日排名奖励";
+"reward.summary.subtitle" = "昨日排名结算";
+"reward.summary.personal" = "个人排名";
+"reward.summary.alliance" = "联盟排名";
+"reward.summary.friends" = "好友排名";
+"reward.summary.no_rank" = "未上榜";
+"reward.summary.total" = "共获得";
+"reward.summary.points" = "+%d 积分";
+"reward.summary.dismiss" = "知道了";
+"reward.summary.rank" = "第%d名";
+
+/* Alliance Sub-Pages */
+"alliance.contribution.view_all" = "查看全部";
+"alliance.contribution.empty.title" = "暂无排名";
+"alliance.contribution.empty.message" = "成员尚未贡献像素。";
+"alliance.contribution.you" = "我的排名";
+"alliance.contribution.all" = "全部成员";
+"alliance.menu.contributions" = "贡献排行";
+"alliance.menu.contributions.subtitle" = "查看成员贡献";
+"alliance.members.count" = "%d 名成员";
+"alliance.members.search" = "搜索成员";
+"alliance.stats.empty.title" = "暂无统计";
+"alliance.stats.empty.message" = "统计数据暂不可用。";
+"alliance.status.approved" = "已通过";
+"alliance.status.rejected" = "已拒绝";
+"alliance.status.pending" = "待审核";
+
+// MARK: - Missing Keys Added
+
+// MARK: Challenge
+"challenge.claim" = "领取";
+"challenge.error.claim_failed" = "领取奖励失败";
+"challenge.error.fetch_failed" = "获取每日挑战失败";
+"challenge.title" = "每日挑战";
+
+// MARK: Check-in
+"checkin.btn.checkin" = "立即签到";
+"checkin.btn.done" = "今日已签到";
+"checkin.error.calendar_failed" = "获取签到日历失败";
+"checkin.error.failed" = "签到失败";
+"checkin.error.stats_failed" = "获取签到统计失败";
+"checkin.reward_points" = "+%d 积分";
+"checkin.stat.max_streak" = "最长连续";
+"checkin.stat.total" = "总签到";
+"checkin.stat.total_points" = "总积分";
+"checkin.streak_count" = "连续 %d 天";
+"checkin.streak_days" = "连续天数";
+"checkin.title" = "每日签到";
+
+// MARK: Common
+"common.retry" = "重试";
+
+// MARK: Dashboard
+"dashboard.empty.message" = "开始绘制来查看你的统计数据";
+"dashboard.empty.title" = "暂无数据";
+"dashboard.error.title" = "加载失败";
+
+// MARK: Event
+"event.end_time" = "结束时间";
+"event.pixel_score" = "像素积分";
+"event.rewards.empty" = "此活动暂无奖励配置。";
+"event.rewards.subtitle_short" = "点击查看详情";
+"event.signed_up" = "你已成功报名！";
+"event.start_time" = "开始时间";
+
+// MARK: Help
+"help.manual.how_desc" = "了解如何玩 FunnyPixels";
+"help.manual.how_title" = "如何游玩";
+
+// MARK: Map
+"map.mode.peace" = "探索";
+
+// MARK: Weekday
+"weekday.fri" = "五";
+"weekday.mon" = "一";
+"weekday.sat" = "六";
+"weekday.sun" = "日";
+"weekday.thu" = "四";
+"weekday.tue" = "二";
+"weekday.wed" = "三";
+"leaderboard.refreshing" = "刷新中...";
+
+// MARK: - P0 Event Optimization
+/* P0-1: Event Signup Stats */
+"signup_stats" = "报名统计";
+"alliances" = "联盟";
+"solo_players" = "个人玩家";
+"estimated_total" = "预计总数";
+"requirements_met" = "已达标";
+"requirements_not_met" = "需要更多报名";
+"top_alliances" = "顶级联盟";
+
+/* P0-2: Event Gameplay */
+"gameplay_guide" = "玩法指南";
+"objective" = "目标";
+"scoring_rules" = "计分规则";
+"tips" = "技巧提示";
+
+/* P0-3: Event Contribution */
+"my_contribution" = "我的贡献";
+"my_pixels" = "我的像素";
+"contribution_rate" = "贡献率";
+"rank_in_alliance" = "联盟排名";
+"milestones" = "里程碑";
+"top_contributors" = "顶级贡献者";
+
+/* Nearby Event Banner */
+"event.nearby.inside" = "您在活动区域内！";
+"event.nearby.meters" = "距离 %.0f米";
+"event.nearby.km" = "距离 %.1f公里";
+
+/* Event Location Card */
+"event.location.title" = "活动地点";
+"event.location.unnamed" = "活动地点";
+"event.location.radius_km" = "半径 %.1f 公里";
+"event.location.radius_m" = "半径 %d 米";
+"event.location.distance_km" = "距离 %.1f 公里";
+"event.location.distance_m" = "距离 %.0f 米";
+"event.location.no_data" = "暂无地点信息";
+
+/* Event Countdown Card */
+"event.countdown.starts_in" = "距离开始还有";
+"event.countdown.ends_in" = "距离结束还有";
+"event.countdown.ended" = "活动已结束";
+"event.countdown.finished" = "已结束";
+"event.countdown.format.days" = "%d天 %d小时 %d分钟";
+"event.countdown.format.hours" = "%d小时 %d分钟 %d秒";
+"event.countdown.format.minutes" = "%d分钟 %d秒";
+"event.countdown.format.seconds" = "%d秒";
+"event.countdown.start" = "开始";
+"event.countdown.end" = "结束";
+
+/* Event Requirements Card */
+"event.requirements.title" = "参与要求";
+"event.requirements.min_level" = "最低等级";
+"event.requirements.level" = "等级";
+"event.requirements.your_level" = "你的等级";
+"event.requirements.min_alliances" = "联盟成员要求";
+"event.requirements.alliances_count" = "至少加入 %d 个联盟";
+"event.requirements.your_alliances" = "你已加入 %d 个";
+"event.requirements.min_participants" = "最低参与人数";
+"event.requirements.participants_needed" = "需要 %d 人参与才能开始";
+"event.requirements.none" = "无入场要求 - 所有人都可以参加！";
+"event.requirements.all_met" = "你已满足所有要求！";
+"event.requirements.some_not_met" = "部分要求未满足";
+
+/* Avatar Preview & Editor */
+"avatar.preview.title" = "头像";
+"avatar.menu.title" = "选择操作";
+"avatar.menu.change" = "更换头像";
+"avatar.menu.take_photo" = "拍照";
+"avatar.menu.save" = "保存到相册";
+"avatar.menu.guidelines" = "内容规范";
+
+/* 地图相关 - Map Related */
+"map.roaming_to" = "正在漫游至：%@";
+"map.unavailable_platform" = "地图视图在此平台不可用";
+
+/* 绘制功能 - Drawing Features */
+"drawing.complex_pattern" = "复杂图案";
+"drawing.loading_alliance_flag" = "加载联盟旗帜...";
+"drawing.tap_to_exit_power_saving" = "轻触屏幕退出省电模式";
+"drawing.focus_mode_enabled" = "已进入专注绘制模式";
+"drawing.focus_mode_description" = "保持GPS精度，降低屏幕功耗\n轻触屏幕随时退出";
+
+/* 会话回放 - Session Replay */
+"session.replay_progress" = "进度: %d%%";
+
+/* 事件/活动 - Events */
+"event.ended" = "已结束";
+"event.my_rank" = "我的排名";
+"event.swipe_up_to_close" = "向上滑动关闭";
+
+/* 消息中心 - Message Center */
+"message.no_messages" = "暂无消息";
+"message.go_to_view" = "前往查看";
+"message.attachment_reward" = "附件奖励";
+"message.claim_reward" = "领取奖励";
+
+/* 领地战斗 - Territory Battle */
+"territory.someone_invaded" = "有人踩了你的地盘！";
+"battle.no_attacks_yet" = "还没人动你的地盘";
+"battle.reclaim" = "夺回";
+
+/* 像素交互 - Pixel Interaction */
+"pixel.feedback_thanks" = "感谢您的反馈，我们会尽快处理。";
+"pixel.history" = "历史记录";
+"pixel.no_more_history" = "暂无更多历史记录...";
+
+/* 等级段位 - Rank Tier */
+"rank.max_tier_reached" = "已达最高段位";
+"rank.pixels_to_upgrade" = "还差 %d 像素升级";
+
+/* 支付 - Payment */
+"payment.alipay" = "支付宝";
+
+/* Tab Sub-Tabs */
+"feed.plaza" = "广场";
+"feed.tracks" = "足迹";
+"feed.data" = "数据";
+
+"alliance.my" = "我的联盟";
+"alliance.discover" = "发现";
+
+"profile.personal" = "个人";
+"profile.leaderboard" = "排行";
+"profile.more" = "更多";

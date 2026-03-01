@@ -1,0 +1,1254 @@
+/* GPS Drawing Control */
+"gps.session.title" = "Pixels Desenhados";
+"gps.session.unit" = "px";
+"gps.session.label" = "SESSAO";
+"gps.stop.button" = "PARAR";
+
+/* Telemetry */
+"gps.telemetry.ammo" = "Municao";
+"gps.telemetry.lifetime" = "Duracao";
+"gps.telemetry.frozen" = "Congelado";
+
+/* Authentication */
+"auth.title" = "FunnyPixels";
+"auth.slogan" = "Deixe sua marca no mapa global";
+"auth.login.tab" = "Entrar";
+"auth.join.tab" = "Cadastrar";
+"auth.email.label" = "Endereco de Email";
+"auth.email.placeholder" = "Digite seu email";
+"auth.password.label" = "Senha";
+"auth.password.placeholder" = "Digite sua senha";
+"auth.username.label" = "Nome de usuario";
+"auth.username.placeholder" = "Escolha um nome de usuario unico";
+"auth.button.login" = "Entrar";
+"auth.button.signup" = "Criar Conta";
+"auth.terms.prefix" = "Li e concordo com os";
+"auth.terms.link" = "Termos de Servico";
+"auth.privacy.link" = "Politica de Privacidade";
+"auth.and" = " e ";
+"auth.error.missing" = "Por favor, preencha todos os campos";
+"auth.error.invalid_phone" = "Por favor, insira um numero de telefone valido";
+"auth.error.send_code_failed" = "Falha ao enviar o codigo, tente novamente";
+"auth.error.login_failed" = "Falha no login";
+"auth.error.register_failed" = "Falha no cadastro";
+"auth.error.username_length" = "O nome de usuario deve ter de 2 a 20 caracteres";
+"auth.button.resend" = "Reenviar";
+"auth.button.send_code" = "Enviar Codigo";
+"auth.button.resend_countdown" = "%ds reenviar";
+"auth.toggle.to_signup" = "Nao tem conta? Cadastre-se";
+"auth.toggle.to_login" = "Ja tem uma conta? Entrar";
+"auth.or_continue_with" = "ou entre com email";
+"auth.google.sign_in" = "Entrar com Google";
+"auth.apple.sign_in" = "Entrar com Apple";
+
+/* Session */
+"session.validating" = "Verificando sessao...";
+"session.expired" = "Sessao expirada, por favor faca login novamente";
+
+/* Launch Screen */
+"launch.slogan" = "Pintando o Mundo Juntos";
+"launch.tip.long_press" = "Pressione longo um pixel para ver seu criador";
+"launch.tip.color_palette" = "Deslize para alternar entre paletas de cores";
+"launch.tip.zoom_out" = "Diminua o zoom para ver obras-primas globais";
+"launch.tip.daily_tasks" = "Complete tarefas diárias para pontos extras";
+"launch.tip.alliance" = "Junte-se a uma aliança para dominar o mapa";
+"launch.tip.consecutive_login" = "Logins consecutivos desbloqueiam recompensas";
+"launch.tip.gps_drawing" = "Use desenho GPS para obras grandes";
+"launch.tip.like_pixels" = "Curta pixels incríveis para apoiar criadores";
+
+/* Policy Sheet */
+"policy.loading" = "Carregando...";
+"policy.retry" = "Tentar novamente";
+"policy.close" = "Fechar";
+"policy.terms.title" = "Termos de Servico";
+"policy.privacy.title" = "Politica de Privacidade";
+
+/* General */
+"common.cancel" = "Cancelar";
+"common.share" = "Compartilhar";
+"common.save" = "Salvar";
+"common.confirm" = "OK";
+"common.close" = "Fechar";
+"common.loading" = "Carregando...";
+"common.select" = "Selecionar";
+"common.approve" = "Aprovar";
+"common.reject" = "Rejeitar";
+
+/* Tab Bar */
+"tab.map" = "Mapa";
+"tab.history" = "Historico";
+"tab.feed" = "Feed";
+"tab.alliance" = "Alianca";
+"tab.leaderboard" = "Ranking";
+"tab.profile" = "Eu";
+
+/* Session Summary */
+"summary.map.generating" = "Gerando mapa...";
+"summary.title" = "Acabei de Desenhar Aqui";
+"summary.subtitle" = "Uma Criacao Pixel no Mundo Real";
+"summary.share.title" = "Compartilhar em";
+"summary.created_by" = "✍️ Criado com FunnyPixels";
+"summary.join_now" = "Participe Agora";
+"summary.pixels" = "PIXELS";
+"summary.time" = "TEMPO";
+"summary.km" = "KM";
+"summary.share_text" = "Completei um desenho no mapa do FunnyPixels, confira minha pixel art!";
+"summary.artwork_tag" = "📍 Mundo Real · Pixel Art";
+"summary.watermark" = "FunnyPixels";
+"summary.activity_description" = "%@, completei um desenho no mapa";
+"summary.stats.pixels_label" = "Nesta sessao: %d pixels";
+"summary.stats.duration_label" = "Duracao: %@ segundos";
+"summary.stats.action_fast" = "Uma sessao rapida de desenho";
+"summary.stats.action_area" = "Desbloqueou uma pequena area no mapa";
+"summary.cta" = "Escaneie para abrir o mapa e comece sua jornada pixel";
+"summary.button.close" = "Fechar";
+"summary.button.share" = "Compartilhar Meus Pixels";
+
+/* Session Detail Share */
+"session_detail.share.title" = "Meu Registro de Desenho";
+"session_detail.share.subtitle" = "Pegadas Deixadas no Mapa";
+"session_detail.share.cta" = "Escaneie para ver o registro completo";
+"session_detail.share.button" = "Compartilhar Meus Pixels";
+"session_detail.generating_map" = "Gerando mapa...";
+
+/* Share Actions */
+"share.link_copied" = "Link copiado";
+"share.save_success" = "Imagem salva";
+"share.save_failed" = "Falha ao salvar";
+"share.opened" = " aberto";
+
+/* Artwork Gallery */
+"gallery.title" = "Galeria de Obras";
+"gallery.empty.title" = "Nenhuma Obra Ainda";
+"gallery.empty.message" = "Comece sua primeira criacao";
+"gallery.guest.title" = "Registre Sua Criatividade";
+"gallery.guest.message" = "Faca login para ver todas as suas pixel arts";
+
+/* Artwork Tags */
+
+/* Detail Modes */
+"detail.mode.artwork" = "Obra";
+"detail.mode.data" = "Dados";
+"detail.creation_info" = "Info da Criacao";
+"detail.behavior_info" = "Info de Comportamento";
+"detail.path_shape" = "Formato do Caminho";
+"detail.covered_grids" = "Areas Cobertas";
+
+/* Leaderboard */
+"leaderboard.title" = "Ranking";
+"leaderboard.period.day" = "Dia";
+"leaderboard.period.week" = "Semana";
+"leaderboard.period.month" = "Mes";
+"leaderboard.type.personal" = "Pessoal";
+"leaderboard.type.alliance" = "Alianca";
+"leaderboard.type.city" = "Cidade";
+"leaderboard.empty" = "Sem Dados";
+"leaderboard.pixel" = "Pixels";
+"leaderboard.users" = "Usuarios";
+"leaderboard.period.alltime" = "Todos os Tempos";
+"leaderboard.picker.period" = "Periodo";
+"leaderboard.picker.type" = "Tipo";
+"leaderboard.type.friends" = "Amigos";
+"leaderboard.friends.empty" = "Nenhum amigo ainda";
+"leaderboard.friends.emptyHint" = "Siga outros jogadores para vê-los no ranking";
+
+/* Feed Center */
+"feed.title" = "Feed";
+"feed.tab.social" = "Feed";
+"feed.tab.records" = "Registros";
+"feed.tab.dashboard" = "Dados";
+"feed.social.coming_soon" = "Feed social em breve";
+"feed.social.coming_soon_hint" = "Veja o que seus amigos estão desenhando";
+"feed.dashboard.coming_soon" = "Dashboard em breve";
+"feed.dashboard.coming_soon_hint" = "Acompanhe suas estatísticas e progresso";
+"feed.social.empty" = "Sem atividade ainda";
+"feed.social.empty_hint" = "Siga outros jogadores e comece a desenhar";
+"feed.filter.following" = "Seguindo";
+"feed.filter.all" = "Todos";
+"feed.time.just_now" = "Agora";
+"feed.time.minutes_ago" = "Há %d min";
+"feed.time.hours_ago" = "Há %d h";
+"feed.time.days_ago" = "Há %d dias";
+"feed.drawing.description" = "Desenhou %d pixels";
+"feed.achievement.unlocked" = "Conquista desbloqueada!";
+"feed.checkin.description" = "Fez check-in hoje";
+"feed.alliance.joined" = "Entrou na aliança: %@";
+"feed.comments.title" = "Comentários";
+"feed.comments.empty" = "Sem comentários ainda";
+"feed.comments.placeholder" = "Escreva um comentário...";
+
+/* Dashboard */
+"dashboard.heatmap.title" = "Calendário de atividade";
+"dashboard.heatmap.less" = "Menos";
+"dashboard.heatmap.more" = "Mais";
+"dashboard.weekly.title" = "Tendência semanal";
+"dashboard.cities.title" = "Pegada de cidades";
+"dashboard.cities.sessions" = "sessões";
+"dashboard.stat.pixels" = "Pixels";
+"dashboard.stat.sessions" = "Sessões";
+"dashboard.stat.cities" = "Cidades";
+"dashboard.stat.streak" = "Sequência";
+
+/* Alliance Checkin */
+"alliance.checkin.title" = "Check-in Diário";
+"alliance.checkin.button" = "Check-in";
+"alliance.checkin.done" = "Check-in Feito";
+"alliance.checkin.today_count" = "Hoje: %d fizeram check-in";
+
+/* Alliance Contribution */
+"alliance.contribution.title" = "Ranking de Contribuição";
+"alliance.contribution.empty" = "Sem contribuições ainda";
+
+/* Profile Enhanced */
+"profile.following" = "Seguindo";
+"profile.followers" = "Seguidores";
+"profile.total_pixels" = "Pixels";
+"profile.achievements_count" = "Conquistas";
+"profile.today" = "Hoje";
+"profile.today_pixels" = "Pixels";
+"profile.today_sessions" = "Sessões";
+"profile.today_duration" = "Duração";
+"profile.streak_days" = "%d dias";
+
+/* Social */
+"social.following" = "Seguindo";
+"social.followers" = "Seguidores";
+"social.following.empty" = "Você ainda não segue ninguém";
+"social.followers.empty" = "Sem seguidores ainda";
+"social.following_btn" = "Seguindo";
+"social.follow_btn" = "Seguir";
+
+/* Daily Tasks */
+"daily_task.title" = "Tarefas Diarias";
+"daily_task.progress" = "Progresso de Hoje";
+"daily_task.bonus_title" = "Bonus de Conclusao Total";
+"daily_task.bonus_desc" = "Complete todas as tarefas para ganhar pontos bonus";
+"daily_task.bonus_claimed" = "Bonus Resgatado";
+"daily_task.claim_bonus" = "Resgatar Bonus";
+"daily_task.bonus_locked" = "Complete todas as %d tarefas";
+"daily_task.claim_failed" = "Falha ao resgatar";
+"daily_task.empty" = "Sem tarefas para hoje";
+"profile.daily_tasks" = "Tarefas Diarias";
+
+/* Nearby Players */
+"nearby.drawing" = "Desenhando";
+"nearby.away" = "de distancia";
+"nearby.follow" = "Seguir";
+
+/* Quick Stats */
+"quick_stats.today" = "Hoje";
+"quick_stats.pixels" = "Pixels";
+"quick_stats.sessions" = "Sessoes";
+"quick_stats.duration" = "Duracao";
+"quick_stats.tasks" = "Tarefas";
+"quick_stats.view_tasks" = "Ver Tarefas";
+
+/* Territory */
+"territory.detail_title" = "Controle de Territorio";
+"territory.total_pixels" = "Total de Pixels";
+
+/* Common */
+"common.error" = "Erro";
+"common.success" = "Sucesso";
+"common.login_required" = "Login Necessario";
+
+/* Drawing History */
+"history.title" = "Historico de Desenhos";
+"history.empty.title" = "Sem Historico";
+"history.empty.message" = "Comece a desenhar com GPS para ver seu historico aqui.";
+"history.guest.title" = "Registre Sua Criatividade";
+"history.guest.message" = "Faca login para ver todo o seu historico de desenhos, incluindo trajetos GPS, estatisticas e replay.";
+"history.login_register" = "Entrar / Cadastrar";
+"history.filter.status" = "Status";
+"history.filter.type" = "Tipo";
+"history.filter.date" = "Periodo";
+"history.filter.enable_date" = "Ativar Filtro de Data";
+"history.filter.start_date" = "Data Inicial";
+"history.filter.end_date" = "Data Final";
+"history.filter.title" = "Filtro";
+"history.filter.done" = "Pronto";
+"history.filter.reset" = "Redefinir";
+"history.filter.city" = "Cidade";
+"history.filter.city_placeholder" = "Digite o nome da cidade";
+"history.stats.pixels" = "Pixels";
+"history.duration" = "Duracao";
+"history.distance" = "Distancia";
+"history.status.active" = "Ativo";
+
+/* Alliance */
+"alliance.tab.my" = "Minha Alianca";
+"alliance.tab.search" = "Buscar";
+"alliance.title" = "Alianca";
+"alliance.create" = "Criar Alianca";
+"alliance.invite.title" = "Codigo de Convite";
+"alliance.invite.copy" = "Copiar";
+"alliance.invite.message" = "Seu codigo de convite e:\n%@\n\nValido por 24 horas";
+"alliance.members" = "Membros";
+"alliance.total_pixels" = "Total de Pixels";
+"alliance.rank" = "Ranking";
+"alliance.menu.members" = "Lista de Membros";
+"alliance.menu.members.subtitle" = "Gerenciar Membros";
+"alliance.menu.stats" = "Estatisticas";
+"alliance.menu.stats.subtitle" = "Ver territorio e rankings";
+"alliance.menu.applications" = "Solicitacoes";
+"alliance.menu.applications.subtitle" = "itens pendentes";
+"alliance.notice.empty" = "Sem Anuncio";
+"alliance.menu.invite" = "Convidar Membros";
+"alliance.menu.invite.subtitle" = "Compartilhar Link";
+"alliance.action.transfer" = "Transferir Lideranca";
+"alliance.action.leave" = "Sair da Alianca";
+"alliance.error.transfer_required" = "O lider deve transferir a lideranca antes de sair.";
+"alliance.action.dissolve" = "Dissolver e Sair";
+"alliance.msg.dissolve" = "Como ultimo membro, sair ira dissolver a alianca.";
+"alliance.dissolve.title" = "Dissolver Alianca";
+"alliance.dissolve.message" = "Tem certeza de que deseja dissolver a alianca? Esta acao nao pode ser desfeita.";
+"alliance.leave.title" = "Sair da Alianca";
+"alliance.leave.message" = "Tem certeza de que deseja sair da alianca?";
+"alliance.leave.success" = "Saiu da alianca";
+"alliance.role.leader" = "Lider";
+"alliance.role.admin" = "Admin";
+"alliance.role.member" = "Membro";
+"alliance.search.popular" = "Aliancas Populares";
+"alliance.search.searching" = "Buscando...";
+"alliance.search.no_results" = "Nenhuma alianca encontrada";
+"alliance.search.placeholder" = "Digite o nome da alianca";
+"alliance.guest.title" = "Participe e Crie";
+"alliance.guest.message" = "Faca login para participar ou criar aliancas, colaborar no mapa e competir nos rankings.";
+"alliance.empty.title" = "Sem Alianca";
+"alliance.empty.message" = "Crie ou entre em uma alianca para comecar.";
+"alliance.create.name" = "Nome da Alianca";
+"alliance.create.success" = "Alianca criada com sucesso!";
+"alliance.btn.apply" = "Solicitar";
+"alliance.btn.join" = "Entrar";
+"alliance.btn.create_action" = "Criar";
+"alliance.form.name" = "Nome da Alianca";
+"alliance.form.desc" = "Descricao (Opcional)";
+"alliance.form.basic" = "Informacoes Basicas";
+"alliance.form.visibility" = "Visibilidade";
+"alliance.form.public" = "Publica";
+"alliance.form.private" = "Privada";
+"alliance.form.approval" = "Aprovacao Necessaria";
+"alliance.form.settings" = "Configuracoes";
+"alliance.form.flag" = "Bandeira da Alianca";
+"alliance.form.pattern" = "Padrao da Bandeira";
+"alliance.form.notice" = "Anuncio";
+"alliance.edit.title" = "Editar Alianca";
+"alliance.edit.info" = "Informacoes Basicas";
+"alliance.flag.select" = "Selecionar Bandeira";
+"alliance.flag.type" = "Tipo de Padrao";
+"alliance.flag.color" = "Cor";
+"alliance.flag.emoji" = "Emoji";
+"alliance.flag.complex" = "Complexo";
+"alliance.flag.empty" = "Sem padroes";
+"alliance.limit.title" = "Limite de Alianca";
+"alliance.limit.usage" = "Criadas";
+"alliance.update.success" = "Alianca atualizada com sucesso";
+"alliance.limit.needed" = "Desenhe mais %d pixels para desbloquear.";
+"alliance.limit.max" = "Limite maximo atingido.";
+
+/* Alliance Members */
+"alliance.members.title" = "Membros";
+"alliance.transfer.title" = "Transferir Lideranca";
+"alliance.transfer.message" = "Tem certeza de que deseja transferir a lideranca para %@? Voce se tornara um membro comum.";
+"alliance.member.join_date" = "Entrou em: %@";
+"alliance.action.promote" = "Promover a Admin";
+"alliance.action.demote" = "Remover Admin";
+"alliance.action.kick" = "Expulsar da Alianca";
+
+/* Alliance Applications */
+"alliance.applications.empty" = "Sem solicitacoes";
+"alliance.applications.title" = "Solicitacoes";
+"alliance.applications.review_placeholder" = "Comentarios da analise (opcional)";
+"alliance.applications.approve_title" = "Aprovar Solicitacao";
+"alliance.applications.reject_title" = "Rejeitar Solicitacao";
+
+/* Alliance Stats */
+"alliance.stats.title" = "Estatisticas";
+"alliance.stats.core" = "Metricas Principais";
+"alliance.stats.realtime" = "Tempo real";
+"alliance.stats.cached" = "Em cache";
+"alliance.stats.total_pixels" = "Total de Pixels";
+"alliance.stats.members" = "Membros";
+"alliance.stats.ownership" = "Propriedade";
+"alliance.stats.rank" = "Ranking";
+"alliance.stats.comparison" = "Comparacao de Dados";
+"alliance.stats.total_draw_pixels" = "Total de Pixels Desenhados";
+"alliance.stats.current_ownership" = "Propriedade Atual";
+"alliance.stats.comparison_note" = "* Dados reais excluem pixels de itens (Anuncios, Bombas, etc.).";
+"alliance.stats.no_comparison" = "Sem dados de comparacao disponiveis";
+"alliance.stats.real" = "Real";
+"alliance.stats.prop_contribution" = "De Itens";
+"alliance.stats.influence" = "Influencia da Alianca";
+"alliance.stats.world_rank" = "Ranking Mundial";
+"alliance.stats.territory" = "Territorio Global";
+
+/* Alliance Activity Log */
+"alliance.activity.title" = "Atividade recente";
+"alliance.activity.empty" = "Sem atividade recente";
+"alliance.activity.joined" = "%@ entrou";
+"alliance.activity.left" = "%@ saiu";
+"alliance.activity.kicked" = "%@ foi removido";
+"alliance.activity.promoted" = "%@ foi promovido a Admin";
+"alliance.activity.demoted" = "%@ foi rebaixado a Membro";
+"alliance.activity.transfer" = "%@ se tornou o novo Líder";
+"alliance.activity.checkin" = "%@ fez check-in";
+"alliance.activity.levelup" = "Aliança subiu para nível %@";
+
+/* Alliance Kick Confirmation */
+"alliance.kick.confirm.title" = "Remover membro";
+"alliance.kick.confirm.message" = "Remover %@ da aliança?";
+
+/* Alliance Sorting */
+"alliance.sort.role" = "Por cargo";
+"alliance.sort.pixels" = "Por pixels";
+"alliance.sort.date" = "Por data";
+
+/* Alliance Application Filters */
+"alliance.applications.filter.pending" = "Pendentes";
+"alliance.applications.filter.all" = "Todas";
+
+/* Alliance Share */
+"alliance.share.invite" = "Compartilhar convite";
+
+/* Alliance Dissolve */
+"alliance.dissolve.success" = "Aliança dissolvida";
+
+/* Profile */
+"profile.points" = "Pontos";
+"profile.honors" = "Honras";
+"profile.view_all" = "Ver Tudo";
+"profile.features" = "Funcionalidades";
+"profile.shop" = "Loja";
+"profile.messages" = "Central de Mensagens";
+"profile.items" = "Meus Itens";
+"profile.achievements" = "Conquistas";
+"profile.settings" = "Configuracoes";
+"profile.invite_friends" = "Convidar Amigos";
+"profile.logout" = "Sair";
+
+/* Invite/Referral */
+"invite.title" = "Convidar Amigos";
+"invite.subtitle" = "Compartilhe seu codigo com amigos. Voces dois ganham pontos!";
+"invite.nav_title" = "Convidar Amigos";
+"invite.your_code" = "SEU CODIGO DE CONVITE";
+"invite.copy" = "Copiar";
+"invite.copied" = "Copiado!";
+"invite.share" = "Compartilhar";
+"invite.share_message" = "Junte-se a mim no FunnyPixels! Use meu codigo de convite: %@";
+"invite.rewards_title" = "Recompensas";
+"invite.inviter_reward" = "Voce ganha %d pontos por convite";
+"invite.invitee_reward" = "Seu amigo ganha %d pontos de boas-vindas";
+"invite.stats_invited" = "Amigos Convidados";
+"invite.stats_earned" = "Pontos Ganhos";
+"invite.redeem_title" = "Tem um codigo de convite?";
+"invite.redeem_placeholder" = "Digite o codigo";
+"invite.redeem_button" = "Resgatar";
+"invite.redeem_success" = "Codigo resgatado! Voce recebeu %d pontos.";
+"invite.error_invalid" = "Codigo de convite invalido";
+"invite.error_self" = "Voce nao pode usar seu proprio codigo";
+"invite.error_already" = "Voce ja usou um codigo de convite";
+"invite.error_generic" = "Falha ao resgatar o codigo";
+"profile.guest.title" = "Faca Login para a Experiencia Completa";
+"profile.guest.message" = "Faca login para participar de aliancas, ver conquistas e salvar seu historico de desenhos.";
+"profile.logout.confirm.title" = "Confirmar Saida";
+"profile.logout.confirm.message" = "Tem certeza de que deseja sair?";
+
+/* Settings */
+"settings.display" = "Tela e Brilho";
+"settings.font_size" = "Tamanho da Fonte";
+"settings.preview" = "Visualizacao";
+"settings.font_desc" = "Ajuste o tamanho da fonte para se adequar aos seus habitos de leitura. O padrao e compacto.";
+"settings.privacy" = "Privacidade";
+"settings.pixel_privacy" = "Privacidade de Pixels";
+"settings.about" = "Sobre";
+"settings.help" = "Ajuda e Feedback";
+"settings.version" = "Versao";
+"settings.font.small" = "Compacto (Padrao)";
+"settings.font.medium" = "Medio";
+"settings.font.large" = "Grande";
+
+/* Privacy */
+"privacy.hide_nickname" = "Ocultar Apelido";
+"privacy.hide_alliance" = "Ocultar Info da Alianca";
+"privacy.hide_flag" = "Ocultar Bandeira da Alianca";
+"privacy.shield_title" = "Escudo de Privacidade";
+"privacy.shield_desc" = "Quando ativado, suas informacoes pessoais acima serao anonimizadas quando outros visualizarem seus pixels.";
+"privacy.title" = "Configuracoes de Privacidade";
+
+/* Errors */
+"error.load_failed" = "Falha ao Carregar";
+"error.update_failed" = "Falha ao Atualizar";
+
+/* Achievements */
+"achievement.empty.title" = "Sem Conquistas";
+"achievement.empty.message" = "Complete atividades para desbloquear conquistas";
+"achievement.stats.title" = "Estatisticas";
+"achievement.stats.unlocked" = "Desbloqueadas";
+"achievement.stats.total" = "Total";
+"achievement.stats.pixels" = "Pixels";
+"achievement.stats.likes" = "Curtidas";
+"achievement.claimable" = "Recompensa Disponivel";
+"achievement.completed" = "Concluida";
+"achievement.btn.claim" = "Resgatar";
+"achievement.claim.success" = "Resgatou %d pontos";
+
+/* Achievement Categories */
+"category.all" = "Todos";
+"category.pixel" = "Pixel";
+"category.pixels" = "Desenho";
+"category.social" = "Social";
+"category.alliance" = "Alianca";
+"category.shop" = "Loja";
+"category.special" = "Especial";
+"category.likes" = "Curtidas";
+"category.activity" = "Atividade";
+
+/* Achievement Rarity */
+"rarity.common" = "Comum";
+"rarity.uncommon" = "Incomum";
+"rarity.rare" = "Raro";
+"rarity.epic" = "Epico";
+"rarity.legendary" = "Lendario";
+
+/* Achievement Errors */
+"error.achievement_list_failed" = "Falha ao buscar conquistas";
+"error.user_achievement_failed" = "Falha ao buscar conquistas do usuario";
+"error.completed_achievement_failed" = "Falha ao buscar conquistas concluidas";
+"error.achievement_stats_failed" = "Falha ao buscar estatisticas de conquistas";
+"error.achievement_highlights_failed" = "Falha ao buscar destaques de conquistas";
+"error.leaderboard_failed" = "Falha ao buscar ranking";
+"error.rank_failed" = "Falha ao buscar posicao";
+"error.check_achievement_failed" = "Falha ao verificar conquistas";
+
+/* Dynamic Achievement Names */
+"Pixel Novice" = "Pixel Novato";
+"pixel novice" = "Pixel Novato";
+"Pixel Artist" = "Pixel Artista";
+"pixel artist" = "Pixel Artista";
+"Pixel Master" = "Pixel Mestre";
+"pixel master" = "Pixel Mestre";
+"Social Butterfly" = "Borboleta Social";
+"social butterfly" = "Borboleta Social";
+
+/* Achievement Descriptions */
+"draw 1 pixel" = "Desenhe 1 pixel";
+"Draw 1 pixel" = "Desenhe 1 pixel";
+"draw 10 pixels" = "Desenhe 10 pixels";
+"Draw 10 pixels" = "Desenhe 10 pixels";
+"draw 100 pixels" = "Desenhe 100 pixels";
+"Draw 100 pixels" = "Desenhe 100 pixels";
+"draw 1000 pixels" = "Desenhe 1000 pixels";
+"Draw 1000 pixels" = "Desenhe 1000 pixels";
+"draw 10000 pixels" = "Desenhe 10000 pixels";
+"Draw 10000 pixels" = "Desenhe 10000 pixels";
+
+/* Achievement Share */
+"achievement.share.unlock" = "CONQUISTA DESBLOQUEADA";
+
+/* Additional Achievement Descriptions */
+"Receive 10 likes" = "Receba 10 curtidas";
+"receive 10 likes" = "Receba 10 curtidas";
+"Receive 100 likes" = "Receba 100 curtidas";
+"receive 100 likes" = "Receba 100 curtidas";
+"Have 5 friends" = "Tenha 5 amigos";
+"have 5 friends" = "Tenha 5 amigos";
+"Invite 5 friends" = "Convide 5 amigos";
+"invite 5 friends" = "Convide 5 amigos";
+"Active for 3 days" = "Ativo por 3 dias";
+"active for 3 days" = "Ativo por 3 dias";
+"Active for 7 days" = "Ativo por 7 dias";
+"active for 7 days" = "Ativo por 7 dias";
+
+/* Social Achievements */
+"follow 5 users" = "Siga 5 usuarios";
+"Follow 5 users" = "Siga 5 usuarios";
+"follow 10 users" = "Siga 10 usuarios";
+"Follow 10 users" = "Siga 10 usuarios";
+"follow 20 users" = "Siga 20 usuarios";
+"Follow 20 users" = "Siga 20 usuarios";
+"connect with 5 friends" = "Conecte-se com 5 amigos";
+"Connect with 5 friends" = "Conecte-se com 5 amigos";
+"share 10 times" = "Compartilhe 10 vezes";
+"Share 10 times" = "Compartilhe 10 vezes";
+"post 5 comments" = "Publique 5 comentarios";
+"Post 5 comments" = "Publique 5 comentarios";
+"receive 50 likes" = "Receba 50 curtidas";
+"Receive 50 likes" = "Receba 50 curtidas";
+"receive 500 likes" = "Receba 500 curtidas";
+"Receive 500 likes" = "Receba 500 curtidas";
+
+/* Specific Social Achievement */
+"check-in  with a photo 5 times" = "Complete 5 desenhos";
+"check-in with a photo 5 times" = "Complete 5 desenhos";
+
+/* Achievement Names (Chinese keys from backend) */
+"像素新手" = "Novato em Pixels";
+"像素爱好者" = "Amante de Pixels";
+"像素大师" = "Mestre de Pixels";
+"像素传奇" = "Lenda de Pixels";
+"连续绘制" = "Sequência de Desenho";
+"社交新手" = "Novato Social";
+"聊天达人" = "Expert em Chat";
+"社交明星" = "Estrela Social";
+"私信达人" = "Expert em Mensagens";
+"联盟新手" = "Novato em Alianças";
+"联盟领袖" = "Líder de Aliança";
+"联盟活跃分子" = "Ativo na Aliança";
+"购物新手" = "Novato em Compras";
+"购物达人" = "Expert em Compras";
+"土豪" = "Magnata";
+"早起鸟" = "Madrugador";
+"夜猫子" = "Coruja Noturna";
+"幸运儿" = "Sortudo";
+
+/* Achievement Descriptions (Chinese keys from backend) */
+"绘制第一个像素" = "Desenhe seu primeiro pixel";
+"绘制100个像素" = "Desenhe 100 pixels";
+"绘制1000个像素" = "Desenhe 1000 pixels";
+"绘制10000个像素" = "Desenhe 10000 pixels";
+"连续7天每天至少绘制1个像素" = "Desenhe pelo menos 1 pixel por dia durante 7 dias consecutivos";
+"发送第一条聊天消息" = "Envie sua primeira mensagem no chat";
+"发送100条聊天消息" = "Envie 100 mensagens no chat";
+"发送1000条聊天消息" = "Envie 1000 mensagens no chat";
+"发送10条私信" = "Envie 10 mensagens privadas";
+"加入第一个联盟" = "Junte-se à sua primeira aliança";
+"创建第一个联盟" = "Crie sua primeira aliança";
+"在联盟中活跃7天" = "Fique ativo em uma aliança por 7 dias";
+"购买第一个商品" = "Faça sua primeira compra";
+"购买10个商品" = "Compre 10 itens";
+"消费1000金币" = "Gaste 1000 moedas de ouro";
+"在早上6-9点之间绘制像素" = "Desenhe pixels entre 6-9 da manhã";
+"在晚上10-12点之间绘制像素" = "Desenhe pixels entre 22h-0h";
+"在特殊活动中获得奖励" = "Ganhe recompensas em um evento especial";
+
+/* Drawing Detail Page */
+"drawing_detail.start_point" = "Início";
+"drawing_detail.end_point" = "Fim";
+"drawing_detail.statistics" = "Estatísticas";
+"drawing_detail.stat.pixels" = "Pixels";
+"drawing_detail.stat.duration" = "Duração";
+"drawing_detail.stat.distance" = "Distância";
+"drawing_detail.stat.avg_speed" = "Vel. Média";
+"drawing_detail.stat.efficiency" = "Eficiência (px/min)";
+"drawing_detail.stat.unique_grids" = "Grades Únicas";
+"drawing_detail.pixel_details" = "Detalhes dos Pixels";
+"drawing_detail.showing_pixels" = "Mostrando os primeiros 10 de %d pixels";
+
+/* Drawing History / Gallery */
+"gallery.offline_mode" = "Modo offline - Exibindo dados em cache";
+
+/* Artwork Tags */
+"artwork.tag.first_today" = "Primeiro Hoje";
+"artwork.tag.new_area" = "Nova Área";
+"artwork.tag.fast" = "Rápido";
+"artwork.tag.long_distance" = "Longa Distância";
+"artwork.tag.high_density" = "Alta Densidade";
+
+/* Share Platform Names */
+"share.platform.wechat_session" = "WeChat";
+"share.platform.wechat_timeline" = "Momentos";
+"share.platform.weibo" = "Weibo";
+"share.platform.xiaohongshu" = "Xiaohongshu";
+"share.platform.save_image" = "Salvar Imagem";
+"share.platform.copy_link" = "Copiar Link";
+
+/* Session Detail Share */
+"session_detail.share.distance" = "Distância: %@";
+
+/* Achievement Toast */
+"achievement.unlock.title" = "🎉 Conquista Desbloqueada!";
+"common.points" = "Pontos";
+
+/* Event Rewards */
+"event.rewards.title" = "Recompensas do Evento";
+"event.rewards.subtitle" = "As recompensas serao distribuidas automaticamente apos o termino do evento.";
+"rank.1st" = "1o Lugar";
+"rank.2nd" = "2o Lugar";
+"rank.3rd" = "3o Lugar";
+"reward.target.members" = "Todos os Membros da Alianca";
+"reward.target.leader" = "Apenas o Lider da Alianca";
+"reward.flag" = "Bandeira Exclusiva";
+"common.pixels" = "Pixels";
+
+/* Event Center */
+"profile.event_center" = "Central de Eventos";
+"event.center.title" = "Central de Eventos";
+"event.center.tab.active" = "Ativos";
+"event.center.tab.my" = "Meus Eventos";
+"event.center.tab.ended" = "Encerrados";
+"event.stats.participated" = "Participou";
+"event.stats.active" = "Ativos";
+"event.stats.completed" = "Concluidos";
+"event.empty.active" = "Nenhum evento ativo";
+"event.empty.my" = "Voce nao participou de nenhum evento";
+"event.empty.ended" = "Nenhum evento encerrado";
+"event.status.active" = "Em Andamento";
+"event.status.published" = "Em Breve";
+"event.status.ended" = "Encerrado";
+"event.status.draft" = "Rascunho";
+"event.type.leaderboard" = "Ranking";
+"event.type.territory" = "Guerra de Territorio";
+"event.type.cooperation" = "Cooperacao";
+"event.type.war" = "Guerra de Faccoes";
+"event.joined_at" = "Participou";
+"event.result.title" = "Resultados do Evento";
+"event.result.share" = "Compartilhar Resultado";
+"event.settled" = "Finalizado";
+"event.participants" = "Participantes";
+"event.total_pixels" = "Total de Pixels";
+"event.pixel_logs" = "Registro de Pixels";
+"event.final_rankings" = "Ranking Final";
+"event.no_rankings" = "Nenhum ranking disponivel";
+"event.rewards_config" = "Recompensas";
+"event.target.alliance_members" = "Todos os Membros";
+"event.target.alliance_leader" = "Apenas o Lider";
+"event.target.user" = "Individual";
+
+/* Event Preannounce HUD */
+"event.preannounce.title" = "Previa do Evento";
+"event.preannounce.starts_in" = "Comeca em";
+"event.preannounce.starting_soon" = "Comecando em";
+"event.preannounce.started" = "Comecou!";
+"event.preannounce.view_detail" = "Ver Detalhes";
+
+/* Event Signup Sheet */
+"event.signup.title" = "Participar do Evento";
+"event.signup.individual" = "Participar Individualmente";
+"event.signup.individual.desc" = "Compita por conta propria";
+"event.signup.or_with_alliance" = "Ou participe com sua alianca";
+"event.signup.alliance.desc" = "Participar como membro da alianca";
+"event.signup_prompt" = "Entre na batalha e ganhe recompensas!";
+"event.signup_btn" = "Inscreva-se Agora";
+"event.signup_closed" = "Inscricoes Encerradas";
+
+/* Event Zone Notifications */
+"event.zone.entered.title" = "Entrou na Zona do Evento";
+"event.zone.entered.subtitle" = "Voce esta agora em \"%@\"";
+"event.zone.exited.title" = "Saiu da Zona do Evento";
+"event.zone.exited.subtitle" = "Voce saiu de \"%@\"";
+"event.zone.ending.title" = "Evento Terminando em Breve";
+"event.zone.ending.subtitle" = "\"%@\" termina em %d minutos";
+"event.zone.ended.title" = "Evento Encerrado";
+"event.zone.ended.subtitle" = "\"%@\" foi encerrado";
+
+"loading" = "Carregando...";
+
+/* Profile Edit */
+"profile.edit.title" = "Editar Perfil";
+"profile.edit.info" = "Informacoes Basicas";
+"profile.edit.nickname" = "Apelido";
+"profile.edit.motto" = "Lema";
+"profile.edit.save" = "Salvar Alteracoes";
+"profile.edit.cancel" = "Cancelar";
+
+/* Alliance Selection & Patterns */
+"alliance.select.title" = "Selecionar Alianca";
+"pattern.default_color" = "Cor Padrao";
+"pattern.alliance_flag_emoji" = "Bandeira da Alianca (Emoji)";
+"pattern.alliance_flag" = "Bandeira da Alianca";
+"pattern.alliance_color" = "Cor da Alianca";
+
+/* Drawing Detail */
+"drawing_detail.title" = "Detalhe do Desenho";
+"drawing_detail.share_button" = "Compartilhar Desenho";
+"drawing_detail.replay_button" = "Reproduzir Desenho";
+
+/* Explore Sheet */
+"explore.title" = "Explorar";
+"explore.empty" = "Nenhum ponto quente ainda";
+"explore.empty.hint" = "Comece a desenhar para criar pontos quentes ao redor do mundo";
+
+/* FAB Tooltip & First Pixel */
+"tooltip.fab.start_drawing" = "Toque para comecar a desenhar!";
+"tooltip.fab.flag_switch" = "Pressione para trocar bandeira";
+
+// MARK: - Seleção de bandeira
+"flag.picker.title" = "Escolher Bandeira";
+"flag.section.personal" = "Minha Bandeira";
+"flag.section.alliance" = "Bandeiras de Aliança";
+"flag.personal_color" = "Minha Cor";
+"flag.my_avatar" = "Meu Avatar";
+"celebration.first_pixel.title" = "Primeiro Pixel!";
+"celebration.first_pixel.subtitle" = "Sua jornada de desenho GPS comecou!";
+
+/* Location Pre-Education */
+"location.pre_edu.title" = "Ativar Localizacao";
+"location.pre_edu.subtitle" = "O FunnyPixels precisa da sua localizacao para criar pixel art GPS enquanto voce caminha";
+"location.pre_edu.feature1.title" = "Desenho GPS";
+"location.pre_edu.feature1.desc" = "Caminhe para desenhar pixel art no mapa real";
+"location.pre_edu.feature2.title" = "Pontos Quentes Locais";
+"location.pre_edu.feature2.desc" = "Descubra pixel arts e jogadores por perto";
+"location.pre_edu.feature3.title" = "Privacidade em Primeiro Lugar";
+"location.pre_edu.feature3.desc" = "A localizacao so e usada durante o desenho";
+"location.pre_edu.enable" = "Ativar Localizacao";
+"location.pre_edu.skip" = "Talvez Depois";
+
+/* Check-in Rewards & Recovery */
+"checkin.recovery.title" = "Sequencia Perdida!";
+"checkin.recovery.desc" = "Voce perdeu uma sequencia de %d dias. Recupere agora!";
+"checkin.recovery.btn" = "Recuperar Sequencia (1x/mes)";
+"checkin.rewards.title" = "Metas de Recompensa";
+"checkin.rewards.day" = "Dia %d";
+"checkin.week_cycle" = "Recompensas Semanais";
+"checkin.milestones.title" = "Marcos";
+"checkin.milestone.days" = "%d Dias";
+
+/* Map Mode Indicator */
+"map.mode.drawing" = "%d pixels";
+
+/* Shop & Store */
+"shop.title" = "Loja";
+"shop.backpack" = "Mochila";
+"shop.my_points" = "Meus Pontos";
+"shop.empty.title" = "Sem Itens";
+"shop.empty.message" = "Nenhum item disponivel na loja";
+"shop.item.used" = "Usado %@";
+"shop.price_points" = "%d Pontos";
+"shop.category.all" = "Todos";
+"shop.category.consumable" = "Consumivel";
+"shop.category.special" = "Especial";
+"shop.category.cosmetic" = "Cosmetico";
+"shop.purchase.confirm_title" = "Confirmar Compra";
+"shop.purchase.button" = "Comprar";
+"shop.purchase.confirm_message" = "Gastar %d pontos para comprar %@?";
+"shop.error.load_failed" = "Falha ao carregar: %@";
+"shop.error.inventory_load_failed" = "Falha ao carregar inventario: %@";
+"shop.error.purchase_failed" = "Falha na compra: %@";
+"shop.error.use_failed" = "Falha ao usar item: %@";
+"shop.error.recharge_failed" = "Falha ao criar recarga: %@";
+"shop.insufficient_points.title" = "Pontos Insuficientes";
+"shop.insufficient_points.message" = "Pontos atuais: %d, necessarios: %d pontos";
+"shop.insufficient_points.recharge" = "Recarregar";
+"shop.insufficient_points.hint" = "Pontos insuficientes, recarregue primeiro";
+
+/* Approval Price Info */
+"approval.section.price_info" = "Informacoes de Preco";
+"approval.price_label" = "Preco do Item";
+"approval.balance_label" = "Pontos Atuais";
+
+/* Inventory / Backpack */
+"inventory.title" = "Minha Mochila";
+"inventory.empty.title" = "Sem Itens";
+"inventory.empty.message" = "Sua mochila esta vazia. Visite a loja!";
+"inventory.use" = "Usar";
+
+/* Wallet & Recharge */
+"wallet.title" = "Carteira";
+"wallet.tab.recharge" = "Recarregar";
+"wallet.tab.bills" = "Faturas";
+"wallet.done" = "Pronto";
+"wallet.payment_hint" = "Pagamento";
+"wallet.select_amount" = "Selecione o Valor";
+"wallet.loading_products" = "Carregando produtos...";
+"wallet.no_products" = "Nenhum produto disponivel";
+"wallet.retry_load" = "Tentar Novamente";
+"wallet.restore_purchases" = "Restaurar Compras";
+"wallet.restore_completed" = "Restauracao concluida";
+"wallet.recharge_history" = "Historico de Recargas";
+"wallet.spending_history" = "Historico de Gastos";
+"wallet.empty_recharge.title" = "Sem Recargas";
+"wallet.empty_recharge.message" = "Voce ainda nao fez nenhuma recarga";
+"wallet.recharge_points" = "Recarregar %d pontos";
+"wallet.empty_spending.title" = "Sem Compras";
+"wallet.empty_spending.message" = "Voce ainda nao comprou nada";
+"wallet.payment_success" = "Pagamento realizado! Recebeu %d pontos";
+"wallet.product_load_failed" = "Falha ao carregar produtos. Tente novamente.";
+"order.status.pending" = "Pendente";
+"order.status.completed" = "Concluido";
+"order.status.failed" = "Falhou";
+
+/* Purchase Approval (Ads & Custom Flags) */
+"approval.section.basic_info" = "Informacoes Basicas";
+"approval.ad_title" = "Titulo do Anuncio";
+"approval.pattern_name" = "Nome do Padrao";
+"approval.ad_desc" = "Descricao do Anuncio";
+"approval.desc" = "Descricao";
+"approval.ad_hint" = "Mantenha curto e legivel; evite textos pequenos para melhor clareza dos pixels.";
+"approval.pattern_hint" = "Dica: Nomes curtos ficam melhor nas listas.";
+"approval.section.image" = "Upload de Imagem";
+"approval.select_image" = "Selecionar Imagem";
+"approval.image_hint" = "Use imagens de alto contraste para previsualizacoes de pixels mais claras.";
+"approval.section.ad_preview" = "Previa do Anuncio";
+"approval.preview.generating" = "Gerando previa...";
+"approval.preview.size" = "Tamanho da previa: %dx%d";
+"approval.preview.empty" = "Selecione uma imagem para pre-visualizar o efeito pixel.";
+"approval.preview.tip" = "Ajuste a imagem dentro do quadro para o resultado final do anuncio.";
+"approval.preview.crop_tip" = "Arraste e amplie para ajustar a area de corte.";
+"approval.section.deploy" = "Configuracoes de Implantacao";
+"approval.deploy_time" = "Horario Previsto";
+"approval.deploy_location" = "Localizacao";
+"approval.tap_to_select" = "Toque para selecionar";
+"approval.location_hint" = "Escolha um local onde o anuncio deve aparecer.";
+"approval.uploading" = "Enviando...";
+"approval.submit" = "Enviar para Analise";
+"approval.nav_title.ad" = "Envio de Anuncio";
+"approval.nav_title.flag" = "Envio de Bandeira Personalizada";
+"approval.upload_failed" = "Falha no Upload";
+"approval.unknown_error" = "Erro desconhecido";
+"approval.image_upload_failed" = "Falha no upload da imagem: %@";
+"approval.select_location" = "Selecionar Localizacao";
+"approval.location.loading" = "Localizando...";
+"approval.location.nearby" = "Perto de %@";
+"approval.location.unknown" = "Local selecionado";
+
+/* Bomb Placement */
+"bomb.select_location" = "Selecionar Local de Colocacao";
+"bomb.place_here" = "Colocar Aqui";
+"bomb.confirm_title" = "Confirmar Colocacao";
+"bomb.confirm_use" = "Confirmar";
+"bomb.confirm_message" = "Usar %@ neste local?";
+
+/* Transactions */
+"transaction.title" = "Transacoes";
+"transaction.date.start" = "Inicio";
+"transaction.date.end" = "Fim";
+"transaction.empty.title" = "Sem Registros";
+"transaction.empty.message" = "Voce ainda nao tem nenhuma transacao";
+"transaction.type.purchase" = "Compra";
+"transaction.type.use" = "Uso";
+"transaction.type.refund" = "Reembolso";
+"transaction.type.other" = "Outro";
+"transaction.status.completed" = "Concluido";
+"transaction.status.pending" = "Processando";
+"transaction.status.failed" = "Falhou";
+"transaction.points.used" = "Usado";
+
+/* Common (additional) */
+"common.done" = "Pronto";
+"common.hint" = "Aviso";
+
+/* Settings - Language */
+"settings.language" = "Idioma";
+"settings.language.system" = "Padrao do Sistema";
+"settings.language.restart_hint" = "Algumas alteracoes podem exigir a reinicializacao do app para entrar em vigor.";
+
+/* Settings - Sound */
+"settings.sound" = "Som";
+"settings.sound_effects" = "Efeitos Sonoros";
+
+/* Onboarding */
+"onboarding.title.explore" = "Explore o Mundo Pixel";
+"onboarding.desc.explore" = "Arraste o mapa para ver pixels globais.\nToque em qualquer pixel para ver detalhes\ne descubra seu territorio.";
+"onboarding.title.gps" = "Desenho GPS";
+"onboarding.desc.gps" = "Va ate a area que deseja desenhar.\nAtive o desenho automatico por GPS\ne seu caminho se transforma em pixels.";
+"onboarding.title.alliance" = "Guerra de Aliancas";
+"onboarding.desc.alliance" = "Entre em uma alianca e conquiste cidades juntos.\nQuando seus pixels ficarem fortes,\nsua bandeira aparecera no mapa.";
+"onboarding.skip" = "Pular";
+"onboarding.next" = "Proximo";
+"onboarding.start" = "Comecar";
+
+/* Drawing */
+"drawing.color.current" = "Cor Atual";
+"drawing.color.presets" = "Cores Predefinidas";
+"drawing.color.select_title" = "Selecionar Cor";
+"drawing.emoji.current" = "Emoji Atual";
+"drawing.emoji.tap_to_select" = "Toque para selecionar emoji";
+"drawing.emoji.select_title" = "Selecionar Emoji";
+"drawing.mode.title" = "Modo de Desenho";
+"drawing.mode.none" = "Navegar";
+"drawing.mode.color" = "Cor";
+"drawing.mode.emoji" = "Emoji";
+"drawing.mode.complex" = "Padrao";
+"drawing.mode.gps" = "Desenho GPS";
+"drawing.gps.title" = "Desenho GPS";
+"drawing.gps.session_title" = "Sessao GPS";
+"drawing.gps.session_pixels" = "Desenhou %d pixels";
+"drawing.gps.active" = "Ativo";
+"drawing.gps.idle" = "Inativo";
+"drawing.gps.start" = "Comecar a Desenhar";
+"drawing.gps.stop" = "Parar de Desenhar";
+"drawing.gps.not_active" = "GPS nao ativo";
+
+/* Pattern */
+"pattern.type.color" = "Cor";
+"pattern.type.emoji" = "Emoji";
+"pattern.type.complex" = "Padrao";
+"pattern.loading_alliance_flag" = "Carregando bandeira da alianca...";
+
+/* Help & Feedback */
+"help.segment.title" = "Modo";
+"help.segment.manual" = "Manual";
+"help.segment.feedback" = "Feedback";
+"help.title" = "Ajuda e Feedback";
+"help.manual.welcome_title" = "👋 Bem-vindo ao FunnyPixels";
+"help.manual.welcome_desc" = "FunnyPixels é um mapa de pixels colaborativo global. Caminhe com GPS para criar pixel art, junte-se a alianças para conquistar territórios e explore um mundo pintado por jogadores de todos os lugares.";
+"help.manual.getting_started_title" = "Primeiros passos";
+"help.manual.getting_started_desc" = "Ao iniciar o FunnyPixels, voce sera solicitado a conceder permissao de localizacao — essencial para o desenho GPS.\n\nNavegacao:\n- Mapa: Explore a tela global de pixels, veja jogadores proximos e territorios\n- Feed: Feed social, registros de desenho e painel de estatisticas\n- Alianca: Junte-se ou crie equipes, evolua juntos\n- Ranking: Tabelas de classificacao com niveis de ranking e rankings de amigos\n- Eu: Perfil, tarefas diarias, conquistas e configuracoes\n\nO botao redondo no canto inferior direito inicia o desenho GPS. Mantenha pressionado para trocar sua bandeira de desenho.\n\nEstatisticas rapidas: Um widget flutuante no mapa mostra os pixels de hoje, sessoes e progresso de tarefas diarias de relance.";
+"help.manual.gps_drawing_title" = "Desenho GPS";
+"help.manual.gps_drawing_desc" = "O desenho GPS transforma seu movimento real em pixel art no mapa.\n\nComo começar:\n1. Vá até a área onde quer desenhar\n2. Toque no botão redondo para iniciar uma sessão GPS\n3. Caminhe — seu caminho se torna pixels\n4. Toque em Parar ao terminar\n\nDicas:\n- Escolha sua bandeira antes de começar (cor pessoal, avatar ou bandeira de aliança)\n- A bússola mostra sua direção\n- Estatísticas (pixels, distância, velocidade) são atualizadas em tempo real\n- Modo de baixo consumo disponível para caminhadas longas";
+"help.manual.manual_drawing_title" = "Desenho manual";
+"help.manual.manual_drawing_desc" = "Coloque pixels diretamente no mapa tocando.\n\nModos de desenho:\n- Cor: Escolha entre cores predefinidas ou personalize uma cor e toque no mapa\n- Emoji: Selecione um emoji e toque para colocar\n- Padrão: Use bandeiras de aliança ou padrões personalizados\n\nAlterne entre modos usando o painel de desenho na parte inferior da tela.";
+"help.manual.map_explore_title" = "Mapa e exploração";
+"help.manual.map_explore_desc" = "O mapa e sua tela.\n\n- Pince para zoom, arraste para explorar o mundo\n- Toque em qualquer pixel para ver quem desenhou e quando\n- Bandeiras de alianca aparecem onde equipes dominam\n- Use o painel Explorar para descobrir pontos de interesse proximos\n- Zonas de eventos sao destacadas durante competicoes ativas\n\nRecursos do mapa:\n- Jogadores proximos: Veja em tempo real quem esta desenhando perto\n- Barra de informacao regional: Mostra nome da area, jogadores ativos, total de pixels e alianca dominante\n- Controle de territorio: Territorios de alianca sao exibidos como zonas coloridas no mapa\n- Estatisticas rapidas: Widget flutuante mostrando pixels de hoje, sessoes e progresso de tarefas diarias";
+"help.manual.history_title" = "Centro de Feed";
+"help.manual.history_desc" = "A aba Feed e seu centro de conteudo com tres secoes:\n\n- Feed: Veja atividades de desenho, conquistas desbloqueadas e mudancas de ranking dos jogadores que voce segue. Curta e comente. Toque em \"Voar para\" para visitar o local do desenho no mapa.\n- Registros: Veja todos os seus desenhos passados em formato galeria ou lista. Toque em qualquer sessao para ver detalhes, estatisticas e replay no mapa. Compartilhe nas redes sociais ou salve como imagem.\n- Estatisticas: Painel de dados pessoal com calendario de atividades (mapa de calor), tendencias semanais e pegada de cidades — acompanhe sua jornada de desenho.";
+"help.manual.shop_title" = "Loja e itens";
+"help.manual.shop_desc" = "Compre itens com pontos na Loja.\n\nTipos de itens:\n- Bombas: Elimine pixels de outros jogadores em uma área\n- Cartões de boost: Aumente a eficiência do desenho GPS\n- Anúncios: Coloque sua imagem personalizada no mapa (requer revisão)\n- Bandeiras personalizadas: Envie uma bandeira personalizada para sua aliança\n\nPontos e carteira:\n- Ganhe pontos com check-ins, conquistas, eventos e convites\n- Recarregue pontos via WeChat Pay ou Alipay\n- Veja itens comprados na Mochila (Eu > Meus itens)";
+"help.manual.alliance_title" = "Alianca e Territorio";
+"help.manual.alliance_desc" = "Forme equipe com outros jogadores para conquistar territorio.\n\nCriar uma Alianca:\n- Va para a aba Alianca e toque em Criar\n- Defina nome, descricao, visibilidade e padrao de bandeira\n\nBandeiras de Alianca:\n- Cor: Bandeira de cor solida\n- Emoji: Bandeira com icone emoji\n- Complexa: Envie uma imagem de padrao personalizado\n\nCrescimento da Alianca:\n- Nivel da Alianca: Ganhe XP com atividades dos membros para subir de nivel e desbloquear beneficios\n- Check-in da Alianca: Membros fazem check-in diario para ganhar pontos para a alianca\n- Ranking de Contribuicao: Veja quais membros contribuem mais pixels\n\nGerenciamento:\n- O lider pode promover administradores, expulsar membros ou transferir lideranca\n- Convide novos membros com codigos de convite\n- Veja estatisticas da alianca: pixels totais, territorio, ranking mundial\n\nTerritorio:\n- Aliancas que dominam uma area controlam seu territorio\n- Zonas de territorio sao exibidas como sobreposicoes coloridas no mapa\n- Toque em um territorio para ver o detalhamento por alianca";
+"help.manual.achievements_title" = "Conquistas";
+"help.manual.achievements_desc" = "Desbloqueie conquistas completando atividades.\n\nCategorias: Desenho, Social, Aliança, Loja, Atividade, Especial\n\nNíveis de raridade: Comum, Incomum, Raro, Épico, Lendário\n\nComo funciona:\n- Conquistas são desbloqueadas automaticamente enquanto joga\n- Resgate recompensas de pontos na página de Conquistas (Eu > Conquistas)\n- Compartilhe cartões de conquista nas redes sociais\n- Emblemas conquistados aparecem no mural de honra do perfil";
+"help.manual.events_title" = "Eventos e desafios";
+"help.manual.events_desc" = "Compita em eventos por tempo limitado para recompensas especiais.\n\nTipos de eventos:\n- Sprint de ranking: Desenhe mais pixels para subir no ranking\n- Guerra territorial: Lute pelo controle de áreas do mapa\n- Cooperação: Todos os jogadores trabalham juntos por um objetivo comum\n- Guerra de facções: Aliança contra aliança\n\nComo participar:\n- Confira o Centro de Eventos (Eu > Centro de Eventos)\n- Inscreva-se individualmente ou como aliança\n- Entre nas zonas de evento no mapa para contribuir\n- Recompensas são distribuídas ao final dos eventos";
+"help.manual.drift_bottle_title" = "Garrafas à deriva";
+"help.manual.drift_bottle_desc" = "Deixe mensagens para desconhecidos em garrafas que viajam pelo mundo.\n\nObter garrafas:\n- Desenhe pixels para ganhar garrafas (progresso na tela)\n\nCriar:\n- Após uma sessão de desenho, escreva uma mensagem curta (máx. 50 caracteres) e lance\n\nEncontrar:\n- Encontre garrafas enquanto desenha\n- Abra para ler mensagens, deixe a sua ou libere para continuar a viagem\n\nCartões de viagem:\n- Quando 5 pessoas abrem uma garrafa, ela afunda e todos recebem um cartão de viagem\n- Colecione em Eu > Coleção de viagens";
+"help.manual.leaderboard_title" = "Classificação";
+"help.manual.leaderboard_desc" = "Veja como voce se classifica contra outros jogadores.\n\nPeriodos: Diario, Semanal, Mensal, Todo o tempo\n\nTipos de ranking:\n- Pessoal: Contagem individual de pixels\n- Alianca: Total de pixels e territorio da alianca\n- Cidade: Cidades mais ativas do mundo\n- Amigos: Rankings entre jogadores que voce segue\n\nRecursos:\n- Niveis de Ranking: Ganhe insignias de ranking (Bronze a Lenda) baseadas na sua contagem de pixels\n- Cartao de Ranking Pessoal: Seu ranking, insignia de nivel e estatisticas no topo\n- Podio Top 3: Os 3 melhores jogadores sao apresentados em um podio especial\n- Mudancas de Ranking: Indicadores animados mostram como seu ranking mudou";
+"help.manual.daily_tasks_title" = "Tarefas Diarias";
+"help.manual.daily_tasks_desc" = "Complete tarefas diarias para ganhar recompensas extras.\n\nComo funciona:\n- Cada dia, um conjunto de tarefas e gerado (ex: desenhar pixels, fazer check-in, explorar o mapa)\n- Acompanhe seu progresso em cada tarefa com barras de progresso\n- Resgate recompensas por cada tarefa completa\n- Complete TODAS as tarefas para desbloquear uma recompensa de bonus especial\n\nAcesso as tarefas diarias:\n- Eu > Tarefas Diarias\n- O widget de estatisticas rapidas no mapa (toque em \"Ver Tarefas\")\n\nO progresso das tarefas e atualizado automaticamente enquanto voce joga. Nao esqueca — as tarefas sao reiniciadas diariamente!";
+"help.manual.social_title" = "Social e Seguindo";
+"help.manual.social_desc" = "Conecte-se com outros jogadores e construa sua comunidade.\n\nSistema de Seguir:\n- Siga jogadores pelo perfil, tabela de classificacao ou cartoes de jogadores proximos\n- Veja seus seguidores e seguindo no seu perfil\n- Veja a atividade dos jogadores que voce segue na aba Feed\n\nJogadores Proximos:\n- Jogadores ativos desenhando perto aparecem no mapa\n- Toque em um chip de jogador para ver informacoes e seguir\n- A barra de informacao regional mostra quantos jogadores estao ativos na sua area\n\nFeed Social:\n- Curta e comente desenhos e conquistas\n- Toque em \"Voar para\" em uma publicacao de desenho para visitar o local no mapa";
+"help.manual.invite_title" = "Convidar amigos";
+"help.manual.invite_desc" = "Convide amigos e ganhe pontos bônus.\n\nComo convidar:\n- Vá em Eu > Convidar amigos\n- Copie ou compartilhe seu código de convite exclusivo\n- Seu amigo insere o código após se cadastrar\n\nRecompensas:\n- Ganhe pontos por cada convite bem-sucedido\n- Seu amigo recebe pontos de boas-vindas\n- Acompanhe suas estatísticas de convite na página de convites";
+"help.manual.settings_title" = "Configurações e perfil";
+"help.manual.settings_desc" = "Personalize sua experiencia.\n\n- Editar Perfil: Altere apelido, lema e avatar\n- Tela: Ajuste o tamanho da fonte (Compacto, Medio, Grande)\n- Idioma: Mude o idioma do app ou siga a configuracao do sistema\n- Som: Ative/desative efeitos sonoros\n- Privacidade: Oculte seu apelido, informacoes de alianca ou bandeira de outros\n- Check-in Diario: Faca check-in diariamente para recompensas de sequencia, ciclos de recompensa semanal e bonus de marco (30/90/180/365 dias)\n- Tarefas Diarias: Complete tarefas diarias como desenhar pixels, fazer check-in e explorar o mapa para ganhar recompensas extras\n- Seguindo e Seguidores: Veja seus seguidores e quem voce segue no seu perfil";
+"help.feedback.section" = "Seu Feedback";
+"help.feedback.placeholder" = "Conte-nos suas sugestoes ou problemas...";
+"help.feedback.contact_title" = "Contato (Opcional)";
+"help.feedback.contact_placeholder" = "Telefone / Email";
+"help.feedback.submit" = "Enviar Feedback";
+"help.feedback.success_title" = "Enviado";
+"help.feedback.success_message" = "Obrigado pelo seu feedback!";
+
+/* Upload Disclaimer */
+"disclaimer.title" = "Diretrizes de Conteudo";
+"disclaimer.avatar" = "Voce e responsavel pelo avatar enviado. Certifique-se de que nao contenha conteudo obsceno, violento ou ilegal, e que nao infrinja os direitos de propriedade intelectual de terceiros. A plataforma se reserva o direito de remover qualquer conteudo que viole nossas diretrizes.";
+"disclaimer.ad_image" = "Voce e responsavel pelo conteudo da imagem enviada. Certifique-se de que esteja em conformidade com as leis aplicaveis e nao contenha material obsceno, violento ou ilegal, nem infrinja os direitos de propriedade intelectual ou de imagem de terceiros. Todos os envios estao sujeitos a analise, e a plataforma se reserva o direito de rejeitar ou remover violacoes.";
+"disclaimer.flag" = "Voce e responsavel pelo design da bandeira selecionada ou enviada. Certifique-se de que nao contenha conteudo obsceno, violento ou ilegal, e que nao infrinja os direitos de propriedade intelectual de terceiros. A plataforma se reserva o direito de remover qualquer conteudo que viole nossas diretrizes.";
+"disclaimer.info_hint" = "Diretrizes de Conteudo";
+
+/* Drift Bottle - Common */
+"drift_bottle.far_away" = "ao longe";
+"drift_bottle.somewhere" = "Em algum lugar";
+"drift_bottle.unknown" = "Desconhecido";
+
+/* Drift Bottle - Encounter Banner */
+"drift_bottle.encounter.from" = "Veio de %@";
+"drift_bottle.encounter.stats" = "%@km · Parada %d/%d";
+"drift_bottle.encounter.open" = "Abrir";
+
+/* Drift Bottle - Create Prompt */
+"drift_bottle.create.prompt" = "Desenhou %d pixels! Deixar uma garrafa a deriva?";
+"drift_bottle.create.yes" = "Deixar uma";
+"drift_bottle.create.later" = "Talvez depois";
+"drift_bottle.create.title" = "Deixe uma mensagem";
+"drift_bottle.create.placeholder" = "Escreva algo... (max 50 caracteres)";
+"drift_bottle.create.throw" = "Lancar";
+"drift_bottle.create.success" = "Garrafa a deriva lancada!";
+
+/* Drift Bottle - Side Indicator */
+"drift_bottle.indicator.count" = "Garrafa a Deriva x%d";
+"drift_bottle.indicator.progress" = "Desenhe mais %d pixels para uma nova garrafa";
+"drift_bottle.indicator.frozen" = "Mochila cheia, use garrafas para ganhar mais";
+"drift_bottle.indicator.earned" = "Voce ganhou uma garrafa a deriva!";
+
+/* Drift Bottle - Quota Details */
+"drift_bottle.quota.daily_free" = "Gratis diario";
+"drift_bottle.quota.pixel_bonus" = "Bonus de pixels";
+"drift_bottle.quota.pixels_needed" = "Desenhe mais %d pixels para garrafa bonus";
+
+/* Drift Bottle - Open View */
+"drift_bottle.open.opening" = "Abrindo...";
+"drift_bottle.open.from" = "De %@";
+"drift_bottle.open.days" = "%d dias";
+"drift_bottle.open.station" = "Parada %d/%d";
+"drift_bottle.open.messages_title" = "Mensagens da Jornada";
+"drift_bottle.open.last_stop" = "Voce e a ultima parada";
+"drift_bottle.open.write_message" = "Escrever uma mensagem";
+"drift_bottle.open.release" = "Pular e soltar";
+"drift_bottle.open.leave_footprint" = "Deixe sua marca";
+"drift_bottle.open.placeholder" = "Escreva algo...";
+"drift_bottle.open.submit_release" = "Pronto, soltar";
+"drift_bottle.open.released" = "A garrafa continua sua jornada...";
+"drift_bottle.open.sunk_title" = "A garrafa afundou nas profundezas";
+"drift_bottle.open.sunk_message" = "Todos os participantes receberao um cartao de jornada";
+"drift_bottle.open.ok" = "OK";
+"drift_bottle.open.mini_stats" = "%d paradas · %@km · %d dias";
+
+/* Drift Bottle - Reunion View */
+"drift_bottle.reunion.title" = "Parece ser sua propria garrafa!";
+"drift_bottle.reunion.subtitle" = "Ela voltou!";
+"drift_bottle.reunion.opened" = "Aberta";
+"drift_bottle.reunion.km" = "km";
+"drift_bottle.reunion.days" = "Dias";
+"drift_bottle.reunion.others_messages" = "Mensagens de outros";
+"drift_bottle.reunion.read_story" = "Ler sua historia";
+"drift_bottle.reunion.let_drift" = "Deixar continuar a deriva";
+
+/* Drift Bottle - Journey Card Detail */
+"drift_bottle.journey.title" = "Cartao de Jornada";
+"drift_bottle.journey.load_failed" = "Falha ao carregar";
+"drift_bottle.journey.stations" = "%d paradas";
+"drift_bottle.journey.days" = "%d dias";
+"drift_bottle.journey.sunk" = "Afundou";
+"drift_bottle.journey.route" = "Rota da Jornada";
+"drift_bottle.journey.origin" = "Origem";
+"drift_bottle.journey.messages" = "Mensagens da Jornada";
+
+/* Drift Bottle - Journey Card List */
+"drift_bottle.journey_list.title" = "Colecao de Jornadas";
+"drift_bottle.journey_list.empty.title" = "Nenhum Cartao de Jornada Ainda";
+"drift_bottle.journey_list.empty.message" = "Quando uma garrafa a deriva afunda apos 5 pessoas abri-la,\nvoce recebera um cartao de jornada";
+"drift_bottle.role.creator" = "Criador";
+"drift_bottle.station_number" = "Parada %d";
+"drift_bottle.days_count" = "%d dias";
+
+/* Profile - Journey Collection */
+"profile.journey_collection" = "Colecao de Jornadas";
+
+/* Leaderboard Empty States */
+"leaderboard.personal.empty" = "Sem dados";
+"leaderboard.personal.emptyHint" = "Comece a desenhar para aparecer no ranking";
+"leaderboard.alliance.empty" = "Sem dados de alianca";
+"leaderboard.alliance.emptyHint" = "Junte-se a uma alianca e desenhem juntos";
+"leaderboard.city.empty" = "Sem dados de cidade";
+"leaderboard.city.emptyHint" = "Cidades com jogadores ativos aparecerao aqui";
+
+/* MyRankCard */
+"leaderboard.myrank.label" = "Meu Ranking";
+"leaderboard.myrank.pixels" = "%d Pixels";
+"leaderboard.myrank.gap" = "%d pixels para o proximo ranking";
+"leaderboard.myrank.first" = "Voce e o #1!";
+"leaderboard.myrank.percentile" = "Top %.1f%%";
+
+/* Player Detail */
+"leaderboard.playerdetail.rank" = "Ranking";
+
+/* Nearby Empty */
+"nearby.empty" = "Sem jogadores proximos";
+
+/* Social Toast */
+"social.followed" = "Seguindo";
+"social.unfollowed" = "Deixou de seguir";
+
+/* Daily Reward Summary */
+"reward.summary.title" = "Recompensa diaria";
+"reward.summary.subtitle" = "Rankings de ontem";
+"reward.summary.personal" = "Ranking pessoal";
+"reward.summary.alliance" = "Ranking de alianca";
+"reward.summary.friends" = "Ranking de amigos";
+"reward.summary.no_rank" = "Sem classificacao";
+"reward.summary.total" = "Total ganho";
+"reward.summary.points" = "+%d pts";
+"reward.summary.dismiss" = "Entendi";
+"reward.summary.rank" = "#%d";
+
+/* Alliance Sub-Pages */
+"alliance.contribution.view_all" = "Ver tudo";
+"alliance.contribution.empty.title" = "Sem rankings";
+"alliance.contribution.empty.message" = "Os membros ainda nao contribuiram com pixels.";
+"alliance.contribution.you" = "Seu ranking";
+"alliance.contribution.all" = "Todos os membros";
+"alliance.menu.contributions" = "Ranking de contribuicao";
+"alliance.menu.contributions.subtitle" = "Ver contribuicoes dos membros";
+"alliance.members.count" = "%d Membros";
+"alliance.members.search" = "Buscar membros";
+"alliance.stats.empty.title" = "Sem estatisticas";
+"alliance.stats.empty.message" = "As estatisticas ainda nao estao disponiveis.";
+"alliance.status.approved" = "Aprovado";
+"alliance.status.rejected" = "Rejeitado";
+"alliance.status.pending" = "Pendente";
+
+// MARK: - Missing Keys Added
+
+// MARK: Challenge
+"challenge.claim" = "Resgatar";
+"challenge.error.claim_failed" = "Falha ao resgatar recompensa";
+"challenge.error.fetch_failed" = "Falha ao obter desafio diário";
+"challenge.title" = "Desafio Diário";
+
+// MARK: Check-in
+"checkin.btn.checkin" = "Fazer Check-in";
+"checkin.btn.done" = "Check-in Feito Hoje";
+"checkin.error.calendar_failed" = "Falha ao carregar calendário";
+"checkin.error.failed" = "Falha no check-in";
+"checkin.error.stats_failed" = "Falha ao carregar estatísticas";
+"checkin.reward_points" = "+%d Pontos";
+"checkin.stat.max_streak" = "Melhor Sequência";
+"checkin.stat.total" = "Total de Check-ins";
+"checkin.stat.total_points" = "Pontos Totais";
+"checkin.streak_count" = "Sequência de %d dias";
+"checkin.streak_days" = "Dias Consecutivos";
+"checkin.title" = "Check-in Diário";
+
+// MARK: Common
+"common.retry" = "Tentar Novamente";
+
+// MARK: Dashboard
+"dashboard.empty.message" = "Comece a desenhar para ver suas estatísticas";
+"dashboard.empty.title" = "Sem Dados";
+"dashboard.error.title" = "Falha ao carregar";
+
+// MARK: Event
+"event.end_time" = "Fim";
+"event.pixel_score" = "Pontuação Pixel";
+"event.rewards.empty" = "Nenhuma recompensa configurada para este evento.";
+"event.rewards.subtitle_short" = "Toque para ver detalhes";
+"event.signed_up" = "Você está inscrito!";
+"event.start_time" = "Início";
+
+// MARK: Help
+"help.manual.how_desc" = "Aprenda a jogar FunnyPixels";
+"help.manual.how_title" = "Como Jogar";
+
+// MARK: Map
+"map.mode.peace" = "Explorar";
+
+// MARK: Weekday
+"weekday.fri" = "Sex";
+"weekday.mon" = "Seg";
+"weekday.sat" = "Sáb";
+"weekday.sun" = "Dom";
+"weekday.thu" = "Qui";
+"weekday.tue" = "Ter";
+"weekday.wed" = "Qua";
+
+// MARK: Avatar
+"avatar.preview.title" = "Avatar";
+"avatar.menu.title" = "Opções";
+"avatar.menu.change" = "Alterar Avatar";
+"avatar.menu.take_photo" = "Tirar Foto";
+"avatar.menu.save" = "Salvar em Fotos";
+"avatar.menu.guidelines" = "Diretrizes de Conteúdo";
+
+/* Relacionado ao mapa - Map Related */
+"map.roaming_to" = "Navegando para: %@";
+"map.unavailable_platform" = "Visualização de mapa indisponível nesta plataforma";
+
+/* Recursos de desenho - Drawing Features */
+"drawing.complex_pattern" = "Padrão Complexo";
+"drawing.loading_alliance_flag" = "Carregando bandeira da aliança...";
+"drawing.tap_to_exit_power_saving" = "Toque na tela para sair do modo de economia de energia";
+"drawing.focus_mode_enabled" = "Modo de desenho focado ativado";
+"drawing.focus_mode_description" = "Mantém a precisão do GPS, reduz a energia da tela\nToque na tela para sair a qualquer momento";
+
+/* Reprodução de sessão - Session Replay */
+"session.replay_progress" = "Progresso: %d%%";
+
+/* Eventos - Events */
+"event.ended" = "Finalizado";
+"event.my_rank" = "Minha Classificação";
+"event.swipe_up_to_close" = "Deslize para cima para fechar";
+
+/* Central de mensagens - Message Center */
+"message.no_messages" = "Sem mensagens";
+"message.go_to_view" = "Ir para visualizar";
+"message.attachment_reward" = "Recompensa Anexada";
+"message.claim_reward" = "Reivindicar Recompensa";
+
+/* Batalha territorial - Territory Battle */
+"territory.someone_invaded" = "Alguém invadiu seu território!";
+"battle.no_attacks_yet" = "Ninguém atacou seu território ainda";
+"battle.reclaim" = "Recuperar";
+
+/* Interação de pixel - Pixel Interaction */
+"pixel.feedback_thanks" = "Obrigado pelo seu feedback, processaremos em breve.";
+"pixel.history" = "Histórico";
+"pixel.no_more_history" = "Não há mais histórico...";
+
+/* Nível de classificação - Rank Tier */
+"rank.max_tier_reached" = "Nível máximo alcançado";
+"rank.pixels_to_upgrade" = "%d pixels para melhorar";
+
+/* Pagamento - Payment */
+"payment.alipay" = "Alipay";

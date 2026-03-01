@@ -1,0 +1,257 @@
+b02f2528296c1546da927bd99599e862
+/* istanbul ignore next */
+function cov_hvgy1dncr() {
+  var path = "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\store.js";
+  var hash = "07ad0dfe923aa7af8d4531118d9ded7f7a4ac814";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\store.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 16
+        },
+        end: {
+          line: 1,
+          column: 34
+        }
+      },
+      "1": {
+        start: {
+          line: 2,
+          column: 24
+        },
+        end: {
+          line: 2,
+          column: 65
+        }
+      },
+      "2": {
+        start: {
+          line: 3,
+          column: 30
+        },
+        end: {
+          line: 3,
+          column: 59
+        }
+      },
+      "3": {
+        start: {
+          line: 5,
+          column: 15
+        },
+        end: {
+          line: 5,
+          column: 31
+        }
+      },
+      "4": {
+        start: {
+          line: 8,
+          column: 0
+        },
+        end: {
+          line: 8,
+          column: 50
+        }
+      },
+      "5": {
+        start: {
+          line: 9,
+          column: 0
+        },
+        end: {
+          line: 9,
+          column: 64
+        }
+      },
+      "6": {
+        start: {
+          line: 12,
+          column: 0
+        },
+        end: {
+          line: 12,
+          column: 30
+        }
+      },
+      "7": {
+        start: {
+          line: 15,
+          column: 0
+        },
+        end: {
+          line: 15,
+          column: 55
+        }
+      },
+      "8": {
+        start: {
+          line: 16,
+          column: 0
+        },
+        end: {
+          line: 16,
+          column: 73
+        }
+      },
+      "9": {
+        start: {
+          line: 17,
+          column: 0
+        },
+        end: {
+          line: 17,
+          column: 59
+        }
+      },
+      "10": {
+        start: {
+          line: 18,
+          column: 0
+        },
+        end: {
+          line: 18,
+          column: 45
+        }
+      },
+      "11": {
+        start: {
+          line: 19,
+          column: 0
+        },
+        end: {
+          line: 19,
+          column: 53
+        }
+      },
+      "12": {
+        start: {
+          line: 22,
+          column: 0
+        },
+        end: {
+          line: 22,
+          column: 71
+        }
+      },
+      "13": {
+        start: {
+          line: 25,
+          column: 0
+        },
+        end: {
+          line: 25,
+          column: 59
+        }
+      },
+      "14": {
+        start: {
+          line: 27,
+          column: 0
+        },
+        end: {
+          line: 27,
+          column: 24
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "07ad0dfe923aa7af8d4531118d9ded7f7a4ac814"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_hvgy1dncr = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_hvgy1dncr();
+const express =
+/* istanbul ignore next */
+(cov_hvgy1dncr().s[0]++, require('express'));
+const StoreController =
+/* istanbul ignore next */
+(cov_hvgy1dncr().s[1]++, require('../controllers/storeController'));
+const {
+  authenticateToken
+} =
+/* istanbul ignore next */
+(cov_hvgy1dncr().s[2]++, require('../middleware/auth'));
+const router =
+/* istanbul ignore next */
+(cov_hvgy1dncr().s[3]++, express.Router());
+
+// 公开接口
+/* istanbul ignore next */
+cov_hvgy1dncr().s[4]++;
+router.get('/items', StoreController.getAllItems);
+/* istanbul ignore next */
+cov_hvgy1dncr().s[5]++;
+router.get('/items/type/:type', StoreController.getItemsByType);
+
+// 需要认证的接口
+/* istanbul ignore next */
+cov_hvgy1dncr().s[6]++;
+router.use(authenticateToken);
+
+// 商店相关
+/* istanbul ignore next */
+cov_hvgy1dncr().s[7]++;
+router.post('/purchase', StoreController.purchaseItem);
+/* istanbul ignore next */
+cov_hvgy1dncr().s[8]++;
+router.post('/callback/:orderId', StoreController.handlePaymentCallback);
+/* istanbul ignore next */
+cov_hvgy1dncr().s[9]++;
+router.get('/inventory', StoreController.getUserInventory);
+/* istanbul ignore next */
+cov_hvgy1dncr().s[10]++;
+router.post('/use', StoreController.useItem);
+/* istanbul ignore next */
+cov_hvgy1dncr().s[11]++;
+router.get('/points', StoreController.getUserPoints);
+
+// 联盟旗帜相关
+/* istanbul ignore next */
+cov_hvgy1dncr().s[12]++;
+router.get('/flag-patterns', StoreController.getAvailableFlagPatterns);
+
+// 装饰品相关
+/* istanbul ignore next */
+cov_hvgy1dncr().s[13]++;
+router.get('/cosmetics', StoreController.getUserCosmetics);
+/* istanbul ignore next */
+cov_hvgy1dncr().s[14]++;
+module.exports = router;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfaHZneTFkbmNyIiwiYWN0dWFsQ292ZXJhZ2UiLCJleHByZXNzIiwicyIsInJlcXVpcmUiLCJTdG9yZUNvbnRyb2xsZXIiLCJhdXRoZW50aWNhdGVUb2tlbiIsInJvdXRlciIsIlJvdXRlciIsImdldCIsImdldEFsbEl0ZW1zIiwiZ2V0SXRlbXNCeVR5cGUiLCJ1c2UiLCJwb3N0IiwicHVyY2hhc2VJdGVtIiwiaGFuZGxlUGF5bWVudENhbGxiYWNrIiwiZ2V0VXNlckludmVudG9yeSIsInVzZUl0ZW0iLCJnZXRVc2VyUG9pbnRzIiwiZ2V0QXZhaWxhYmxlRmxhZ1BhdHRlcm5zIiwiZ2V0VXNlckNvc21ldGljcyIsIm1vZHVsZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyJzdG9yZS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBleHByZXNzID0gcmVxdWlyZSgnZXhwcmVzcycpO1xyXG5jb25zdCBTdG9yZUNvbnRyb2xsZXIgPSByZXF1aXJlKCcuLi9jb250cm9sbGVycy9zdG9yZUNvbnRyb2xsZXInKTtcclxuY29uc3QgeyBhdXRoZW50aWNhdGVUb2tlbiB9ID0gcmVxdWlyZSgnLi4vbWlkZGxld2FyZS9hdXRoJyk7XHJcblxyXG5jb25zdCByb3V0ZXIgPSBleHByZXNzLlJvdXRlcigpO1xyXG5cclxuLy8g5YWs5byA5o6l5Y+jXHJcbnJvdXRlci5nZXQoJy9pdGVtcycsIFN0b3JlQ29udHJvbGxlci5nZXRBbGxJdGVtcyk7XHJcbnJvdXRlci5nZXQoJy9pdGVtcy90eXBlLzp0eXBlJywgU3RvcmVDb250cm9sbGVyLmdldEl0ZW1zQnlUeXBlKTtcclxuXHJcbi8vIOmcgOimgeiupOivgeeahOaOpeWPo1xyXG5yb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZVRva2VuKTtcclxuXHJcbi8vIOWVhuW6l+ebuOWFs1xyXG5yb3V0ZXIucG9zdCgnL3B1cmNoYXNlJywgU3RvcmVDb250cm9sbGVyLnB1cmNoYXNlSXRlbSk7XHJcbnJvdXRlci5wb3N0KCcvY2FsbGJhY2svOm9yZGVySWQnLCBTdG9yZUNvbnRyb2xsZXIuaGFuZGxlUGF5bWVudENhbGxiYWNrKTtcclxucm91dGVyLmdldCgnL2ludmVudG9yeScsIFN0b3JlQ29udHJvbGxlci5nZXRVc2VySW52ZW50b3J5KTtcclxucm91dGVyLnBvc3QoJy91c2UnLCBTdG9yZUNvbnRyb2xsZXIudXNlSXRlbSk7XHJcbnJvdXRlci5nZXQoJy9wb2ludHMnLCBTdG9yZUNvbnRyb2xsZXIuZ2V0VXNlclBvaW50cyk7XHJcblxyXG4vLyDogZTnm5/ml5fluJznm7jlhbNcclxucm91dGVyLmdldCgnL2ZsYWctcGF0dGVybnMnLCBTdG9yZUNvbnRyb2xsZXIuZ2V0QXZhaWxhYmxlRmxhZ1BhdHRlcm5zKTtcclxuXHJcbi8vIOijhemlsOWTgeebuOWFs1xyXG5yb3V0ZXIuZ2V0KCcvY29zbWV0aWNzJywgU3RvcmVDb250cm9sbGVyLmdldFVzZXJDb3NtZXRpY3MpO1xyXG5cclxubW9kdWxlLmV4cG9ydHMgPSByb3V0ZXI7XHJcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGFBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGFBQUE7QUFmWixNQUFNRSxPQUFPO0FBQUE7QUFBQSxDQUFBRixhQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLFNBQVMsQ0FBQztBQUNsQyxNQUFNQyxlQUFlO0FBQUE7QUFBQSxDQUFBTCxhQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLGdDQUFnQyxDQUFDO0FBQ2pFLE1BQU07RUFBRUU7QUFBa0IsQ0FBQztBQUFBO0FBQUEsQ0FBQU4sYUFBQSxHQUFBRyxDQUFBLE9BQUdDLE9BQU8sQ0FBQyxvQkFBb0IsQ0FBQztBQUUzRCxNQUFNRyxNQUFNO0FBQUE7QUFBQSxDQUFBUCxhQUFBLEdBQUFHLENBQUEsT0FBR0QsT0FBTyxDQUFDTSxNQUFNLENBQUMsQ0FBQzs7QUFFL0I7QUFBQTtBQUFBUixhQUFBLEdBQUFHLENBQUE7QUFDQUksTUFBTSxDQUFDRSxHQUFHLENBQUMsUUFBUSxFQUFFSixlQUFlLENBQUNLLFdBQVcsQ0FBQztBQUFDO0FBQUFWLGFBQUEsR0FBQUcsQ0FBQTtBQUNsREksTUFBTSxDQUFDRSxHQUFHLENBQUMsbUJBQW1CLEVBQUVKLGVBQWUsQ0FBQ00sY0FBYyxDQUFDOztBQUUvRDtBQUFBO0FBQUFYLGFBQUEsR0FBQUcsQ0FBQTtBQUNBSSxNQUFNLENBQUNLLEdBQUcsQ0FBQ04saUJBQWlCLENBQUM7O0FBRTdCO0FBQUE7QUFBQU4sYUFBQSxHQUFBRyxDQUFBO0FBQ0FJLE1BQU0sQ0FBQ00sSUFBSSxDQUFDLFdBQVcsRUFBRVIsZUFBZSxDQUFDUyxZQUFZLENBQUM7QUFBQztBQUFBZCxhQUFBLEdBQUFHLENBQUE7QUFDdkRJLE1BQU0sQ0FBQ00sSUFBSSxDQUFDLG9CQUFvQixFQUFFUixlQUFlLENBQUNVLHFCQUFxQixDQUFDO0FBQUM7QUFBQWYsYUFBQSxHQUFBRyxDQUFBO0FBQ3pFSSxNQUFNLENBQUNFLEdBQUcsQ0FBQyxZQUFZLEVBQUVKLGVBQWUsQ0FBQ1csZ0JBQWdCLENBQUM7QUFBQztBQUFBaEIsYUFBQSxHQUFBRyxDQUFBO0FBQzNESSxNQUFNLENBQUNNLElBQUksQ0FBQyxNQUFNLEVBQUVSLGVBQWUsQ0FBQ1ksT0FBTyxDQUFDO0FBQUM7QUFBQWpCLGFBQUEsR0FBQUcsQ0FBQTtBQUM3Q0ksTUFBTSxDQUFDRSxHQUFHLENBQUMsU0FBUyxFQUFFSixlQUFlLENBQUNhLGFBQWEsQ0FBQzs7QUFFcEQ7QUFBQTtBQUFBbEIsYUFBQSxHQUFBRyxDQUFBO0FBQ0FJLE1BQU0sQ0FBQ0UsR0FBRyxDQUFDLGdCQUFnQixFQUFFSixlQUFlLENBQUNjLHdCQUF3QixDQUFDOztBQUV0RTtBQUFBO0FBQUFuQixhQUFBLEdBQUFHLENBQUE7QUFDQUksTUFBTSxDQUFDRSxHQUFHLENBQUMsWUFBWSxFQUFFSixlQUFlLENBQUNlLGdCQUFnQixDQUFDO0FBQUM7QUFBQXBCLGFBQUEsR0FBQUcsQ0FBQTtBQUUzRGtCLE1BQU0sQ0FBQ0MsT0FBTyxHQUFHZixNQUFNIiwiaWdub3JlTGlzdCI6W119

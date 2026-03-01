@@ -1,0 +1,230 @@
+# FunnyPixels Canvas 多场景压力测试 (Artillery)
+#
+# 运行方式:
+# artillery run canvas-scenario.yml
+#
+# 生成HTML报告:
+# artillery run --output report.json canvas-scenario.yml
+# artillery report report.json
+
+config:
+  target: 'http://localhost:3001'
+  # target: 'https://api.funnypixels.local'  # 生产环境
+
+  # 测试阶段配置
+  phases:
+    # 阶段1: 预热 (Warm-up)
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm-up"
+
+    # 阶段2: 逐步增加负载
+    - duration: 120
+      arrivalRate: 10
+      rampTo: 30
+      name: "Ramp-up to moderate load"
+
+    # 阶段3: 高负载稳定期
+    - duration: 180
+      arrivalRate: 30
+      name: "Sustained high load"
+
+    # 阶段4: 峰值冲击
+    - duration: 60
+      arrivalRate: 50
+      name: "Peak load"
+
+    # 阶段5: 冷却
+    - duration: 60
+      arrivalRate: 10
+      name: "Cool-down"
+
+  # HTTP配置
+  http:
+    timeout: 10
+    pool: 50  # 连接池大小
+
+  # 负载配置
+  payload:
+    # 加载测试用户数据
+    path: "../data/test-users.csv"
+    fields:
+      - "userId"
+      - "email"
+      - "token"
+    order: random
+    skipHeader: true
+
+  # 自定义变量
+  variables:
+    # 绘制区域 (北京天安门附近)
+    region_lat_min: 39.90
+    region_lat_max: 39.92
+    region_lng_min: 116.39
+    region_lng_max: 116.41
+
+    # 可用颜色
+    colors:
+      - "#FF6B6B"
+      - "#4ECDC4"
+      - "#45B7D1"
+      - "#FFA07A"
+      - "#98D8C8"
+
+  # 性能指标插件
+  plugins:
+    expect: {}
+    metrics-by-endpoint:
+      # 按端点分组统计
+      stripQueryString: false
+      metricsNamespace: "custom_metrics"
+
+  # 确保响应体可用于验证
+  http2: false
+
+# ==================== 测试场景 ====================
+
+scenarios:
+  # 场景1: 真实用户绘制流程
+  - name: "Realistic User Drawing"
+    weight: 50
+    flow:
+      # 1. 初始化用户状态
+      - post:
+          url: "/api/pixel/init"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ token }}"
+          json:
+            userId: "{{ userId }}"
+          capture:
+            - json: "$.totalPoints"
+              as: "pixelPoints"
+            - json: "$.canDraw"
+              as: "canDraw"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "totalPoints"
+
+      # 2. 思考时间
+      - think: 2
+
+      # 3. 绘制单个像素
+      - post:
+          url: "/api/pixel"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ token }}"
+          json:
+            latitude: "{{ $randomNumber(region_lat_min, region_lat_max) }}"
+            longitude: "{{ $randomNumber(region_lng_min, region_lng_max) }}"
+            userId: "{{ userId }}"
+            color: "{{ $randomString(colors) }}"
+            drawType: "manual"
+          capture:
+            - json: "$.pixel.grid_id"
+              as: "gridId"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "success"
+
+      # 4. 思考时间
+      - think: 3
+
+      # 5. 再次绘制
+      - loop:
+          - post:
+              url: "/api/pixel"
+              headers:
+                Content-Type: "application/json"
+                Authorization: "Bearer {{ token }}"
+              json:
+                latitude: "{{ $randomNumber(region_lat_min, region_lat_max) }}"
+                longitude: "{{ $randomNumber(region_lng_min, region_lng_max) }}"
+                userId: "{{ userId }}"
+                color: "{{ $randomString(colors) }}"
+                drawType: "manual"
+          - think: 2
+        count: 3
+
+  # 场景2: 批量绘制
+  - name: "Batch Drawing"
+    weight: 30
+    flow:
+      # 1. 初始化
+      - post:
+          url: "/api/pixel/init"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ token }}"
+          json:
+            userId: "{{ userId }}"
+
+      - think: 1
+
+      # 2. 批量绘制5个像素
+      - post:
+          url: "/api/pixels/batch"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ token }}"
+          json:
+            userId: "{{ userId }}"
+            drawType: "manual"
+            pixels:
+              - latitude: "{{ $randomNumber(region_lat_min, region_lat_max) }}"
+                longitude: "{{ $randomNumber(region_lng_min, region_lng_max) }}"
+                color: "{{ $randomString(colors) }}"
+              - latitude: "{{ $randomNumber(region_lat_min, region_lat_max) }}"
+                longitude: "{{ $randomNumber(region_lng_min, region_lng_max) }}"
+                color: "{{ $randomString(colors) }}"
+              - latitude: "{{ $randomNumber(region_lat_min, region_lat_max) }}"
+                longitude: "{{ $randomNumber(region_lng_min, region_lng_max) }}"
+                color: "{{ $randomString(colors) }}"
+              - latitude: "{{ $randomNumber(region_lat_min, region_lat_max) }}"
+                longitude: "{{ $randomNumber(region_lng_min, region_lng_max) }}"
+                color: "{{ $randomString(colors) }}"
+              - latitude: "{{ $randomNumber(region_lat_min, region_lat_max) }}"
+                longitude: "{{ $randomNumber(region_lng_min, region_lng_max) }}"
+                color: "{{ $randomString(colors) }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "success"
+
+      - think: 5
+
+  # 场景3: 瓦片读取 (模拟地图浏览)
+  - name: "Map Browsing"
+    weight: 20
+    flow:
+      # 1. 计算瓦片坐标并请求
+      # 使用固定的天安门区域瓦片
+      - get:
+          url: "/api/tiles/14/{{ $randomNumber(13421, 13425) }}/{{ $randomNumber(6445, 6449) }}.mvt"
+          expect:
+            - statusCode: 200
+
+      - think: 1
+
+      # 2. 请求周围瓦片
+      - loop:
+          - get:
+              url: "/api/tiles/14/{{ $randomNumber(13421, 13425) }}/{{ $randomNumber(6445, 6449) }}.mvt"
+          - think: 0.5
+        count: 5
+
+# ==================== 自定义函数 ====================
+
+# 注意: Artillery不支持自定义JavaScript函数
+# 复杂逻辑需要使用processor插件实现
+
+# before:
+#   flow:
+#     - log: "Starting load test..."
+
+# after:
+#   flow:
+#     - log: "Load test completed!"

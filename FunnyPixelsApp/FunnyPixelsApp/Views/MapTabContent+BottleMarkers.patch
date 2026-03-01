@@ -1,0 +1,124 @@
+// 在 MapTabContent.swift 中添加漂流瓶地图标记
+
+struct MapTabContent: View {
+    // ... 现有属性 ...
+
+    @ObservedObject private var driftBottleManager = DriftBottleManager.shared
+
+    var body: some View {
+        ZStack {
+            // 地图视图
+            MapView(...)
+                .overlay {
+                    // ✅ 添加：漂流瓶地图标记层
+                    bottleMarkersOverlay
+                }
+
+            // ... 其他现有 overlays ...
+        }
+        .onAppear {
+            // ... 现有 onAppear 代码 ...
+
+            // ✅ 添加：启动漂流瓶地图标记刷新
+            startBottleMarkersRefresh()
+        }
+        .onDisappear {
+            // ✅ 添加：停止漂流瓶地图标记刷新
+            driftBottleManager.stopMapMarkersAutoRefresh()
+        }
+        // ✅ 添加：监听位置变化
+        .onChange(of: locationManager.currentLocation) { oldLocation, newLocation in
+            handleLocationChange(newLocation)
+        }
+    }
+
+    // MARK: - Bottle Markers Overlay
+
+    /// 漂流瓶地图标记覆盖层
+    @ViewBuilder
+    private var bottleMarkersOverlay: some View {
+        // 只在非GPS绘制模式下显示
+        if !GPSDrawingService.shared.isGPSDrawingMode {
+            ForEach(driftBottleManager.mapMarkers) { marker in
+                BottleMapMarkerView(marker: marker)
+                    .position(coordinateToScreen(marker.coordinate))
+            }
+        }
+    }
+
+    // MARK: - Helper Methods
+
+    /// 启动漂流瓶标记刷新
+    private func startBottleMarkersRefresh() {
+        guard let location = locationManager.currentLocation else {
+            Logger.warning("Cannot start bottle markers refresh: location unavailable")
+            return
+        }
+
+        driftBottleManager.startMapMarkersAutoRefresh(
+            lat: location.coordinate.latitude,
+            lng: location.coordinate.longitude,
+            interval: 30  // 每30秒刷新一次
+        )
+
+        Logger.info("🗺️ Bottle markers refresh started")
+    }
+
+    /// 处理位置变化
+    private func handleLocationChange(_ newLocation: CLLocation?) {
+        guard let location = newLocation else { return }
+
+        // 位置变化超过100米时，刷新地图标记
+        if shouldRefreshMarkers(for: location) {
+            Task {
+                await driftBottleManager.refreshMapMarkers(
+                    lat: location.coordinate.latitude,
+                    lng: location.coordinate.longitude
+                )
+            }
+        }
+    }
+
+    /// 判断是否需要刷新标记
+    /// - Parameter newLocation: 新位置
+    /// - Returns: 是否需要刷新
+    private func shouldRefreshMarkers(for newLocation: CLLocation) -> Bool {
+        // 如果没有上次刷新位置，需要刷新
+        guard let lastLocation = lastMarkersRefreshLocation else {
+            lastMarkersRefreshLocation = newLocation
+            return true
+        }
+
+        // 计算距离
+        let distance = newLocation.distance(from: lastLocation)
+
+        // 距离超过100米时刷新
+        if distance > 100 {
+            lastMarkersRefreshLocation = newLocation
+            return true
+        }
+
+        return false
+    }
+
+    /// 将地理坐标转换为屏幕坐标
+    /// - Parameter coordinate: 地理坐标
+    /// - Returns: 屏幕坐标
+    private func coordinateToScreen(_ coordinate: CLLocationCoordinate2D) -> CGPoint {
+        // 这里需要访问MapView的坐标转换方法
+        // 具体实现取决于您的MapView实现方式
+
+        // 方案1: 如果使用MapViewModel
+        // return mapViewModel.coordinateToScreen(coordinate)
+
+        // 方案2: 如果MapView是UIViewRepresentable
+        // 需要通过Binding或回调暴露转换方法
+
+        // 临时方案：使用简单的线性映射（仅用于开发）
+        // 生产环境必须使用正确的MapLibre坐标转换
+        return CGPoint(x: 100, y: 100)  // ← 需要替换为实际坐标转换
+    }
+
+    // ✅ 添加状态变量（在MapTabContent顶部）
+    @State private var lastMarkersRefreshLocation: CLLocation?
+}

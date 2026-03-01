@@ -1,0 +1,47 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="200" height="200" fill="#F3F4F6"/>
+  
+  <!-- 微信图标 -->
+  <circle cx="100" cy="80" r="25" fill="#07C160"/>
+  <path d="M85 75C85 72.2386 87.2386 70 90 70H110C112.761 70 115 72.2386 115 75V85C115 87.7614 112.761 90 110 90H90C87.2386 90 85 87.7614 85 85V75Z" fill="white"/>
+  <circle cx="95" cy="80" r="2" fill="#07C160"/>
+  <circle cx="105" cy="80" r="2" fill="#07C160"/>
+  
+  <!-- 二维码样式 -->
+  <rect x="60" y="110" width="80" height="80" fill="white" stroke="#D1D5DB" stroke-width="2"/>
+  
+  <!-- 二维码内容（简化） -->
+  <rect x="70" y="120" width="8" height="8" fill="#000"/>
+  <rect x="82" y="120" width="8" height="8" fill="#000"/>
+  <rect x="94" y="120" width="8" height="8" fill="#000"/>
+  <rect x="106" y="120" width="8" height="8" fill="#000"/>
+  <rect x="118" y="120" width="8" height="8" fill="#000"/>
+  
+  <rect x="70" y="132" width="8" height="8" fill="#000"/>
+  <rect x="82" y="132" width="8" height="8" fill="white"/>
+  <rect x="94" y="132" width="8" height="8" fill="#000"/>
+  <rect x="106" y="132" width="8" height="8" fill="white"/>
+  <rect x="118" y="132" width="8" height="8" fill="#000"/>
+  
+  <rect x="70" y="144" width="8" height="8" fill="#000"/>
+  <rect x="82" y="144" width="8" height="8" fill="#000"/>
+  <rect x="94" y="144" width="8" height="8" fill="#000"/>
+  <rect x="106" y="144" width="8" height="8" fill="#000"/>
+  <rect x="118" y="144" width="8" height="8" fill="#000"/>
+  
+  <rect x="70" y="156" width="8" height="8" fill="#000"/>
+  <rect x="82" y="156" width="8" height="8" fill="white"/>
+  <rect x="94" y="156" width="8" height="8" fill="#000"/>
+  <rect x="106" y="156" width="8" height="8" fill="white"/>
+  <rect x="118" y="156" width="8" height="8" fill="#000"/>
+  
+  <rect x="70" y="168" width="8" height="8" fill="#000"/>
+  <rect x="82" y="168" width="8" height="8" fill="#000"/>
+  <rect x="94" y="168" width="8" height="8" fill="#000"/>
+  <rect x="106" y="168" width="8" height="8" fill="#000"/>
+  <rect x="118" y="168" width="8" height="8" fill="#000"/>
+  
+  <!-- 文字 -->
+  <text x="100" y="195" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="middle">微信收款码</text>
+</svg>

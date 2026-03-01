@@ -1,0 +1,209 @@
+# FunnyPixels 监控系统 Docker Compose 配置
+# 统一入口：http://localhost:8000
+
+services:
+  # ==========================================
+  # Nginx 反向代理（统一入口 8000）
+  # ==========================================
+  nginx:
+    image: nginx:alpine
+    container_name: funnypixels-nginx
+    ports:
+      - "8000:8000"  # 唯一对外端口
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - admin-frontend
+      - grafana
+      - prometheus
+      - alertmanager
+      - backend
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # Admin Frontend (管理后台)
+  # ==========================================
+  admin-frontend:
+    build:
+      context: ./admin-frontend
+      dockerfile: Dockerfile
+    container_name: funnypixels-admin-frontend
+    expose:
+      - "80"
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+
+  # ==========================================
+  # Grafana (监控可视化) - 核心服务
+  # ==========================================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: funnypixels-grafana
+    expose:
+      - "3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboards:/etc/grafana/dashboards
+    environment:
+      # 子路径配置
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:8000/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+
+      # 匿名访问（只读权限）
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+
+      # 允许 iframe 嵌入
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_SECURITY_COOKIE_SAMESITE=none
+
+      # 管理员账号（编辑 Dashboard 时使用）
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=funnypixels2024
+
+      # 禁用注册
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # Prometheus (指标收集)
+  # ==========================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: funnypixels-prometheus
+    expose:
+      - "9090"
+    volumes:
+      - ./prometheus/prometheus.production.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.external-url=${EXTERNAL_URL:-http://localhost:8000}/prometheus/'
+      - '--web.route-prefix=/'
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # Alertmanager (告警管理)
+  # ==========================================
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: funnypixels-alertmanager
+    expose:
+      - "9093"
+    volumes:
+      - ./alertmanager/alertmanager.production.yml:/etc/alertmanager/alertmanager.yml:ro
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--web.external-url=${EXTERNAL_URL:-http://localhost:8000}/alertmanager/'
+      - '--web.route-prefix=/'
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # Backend API (被监控的应用)
+  # ==========================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: funnypixels-backend
+    expose:
+      - "3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=funnypixels_postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # PostgreSQL (数据库)
+  # ==========================================
+  postgres:
+    image: postgis/postgis:15-3.3
+    container_name: funnypixels-postgres
+    expose:
+      - "5432"
+    environment:
+      - POSTGRES_DB=funnypixels_postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+
+  # ==========================================
+  # Redis (缓存)
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    container_name: funnypixels-redis
+    expose:
+      - "6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - funnypixels-network
+    restart: unless-stopped
+
+networks:
+  funnypixels-network:
+    driver: bridge
+
+volumes:
+  grafana-data:
+  prometheus-data:
+  postgres-data:
+  redis-data:

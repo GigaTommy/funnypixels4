@@ -1,0 +1,14 @@
+# API代理到Render后端
+/api/* https://funnypixels-backend.onrender.com/api/:splat 200
+
+# WebSocket代理
+/ws/* https://funnypixels-backend.onrender.com/ws/:splat 200
+
+# 静态资源 - 确保正确的MIME类型
+/assets/* /assets/:splat 200
+/favicon.ico /favicon.ico 200
+/favicon.svg /favicon.svg 200
+/wechat-qr-code.svg /wechat-qr-code.svg 200
+
+# SPA路由支持 - 所有其他请求都返回index.html
+/* /index.html 200

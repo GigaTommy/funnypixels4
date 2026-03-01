@@ -1,0 +1,203 @@
+be317078fadd9ded860a3c08dac671ac
+/* istanbul ignore next */
+function cov_1kyjla98hy() {
+  var path = "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\notificationRoutes.js";
+  var hash = "be54da6a7b73e45d95d7edf1cf01f23d127fd7c6";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\notificationRoutes.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 16
+        },
+        end: {
+          line: 1,
+          column: 34
+        }
+      },
+      "1": {
+        start: {
+          line: 2,
+          column: 15
+        },
+        end: {
+          line: 2,
+          column: 31
+        }
+      },
+      "2": {
+        start: {
+          line: 3,
+          column: 31
+        },
+        end: {
+          line: 3,
+          column: 79
+        }
+      },
+      "3": {
+        start: {
+          line: 4,
+          column: 30
+        },
+        end: {
+          line: 4,
+          column: 59
+        }
+      },
+      "4": {
+        start: {
+          line: 7,
+          column: 0
+        },
+        end: {
+          line: 7,
+          column: 30
+        }
+      },
+      "5": {
+        start: {
+          line: 10,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 61
+        }
+      },
+      "6": {
+        start: {
+          line: 13,
+          column: 0
+        },
+        end: {
+          line: 13,
+          column: 67
+        }
+      },
+      "7": {
+        start: {
+          line: 16,
+          column: 0
+        },
+        end: {
+          line: 16,
+          column: 71
+        }
+      },
+      "8": {
+        start: {
+          line: 19,
+          column: 0
+        },
+        end: {
+          line: 19,
+          column: 67
+        }
+      },
+      "9": {
+        start: {
+          line: 22,
+          column: 0
+        },
+        end: {
+          line: 22,
+          column: 77
+        }
+      },
+      "10": {
+        start: {
+          line: 24,
+          column: 0
+        },
+        end: {
+          line: 24,
+          column: 24
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "be54da6a7b73e45d95d7edf1cf01f23d127fd7c6"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1kyjla98hy = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1kyjla98hy();
+const express =
+/* istanbul ignore next */
+(cov_1kyjla98hy().s[0]++, require('express'));
+const router =
+/* istanbul ignore next */
+(cov_1kyjla98hy().s[1]++, express.Router());
+const NotificationController =
+/* istanbul ignore next */
+(cov_1kyjla98hy().s[2]++, require('../controllers/notificationController'));
+const {
+  authenticateToken
+} =
+/* istanbul ignore next */
+(cov_1kyjla98hy().s[3]++, require('../middleware/auth'));
+
+// 所有路由都需要认证
+/* istanbul ignore next */
+cov_1kyjla98hy().s[4]++;
+router.use(authenticateToken);
+
+// 获取用户通知列表
+/* istanbul ignore next */
+cov_1kyjla98hy().s[5]++;
+router.get('/', NotificationController.getUserNotifications);
+
+// 获取未读通知数量
+/* istanbul ignore next */
+cov_1kyjla98hy().s[6]++;
+router.get('/unread-count', NotificationController.getUnreadCount);
+
+// 标记通知为已读
+/* istanbul ignore next */
+cov_1kyjla98hy().s[7]++;
+router.put('/:notificationId/read', NotificationController.markAsRead);
+
+// 标记所有通知为已读
+/* istanbul ignore next */
+cov_1kyjla98hy().s[8]++;
+router.put('/mark-all-read', NotificationController.markAllAsRead);
+
+// 删除通知
+/* istanbul ignore next */
+cov_1kyjla98hy().s[9]++;
+router.delete('/:notificationId', NotificationController.deleteNotification);
+/* istanbul ignore next */
+cov_1kyjla98hy().s[10]++;
+module.exports = router;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWt5amxhOThoeSIsImFjdHVhbENvdmVyYWdlIiwiZXhwcmVzcyIsInMiLCJyZXF1aXJlIiwicm91dGVyIiwiUm91dGVyIiwiTm90aWZpY2F0aW9uQ29udHJvbGxlciIsImF1dGhlbnRpY2F0ZVRva2VuIiwidXNlIiwiZ2V0IiwiZ2V0VXNlck5vdGlmaWNhdGlvbnMiLCJnZXRVbnJlYWRDb3VudCIsInB1dCIsIm1hcmtBc1JlYWQiLCJtYXJrQWxsQXNSZWFkIiwiZGVsZXRlIiwiZGVsZXRlTm90aWZpY2F0aW9uIiwibW9kdWxlIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIm5vdGlmaWNhdGlvblJvdXRlcy5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBleHByZXNzID0gcmVxdWlyZSgnZXhwcmVzcycpO1xyXG5jb25zdCByb3V0ZXIgPSBleHByZXNzLlJvdXRlcigpO1xyXG5jb25zdCBOb3RpZmljYXRpb25Db250cm9sbGVyID0gcmVxdWlyZSgnLi4vY29udHJvbGxlcnMvbm90aWZpY2F0aW9uQ29udHJvbGxlcicpO1xyXG5jb25zdCB7IGF1dGhlbnRpY2F0ZVRva2VuIH0gPSByZXF1aXJlKCcuLi9taWRkbGV3YXJlL2F1dGgnKTtcclxuXHJcbi8vIOaJgOaciei3r+eUsemDvemcgOimgeiupOivgVxyXG5yb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZVRva2VuKTtcclxuXHJcbi8vIOiOt+WPlueUqOaIt+mAmuefpeWIl+ihqFxyXG5yb3V0ZXIuZ2V0KCcvJywgTm90aWZpY2F0aW9uQ29udHJvbGxlci5nZXRVc2VyTm90aWZpY2F0aW9ucyk7XHJcblxyXG4vLyDojrflj5bmnKror7vpgJrnn6XmlbDph49cclxucm91dGVyLmdldCgnL3VucmVhZC1jb3VudCcsIE5vdGlmaWNhdGlvbkNvbnRyb2xsZXIuZ2V0VW5yZWFkQ291bnQpO1xyXG5cclxuLy8g5qCH6K6w6YCa55+l5Li65bey6K+7XHJcbnJvdXRlci5wdXQoJy86bm90aWZpY2F0aW9uSWQvcmVhZCcsIE5vdGlmaWNhdGlvbkNvbnRyb2xsZXIubWFya0FzUmVhZCk7XHJcblxyXG4vLyDmoIforrDmiYDmnInpgJrnn6XkuLrlt7Lor7tcclxucm91dGVyLnB1dCgnL21hcmstYWxsLXJlYWQnLCBOb3RpZmljYXRpb25Db250cm9sbGVyLm1hcmtBbGxBc1JlYWQpO1xyXG5cclxuLy8g5Yig6Zmk6YCa55+lXHJcbnJvdXRlci5kZWxldGUoJy86bm90aWZpY2F0aW9uSWQnLCBOb3RpZmljYXRpb25Db250cm9sbGVyLmRlbGV0ZU5vdGlmaWNhdGlvbik7XHJcblxyXG5tb2R1bGUuZXhwb3J0cyA9IHJvdXRlcjtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixNQUFNRSxPQUFPO0FBQUE7QUFBQSxDQUFBRixjQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLFNBQVMsQ0FBQztBQUNsQyxNQUFNQyxNQUFNO0FBQUE7QUFBQSxDQUFBTCxjQUFBLEdBQUFHLENBQUEsT0FBR0QsT0FBTyxDQUFDSSxNQUFNLENBQUMsQ0FBQztBQUMvQixNQUFNQyxzQkFBc0I7QUFBQTtBQUFBLENBQUFQLGNBQUEsR0FBQUcsQ0FBQSxPQUFHQyxPQUFPLENBQUMsdUNBQXVDLENBQUM7QUFDL0UsTUFBTTtFQUFFSTtBQUFrQixDQUFDO0FBQUE7QUFBQSxDQUFBUixjQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLG9CQUFvQixDQUFDOztBQUUzRDtBQUFBO0FBQUFKLGNBQUEsR0FBQUcsQ0FBQTtBQUNBRSxNQUFNLENBQUNJLEdBQUcsQ0FBQ0QsaUJBQWlCLENBQUM7O0FBRTdCO0FBQUE7QUFBQVIsY0FBQSxHQUFBRyxDQUFBO0FBQ0FFLE1BQU0sQ0FBQ0ssR0FBRyxDQUFDLEdBQUcsRUFBRUgsc0JBQXNCLENBQUNJLG9CQUFvQixDQUFDOztBQUU1RDtBQUFBO0FBQUFYLGNBQUEsR0FBQUcsQ0FBQTtBQUNBRSxNQUFNLENBQUNLLEdBQUcsQ0FBQyxlQUFlLEVBQUVILHNCQUFzQixDQUFDSyxjQUFjLENBQUM7O0FBRWxFO0FBQUE7QUFBQVosY0FBQSxHQUFBRyxDQUFBO0FBQ0FFLE1BQU0sQ0FBQ1EsR0FBRyxDQUFDLHVCQUF1QixFQUFFTixzQkFBc0IsQ0FBQ08sVUFBVSxDQUFDOztBQUV0RTtBQUFBO0FBQUFkLGNBQUEsR0FBQUcsQ0FBQTtBQUNBRSxNQUFNLENBQUNRLEdBQUcsQ0FBQyxnQkFBZ0IsRUFBRU4sc0JBQXNCLENBQUNRLGFBQWEsQ0FBQzs7QUFFbEU7QUFBQTtBQUFBZixjQUFBLEdBQUFHLENBQUE7QUFDQUUsTUFBTSxDQUFDVyxNQUFNLENBQUMsa0JBQWtCLEVBQUVULHNCQUFzQixDQUFDVSxrQkFBa0IsQ0FBQztBQUFDO0FBQUFqQixjQUFBLEdBQUFHLENBQUE7QUFFN0VlLE1BQU0sQ0FBQ0MsT0FBTyxHQUFHZCxNQUFNIiwiaWdub3JlTGlzdCI6W119

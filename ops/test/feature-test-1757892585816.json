@@ -1,0 +1,104 @@
+{
+  "timestamp": "2025-09-14T23:29:45.811Z",
+  "totalTests": 10,
+  "successCount": 0,
+  "results": [
+    {
+      "test": "manual_drawing",
+      "name": "基础手动绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "manual_drawing",
+      "name": "带图案的手动绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "gps_drawing",
+      "name": "基础GPS绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "gps_drawing",
+      "name": "GPS轨迹绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "batch_drawing",
+      "name": "小批量广告绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "batch_drawing",
+      "name": "大批量广告绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "pixel_bomb",
+      "name": "颜色炸弹",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "pixel_bomb",
+      "name": "图案炸弹",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403"
+    },
+    {
+      "test": "pixel_info",
+      "name": "获取像素详情",
+      "success": false,
+      "status": 500,
+      "error": "Request failed with status code 500"
+    },
+    {
+      "test": "pixel_info",
+      "name": "获取不存在的像素",
+      "success": false,
+      "status": 500,
+      "error": "Request failed with status code 500"
+    }
+  ],
+  "summary": {
+    "totalTests": 10,
+    "successCount": 0,
+    "successRate": "0.0",
+    "testTypes": {
+      "manual_drawing": {
+        "total": 2,
+        "success": 0
+      },
+      "gps_drawing": {
+        "total": 2,
+        "success": 0
+      },
+      "batch_drawing": {
+        "total": 2,
+        "success": 0
+      },
+      "pixel_bomb": {
+        "total": 2,
+        "success": 0
+      },
+      "pixel_info": {
+        "total": 2,
+        "success": 0
+      }
+    }
+  }
+}

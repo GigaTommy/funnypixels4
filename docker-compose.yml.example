@@ -1,0 +1,53 @@
+# Docker Compose configuration for PixelWar project
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: pixelwar_postgres
+    environment:
+      POSTGRES_DB: pixelwar_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pixelwar_network
+
+  redis:
+    image: redis:7
+    container_name: pixelwar_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - pixelwar_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pixelwar_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pixelwar.com
+      PGADMIN_DEFAULT_PASSWORD: your_admin_password
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./pgadmin-servers.json:/pgadmin4/servers.json
+    depends_on:
+      - postgres
+    networks:
+      - pixelwar_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  pgadmin_data:
+
+networks:
+  pixelwar_network:
+    driver: bridge

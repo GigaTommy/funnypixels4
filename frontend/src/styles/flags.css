@@ -1,0 +1,28 @@
+/* Flag Icons CSS - 使用CDN引入 */
+@import url('https://cdn.jsdelivr.net/npm/flag-icons@6.15.0/css/flag-icons.min.css');
+
+/* 现代化国旗图标样式 */
+.modern-flag-icon {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.modern-flag-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 确保国旗图标在不同设备上的清晰度 */
+.fi {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* 小尺寸优化 */
+.modern-flag-icon[style*="width: 16px"] .fi,
+.modern-flag-icon[style*="width: 20px"] .fi {
+  image-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

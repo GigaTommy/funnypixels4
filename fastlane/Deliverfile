@@ -1,0 +1,18 @@
+# Deliverfile - App Store metadata delivery configuration
+
+app_identifier("com.funnypixels.app")
+
+# Metadata path
+metadata_path("./fastlane/metadata")
+screenshots_path("./fastlane/screenshots")
+
+# Submit options
+submit_for_review(false)
+automatic_release(false)
+skip_binary_upload(true)
+
+# Pricing
+price_tier(0)
+
+# App rating (if needed)
+# app_rating_config_path("./fastlane/rating_config.json")

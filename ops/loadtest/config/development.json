@@ -1,0 +1,94 @@
+{
+  "environment": "development",
+  "api": {
+    "baseUrl": "http://localhost:3001",
+    "wsUrl": "ws://localhost:3001/ws/tile-updates",
+    "timeout": 10000,
+    "retries": 1
+  },
+  "load_test": {
+    "gradual_ramp": {
+      "start_vus": 0,
+      "max_vus": 100,
+      "ramp_duration": "5m",
+      "stages": [
+        {"duration": "1m", "target": 10},
+        {"duration": "2m", "target": 10},
+        {"duration": "1m", "target": 50},
+        {"duration": "2m", "target": 50},
+        {"duration": "1m", "target": 100},
+        {"duration": "2m", "target": 100},
+        {"duration": "1m", "target": 0}
+      ]
+    },
+    "spike_test": {
+      "baseline_vus": 20,
+      "spike_multiplier": 5,
+      "spike_duration": "30s"
+    },
+    "soak_test": {
+      "target_vus": 50,
+      "duration_hours": 0.5
+    },
+    "websocket": {
+      "max_connections": 500,
+      "rooms": 10,
+      "messages_per_second": 1000
+    }
+  },
+  "thresholds": {
+    "success_rate": {
+      "min": 0.90,
+      "target": 0.95
+    },
+    "latency": {
+      "p50": 300,
+      "p95": 800,
+      "p99": 1500,
+      "max": 10000
+    },
+    "error_rate": {
+      "max": 0.10
+    }
+  },
+  "monitoring": {
+    "prometheus": {
+      "enabled": false
+    },
+    "grafana": {
+      "enabled": false
+    },
+    "alerting": {
+      "enabled": false
+    }
+  },
+  "database": {
+    "pool_size": {
+      "min": 5,
+      "max": 20
+    },
+    "query_timeout": 20000,
+    "slow_query_threshold": 3000
+  },
+  "redis": {
+    "max_memory": "1GB",
+    "eviction_policy": "allkeys-lru",
+    "max_connections": 100
+  },
+  "test_data": {
+    "users_count": 1000,
+    "region": {
+      "beijing": {"lat": [39.9, 39.91], "lng": [116.39, 116.40]}
+    },
+    "user_distribution": {
+      "casual": 0.60,
+      "active": 0.30,
+      "artist": 0.10
+    }
+  },
+  "reporting": {
+    "output_format": ["json"],
+    "retention_days": 7,
+    "comparison_baseline": null
+  }
+}

@@ -1,0 +1,312 @@
+# FunnyPixels Redis Cluster - 生产级 Docker Compose 配置
+#
+# 功能说明：
+# - 开发环境：单实例 Redis + 可选 Sentinel
+# - 生产环境：主从复制 + Sentinel 哨兵
+#
+# 使用方法：
+#   开发环境（单实例）:
+#     docker-compose -f docker-compose.redis.yml --profile dev up -d
+#
+#   生产环境（主从 + Sentinel）:
+#     docker-compose -f docker-compose.redis.yml --profile prod up -d
+#
+# 环境变量配置（.env）:
+#   REDIS_PASSWORD=your_secure_password
+#   REDIS_HOST=localhost
+#   REDIS_PORT=6379
+
+services:
+  # ============================================
+  # Redis Master - 主节点（生产 + 开发）
+  # ============================================
+  redis-master:
+    image: redis:7-alpine
+    container_name: funnypixels-redis-master
+    restart: unless-stopped
+    command: >
+      sh -c 'mkdir -p /var/log/redis && chmod 777 /var/log/redis &&
+      redis-server
+      --requirepass ${REDIS_PASSWORD:-funnypixels_redis_dev}
+      --masterauth ${REDIS_PASSWORD:-funnypixels_redis_dev}
+      --appendonly yes
+      --appendfsync everysec
+      --auto-aof-rewrite-percentage 100
+      --auto-aof-rewrite-min-size 64mb
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --loglevel notice
+      --logfile /var/log/redis/redis.log'
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-master-data:/data
+      - redis-master-logs:/var/log/redis
+    networks:
+      - redis-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================
+  # Redis Slave 1 - 从节点1（仅生产）
+  # ============================================
+  redis-slave-1:
+    image: redis:7-alpine
+    container_name: funnypixels-redis-slave-1
+    restart: unless-stopped
+    command: >
+      redis-server
+      --slaveof redis-master 6379
+      --masterauth ${REDIS_PASSWORD:-funnypixels_redis_dev}
+      --requirepass ${REDIS_PASSWORD:-funnypixels_redis_dev}
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --loglevel notice
+      --logfile /var/log/redis/redis.log
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-slave-1-data:/data
+      - redis-slave-1-logs:/var/log/redis
+    networks:
+      - redis-network
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    profiles:
+      - prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================
+  # Redis Slave 2 - 从节点2（仅生产）
+  # ============================================
+  redis-slave-2:
+    image: redis:7-alpine
+    container_name: funnypixels-redis-slave-2
+    restart: unless-stopped
+    command: >
+      redis-server
+      --slaveof redis-master 6379
+      --masterauth ${REDIS_PASSWORD:-funnypixels_redis_dev}
+      --requirepass ${REDIS_PASSWORD:-funnypixels_redis_dev}
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --loglevel notice
+      --logfile /var/log/redis/redis.log
+    ports:
+      - "6381:6379"
+    volumes:
+      - redis-slave-2-data:/data
+      - redis-slave-2-logs:/var/log/redis
+    networks:
+      - redis-network
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    profiles:
+      - prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================
+  # Redis Sentinel 1 - 哨兵1（仅生产）
+  # ============================================
+  redis-sentinel-1:
+    image: redis:7-alpine
+    container_name: funnypixels-redis-sentinel-1
+    restart: unless-stopped
+    command: >
+      sh -c 'echo "port 26379" > /tmp/sentinel.conf &&
+             echo "dir /tmp" >> /tmp/sentinel.conf &&
+             echo "sentinel monitor mymaster redis-master 6379 2" >> /tmp/sentinel.conf &&
+             echo "sentinel auth-pass mymaster ${REDIS_PASSWORD:-funnypixels_redis_dev}" >> /tmp/sentinel.conf &&
+             echo "sentinel down-after-milliseconds mymaster 5000" >> /tmp/sentinel.conf &&
+             echo "sentinel parallel-syncs mymaster 1" >> /tmp/sentinel.conf &&
+             echo "sentinel failover-timeout mymaster 10000" >> /tmp/sentinel.conf &&
+             redis-server /tmp/sentinel.conf --sentinel'
+    ports:
+      - "26379:26379"
+    networks:
+      - redis-network
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "-p", "26379", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    profiles:
+      - prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================
+  # Redis Sentinel 2 - 哨兵2（仅生产）
+  # ============================================
+  redis-sentinel-2:
+    image: redis:7-alpine
+    container_name: funnypixels-redis-sentinel-2
+    restart: unless-stopped
+    command: >
+      sh -c 'echo "port 26379" > /tmp/sentinel.conf &&
+             echo "dir /tmp" >> /tmp/sentinel.conf &&
+             echo "sentinel monitor mymaster redis-master 6379 2" >> /tmp/sentinel.conf &&
+             echo "sentinel auth-pass mymaster ${REDIS_PASSWORD:-funnypixels_redis_dev}" >> /tmp/sentinel.conf &&
+             echo "sentinel down-after-milliseconds mymaster 5000" >> /tmp/sentinel.conf &&
+             echo "sentinel parallel-syncs mymaster 1" >> /tmp/sentinel.conf &&
+             echo "sentinel failover-timeout mymaster 10000" >> /tmp/sentinel.conf &&
+             redis-server /tmp/sentinel.conf --sentinel'
+    ports:
+      - "26380:26379"
+    networks:
+      - redis-network
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "-p", "26379", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    profiles:
+      - prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================
+  # Redis Sentinel 3 - 哨兵3（仅生产）
+  # ============================================
+  redis-sentinel-3:
+    image: redis:7-alpine
+    container_name: funnypixels-redis-sentinel-3
+    restart: unless-stopped
+    command: >
+      sh -c 'echo "port 26379" > /tmp/sentinel.conf &&
+             echo "dir /tmp" >> /tmp/sentinel.conf &&
+             echo "sentinel monitor mymaster redis-master 6379 2" >> /tmp/sentinel.conf &&
+             echo "sentinel auth-pass mymaster ${REDIS_PASSWORD:-funnypixels_redis_dev}" >> /tmp/sentinel.conf &&
+             echo "sentinel down-after-milliseconds mymaster 5000" >> /tmp/sentinel.conf &&
+             echo "sentinel parallel-syncs mymaster 1" >> /tmp/sentinel.conf &&
+             echo "sentinel failover-timeout mymaster 10000" >> /tmp/sentinel.conf &&
+             redis-server /tmp/sentinel.conf --sentinel'
+    ports:
+      - "26381:26379"
+    networks:
+      - redis-network
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "-p", "26379", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    profiles:
+      - prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================
+  # Redis Commander - Web管理界面（开发调试）
+  # ============================================
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: funnypixels-redis-commander
+    restart: unless-stopped
+    environment:
+      - REDIS_HOSTS=local:redis-master:6379:0:${REDIS_PASSWORD:-funnypixels_redis_dev}
+    ports:
+      - "8081:8081"
+    networks:
+      - redis-network
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    profiles:
+      - dev
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ============================================
+# 网络配置
+# ============================================
+networks:
+  redis-network:
+    name: funnypixels-redis-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# ============================================
+# 数据卷配置
+# ============================================
+volumes:
+  redis-master-data:
+    name: funnypixels-redis-master-data
+    driver: local
+
+  redis-master-logs:
+    name: funnypixels-redis-master-logs
+    driver: local
+
+  redis-slave-1-data:
+    name: funnypixels-redis-slave-1-data
+    driver: local
+
+  redis-slave-1-logs:
+    name: funnypixels-redis-slave-1-logs
+    driver: local
+
+  redis-slave-2-data:
+    name: funnypixels-redis-slave-2-data
+    driver: local
+
+  redis-slave-2-logs:
+    name: funnypixels-redis-slave-2-logs
+    driver: local

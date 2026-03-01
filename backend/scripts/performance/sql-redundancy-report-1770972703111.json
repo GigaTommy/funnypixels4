@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-02-13T08:51:43.063Z",
+  "tile": {
+    "z": 16,
+    "x": 53834,
+    "y": 28028
+  },
+  "density": null,
+  "current": {
+    "performance": null,
+    "plan": null
+  },
+  "optimized": {
+    "performance": null,
+    "plan": null
+  }
+}

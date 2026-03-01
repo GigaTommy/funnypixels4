@@ -1,0 +1,42 @@
+{
+  "auth": {
+    "registerSuccess": "注册成功",
+    "loginSuccess": "登录成功",
+    "logoutSuccess": "登出成功",
+    "passwordChanged": "密码修改成功",
+    "profileUpdated": "个人信息更新成功",
+    "verificationCodeSent": "验证码已发送",
+    "emailVerified": "邮箱验证成功",
+    "phoneVerified": "手机号验证成功"
+  },
+  "pixel": {
+    "created": "像素创建成功",
+    "updated": "像素更新成功",
+    "deleted": "像素删除成功",
+    "batchCreated": "批量创建成功，共 {{count}} 个像素"
+  },
+  "user": {
+    "created": "用户创建成功",
+    "updated": "用户信息更新成功",
+    "deleted": "用户删除成功"
+  },
+  "alliance": {
+    "created": "联盟创建成功",
+    "joined": "加入联盟成功",
+    "left": "离开联盟成功",
+    "updated": "联盟信息更新成功",
+    "deleted": "联盟解散成功",
+    "memberInvited": "成员邀请成功",
+    "memberRemoved": "成员移除成功"
+  },
+  "upload": {
+    "success": "文件上传成功",
+    "imageUploaded": "图片上传成功"
+  },
+  "general": {
+    "operationSuccess": "操作成功",
+    "saveSuccess": "保存成功",
+    "deleteSuccess": "删除成功",
+    "updateSuccess": "更新成功"
+  }
+}

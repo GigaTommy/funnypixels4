@@ -1,0 +1,36 @@
+{
+  "app": {
+    "name": "FunnyPixels",
+    "welcome": "Welcome to FunnyPixels"
+  },
+  "general": {
+    "success": "Success",
+    "failed": "Failed",
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "unknown": "Unknown"
+  },
+  "time": {
+    "second": "second",
+    "minute": "minute",
+    "hour": "hour",
+    "day": "day",
+    "week": "week",
+    "month": "month",
+    "year": "year",
+    "ago": "ago",
+    "justNow": "just now"
+  },
+  "pagination": {
+    "page": "Page {{page}}",
+    "of": "of {{total}}",
+    "itemsPerPage": "{{count}} items per page",
+    "total": "Total {{count}} records"
+  }
+}

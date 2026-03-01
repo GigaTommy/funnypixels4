@@ -1,0 +1,36 @@
+{
+  "app": {
+    "name": "FunnyPixels",
+    "welcome": "欢迎使用 FunnyPixels"
+  },
+  "general": {
+    "success": "成功",
+    "failed": "失败",
+    "loading": "加载中...",
+    "saving": "保存中...",
+    "deleting": "删除中...",
+    "confirm": "确认",
+    "cancel": "取消",
+    "yes": "是",
+    "no": "否",
+    "ok": "确定",
+    "unknown": "未知"
+  },
+  "time": {
+    "second": "秒",
+    "minute": "分钟",
+    "hour": "小时",
+    "day": "天",
+    "week": "周",
+    "month": "月",
+    "year": "年",
+    "ago": "前",
+    "justNow": "刚刚"
+  },
+  "pagination": {
+    "page": "第 {{page}} 页",
+    "of": "共 {{total}} 页",
+    "itemsPerPage": "每页 {{count}} 条",
+    "total": "共 {{count}} 条记录"
+  }
+}

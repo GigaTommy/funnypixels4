@@ -1,0 +1,102 @@
+{
+  "common": {
+    "internalServerError": "服务器内部错误",
+    "notFound": "资源未找到",
+    "unauthorized": "未授权访问",
+    "forbidden": "无权访问该资源",
+    "badRequest": "请求参数错误",
+    "conflict": "资源冲突",
+    "tooManyRequests": "请求过于频繁，请稍后再试",
+    "serviceUnavailable": "服务暂时不可用",
+    "timeout": "请求超时"
+  },
+  "auth": {
+    "invalidCredentials": "用户名或密码错误",
+    "emailNotFound": "邮箱不存在",
+    "emailAlreadyExists": "邮箱已被注册",
+    "invalidToken": "无效的访问令牌",
+    "tokenExpired": "访问令牌已过期",
+    "refreshTokenExpired": "刷新令牌已过期",
+    "invalidRefreshToken": "无效的刷新令牌",
+    "passwordTooShort": "密码长度至少6个字符",
+    "passwordTooLong": "密码长度不能超过128个字符",
+    "invalidEmail": "邮箱格式不正确",
+    "verificationCodeInvalid": "验证码不正确",
+    "verificationCodeExpired": "验证码已过期",
+    "verificationCodeNotFound": "验证码不存在",
+    "accountLocked": "账户已被锁定",
+    "accountDisabled": "账户已被禁用",
+    "loginRequired": "需要登录",
+    "sessionExpired": "会话已过期，请重新登录",
+    "passwordMismatch": "两次输入的密码不一致",
+    "oldPasswordIncorrect": "原密码不正确",
+    "newPasswordSameAsOld": "新密码不能与旧密码相同"
+  },
+  "validation": {
+    "required": "{{field}} 不能为空",
+    "invalid": "{{field}} 格式不正确",
+    "tooShort": "{{field}} 长度至少 {{min}} 个字符",
+    "tooLong": "{{field}} 长度不能超过 {{max}} 个字符",
+    "outOfRange": "{{field}} 必须在 {{min}} 到 {{max}} 之间",
+    "invalidType": "{{field}} 类型不正确",
+    "mustBeNumber": "{{field}} 必须是数字",
+    "mustBeInteger": "{{field}} 必须是整数",
+    "mustBePositive": "{{field}} 必须是正数",
+    "invalidEmail": "邮箱格式不正确",
+    "invalidPhone": "手机号格式不正确",
+    "invalidUrl": "URL格式不正确",
+    "invalidDate": "日期格式不正确",
+    "invalidColor": "颜色格式不正确",
+    "invalidCoordinates": "坐标格式不正确",
+    "arrayTooShort": "至少需要 {{min}} 项",
+    "arrayTooLong": "最多允许 {{max}} 项"
+  },
+  "pixel": {
+    "notFound": "像素未找到",
+    "alreadyExists": "像素已存在",
+    "invalidColor": "颜色格式不正确",
+    "invalidCoordinates": "坐标超出有效范围",
+    "drawingFailed": "绘制失败",
+    "insufficientBalance": "余额不足"
+  },
+  "user": {
+    "notFound": "用户不存在",
+    "alreadyExists": "用户已存在",
+    "cannotDeleteSelf": "不能删除自己",
+    "notOwner": "您不是该资源的拥有者"
+  },
+  "alliance": {
+    "notFound": "联盟不存在",
+    "alreadyMember": "已经是该联盟成员",
+    "notMember": "不是该联盟成员",
+    "nameTaken": "联盟名称已被使用",
+    "insufficientPermission": "权限不足",
+    "cannotLeave": "创建者不能离开联盟"
+  },
+  "upload": {
+    "fileTooLarge": "文件大小超过限制（最大 {{maxSize}}MB）",
+    "invalidFileType": "不支持的文件类型",
+    "invalidFileExtension": "不支持的文件扩展名",
+    "uploadFailed": "文件上传失败"
+  },
+  "database": {
+    "connectionFailed": "数据库连接失败",
+    "queryFailed": "查询失败",
+    "transactionFailed": "事务执行失败",
+    "constraintViolation": "数据约束冲突"
+  },
+  "redis": {
+    "connectionFailed": "Redis连接失败",
+    "operationFailed": "Redis操作失败"
+  },
+  "rateLimit": {
+    "tooManyRequests": "请求过于频繁，请 {{retryAfter}} 秒后再试",
+    "tooManyLoginAttempts": "登录尝试次数过多，请15分钟后再试",
+    "tooManyRegistrations": "注册尝试次数过多，请1小时后再试"
+  },
+  "pattern": {
+    "notFound": "图案不存在",
+    "invalidKey": "无效的图案标识",
+    "loadFailed": "获取图案信息失败"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "task_completed": {
+    "title": "🎉 Tarefa Concluída!",
+    "body": "Parabéns! Você concluiu a tarefa \"{{title}}\" e ganhou {{reward}} pontos!"
+  },
+  "all_tasks_completed": {
+    "title": "🏆 Bônus de Presença Perfeita!",
+    "body": "Incrível! Você concluiu todas as tarefas diárias hoje. Continue assim amanhã!"
+  },
+  "streak_reward": {
+    "title": "🔥 Sequência de {{days}} Dias!",
+    "body": "Você concluiu todas as tarefas diárias por {{days}} dias consecutivos! Continue para recompensas ainda melhores!"
+  },
+  "task_reminder": {
+    "title": "⏰ Tarefas Não Concluídas",
+    "body": "Você ainda tem tarefas inacabadas hoje. Complete todas as tarefas para bônus de recompensas!"
+  }
+}

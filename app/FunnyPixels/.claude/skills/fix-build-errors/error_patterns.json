@@ -1,0 +1,135 @@
+{
+  "error_patterns": {
+    "macos_compatibility": {
+      "description": "macOS API 不可用错误",
+      "patterns": [
+        "'(.+)' is unavailable in macOS",
+        ".navigationBarTitleDisplayMode.",
+        ".navigationBarLeading",
+        ".navigationBarTrailing",
+        ".topBarLeading",
+        ".topBarTrailing",
+        "PageTabViewStyle",
+        ".symbolEffect",
+        "ContentUnavailableView",
+        ".buttonBorderShape"
+      ],
+      "fix_strategy": "conditional_compilation",
+      "priority": "high"
+    },
+    "color_system": {
+      "description": "Color 初始化语法错误",
+      "patterns": [
+        "type 'CGColor' has no member 'systemBackground'",
+        "type 'CGColor' has no member 'systemGray6'",
+        "type 'CGColor' has no member 'systemGray5'",
+        "type 'CGColor' has no member 'quaternary'",
+        "Color(\\."
+      ],
+      "fix_strategy": "direct_replacement",
+      "replacements": {
+        "Color(.systemBackground)": "Color.systemBackground",
+        "Color(.systemGray6)": "Color.systemGray6",
+        "Color(.systemGray5)": "Color.systemGray5",
+        "Color(.quaternary)": "Color.gray.opacity(0.3)"
+      },
+      "priority": "high"
+    },
+    "api_version": {
+      "description": "API 版本兼容性错误",
+      "patterns": [
+        "'onChange\\(of:initial:_:\\)' is only available in macOS 14.0 or newer",
+        "isToday' is only available",
+        "isYesterday' is only available"
+      ],
+      "fix_strategy": "version_compatible",
+      "priority": "medium"
+    },
+    "uikit_dependency": {
+      "description": "UIKit 依赖错误",
+      "patterns": [
+        "Cannot find type 'UIActivityViewController' in scope",
+        "Cannot find type 'UIViewControllerRepresentable' in scope",
+        "Use of unresolved identifier 'UIKit'"
+      ],
+      "fix_strategy": "conditional_compilation",
+      "condition": "#if canImport(UIKit)",
+      "priority": "high"
+    },
+    "model_property": {
+      "description": "模型属性不匹配错误",
+      "patterns": [
+        "value of type '(.+)' has no member '(.+)'"
+      ],
+      "fix_strategy": "property_mapping",
+      "mappings": {
+        "AllianceViewModel.userAlliance": "AllianceViewModel.userAlliances.first",
+        "Alliance.pixelCount": "Alliance.memberCount",
+        "DrawingStats.totalTime": "DrawingStats.totalDuration",
+        "DrawingHistoryItem.sessionPixels": "DrawingHistoryItem.pixels",
+        "PersonalLeaderboardEntry.metricValue": "PersonalLeaderboardEntry.periodPixels",
+        "LeaderboardViewModel.selectedTimeFilter": "LeaderboardViewModel.selectedPeriod",
+        "LeaderboardViewModel.users": "LeaderboardViewModel.personalEntries",
+        "LeaderboardViewModel.alliances": "LeaderboardViewModel.allianceEntries"
+      },
+      "priority": "high"
+    },
+    "type_conversion": {
+      "description": "类型转换错误",
+      "patterns": [
+        "cannot convert value of type 'String' to expected argument type 'Color'",
+        "cannot convert value of type '(.+)' to expected argument type '(.+)'"
+      ],
+      "fix_strategy": "explicit_conversion",
+      "conversions": {
+        "String to Color": "Color(hex: string) ?? .defaultColor"
+      },
+      "priority": "medium"
+    },
+    "build_expression": {
+      "description": "ViewBuilder buildExpression 错误",
+      "patterns": [
+        "no exact matches in reference to static method 'buildExpression'"
+      ],
+      "fix_strategy": "simplify_view",
+      "priority": "high"
+    }
+  },
+  "fix_rules": {
+    "conditional_compilation": {
+      "description": "添加平台条件编译",
+      "ios_pattern": "#if os(iOS)\n{code}\n#endif",
+      "macos_alternative": {
+        ".navigationBarLeading": ".cancellationAction",
+        ".navigationBarTrailing": ".automatic || .confirmationAction",
+        ".topBarLeading": ".cancellationAction",
+        ".topBarTrailing": ".automatic || .confirmationAction"
+      }
+    },
+    "direct_replacement": {
+      "description": "直接字符串替换",
+      "use_sed": true
+    },
+    "version_compatible": {
+      "description": "使用旧版 API 或手动实现",
+      "onChange_fix": "onChange(of: value) { newValue in ... }",
+      "calendar_fix": "calendar.isDate(date, inSameDayAs: now)"
+    },
+    "property_mapping": {
+      "description": "映射到正确的属性名",
+      "use_sed": true
+    },
+    "explicit_conversion": {
+      "description": "添加显式类型转换",
+      "examples": {
+        "Color": "Color(hex: value) ?? .gray"
+      }
+    }
+  },
+  "file_patterns": {
+    "views": "Sources/FunnyPixels/Views/*.swift",
+    "viewmodels": "Sources/FunnyPixels/ViewModels/*.swift",
+    "models": "Sources/FunnyPixels/Models/*.swift",
+    "services": "Sources/FunnyPixels/Services/*.swift"
+  }
+}

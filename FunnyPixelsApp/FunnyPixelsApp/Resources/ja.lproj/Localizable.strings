@@ -1,0 +1,1404 @@
+/* GPS Drawing Control */
+"gps.session.title" = "描画済み";
+"gps.session.unit" = "px";
+"gps.session.label" = "セッション";
+"gps.stop.button" = "停止";
+
+/* Telemetry */
+"gps.telemetry.ammo" = "残弾";
+"gps.telemetry.lifetime" = "累計";
+"gps.telemetry.frozen" = "凍結中";
+
+/* Authentication */
+"auth.title" = "FunnyPixels";
+"auth.slogan" = "世界のキャンバスにあなたの足跡を残そう";
+"auth.login.tab" = "ログイン";
+"auth.join.tab" = "新規登録";
+"auth.email.label" = "メールアドレス";
+"auth.email.placeholder" = "メールアドレスを入力";
+"auth.password.label" = "パスワード";
+"auth.password.placeholder" = "パスワードを入力";
+"auth.username.label" = "ユーザー名";
+"auth.username.placeholder" = "ユーザー名を決めてください";
+"auth.button.login" = "ログイン";
+"auth.button.signup" = "アカウント作成";
+"auth.terms.prefix" = "以下に同意します";
+"auth.terms.link" = "利用規約";
+"auth.privacy.link" = "プライバシーポリシー";
+"auth.and" = " と ";
+"auth.error.missing" = "すべての項目を入力してください";
+"auth.error.invalid_phone" = "有効な電話番号を入力してください";
+"auth.error.send_code_failed" = "コードの送信に失敗しました。もう一度お試しください";
+"auth.error.login_failed" = "ログインに失敗しました";
+"auth.error.register_failed" = "登録に失敗しました";
+"auth.error.username_length" = "ユーザー名は2〜20文字で入力してください";
+"auth.button.resend" = "再送信";
+"auth.button.send_code" = "コードを送信";
+"auth.button.resend_countdown" = "%ds後に再送信";
+"auth.toggle.to_signup" = "アカウントをお持ちでない方はこちら";
+"auth.toggle.to_login" = "アカウントをお持ちの方はこちら";
+"auth.or_continue_with" = "またはメールでログイン";
+"auth.google.sign_in" = "Googleでログイン";
+"auth.apple.sign_in" = "Appleでログイン";
+
+/* Session */
+"session.validating" = "セッションを確認中...";
+"session.expired" = "セッションの有効期限が切れました。再度ログインしてください";
+
+/* Launch Screen */
+"launch.slogan" = "世界を一緒に描こう";
+"launch.tip.long_press" = "ピクセルを長押しで作成者を確認";
+"launch.tip.color_palette" = "スワイプでカラーパレットを切り替え";
+"launch.tip.zoom_out" = "縮小して世界の作品を鑑賞";
+"launch.tip.daily_tasks" = "デイリータスクでボーナスポイント獲得";
+"launch.tip.alliance" = "アライアンスに参加してランキング制覇";
+"launch.tip.consecutive_login" = "連続ログインで報酬アンロック";
+"launch.tip.gps_drawing" = "GPS描画で大型作品を制作";
+"launch.tip.like_pixels" = "素晴らしい作品にいいねして応援";
+
+/* Policy Sheet */
+"policy.loading" = "読み込み中...";
+"policy.retry" = "再試行";
+"policy.close" = "閉じる";
+"policy.terms.title" = "利用規約";
+"policy.privacy.title" = "プライバシーポリシー";
+
+/* General */
+"common.cancel" = "キャンセル";
+"common.share" = "シェア";
+"common.save" = "保存";
+"common.confirm" = "OK";
+"common.close" = "閉じる";
+"common.loading" = "読み込み中...";
+
+/* Tab Bar */
+"tab.map" = "マップ";
+"tab.history" = "履歴";
+"tab.feed" = "フィード";
+"tab.alliance" = "アライアンス";
+"tab.leaderboard" = "ランキング";
+"tab.profile" = "マイページ";
+
+/* Session Summary */
+"summary.map.generating" = "マップを生成中...";
+"summary.title" = "ここに描きました";
+"summary.subtitle" = "リアルワールド・ピクセルアート";
+"summary.share.title" = "シェア先";
+"summary.created_by" = "✍️ FunnyPixelsで作成";
+"summary.join_now" = "今すぐ参加";
+"summary.pixels" = "ピクセル";
+"summary.time" = "時間";
+"summary.km" = "KM";
+"summary.share_text" = "FunnyPixelsのマップでお絵描きしました。ピクセルアートを見てね！";
+"summary.artwork_tag" = "📍 リアルワールド · ピクセルアート";
+"summary.watermark" = "FunnyPixels";
+"summary.activity_description" = "%@、マップ上でお絵描きを完成させました";
+"summary.stats.pixels_label" = "今回のセッション: %dピクセル";
+"summary.stats.duration_label" = "所要時間: %@秒";
+"summary.stats.action_fast" = "サクッとお絵描きセッション";
+"summary.stats.action_area" = "マップ上の新しいエリアを開拓しました";
+"summary.cta" = "スキャンしてマップを開き、ピクセルの旅を始めよう";
+"summary.button.close" = "閉じる";
+"summary.button.share" = "ピクセルをシェア";
+
+/* Session Detail Share */
+"session_detail.share.title" = "お絵描き記録";
+"session_detail.share.subtitle" = "マップに残した足跡";
+"session_detail.share.cta" = "スキャンして全記録を見る";
+"session_detail.share.button" = "ピクセルをシェア";
+"session_detail.generating_map" = "マップを生成中...";
+
+/* Share Actions */
+"share.link_copied" = "リンクをコピーしました";
+"share.save_success" = "画像を保存しました";
+"share.save_failed" = "保存に失敗しました";
+"share.opened" = " を開きました";
+
+/* Artwork Gallery */
+"gallery.title" = "作品ギャラリー";
+"gallery.empty.title" = "作品がまだありません";
+"gallery.empty.message" = "最初の作品を描いてみましょう";
+"gallery.guest.title" = "あなたの創造力を記録しよう";
+"gallery.guest.message" = "ログインしてピクセルアート作品を見る";
+
+/* Artwork Tags */
+
+/* Detail Modes */
+"detail.mode.artwork" = "作品";
+"detail.mode.data" = "データ";
+"detail.creation_info" = "作品情報";
+"detail.behavior_info" = "行動情報";
+"detail.path_shape" = "軌跡の形";
+"detail.covered_grids" = "カバーしたグリッド";
+
+/* Leaderboard */
+"leaderboard.title" = "ランキング";
+"leaderboard.period.day" = "日";
+"leaderboard.period.week" = "週";
+"leaderboard.period.month" = "月";
+"leaderboard.type.personal" = "個人";
+"leaderboard.type.alliance" = "アライアンス";
+"leaderboard.type.city" = "都市";
+"leaderboard.empty" = "データなし";
+"leaderboard.pixel" = "ピクセル";
+"leaderboard.users" = "ユーザー";
+"leaderboard.period.alltime" = "全期間";
+"leaderboard.picker.period" = "期間";
+"leaderboard.picker.type" = "タイプ";
+"leaderboard.type.friends" = "フレンド";
+"leaderboard.friends.empty" = "フレンドがいません";
+"leaderboard.friends.emptyHint" = "他のプレイヤーをフォローしてランキングに表示";
+
+/* Feed Center */
+"feed.title" = "フィード";
+"feed.tab.social" = "フィード";
+"feed.tab.records" = "記録";
+"feed.tab.dashboard" = "データ";
+"feed.social.coming_soon" = "ソーシャルフィード準備中";
+"feed.social.coming_soon_hint" = "フレンドの作品をチェック";
+"feed.dashboard.coming_soon" = "ダッシュボード準備中";
+"feed.dashboard.coming_soon_hint" = "描画データと進捗を追跡";
+"feed.social.empty" = "まだ投稿がありません";
+"feed.social.empty_hint" = "プレイヤーをフォローして描画を始めましょう";
+"feed.filter.following" = "フォロー中";
+"feed.filter.all" = "すべて";
+"feed.time.just_now" = "たった今";
+"feed.time.minutes_ago" = "%d分前";
+"feed.time.hours_ago" = "%d時間前";
+"feed.time.days_ago" = "%d日前";
+"feed.drawing.description" = "%dピクセルを描画";
+"feed.achievement.unlocked" = "実績解除！";
+"feed.checkin.description" = "今日チェックインしました";
+"feed.alliance.joined" = "アライアンスに加入：%@";
+"feed.comments.title" = "コメント";
+"feed.comments.empty" = "コメントはまだありません";
+"feed.comments.placeholder" = "コメントを書く...";
+
+/* Dashboard */
+"dashboard.heatmap.title" = "アクティビティカレンダー";
+"dashboard.heatmap.less" = "少";
+"dashboard.heatmap.more" = "多";
+"dashboard.weekly.title" = "週間トレンド";
+"dashboard.cities.title" = "シティフットプリント";
+"dashboard.cities.sessions" = "回";
+"dashboard.stat.pixels" = "ピクセル";
+"dashboard.stat.sessions" = "セッション";
+"dashboard.stat.cities" = "都市";
+"dashboard.stat.streak" = "連続日数";
+
+/* Alliance Checkin */
+"alliance.checkin.title" = "デイリーチェックイン";
+"alliance.checkin.button" = "チェックイン";
+"alliance.checkin.done" = "チェックイン済み";
+"alliance.checkin.today_count" = "本日: %d人チェックイン";
+
+/* Alliance Contribution */
+"alliance.contribution.title" = "貢献ランキング";
+"alliance.contribution.empty" = "まだ貢献がありません";
+
+/* Profile Enhanced */
+"profile.following" = "フォロー";
+"profile.followers" = "フォロワー";
+"profile.total_pixels" = "ピクセル";
+"profile.achievements_count" = "実績";
+"profile.today" = "今日";
+"profile.today_pixels" = "ピクセル";
+"profile.today_sessions" = "セッション";
+"profile.today_duration" = "時間";
+"profile.streak_days" = "%d日";
+
+/* Social */
+"social.following" = "フォロー中";
+"social.followers" = "フォロワー";
+"social.following.empty" = "まだ誰もフォローしていません";
+"social.followers.empty" = "まだフォロワーがいません";
+"social.following_btn" = "フォロー中";
+"social.follow_btn" = "フォロー";
+
+/* Daily Tasks */
+"daily_task.title" = "デイリータスク";
+"daily_task.progress" = "今日の進捗";
+"daily_task.bonus_title" = "全達成ボーナス";
+"daily_task.bonus_desc" = "全てのタスクを完了してボーナスポイントを獲得";
+"daily_task.bonus_claimed" = "ボーナス受取済み";
+"daily_task.claim_bonus" = "ボーナスを受け取る";
+"daily_task.bonus_locked" = "全 %d タスクを完了";
+"daily_task.claim_failed" = "受け取りに失敗しました";
+"daily_task.empty" = "本日のタスクはありません";
+"profile.daily_tasks" = "デイリータスク";
+
+/* Nearby Players */
+"nearby.drawing" = "描画中";
+"nearby.away" = "離れた場所";
+"nearby.follow" = "フォロー";
+
+/* Quick Stats */
+"quick_stats.today" = "今日";
+"quick_stats.pixels" = "ピクセル";
+"quick_stats.sessions" = "セッション";
+"quick_stats.duration" = "時間";
+"quick_stats.tasks" = "タスク";
+"quick_stats.view_tasks" = "タスクを見る";
+
+/* Territory */
+"territory.detail_title" = "テリトリー制御";
+"territory.total_pixels" = "合計ピクセル";
+
+/* Common */
+"common.error" = "エラー";
+"common.success" = "成功";
+"common.login_required" = "ログインが必要です";
+
+/* Drawing History */
+"history.title" = "お絵描き履歴";
+"history.empty.title" = "履歴なし";
+"history.empty.message" = "GPSお絵描きを始めると、ここに履歴が表示されます。";
+"history.guest.title" = "あなたの創造力を記録しよう";
+"history.guest.message" = "ログインしてGPS軌跡・統計・再生を含むお絵描き履歴を見る。";
+"history.login_register" = "ログイン / 新規登録";
+"history.filter.status" = "ステータス";
+"history.filter.type" = "タイプ";
+"history.filter.date" = "日付範囲";
+"history.filter.enable_date" = "日付フィルターを有効にする";
+"history.filter.start_date" = "開始日";
+"history.filter.end_date" = "終了日";
+"history.filter.title" = "フィルター";
+"history.filter.done" = "完了";
+"history.filter.reset" = "リセット";
+"history.filter.city" = "都市";
+"history.filter.city_placeholder" = "都市名を入力";
+"history.stats.pixels" = "ピクセル";
+"history.duration" = "所要時間";
+"history.distance" = "距離";
+"history.status.active" = "アクティブ";
+
+/* Alliance */
+"alliance.tab.my" = "マイアライアンス";
+"alliance.tab.search" = "検索";
+"alliance.title" = "アライアンス";
+"alliance.create" = "アライアンスを作成";
+"alliance.invite.title" = "招待コード";
+"alliance.invite.copy" = "コピー";
+"alliance.invite.message" = "招待コード:\n%@\n\n24時間有効です";
+"alliance.members" = "メンバー";
+"alliance.total_pixels" = "合計ピクセル";
+"alliance.rank" = "ランク";
+"alliance.menu.members" = "メンバー";
+"alliance.menu.members.subtitle" = "メンバーの表示・管理";
+"alliance.menu.stats" = "統計";
+"alliance.menu.stats.subtitle" = "テリトリーとランキングを見る";
+"alliance.menu.applications" = "申請";
+"alliance.menu.applications.subtitle" = "件が未処理";
+"alliance.notice.empty" = "お知らせなし";
+"alliance.menu.invite" = "メンバーを招待";
+"alliance.menu.invite.subtitle" = "リンクをシェア";
+"alliance.action.transfer" = "リーダーを委譲";
+"alliance.action.leave" = "アライアンスを脱退";
+"alliance.error.transfer_required" = "脱退する前にリーダーを委譲してください。";
+"alliance.action.dissolve" = "解散して脱退";
+"alliance.msg.dissolve" = "最後のメンバーのため、脱退するとアライアンスは解散されます。";
+"alliance.dissolve.title" = "アライアンスを解散";
+"alliance.dissolve.message" = "アライアンスを解散しますか？この操作は取り消せません。";
+"alliance.leave.title" = "アライアンスを脱退";
+"alliance.leave.message" = "アライアンスから脱退しますか？";
+"alliance.leave.success" = "アライアンスを脱退しました";
+"alliance.role.leader" = "リーダー";
+"alliance.role.admin" = "管理者";
+"alliance.role.member" = "メンバー";
+"alliance.search.popular" = "人気のアライアンス";
+"alliance.search.searching" = "検索中...";
+"alliance.search.no_results" = "アライアンスが見つかりません";
+"alliance.search.placeholder" = "アライアンス名を入力";
+"alliance.guest.title" = "参加・作成";
+"alliance.guest.message" = "ログインしてアライアンスに参加・作成し、マップで協力してランキングを競おう。";
+"alliance.empty.title" = "アライアンスなし";
+"alliance.empty.message" = "アライアンスを作成または参加して始めましょう。";
+"alliance.create.name" = "アライアンス名";
+"alliance.create.success" = "アライアンスを作成しました！";
+"alliance.btn.apply" = "申請";
+"alliance.btn.join" = "参加";
+"alliance.btn.create_action" = "作成";
+"alliance.form.name" = "アライアンス名";
+"alliance.form.desc" = "説明（任意）";
+"alliance.form.basic" = "基本情報";
+"alliance.form.visibility" = "公開設定";
+"alliance.form.public" = "公開";
+"alliance.form.private" = "非公開";
+"alliance.form.approval" = "承認が必要";
+"alliance.form.settings" = "設定";
+"alliance.form.flag" = "アライアンスの旗";
+"alliance.form.pattern" = "旗のパターン";
+"alliance.form.notice" = "お知らせ";
+"alliance.edit.title" = "アライアンスを編集";
+"alliance.edit.info" = "基本情報";
+"alliance.flag.select" = "旗を選択";
+"alliance.flag.type" = "パターンタイプ";
+"alliance.flag.color" = "カラー";
+"alliance.flag.emoji" = "絵文字";
+"alliance.flag.complex" = "複合";
+"alliance.flag.empty" = "パターンなし";
+"alliance.limit.title" = "アライアンス上限";
+"alliance.limit.usage" = "作成済み";
+"alliance.update.success" = "アライアンスを更新しました";
+"alliance.limit.needed" = "あと%dピクセル描くとアンロックできます。";
+"alliance.limit.max" = "上限に達しました。";
+
+/* Alliance Members */
+"alliance.members.title" = "メンバー";
+"alliance.transfer.title" = "リーダーを委譲";
+"alliance.transfer.message" = "%@にリーダーを委譲しますか？あなたは一般メンバーになります。";
+"alliance.member.join_date" = "加入日: %@";
+"alliance.action.promote" = "管理者に任命";
+"alliance.action.demote" = "管理者を解除";
+"alliance.action.kick" = "アライアンスから追放";
+
+/* Alliance Applications */
+"alliance.applications.empty" = "申請なし";
+"alliance.applications.title" = "申請一覧";
+"alliance.applications.review_placeholder" = "審査コメント（任意）";
+"alliance.applications.approve_title" = "申請を承認";
+"alliance.applications.reject_title" = "申請を却下";
+
+/* Alliance Stats */
+"alliance.stats.title" = "統計";
+"alliance.stats.core" = "主要指標";
+"alliance.stats.realtime" = "リアルタイム";
+"alliance.stats.cached" = "キャッシュ";
+"alliance.stats.total_pixels" = "合計ピクセル";
+"alliance.stats.members" = "メンバー";
+"alliance.stats.ownership" = "所有率";
+"alliance.stats.rank" = "ランク";
+"alliance.stats.comparison" = "データ比較";
+"alliance.stats.total_draw_pixels" = "描画ピクセル合計";
+"alliance.stats.current_ownership" = "現在の所有率";
+"alliance.stats.comparison_note" = "※ 実績データにはアイテム（広告、ボムなど）によるピクセルは含まれません。";
+"alliance.stats.no_comparison" = "比較データがありません";
+"alliance.stats.real" = "実績";
+"alliance.stats.prop_contribution" = "アイテム分";
+"alliance.stats.influence" = "アライアンスの影響力";
+"alliance.stats.world_rank" = "世界ランク";
+"alliance.stats.territory" = "グローバルテリトリー";
+
+/* Alliance Activity Log */
+"alliance.activity.title" = "最近のアクティビティ";
+"alliance.activity.empty" = "アクティビティなし";
+"alliance.activity.joined" = "%@ が参加しました";
+"alliance.activity.left" = "%@ が脱退しました";
+"alliance.activity.kicked" = "%@ が除名されました";
+"alliance.activity.promoted" = "%@ が管理者に昇格しました";
+"alliance.activity.demoted" = "%@ がメンバーに降格しました";
+"alliance.activity.transfer" = "%@ が新しいリーダーになりました";
+"alliance.activity.checkin" = "%@ がチェックインしました";
+"alliance.activity.levelup" = "アライアンスが %@ にレベルアップ";
+
+/* Alliance Kick Confirmation */
+"alliance.kick.confirm.title" = "メンバーを除名";
+"alliance.kick.confirm.message" = "%@ をアライアンスから除名しますか？";
+
+/* Alliance Sorting */
+"alliance.sort.role" = "役割順";
+"alliance.sort.pixels" = "ピクセル順";
+"alliance.sort.date" = "参加日順";
+
+/* Alliance Application Filters */
+"alliance.applications.filter.pending" = "保留中";
+"alliance.applications.filter.all" = "すべて";
+
+/* Alliance Share */
+"alliance.share.invite" = "招待を共有";
+
+/* Alliance Dissolve */
+"alliance.dissolve.success" = "アライアンスが解散されました";
+
+/* Profile */
+"profile.points" = "ポイント";
+"profile.honors" = "称号";
+"profile.view_all" = "すべて見る";
+"profile.features" = "機能";
+"profile.shop" = "ショップ";
+"profile.messages" = "メッセージセンター";
+"profile.items" = "持ち物";
+"profile.achievements" = "実績";
+"profile.settings" = "設定";
+"profile.invite_friends" = "友達を招待";
+"profile.logout" = "ログアウト";
+
+/* Invite/Referral */
+"invite.title" = "友達を招待";
+"invite.subtitle" = "招待コードを友達にシェアしよう。お互いにポイントがもらえます！";
+"invite.nav_title" = "友達を招待";
+"invite.your_code" = "あなたの招待コード";
+"invite.copy" = "コピー";
+"invite.copied" = "コピーしました！";
+"invite.share" = "シェア";
+"invite.share_message" = "FunnyPixelsで一緒に遊ぼう！招待コード: %@";
+"invite.rewards_title" = "報酬";
+"invite.inviter_reward" = "招待1人につき%dポイント獲得";
+"invite.invitee_reward" = "お友達に%dウェルカムポイント";
+"invite.stats_invited" = "招待した友達";
+"invite.stats_earned" = "獲得ポイント";
+"invite.redeem_title" = "招待コードをお持ちですか？";
+"invite.redeem_placeholder" = "コードを入力";
+"invite.redeem_button" = "引き換え";
+"invite.redeem_success" = "コードを引き換えました！%dポイント獲得。";
+"invite.error_invalid" = "無効な招待コードです";
+"invite.error_self" = "自分のコードは使えません";
+"invite.error_already" = "すでに招待コードを使用済みです";
+"invite.error_generic" = "コードの引き換えに失敗しました";
+"profile.guest.title" = "ログインして全機能を体験";
+"profile.guest.message" = "ログインしてアライアンスに参加、実績を確認、お絵描き履歴を保存しましょう。";
+"profile.logout.confirm.title" = "ログアウトの確認";
+"profile.logout.confirm.message" = "ログアウトしますか？";
+"settings.display" = "表示と明るさ";
+"settings.font_size" = "文字サイズ";
+"settings.preview" = "プレビュー";
+"settings.font_desc" = "読みやすいように文字サイズを調整できます。デフォルトはコンパクトです。";
+"settings.privacy" = "プライバシー";
+"settings.pixel_privacy" = "ピクセルのプライバシー";
+"settings.about" = "このアプリについて";
+"settings.help" = "ヘルプとフィードバック";
+"settings.version" = "バージョン";
+"settings.font.small" = "コンパクト（デフォルト）";
+"settings.font.medium" = "中";
+"settings.font.large" = "大";
+"privacy.hide_nickname" = "ニックネームを非表示";
+"privacy.hide_alliance" = "アライアンス情報を非表示";
+"privacy.hide_flag" = "アライアンスの旗を非表示";
+"privacy.shield_title" = "プライバシーシールド";
+"privacy.shield_desc" = "有効にすると、他のユーザーがあなたのピクセルを見た際に個人情報が匿名化されます。";
+"privacy.title" = "プライバシー設定";
+"error.load_failed" = "読み込みに失敗しました";
+"error.update_failed" = "更新に失敗しました";
+
+/* Achievements */
+"achievement.empty.title" = "実績なし";
+"achievement.empty.message" = "アクティビティを完了して実績をアンロックしよう";
+"achievement.stats.title" = "統計";
+"achievement.stats.unlocked" = "アンロック済み";
+"achievement.stats.total" = "合計";
+"achievement.stats.pixels" = "ピクセル";
+"achievement.stats.likes" = "いいね";
+"achievement.claimable" = "報酬あり";
+"achievement.completed" = "達成済み";
+"achievement.btn.claim" = "受け取る";
+"achievement.claim.success" = "%dポイントを獲得しました";
+
+/* Achievement Categories */
+"category.all" = "すべて";
+"category.pixel" = "ピクセル";
+"category.pixels" = "お絵描き";
+"category.social" = "ソーシャル";
+"category.alliance" = "アライアンス";
+"category.shop" = "ショップ";
+"category.special" = "スペシャル";
+"category.likes" = "いいね";
+"category.activity" = "アクティビティ";
+
+/* Achievement Rarity */
+"rarity.common" = "コモン";
+"rarity.uncommon" = "アンコモン";
+"rarity.rare" = "レア";
+"rarity.epic" = "エピック";
+"rarity.legendary" = "レジェンダリー";
+
+/* Achievement Errors */
+"error.achievement_list_failed" = "実績の取得に失敗しました";
+"error.user_achievement_failed" = "ユーザー実績の取得に失敗しました";
+"error.completed_achievement_failed" = "達成済み実績の取得に失敗しました";
+"error.achievement_stats_failed" = "実績統計の取得に失敗しました";
+"error.achievement_highlights_failed" = "実績ハイライトの取得に失敗しました";
+"error.leaderboard_failed" = "ランキングの取得に失敗しました";
+"error.rank_failed" = "順位の取得に失敗しました";
+"error.check_achievement_failed" = "実績の確認に失敗しました";
+
+/* Dynamic Achievement Names mapping (generic fallback) */
+"Pixel Novice" = "ピクセル初心者";
+"pixel novice" = "ピクセル初心者";
+"Pixel Artist" = "ピクセルアーティスト";
+"pixel artist" = "ピクセルアーティスト";
+"Pixel Master" = "ピクセルマスター";
+"pixel master" = "ピクセルマスター";
+"Social Butterfly" = "ソーシャルバタフライ";
+"social butterfly" = "ソーシャルバタフライ";
+
+/* Achievement Descriptions */
+"draw 1 pixel" = "1ピクセル描く";
+"Draw 1 pixel" = "1ピクセル描く";
+"draw 10 pixels" = "10ピクセル描く";
+"Draw 10 pixels" = "10ピクセル描く";
+"draw 100 pixels" = "100ピクセル描く";
+"Draw 100 pixels" = "100ピクセル描く";
+"draw 1000 pixels" = "1000ピクセル描く";
+"Draw 1000 pixels" = "1000ピクセル描く";
+"draw 10000 pixels" = "10000ピクセル描く";
+"Draw 10000 pixels" = "10000ピクセル描く";
+
+/* Achievement Share */
+"achievement.share.unlock" = "実績アンロック";
+
+/* Additional Achievement Descriptions */
+"Receive 10 likes" = "10いいねを獲得";
+"receive 10 likes" = "10いいねを獲得";
+"Receive 100 likes" = "100いいねを獲得";
+"receive 100 likes" = "100いいねを獲得";
+"Have 5 friends" = "友達を5人作る";
+"have 5 friends" = "友達を5人作る";
+"Invite 5 friends" = "友達を5人招待";
+"invite 5 friends" = "友達を5人招待";
+"Active for 3 days" = "3日間アクティブ";
+"active for 3 days" = "3日間アクティブ";
+"Active for 7 days" = "7日間アクティブ";
+"active for 7 days" = "7日間アクティブ";
+
+/* Social Achievements */
+"follow 5 users" = "5人をフォロー";
+"Follow 5 users" = "5人をフォロー";
+"follow 10 users" = "10人をフォロー";
+"Follow 10 users" = "10人をフォロー";
+"follow 20 users" = "20人をフォロー";
+"Follow 20 users" = "20人をフォロー";
+"connect with 5 friends" = "5人の友達とつながる";
+"Connect with 5 friends" = "5人の友達とつながる";
+"share 10 times" = "10回シェアする";
+"Share 10 times" = "10回シェアする";
+"post 5 comments" = "5件コメントする";
+"Post 5 comments" = "5件コメントする";
+"receive 50 likes" = "50いいねを獲得";
+"Receive 50 likes" = "50いいねを獲得";
+"receive 500 likes" = "500いいねを獲得";
+"Receive 500 likes" = "500いいねを獲得";
+
+/* Specific Social Achievement */
+"check-in  with a photo 5 times" = "お絵描きを5回完了する";
+"check-in with a photo 5 times" = "お絵描きを5回完了する";
+
+/* Achievement Names (Chinese keys from backend) */
+"像素新手" = "ピクセル初心者";
+"像素爱好者" = "ピクセル愛好家";
+"像素大师" = "ピクセルマスター";
+"像素传奇" = "ピクセルレジェンド";
+"连续绘制" = "連続描画";
+"社交新手" = "ソーシャル初心者";
+"聊天达人" = "チャット達人";
+"社交明星" = "ソーシャルスター";
+"私信达人" = "メッセージ達人";
+"联盟新手" = "アライアンス初心者";
+"联盟领袖" = "アライアンスリーダー";
+"联盟活跃分子" = "アライアンス活動家";
+"购物新手" = "ショッピング初心者";
+"购物达人" = "ショッピング達人";
+"土豪" = "大富豪";
+"早起鸟" = "早起き鳥";
+"夜猫子" = "夜更かし";
+"幸运儿" = "ラッキー";
+
+/* Achievement Descriptions (Chinese keys from backend) */
+"绘制第一个像素" = "最初のピクセルを描く";
+"绘制100个像素" = "100ピクセルを描く";
+"绘制1000个像素" = "1000ピクセルを描く";
+"绘制10000个像素" = "10000ピクセルを描く";
+"连续7天每天至少绘制1个像素" = "7日間連続で毎日1ピクセル以上描く";
+"发送第一条聊天消息" = "最初のチャットメッセージを送信";
+"发送100条聊天消息" = "チャットメッセージを100件送信";
+"发送1000条聊天消息" = "チャットメッセージを1000件送信";
+"发送10条私信" = "プライベートメッセージを10件送信";
+"加入第一个联盟" = "最初のアライアンスに参加";
+"创建第一个联盟" = "最初のアライアンスを作成";
+"在联盟中活跃7天" = "アライアンスで7日間活動する";
+"购买第一个商品" = "最初の商品を購入";
+"购买10个商品" = "商品を10個購入";
+"消费1000金币" = "1000ゴールドを消費";
+"在早上6-9点之间绘制像素" = "朝6〜9時の間にピクセルを描く";
+"在晚上10-12点之间绘制像素" = "夜10〜12時の間にピクセルを描く";
+"在特殊活动中获得奖励" = "特別イベントで報酬を獲得";
+
+/* Drawing Detail Page */
+"drawing_detail.start_point" = "始点";
+"drawing_detail.end_point" = "終点";
+"drawing_detail.statistics" = "統計情報";
+"drawing_detail.stat.pixels" = "ピクセル数";
+"drawing_detail.stat.duration" = "所要時間";
+"drawing_detail.stat.distance" = "距離";
+"drawing_detail.stat.avg_speed" = "平均速度";
+"drawing_detail.stat.efficiency" = "効率(px/分)";
+"drawing_detail.stat.unique_grids" = "ユニークグリッド";
+"drawing_detail.pixel_details" = "ピクセル詳細";
+"drawing_detail.showing_pixels" = "最初の10個を表示、全%d個";
+
+/* Drawing History / Gallery */
+"gallery.offline_mode" = "オフラインモード - キャッシュデータを表示中";
+
+/* Artwork Tags */
+"artwork.tag.first_today" = "本日初";
+"artwork.tag.new_area" = "新エリア";
+"artwork.tag.fast" = "高速完了";
+"artwork.tag.long_distance" = "長距離";
+"artwork.tag.high_density" = "高密度";
+
+/* Share Platform Names */
+"share.platform.wechat_session" = "WeChat";
+"share.platform.wechat_timeline" = "モーメンツ";
+"share.platform.weibo" = "Weibo";
+"share.platform.xiaohongshu" = "小紅書";
+"share.platform.save_image" = "画像を保存";
+"share.platform.copy_link" = "リンクをコピー";
+
+/* Session Detail Share */
+"session_detail.share.distance" = "距離：%@";
+
+/* Achievement Toast */
+"achievement.unlock.title" = "🎉 実績をアンロック！";
+"common.points" = "ポイント";
+
+/* Event Rewards */
+"event.rewards.title" = "イベント報酬";
+"event.rewards.subtitle" = "報酬はイベント終了後に自動で配布されます。";
+"rank.1st" = "1位";
+"rank.2nd" = "2位";
+"rank.3rd" = "3位";
+"reward.target.members" = "アライアンス全メンバー";
+"reward.target.leader" = "アライアンスリーダーのみ";
+"reward.flag" = "限定フラッグ";
+"common.pixels" = "ピクセル";
+
+/* Event Center */
+"profile.event_center" = "イベントセンター";
+"event.center.title" = "イベントセンター";
+"event.center.tab.active" = "開催中";
+"event.center.tab.my" = "参加中";
+"event.center.tab.ended" = "終了";
+"event.stats.participated" = "参加済み";
+"event.stats.active" = "開催中";
+"event.stats.completed" = "完了";
+"event.stats.upcoming" = "開催予定";
+"event.empty.active" = "開催中のイベントはありません";
+"event.empty.my" = "参加したイベントはありません";
+"event.empty.ended" = "終了したイベントはありません";
+
+/* P1-1: 開催予定のイベント */
+"event.upcoming.title" = "開催予定のイベント";
+"event.upcoming.starts_in" = "開始まで";
+"event.upcoming.starting_soon" = "まもなく開始";
+"event.upcoming.joined" = "参加済み";
+"event.upcoming.join_now" = "今すぐ参加";
+"event.upcoming.days_hours" = "%d日%d時間";
+"event.upcoming.hours_minutes" = "%d時間%d分";
+"event.upcoming.minutes" = "%d分";
+
+/* P1-2: イベントチュートリアル */
+"tutorial.skip" = "スキップ";
+"tutorial.next" = "次へ";
+"tutorial.get_started" = "始める";
+"tutorial.events.intro.title" = "イベントシステムへようこそ";
+"tutorial.events.intro.description" = "位置情報ベースの競技イベントに参加して、報酬を獲得しましょう。個人でもアライアンスでも参加できます！";
+"tutorial.events.signup.title" = "イベントに参加";
+"tutorial.events.signup.description" = "開催予定または開催中のイベントを閲覧できます。個人またはアライアンスで参加登録して、競争を始めましょう。";
+"tutorial.events.participate.title" = "プレイ方法";
+"tutorial.events.participate.description" = "イベントエリア内でピクセルを描いてポイントを獲得します。リーダーボードで進捗を確認し、上位を目指して競争しましょう。";
+"tutorial.events.rewards.title" = "報酬を獲得";
+"tutorial.events.rewards.description" = "リーダーボードを登って限定報酬をアンロック。順位が高いほど、イベント終了時により良い賞品が手に入ります！";
+
+/* P1-3: マイルストーン達成 */
+"milestone.achieved" = "マイルストーン達成！";
+"milestone.pixels_contributed" = "%dピクセル貢献しました！";
+
+/* P1-4: ランキングトレンド */
+"event.rank_trend" = "ランキング推移";
+"event.rank_change" = "順位変動";
+"event.trend.6h" = "6時間";
+"event.trend.12h" = "12時間";
+"event.trend.24h" = "24時間";
+"event.trend.no_data" = "トレンドデータがありません";
+"event.trend.load_failed" = "トレンドデータの読み込みに失敗しました";
+
+/* P1-5: 順位変動通知 */
+"rank.change.up" = "ランクアップ！";
+"rank.change.down" = "ランクダウン";
+"rank.change.from_to" = "#%d → #%d";
+"rank.change.positions" = "位";
+"event.status.active" = "開催中";
+"event.status.published" = "開催予定";
+"event.status.ended" = "終了";
+"event.status.draft" = "下書き";
+"event.type.leaderboard" = "ランキング";
+"event.type.territory" = "テリトリー戦";
+"event.type.cooperation" = "協力";
+"event.type.war" = "勢力戦";
+"event.joined_at" = "参加日";
+"event.result.title" = "イベント結果";
+"event.result.share" = "結果をシェア";
+"event.settled" = "精算済み";
+"event.participants" = "参加者";
+"event.total_pixels" = "合計ピクセル";
+"event.pixel_logs" = "ピクセルログ";
+"event.final_rankings" = "最終ランキング";
+"event.no_rankings" = "ランキングデータがありません";
+"event.rewards_config" = "報酬";
+"event.target.alliance_members" = "全メンバー";
+"event.target.alliance_leader" = "リーダーのみ";
+"event.target.user" = "個人";
+
+/* Event Preannounce HUD */
+"event.preannounce.title" = "イベントプレビュー";
+"event.preannounce.starts_in" = "開始まで";
+"event.preannounce.starting_soon" = "まもなく開始";
+"event.preannounce.started" = "開始しました！";
+"event.preannounce.view_detail" = "詳細を見る";
+
+/* Event Signup Sheet */
+"event.signup.title" = "イベントに参加";
+"event.signup.individual" = "個人で参加";
+"event.signup.individual.desc" = "個人で競う";
+"event.signup.or_with_alliance" = "またはアライアンスで参加";
+"event.signup.alliance.desc" = "アライアンスメンバーとして参加";
+"event.signup_prompt" = "バトルに参加して報酬を手に入れよう！";
+"event.signup_btn" = "今すぐ参加";
+"event.signup_closed" = "参加受付終了";
+
+/* Event Zone Notifications */
+"event.zone.entered.title" = "イベントゾーンに入りました";
+"event.zone.entered.subtitle" = "「%@」のエリアに入りました";
+"event.zone.exited.title" = "イベントゾーンから出ました";
+"event.zone.exited.subtitle" = "「%@」のエリアから出ました";
+"event.zone.ending.title" = "イベントがまもなく終了";
+"event.zone.ending.subtitle" = "「%@」は残り%d分で終了します";
+"event.zone.ended.title" = "イベント終了";
+"event.zone.ended.subtitle" = "「%@」が終了しました";
+
+"loading" = "読み込み中...";
+
+/* Profile Edit */
+"profile.edit.title" = "プロフィールを編集";
+"profile.edit.info" = "基本情報";
+"profile.edit.nickname" = "ニックネーム";
+"profile.edit.motto" = "ひとこと";
+"profile.edit.save" = "変更を保存";
+"profile.edit.cancel" = "キャンセル";
+
+/* Alliance Selection & Patterns */
+"alliance.select.title" = "アライアンスを選択";
+"pattern.default_color" = "デフォルトカラー";
+"pattern.alliance_flag_emoji" = "アライアンスの旗（絵文字）";
+"pattern.alliance_flag" = "アライアンスの旗";
+"pattern.alliance_color" = "アライアンスカラー";
+
+/* Drawing Detail */
+"drawing_detail.title" = "お絵描き詳細";
+"drawing_detail.share_button" = "お絵描きをシェア";
+"drawing_detail.replay_button" = "お絵描きを再生";
+
+/* Explore Sheet */
+"explore.title" = "探索";
+"explore.empty" = "ホットスポットはまだありません";
+"explore.empty.hint" = "お絵描きを始めて世界中にホットスポットを作ろう";
+
+/* FAB Tooltip & First Pixel */
+"tooltip.fab.start_drawing" = "タップしてお絵描き開始！";
+"tooltip.fab.flag_switch" = "長押しでフラッグ切替";
+
+// MARK: - フラッグ選択
+"flag.picker.title" = "フラッグを選択";
+"flag.section.personal" = "マイフラッグ";
+"flag.section.alliance" = "アライアンスフラッグ";
+"flag.personal_color" = "マイカラー";
+"flag.my_avatar" = "マイアバター";
+"celebration.first_pixel.title" = "初ピクセル！";
+"celebration.first_pixel.subtitle" = "GPSお絵描きの旅が始まります！";
+
+/* Location Pre-Education */
+"location.pre_edu.title" = "位置情報を有効にする";
+"location.pre_edu.subtitle" = "FunnyPixelsは歩きながらGPSピクセルアートを作成するために位置情報が必要です";
+"location.pre_edu.feature1.title" = "GPSお絵描き";
+"location.pre_edu.feature1.desc" = "歩いてリアルマップにピクセルアートを描こう";
+"location.pre_edu.feature2.title" = "近くのホットスポット";
+"location.pre_edu.feature2.desc" = "周辺のピクセルアートやプレイヤーを発見";
+"location.pre_edu.feature3.title" = "プライバシー優先";
+"location.pre_edu.feature3.desc" = "位置情報はお絵描き中のみ使用されます";
+"location.pre_edu.enable" = "位置情報を有効にする";
+"location.pre_edu.skip" = "あとで";
+
+/* Check-in Rewards & Recovery */
+"checkin.recovery.title" = "連続記録が途切れました！";
+"checkin.recovery.desc" = "%d日間の連続記録が途切れました。今すぐ回復しましょう！";
+"checkin.recovery.btn" = "連続記録を回復（月1回）";
+"checkin.rewards.title" = "報酬マイルストーン";
+"checkin.rewards.day" = "%d日目";
+"checkin.week_cycle" = "週間報酬";
+"checkin.milestones.title" = "マイルストーン";
+"checkin.milestone.days" = "%d日";
+
+/* Map Mode Indicator */
+"map.mode.drawing" = "%dピクセル";
+
+/* Shop & Store */
+"shop.title" = "ショップ";
+"shop.backpack" = "バックパック";
+"shop.my_points" = "マイポイント";
+"shop.empty.title" = "アイテムなし";
+"shop.empty.message" = "ショップにアイテムがありません";
+"shop.item.used" = "%@ 使用済み";
+"shop.price_points" = "%dポイント";
+"shop.category.all" = "すべて";
+"shop.category.consumable" = "消耗品";
+"shop.category.special" = "スペシャル";
+"shop.category.cosmetic" = "コスメティック";
+"shop.purchase.confirm_title" = "購入の確認";
+"shop.purchase.button" = "購入";
+"shop.purchase.confirm_message" = "%dポイントで%@を購入しますか？";
+"shop.error.load_failed" = "読み込みに失敗しました: %@";
+"shop.error.inventory_load_failed" = "インベントリの読み込みに失敗しました: %@";
+"shop.error.purchase_failed" = "購入に失敗しました: %@";
+"shop.error.use_failed" = "アイテムの使用に失敗しました: %@";
+"shop.error.recharge_failed" = "チャージの作成に失敗しました: %@";
+"shop.insufficient_points.title" = "ポイント不足";
+"shop.insufficient_points.message" = "現在のポイント: %d、必要ポイント: %d";
+"shop.insufficient_points.recharge" = "チャージ";
+"shop.insufficient_points.hint" = "ポイントが不足しています。先にチャージしてください";
+
+/* Approval Price Info */
+"approval.section.price_info" = "価格情報";
+"approval.price_label" = "アイテム価格";
+"approval.balance_label" = "現在のポイント";
+
+/* Inventory / Backpack */
+"inventory.title" = "マイバックパック";
+"inventory.empty.title" = "アイテムなし";
+"inventory.empty.message" = "バックパックは空です。ショップへ行きましょう！";
+"inventory.use" = "使う";
+
+/* Wallet & Recharge */
+"wallet.title" = "ウォレット";
+"wallet.tab.recharge" = "チャージ";
+"wallet.tab.bills" = "明細";
+"wallet.done" = "完了";
+"wallet.payment_hint" = "お支払い";
+"wallet.select_amount" = "金額を選択";
+"wallet.loading_products" = "商品を読み込み中...";
+"wallet.no_products" = "商品がありません";
+"wallet.retry_load" = "再試行";
+"wallet.restore_purchases" = "購入を復元";
+"wallet.restore_completed" = "復元完了";
+"wallet.recharge_history" = "チャージ履歴";
+"wallet.spending_history" = "利用履歴";
+"wallet.empty_recharge.title" = "チャージ履歴なし";
+"wallet.empty_recharge.message" = "まだチャージしていません";
+"wallet.recharge_points" = "%dポイントをチャージ";
+"wallet.empty_spending.title" = "購入履歴なし";
+"wallet.empty_spending.message" = "まだ購入していません";
+"wallet.payment_success" = "支払い完了！%dポイントを獲得しました";
+"wallet.product_load_failed" = "商品の読み込みに失敗しました。もう一度お試しください。";
+"order.status.pending" = "処理中";
+"order.status.completed" = "完了";
+"order.status.failed" = "失敗";
+
+/* Purchase Approval */
+"approval.section.basic_info" = "基本情報";
+"approval.ad_title" = "広告タイトル";
+"approval.pattern_name" = "パターン名";
+"approval.ad_desc" = "広告の説明";
+"approval.desc" = "説明";
+"approval.ad_hint" = "短く読みやすい文章にしましょう。小さすぎる文字はピクセル表示で見にくくなります。";
+"approval.pattern_hint" = "ヒント: 短い名前の方がリストで見やすくなります。";
+"approval.section.image" = "画像アップロード";
+"approval.select_image" = "画像を選択";
+"approval.image_hint" = "コントラストの高い画像を使うとピクセルプレビューが鮮明になります。";
+"approval.section.ad_preview" = "広告プレビュー";
+"approval.preview.generating" = "プレビューを生成中...";
+"approval.preview.size" = "プレビューサイズ: %dx%d";
+"approval.preview.empty" = "画像を選択してピクセル効果をプレビューしてください。";
+"approval.preview.tip" = "フレーム内の画像を調整して最終的な広告結果にしましょう。";
+"approval.preview.crop_tip" = "ドラッグ＆ズームでトリミング範囲を調整してください。";
+"approval.section.deploy" = "配置設定";
+"approval.deploy_time" = "予定時間";
+"approval.deploy_location" = "場所";
+"approval.tap_to_select" = "タップして選択";
+"approval.location_hint" = "広告を表示する場所を選んでください。";
+"approval.uploading" = "アップロード中...";
+"approval.submit" = "審査に提出";
+"approval.nav_title.ad" = "広告の申請";
+"approval.nav_title.flag" = "カスタムフラッグの申請";
+"approval.upload_failed" = "アップロードに失敗しました";
+"approval.unknown_error" = "不明なエラー";
+"approval.image_upload_failed" = "画像のアップロードに失敗しました: %@";
+"approval.select_location" = "場所を選択";
+"approval.location.loading" = "位置情報を取得中...";
+"approval.location.nearby" = "%@付近";
+"approval.location.unknown" = "選択された場所";
+
+/* Bomb Placement */
+"bomb.select_location" = "設置場所を選択";
+"bomb.place_here" = "ここに設置";
+"bomb.confirm_title" = "設置の確認";
+"bomb.confirm_use" = "確認";
+"bomb.confirm_message" = "この場所で%@を使用しますか？";
+
+/* Transactions */
+"transaction.title" = "取引履歴";
+"transaction.date.start" = "開始";
+"transaction.date.end" = "終了";
+"transaction.empty.title" = "記録なし";
+"transaction.empty.message" = "まだ取引履歴がありません";
+"transaction.type.purchase" = "購入";
+"transaction.type.use" = "使用";
+"transaction.type.refund" = "払い戻し";
+"transaction.type.other" = "その他";
+"transaction.status.completed" = "完了";
+"transaction.status.pending" = "処理中";
+"transaction.status.failed" = "失敗";
+"transaction.points.used" = "使用済み";
+
+/* Common (additional) */
+"common.done" = "完了";
+"common.hint" = "お知らせ";
+"common.select" = "選択";
+"common.approve" = "承認";
+"common.reject" = "拒否";
+
+/* Settings - Language */
+"settings.language" = "言語";
+"settings.language.system" = "システムデフォルト";
+"settings.language.restart_hint" = "一部の変更はアプリを再起動すると完全に反映されます。";
+
+/* Settings - Sound */
+"settings.sound" = "サウンド";
+"settings.sound_effects" = "効果音";
+
+/* Onboarding */
+"onboarding.title.explore" = "ピクセルワールドを探索しよう";
+"onboarding.desc.explore" = "マップをドラッグして世界中のピクセルを見よう。\nピクセルをタップして詳細を確認し、\nあなたのテリトリーを発見しよう。";
+"onboarding.title.gps" = "GPSお絵描き";
+"onboarding.desc.gps" = "描きたいエリアに移動しよう。\nGPS自動描画をオンにすると、\nあなたの軌跡がピクセルになります。";
+"onboarding.title.alliance" = "アライアンス戦";
+"onboarding.desc.alliance" = "アライアンスに参加して仲間と都市を制覇しよう。\nピクセルが増えると、\nマップにあなたの旗が表示されます。";
+"onboarding.skip" = "スキップ";
+"onboarding.next" = "次へ";
+"onboarding.start" = "はじめる";
+
+/* Drawing */
+"drawing.color.current" = "現在のカラー";
+"drawing.color.presets" = "プリセットカラー";
+"drawing.color.select_title" = "カラーを選択";
+"drawing.emoji.current" = "現在の絵文字";
+"drawing.emoji.tap_to_select" = "タップして絵文字を選択";
+"drawing.emoji.select_title" = "絵文字を選択";
+"drawing.mode.title" = "描画モード";
+"drawing.mode.none" = "閲覧";
+"drawing.mode.color" = "カラー";
+"drawing.mode.emoji" = "絵文字";
+"drawing.mode.complex" = "パターン";
+"drawing.mode.gps" = "GPSお絵描き";
+"drawing.gps.title" = "GPSお絵描き";
+"drawing.gps.session_title" = "GPSセッション";
+"drawing.gps.session_pixels" = "%dピクセル描画済み";
+"drawing.gps.active" = "アクティブ";
+"drawing.gps.idle" = "待機中";
+"drawing.gps.start" = "描画開始";
+"drawing.gps.stop" = "描画停止";
+"drawing.gps.not_active" = "GPSが無効です";
+
+/* Pattern */
+"pattern.type.color" = "カラー";
+"pattern.type.emoji" = "絵文字";
+"pattern.type.complex" = "パターン";
+"pattern.loading_alliance_flag" = "アライアンスの旗を読み込み中...";
+
+/* Help & Feedback */
+"help.segment.title" = "モード";
+"help.segment.manual" = "ガイド";
+"help.segment.feedback" = "フィードバック";
+"help.title" = "ヘルプとフィードバック";
+"help.manual.welcome_title" = "👋 FunnyPixels へようこそ";
+"help.manual.welcome_desc" = "FunnyPixels は世界中のプレイヤーが共同で作るピクセルマップです。GPS で移動しながらピクセルアートを描き、アライアンスに参加して領土を征服し、世界中のプレイヤーが描いたピクセルワールドを探索しましょう。";
+"help.manual.getting_started_title" = "はじめに";
+"help.manual.getting_started_desc" = "FunnyPixelsを起動すると、位置情報の許可を求められます — GPS描画に必要です。\n\nナビゲーション：\n- マップ：グローバルピクセルキャンバスを閲覧、近くのプレイヤーやテリトリーを確認\n- フィード：ソーシャルフィード、描画記録、データダッシュボード\n- アライアンス：チームに参加または作成、一緒にレベルアップ\n- ランク：ランクティアとフレンドランキング付きリーダーボード\n- マイ：プロフィール、デイリータスク、実績、設定\n\n右下の丸いボタンでGPS描画を開始。長押しで描画フラグを切り替え。\n\nクイック統計：マップ上のフローティングウィジェットで今日のピクセル、セッション、デイリータスクの進捗を一目で確認。";
+"help.manual.gps_drawing_title" = "GPS 描画";
+"help.manual.gps_drawing_desc" = "GPS 描画は実際の移動をマップ上のピクセルアートに変換します。\n\n始め方：\n1. 描きたいエリアに移動\n2. 丸いボタンをタップして GPS セッション開始\n3. 歩くと軌跡がピクセルに\n4. 完了したらストップをタップ\n\nヒント：\n- 開始前にフラグを選択（パーソナルカラー、アバター、アライアンスフラグ）\n- コンパスが進行方向を表示\n- ピクセル数、距離、速度などリアルタイムで更新\n- 長時間の散歩には省電力モードが利用可能";
+"help.manual.manual_drawing_title" = "手動描画";
+"help.manual.manual_drawing_desc" = "マップをタップしてピクセルを直接配置します。\n\n描画モード：\n- カラー：プリセットカラーから選択またはカスタムカラーを選び、マップをタップ\n- 絵文字：絵文字を選択してタップして配置\n- パターン：アライアンスフラグやカスタムパターンを使用\n\nマップ画面下部の描画モードパネルでモードを切り替え。";
+"help.manual.map_explore_title" = "マップと探索";
+"help.manual.map_explore_desc" = "マップはあなたのキャンバスです。\n\n- ピンチでズーム、ドラッグで世界を探索\n- ピクセルをタップして誰がいつ描いたか確認\n- チームが支配するエリアにアライアンスフラグが表示\n- 探索パネルで近くのホットスポットを発見\n- アクティブな大会中はイベントゾーンがハイライト表示\n\nマップ機能：\n- 近くのプレイヤー：リアルタイムで近くで描画中のプレイヤーを確認\n- 地域情報バー：エリア名、アクティブプレイヤー数、ピクセル数、支配アライアンスを表示\n- テリトリー制御：アライアンスのテリトリーがカラーゾーンでマップに表示\n- クイック統計：今日のピクセル、セッション、デイリータスク進捗を表示するフローティングウィジェット";
+"help.manual.history_title" = "フィードセンター";
+"help.manual.history_desc" = "フィードタブは3つのセクションからなるコンテンツハブです：\n\n- フィード：フォローしているプレイヤーの描画活動、実績解除、ランク変動を確認。いいねやコメントが可能。「飛ぶ」をタップしてマップ上の描画場所を訪問。\n- 記録：ギャラリーまたはリスト形式で過去の描画を閲覧。セッションをタップして詳細、統計、マップリプレイを確認。SNSへのシェアや画像保存も可能。\n- 統計：アクティビティカレンダー（ヒートマップ）、週次トレンド、都市フットプリントを含む個人データダッシュボード — 描画の旅を追跡。";
+"help.manual.shop_title" = "ショップとアイテム";
+"help.manual.shop_desc" = "ポイントでアイテムを購入。\n\nアイテム種類：\n- ボム：ターゲットエリアの他プレイヤーのピクセルを消去\n- ブーストカード：GPS 描画効率を向上\n- 広告：カスタム画像をマップに掲載（審査あり）\n- カスタムフラグ：アライアンス用のオリジナルフラグをアップロード\n\nポイントとウォレット：\n- チェックイン、実績、イベント、招待でポイント獲得\n- WeChat Pay や Alipay でポイントチャージ\n- 購入品は「マイアイテム」で確認";
+"help.manual.alliance_title" = "アライアンスとテリトリー";
+"help.manual.alliance_desc" = "他のプレイヤーとチームを組んでテリトリーを征服。\n\nアライアンス作成：\n- アライアンスタブで作成をタップ\n- 名前、説明、公開設定、フラグパターンを設定\n\nアライアンスフラグ：\n- カラー：単色フラグ\n- 絵文字：絵文字アイコン付きフラグ\n- 複合：カスタムパターン画像をアップロード\n\nアライアンス成長：\n- アライアンスレベル：メンバーの活動でXPを獲得し、アライアンスをレベルアップして特典を解除\n- アライアンスチェックイン：メンバーが毎日チェックインしてアライアンスにポイントを獲得\n- 貢献ランキング：最も多くピクセルを貢献したメンバーを確認\n\n管理：\n- リーダーは管理者の昇格、メンバーのキック、リーダーシップの移譲が可能\n- 招待コードで新メンバーを招待\n- アライアンス統計を確認：総ピクセル、テリトリー、世界ランキング\n\nテリトリー：\n- エリアを支配するアライアンスがそのテリトリーを制御\n- テリトリーゾーンはカラーオーバーレイでマップに表示\n- テリトリーをタップしてアライアンスの内訳を確認";
+"help.manual.achievements_title" = "実績";
+"help.manual.achievements_desc" = "活動を完了して実績を解除。\n\nカテゴリ：描画、ソーシャル、アライアンス、ショップ、活動、特別\n\nレアリティ：コモン、アンコモン、レア、エピック、レジェンダリー\n\n仕組み：\n- プレイ中に自動で実績が解除\n- 実績ページ（マイ > 実績）でポイント報酬を獲得\n- 実績カードをソーシャルメディアでシェア\n- 獲得バッジはプロフィールの栄誉の壁に表示";
+"help.manual.events_title" = "イベントとチャレンジ";
+"help.manual.events_desc" = "期間限定イベントで特別報酬を獲得。\n\nイベント種類：\n- ランキングスプリント：最多ピクセルを描いてランク上位へ\n- テリトリーウォー：マップエリアの支配権を争う\n- 共同作戦：全プレイヤーで共通目標を達成\n- 陣営戦：アライアンス対アライアンスの対決\n\n参加方法：\n- イベントセンター（マイ > イベントセンター）で確認\n- 個人またはアライアンスとして参加登録\n- マップ上のイベントゾーンに入ってピクセルを貢献\n- イベント終了時に報酬が配布";
+"help.manual.drift_bottle_title" = "漂流ボトル";
+"help.manual.drift_bottle_desc" = "ボトルにメッセージを入れて世界中の見知らぬ人に届けよう。\n\nボトルの獲得：\n- ピクセルを描いて漂流ボトルを獲得（画面に進捗表示）\n\n作成：\n- 描画セッション後、短いメッセージ（最大50文字）を書いて投げる\n\n発見：\n- 描画中にボトルに遭遇\n- 開いてメッセージを読み、自分のメッセージを残すか、放流して旅を続けさせる\n\n旅カード：\n- 5人がボトルを開くと沈没し、全参加者が旅カードを受け取る\n- マイ > 旅コレクションで収集";
+"help.manual.leaderboard_title" = "ランキング";
+"help.manual.leaderboard_desc" = "他のプレイヤーとのランキングを確認。\n\n期間：デイリー、ウィークリー、マンスリー、全期間\n\nランキングタイプ：\n- 個人：個人ピクセル数\n- アライアンス：アライアンス総ピクセルとテリトリー\n- 都市：世界で最もアクティブな都市\n- フレンド：フォローしているプレイヤーのランキング\n\n機能：\n- ランクティア：ピクセル数に基づいてランクバッジを獲得（ブロンズからレジェンド）\n- 個人ランクカード：トップにランク、ティアバッジ、統計を表示\n- Top3表彰台：上位3名のプレイヤーを特別な表彰台で紹介\n- ランク変動：アニメーション付きインジケーターでランクの変化を表示";
+"help.manual.daily_tasks_title" = "デイリータスク";
+"help.manual.daily_tasks_desc" = "デイリータスクを完了してボーナス報酬を獲得。\n\n遊び方：\n- 毎日タスクのセットが生成されます（例：ピクセルを描く、チェックイン、マップを探索）\n- プログレスバーで各タスクの進捗を追跡\n- 完了したタスクの報酬を受け取る\n- すべてのタスクを完了すると特別ボーナス報酬を解除\n\nデイリータスクへのアクセス：\n- マイ > デイリータスク\n- マップのクイック統計ウィジェット（「タスクを見る」をタップ）\n\nタスクの進捗はプレイ中に自動更新されます。お忘れなく — タスクは毎日リセット！";
+"help.manual.social_title" = "ソーシャル＆フォロー";
+"help.manual.social_desc" = "他のプレイヤーとつながり、コミュニティを構築。\n\nフォローシステム：\n- プロフィール、リーダーボード、近くのプレイヤーカードからプレイヤーをフォロー\n- プロフィールからフォロワーとフォロー中のリストを確認\n- フィードタブでフォローしているプレイヤーの活動を確認\n\n近くのプレイヤー：\n- 近くで描画中のアクティブなプレイヤーがマップに表示\n- プレイヤーチップをタップして情報を確認しフォロー\n- 地域情報バーでエリア内のアクティブプレイヤー数を確認\n\nソーシャルフィード：\n- 描画作品や実績にいいねやコメント\n- 描画投稿の「飛ぶ」をタップしてマップ上の場所を訪問";
+"help.manual.invite_title" = "友達を招待";
+"help.manual.invite_desc" = "友達を招待してボーナスポイントを獲得。\n\n招待方法：\n- マイ > 友達を招待へ\n- 固有の招待コードをコピーまたはシェア\n- 友達が登録後にコードを入力\n\n報酬：\n- 招待成功ごとにポイント獲得\n- 友達にもウェルカムボーナスポイント\n- 招待ページで招待統計を確認";
+"help.manual.settings_title" = "設定とプロフィール";
+"help.manual.settings_desc" = "体験をカスタマイズ。\n\n- プロフィール編集：ニックネーム、一言メッセージ、アバターを変更\n- 表示：フォントサイズを調整（コンパクト、ミディアム、ラージ）\n- 言語：アプリの言語を切り替えるかシステム設定に従う\n- サウンド：効果音のオン/オフ\n- プライバシー：ニックネーム、アライアンス情報、フラグを他のプレイヤーから非表示\n- デイリーチェックイン：毎日チェックインして連続報酬、週間報酬サイクル、マイルストーンボーナス（30/90/180/365日）を獲得\n- デイリータスク：ピクセル描画、チェックイン、マップ探索などのデイリータスクを完了してボーナス報酬を獲得\n- フォロー＆ファン：プロフィールからフォロワーとフォロー中のリストを確認";
+"help.feedback.section" = "あなたのフィードバック";
+"help.feedback.placeholder" = "ご意見や問題点をお聞かせください...";
+"help.feedback.contact_title" = "連絡先（任意）";
+"help.feedback.contact_placeholder" = "電話番号 / メールアドレス";
+"help.feedback.submit" = "フィードバックを送信";
+"help.feedback.success_title" = "送信完了";
+"help.feedback.success_message" = "フィードバックありがとうございます！";
+
+/* Upload Disclaimer */
+"disclaimer.title" = "コンテンツガイドライン";
+"disclaimer.avatar" = "アップロードしたアバターの内容にはご自身で責任を持ってください。わいせつ、暴力的、違法なコンテンツが含まれていないこと、また他者の知的財産権を侵害していないことをご確認ください。プラットフォームはガイドラインに違反するコンテンツを削除する権利を有します。";
+"disclaimer.ad_image" = "アップロードした画像の内容にはご自身で責任を持ってください。適用される法律に準拠し、わいせつ、暴力的、違法なコンテンツが含まれていないこと、また他者の知的財産権や肖像権を侵害していないことをご確認ください。すべての提出物は審査の対象となり、プラットフォームは違反を却下または削除する権利を有します。";
+"disclaimer.flag" = "選択またはアップロードした旗のデザインにはご自身で責任を持ってください。わいせつ、暴力的、違法なコンテンツが含まれていないこと、また他者の知的財産権を侵害していないことをご確認ください。プラットフォームはガイドラインに違反するコンテンツを削除する権利を有します。";
+"disclaimer.info_hint" = "コンテンツガイドライン";
+
+/* Drift Bottle - Common */
+"drift_bottle.far_away" = "遠い場所";
+"drift_bottle.somewhere" = "どこかから";
+"drift_bottle.unknown" = "不明";
+
+/* Drift Bottle - Encounter Banner */
+"drift_bottle.encounter.from" = "%@から漂着";
+"drift_bottle.encounter.stats" = "%@km · 第%d/%d停留所";
+"drift_bottle.encounter.open" = "開く";
+
+/* Drift Bottle - Create Prompt */
+"drift_bottle.create.prompt" = "%dピクセル描きました！漂流ボトルを流しますか？";
+"drift_bottle.create.yes" = "流す";
+"drift_bottle.create.later" = "あとで";
+"drift_bottle.create.title" = "メッセージを残す";
+"drift_bottle.create.placeholder" = "何か書いてみよう...（50文字まで）";
+"drift_bottle.create.throw" = "投げる";
+"drift_bottle.create.success" = "漂流ボトルを流しました！";
+
+/* Drift Bottle - Side Indicator */
+"drift_bottle.indicator.count" = "漂流ボトル ×%d";
+"drift_bottle.indicator.progress" = "あと%dピクセル描くと新しいボトルがもらえます";
+"drift_bottle.indicator.frozen" = "バックパックが満杯です。ボトルを使って空きを作りましょう";
+"drift_bottle.indicator.earned" = "漂流ボトルを手に入れました！";
+
+/* Drift Bottle - Quota Details */
+"drift_bottle.quota.daily_free" = "毎日無料";
+"drift_bottle.quota.pixel_bonus" = "ピクセルボーナス";
+"drift_bottle.quota.pixels_needed" = "あと%dピクセルでボーナスボトル獲得";
+
+/* Drift Bottle - Open View */
+"drift_bottle.open.opening" = "開封中...";
+"drift_bottle.open.from" = "%@より";
+"drift_bottle.open.days" = "%d日間";
+"drift_bottle.open.station" = "第%d/%d停留所";
+"drift_bottle.open.messages_title" = "旅のメッセージ";
+"drift_bottle.open.last_stop" = "あなたが最後の停留所です";
+"drift_bottle.open.write_message" = "メッセージを書く";
+"drift_bottle.open.release" = "スキップして流す";
+"drift_bottle.open.leave_footprint" = "足跡を残す";
+"drift_bottle.open.placeholder" = "何か書いてみよう...";
+"drift_bottle.open.submit_release" = "完了、流す";
+"drift_bottle.open.released" = "ボトルは旅を続けます...";
+"drift_bottle.open.sunk_title" = "ボトルは深海に沈みました";
+"drift_bottle.open.sunk_message" = "全参加者にジャーニーカードが届きます";
+"drift_bottle.open.ok" = "OK";
+"drift_bottle.open.mini_stats" = "%d停留所 · %@km · %d日間";
+
+/* Drift Bottle - Reunion View */
+"drift_bottle.reunion.title" = "これはあなた自身のボトルのようです！";
+"drift_bottle.reunion.subtitle" = "戻ってきました！";
+"drift_bottle.reunion.opened" = "開封済み";
+"drift_bottle.reunion.km" = "km";
+"drift_bottle.reunion.days" = "日数";
+"drift_bottle.reunion.others_messages" = "みんなからのメッセージ";
+"drift_bottle.reunion.read_story" = "旅の物語を読む";
+"drift_bottle.reunion.let_drift" = "もう一度流す";
+
+/* Drift Bottle - Journey Card Detail */
+"drift_bottle.journey.title" = "ジャーニーカード";
+"drift_bottle.journey.load_failed" = "読み込みに失敗しました";
+"drift_bottle.journey.stations" = "%d停留所";
+"drift_bottle.journey.days" = "%d日間";
+"drift_bottle.journey.sunk" = "沈没";
+"drift_bottle.journey.route" = "旅のルート";
+"drift_bottle.journey.origin" = "出発地";
+"drift_bottle.journey.messages" = "旅のメッセージ";
+
+/* Drift Bottle - Journey Card List */
+"drift_bottle.journey_list.title" = "ジャーニーコレクション";
+"drift_bottle.journey_list.empty.title" = "ジャーニーカードがまだありません";
+"drift_bottle.journey_list.empty.message" = "漂流ボトルが5人に開封されて沈むと、\nジャーニーカードが届きます";
+"drift_bottle.role.creator" = "作成者";
+"drift_bottle.station_number" = "第%d停留所";
+"drift_bottle.days_count" = "%d日間";
+
+/* Profile - Journey Collection */
+"profile.journey_collection" = "ジャーニーコレクション";
+
+/* Leaderboard Empty States */
+"leaderboard.personal.empty" = "データがありません";
+"leaderboard.personal.emptyHint" = "描画を始めてランキングに登場しよう";
+"leaderboard.alliance.empty" = "アライアンスデータなし";
+"leaderboard.alliance.emptyHint" = "アライアンスに参加して一緒に描画しよう";
+"leaderboard.city.empty" = "都市データなし";
+"leaderboard.city.emptyHint" = "アクティブなプレイヤーがいる都市がここに表示されます";
+
+/* MyRankCard */
+"leaderboard.myrank.label" = "マイランク";
+"leaderboard.myrank.pixels" = "%d ピクセル";
+"leaderboard.myrank.gap" = "次の順位まで%dピクセル";
+"leaderboard.myrank.first" = "1位です！";
+"leaderboard.myrank.percentile" = "上位 %.1f%%";
+
+/* Player Detail */
+"leaderboard.playerdetail.rank" = "順位";
+
+/* Nearby Empty */
+"nearby.empty" = "近くにプレイヤーがいません";
+
+/* Social Toast */
+"social.followed" = "フォローしました";
+"social.unfollowed" = "フォロー解除しました";
+
+/* Daily Reward Summary */
+"reward.summary.title" = "デイリーランキング報酬";
+"reward.summary.subtitle" = "昨日のランキング結果";
+"reward.summary.personal" = "個人ランキング";
+"reward.summary.alliance" = "アライアンスランキング";
+"reward.summary.friends" = "フレンドランキング";
+"reward.summary.no_rank" = "ランク外";
+"reward.summary.total" = "合計獲得";
+"reward.summary.points" = "+%d pt";
+"reward.summary.dismiss" = "OK";
+"reward.summary.rank" = "%d位";
+
+/* Alliance Sub-Pages */
+"alliance.contribution.view_all" = "すべて表示";
+"alliance.contribution.empty.title" = "ランキングなし";
+"alliance.contribution.empty.message" = "メンバーはまだピクセルを貢献していません。";
+"alliance.contribution.you" = "あなたのランキング";
+"alliance.contribution.all" = "全メンバー";
+"alliance.menu.contributions" = "貢献ランキング";
+"alliance.menu.contributions.subtitle" = "メンバーの貢献を見る";
+"alliance.members.count" = "%d人のメンバー";
+"alliance.members.search" = "メンバーを検索";
+"alliance.stats.empty.title" = "統計なし";
+"alliance.stats.empty.message" = "統計データはまだ利用できません。";
+"alliance.status.approved" = "承認済み";
+"alliance.status.rejected" = "却下";
+"alliance.status.pending" = "審査中";
+
+// MARK: - Missing Keys Added
+
+// MARK: Challenge
+"challenge.claim" = "受け取る";
+"challenge.error.claim_failed" = "報酬の受け取りに失敗しました";
+"challenge.error.fetch_failed" = "デイリーチャレンジの取得に失敗しました";
+"challenge.title" = "デイリーチャレンジ";
+
+// MARK: Check-in
+"checkin.btn.checkin" = "チェックイン";
+"checkin.btn.done" = "チェックイン済み";
+"checkin.error.calendar_failed" = "チェックインカレンダーの取得に失敗しました";
+"checkin.error.failed" = "チェックインに失敗しました";
+"checkin.error.stats_failed" = "チェックイン統計の取得に失敗しました";
+"checkin.reward_points" = "+%d ポイント";
+"checkin.stat.max_streak" = "最長連続";
+"checkin.stat.total" = "合計チェックイン";
+"checkin.stat.total_points" = "合計ポイント";
+"checkin.streak_count" = "%d 日連続";
+"checkin.streak_days" = "連続日数";
+"checkin.title" = "デイリーチェックイン";
+
+// MARK: Common
+"common.retry" = "再試行";
+
+// MARK: Dashboard
+"dashboard.empty.message" = "お絵描きを始めると統計が表示されます";
+"dashboard.empty.title" = "データなし";
+"dashboard.error.title" = "読み込みに失敗しました";
+
+// MARK: Event
+"event.end_time" = "終了";
+"event.pixel_score" = "ピクセルスコア";
+"event.rewards.empty" = "このイベントには報酬が設定されていません。";
+"event.rewards.subtitle_short" = "タップして詳細を見る";
+"event.signed_up" = "参加登録済みです！";
+"event.start_time" = "開始";
+
+// MARK: Help
+"help.manual.how_desc" = "FunnyPixelsの遊び方を学ぼう";
+"help.manual.how_title" = "遊び方";
+
+// MARK: Map
+"map.mode.peace" = "探索";
+
+// MARK: Weekday
+"weekday.fri" = "金";
+"weekday.mon" = "月";
+"weekday.sat" = "土";
+"weekday.sun" = "日";
+"weekday.thu" = "木";
+"weekday.tue" = "火";
+"weekday.wed" = "水";
+"leaderboard.refreshing" = "更新中...";
+
+// MARK: - P0 Event Optimization
+/* P0-1: Event Signup Stats */
+"signup_stats" = "参加統計";
+"alliances" = "同盟";
+"solo_players" = "個人";
+"estimated_total" = "推定合計";
+"requirements_met" = "要件を満たしました";
+"requirements_not_met" = "より多くの参加が必要";
+"top_alliances" = "トップ同盟";
+
+/* P0-2: Event Gameplay */
+"gameplay_guide" = "ゲームプレイガイド";
+"objective" = "目的";
+"scoring_rules" = "スコアリングルール";
+"tips" = "ヒント";
+
+/* P0-3: Event Contribution */
+"my_contribution" = "私の貢献";
+"my_pixels" = "私のピクセル";
+"contribution_rate" = "貢献率";
+"rank_in_alliance" = "同盟ランク";
+"milestones" = "マイルストーン";
+"top_contributors" = "トップ貢献者";
+
+/* Nearby Event Banner */
+"event.nearby.inside" = "イベントエリア内にいます！";
+"event.nearby.meters" = "%.0fm先";
+"event.nearby.km" = "%.1fkm先";
+
+/* Event Location Card */
+"event.location.title" = "イベント場所";
+"event.location.unnamed" = "イベント場所";
+"event.location.radius_km" = "半径 %.1f キロメートル";
+"event.location.radius_m" = "半径 %d メートル";
+"event.location.distance_km" = "%.1f キロメートル先";
+"event.location.distance_m" = "%.0f メートル先";
+"event.location.no_data" = "位置情報がありません";
+
+/* Event Countdown Card */
+"event.countdown.starts_in" = "開始まで";
+"event.countdown.ends_in" = "終了まで";
+"event.countdown.ended" = "イベントは終了しました";
+"event.countdown.finished" = "終了";
+"event.countdown.format.days" = "%d日 %d時間 %d分";
+"event.countdown.format.hours" = "%d時間 %d分 %d秒";
+"event.countdown.format.minutes" = "%d分 %d秒";
+"event.countdown.format.seconds" = "%d秒";
+"event.countdown.start" = "開始";
+"event.countdown.end" = "終了";
+
+/* Event Requirements Card */
+"event.requirements.title" = "参加条件";
+"event.requirements.min_level" = "最低レベル";
+"event.requirements.level" = "レベル";
+"event.requirements.your_level" = "あなたのレベル";
+"event.requirements.min_alliances" = "同盟メンバーシップ";
+"event.requirements.alliances_count" = "少なくとも%d個の同盟";
+"event.requirements.your_alliances" = "あなたは%d個所属しています";
+"event.requirements.min_participants" = "最小参加人数";
+"event.requirements.participants_needed" = "開始には%d人の参加者が必要です";
+"event.requirements.none" = "参加条件なし - 誰でも参加できます！";
+"event.requirements.all_met" = "すべての条件を満たしています！";
+"event.requirements.some_not_met" = "一部の条件が満たされていません";
+
+/* Avatar Preview & Editor */
+"avatar.preview.title" = "アバター";
+"avatar.menu.title" = "オプション";
+"avatar.menu.change" = "アバターを変更";
+"avatar.menu.take_photo" = "写真を撮る";
+"avatar.menu.save" = "写真に保存";
+"avatar.menu.guidelines" = "コンテンツガイドライン";
+
+/* P2-1: Event Sharing */
+"share.title" = "イベントを共有";
+"share.button" = "共有";
+"share.generating" = "共有画像を生成中...";
+"share.generation_failed" = "共有コンテンツの生成に失敗しました";
+"share.my_stats" = "マイスタッツ";
+"share.my_contribution" = "マイ貢献度";
+"share.my_rank" = "マイランク";
+"share.pixels" = "ピクセル";
+"share.rank" = "ランク";
+"share.scan_to_join" = "スキャンして参加";
+"share.invite_link" = "招待リンク";
+"share.message" = "%@に参加しよう！";
+"share.join_now" = "FunnyPixelsに参加しよう！";
+
+/* P2-2: Event Difficulty Rating */
+"event.difficulty.title" = "難易度";
+"event.difficulty.time_commitment" = "時間投資";
+"event.difficulty.competition" = "競争度";
+"event.difficulty.time_required" = "必要時間";
+"event.difficulty.skill_level" = "スキル要求";
+"event.difficulty.recommended_for" = "推奨対象";
+"event.difficulty.time_minutes" = "%d分/日";
+"event.difficulty.time_hours" = "%.0f時間/日";
+"event.difficulty.time_hours_decimal" = "%.1f時間/日";
+"event.difficulty.tag.beginners" = "初心者";
+"event.difficulty.tag.casual_players" = "カジュアルプレイヤー";
+"event.difficulty.tag.active_players" = "アクティブプレイヤー";
+"event.difficulty.tag.experienced_players" = "経験豊富";
+"event.difficulty.tag.competitive_alliances" = "競争的";
+"event.difficulty.tag.alliances" = "同盟";
+"event.difficulty.tag.artists" = "アーティスト";
+
+/* P2-3: Offline Mode */
+"offline.mode" = "オフラインモード";
+"offline.showing_cached_data" = "キャッシュデータを表示中";
+"offline.no_cache_available" = "キャッシュデータがありません";
+"offline.network_error" = "ネットワークエラー - 接続を確認してください";
+
+/* P2-4: Power Saving Mode */
+"power_saving.mode" = "省電力";
+"power_saving.title" = "省電力モード";
+"power_saving.description" = "更新頻度を下げてバッテリー消費を削減";
+"power_saving.auto_enabled" = "省電力モード有効";
+"power_saving.low_battery" = "バッテリー残量：%d%%";
+"power_saving.indicator" = "省電力モードアクティブ";
+"power_saving.settings" = "省電力設定";
+
+/* マップ関連 - Map Related */
+"map.roaming_to" = "%@にローミング中";
+"map.unavailable_platform" = "このプラットフォームではマップビューを利用できません";
+
+/* 描画機能 - Drawing Features */
+"drawing.complex_pattern" = "複雑なパターン";
+"drawing.loading_alliance_flag" = "アライアンスフラグを読み込み中...";
+"drawing.tap_to_exit_power_saving" = "画面をタップして省電力モードを終了";
+"drawing.focus_mode_enabled" = "集中描画モードが有効になりました";
+"drawing.focus_mode_description" = "GPS精度を維持し、画面電力を削減\nいつでも画面をタップして終了";
+
+/* セッション再生 - Session Replay */
+"session.replay_progress" = "進行状況: %d%%";
+
+/* イベント - Events */
+"event.ended" = "終了";
+"event.my_rank" = "マイランク";
+"event.swipe_up_to_close" = "上にスワイプして閉じる";
+
+/* メッセージセンター - Message Center */
+"message.no_messages" = "メッセージなし";
+"message.go_to_view" = "表示に移動";
+"message.attachment_reward" = "添付報酬";
+"message.claim_reward" = "報酬を受け取る";
+
+/* テリトリーバトル - Territory Battle */
+"territory.someone_invaded" = "誰かがあなたの領土に侵入しました！";
+"battle.no_attacks_yet" = "まだ誰もあなたの領土を攻撃していません";
+"battle.reclaim" = "奪回";
+
+/* ピクセル操作 - Pixel Interaction */
+"pixel.feedback_thanks" = "フィードバックありがとうございます。すぐに処理いたします。";
+"pixel.history" = "履歴";
+"pixel.no_more_history" = "これ以上の履歴はありません...";
+
+/* ランクティア - Rank Tier */
+"rank.max_tier_reached" = "最高ティアに到達";
+"rank.pixels_to_upgrade" = "アップグレードまであと%dピクセル";
+
+/* 支払い - Payment */
+"payment.alipay" = "Alipay";

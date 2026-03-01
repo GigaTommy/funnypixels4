@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>drawing.gps.session_pixels</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>Desenhou %#@count@ pixels</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d pixel</string>
+            <key>other</key>
+            <string>%d</string>
+        </dict>
+    </dict>
+
+    <key>summary.stats.pixels_label</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>Nesta sessao: %#@count@</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d pixel</string>
+            <key>other</key>
+            <string>%d pixels</string>
+        </dict>
+    </dict>
+
+    <key>map.mode.drawing</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@count@</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d pixel</string>
+            <key>other</key>
+            <string>%d pixels</string>
+        </dict>
+    </dict>
+
+    <key>checkin.rewards.day</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>Dia %#@count@</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d</string>
+            <key>other</key>
+            <string>%d</string>
+        </dict>
+    </dict>
+
+    <key>drift_bottle.open.days</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@count@</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d dia</string>
+            <key>other</key>
+            <string>%d dias</string>
+        </dict>
+    </dict>
+
+    <key>drift_bottle.days_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@count@</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d dia</string>
+            <key>other</key>
+            <string>%d dias</string>
+        </dict>
+    </dict>
+
+    <key>drift_bottle.journey.stations</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@count@</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d parada</string>
+            <key>other</key>
+            <string>%d paradas</string>
+        </dict>
+    </dict>
+
+    <key>drift_bottle.journey.days</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@count@</string>
+        <key>count</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d dia</string>
+            <key>other</key>
+            <string>%d dias</string>
+        </dict>
+    </dict>
+</dict>
+</plist>

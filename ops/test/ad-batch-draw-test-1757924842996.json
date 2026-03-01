@@ -1,0 +1,268 @@
+{
+  "timestamp": "2025-09-15T08:27:22.994Z",
+  "testType": "ad_batch_draw",
+  "totalTests": 5,
+  "successCount": 3,
+  "successRate": "60.0",
+  "results": [
+    {
+      "test": "ad_batch_draw",
+      "name": "小批量广告绘制",
+      "success": true,
+      "status": 200,
+      "data": {
+        "success": true,
+        "totalPixels": 3,
+        "successCount": 3,
+        "failureCount": 0,
+        "processingTime": 166,
+        "results": [
+          {
+            "success": true,
+            "pixel": {
+              "id": "42630",
+              "grid_id": "grid_2964078_1299046",
+              "latitude": "39.90460000",
+              "longitude": "116.40780000",
+              "color": "#FF0000",
+              "user_id": "8102e0fb-920e-417e-ae40-171c7c2dbc15",
+              "created_at": "2025-09-15T00:46:51.397Z",
+              "updated_at": "2025-09-15T08:27:22.438Z",
+              "pattern_id": "1",
+              "pattern_anchor_x": 0,
+              "pattern_anchor_y": 0,
+              "pattern_rotation": 0,
+              "pattern_mirror": false,
+              "pixel_type": "basic",
+              "related_id": null
+            },
+            "consumptionResult": {
+              "consumed": 1,
+              "remainingPoints": 63,
+              "itemPoints": 0,
+              "naturalPoints": 63,
+              "freezeUntil": 0
+            },
+            "processingTime": 145,
+            "drawType": "ad"
+          },
+          {
+            "success": true,
+            "pixel": {
+              "id": "42630",
+              "grid_id": "grid_2964078_1299046",
+              "latitude": "39.90460000",
+              "longitude": "116.40780000",
+              "color": "#FF0000",
+              "user_id": "8102e0fb-920e-417e-ae40-171c7c2dbc15",
+              "created_at": "2025-09-15T00:46:51.397Z",
+              "updated_at": "2025-09-15T08:27:22.442Z",
+              "pattern_id": "1",
+              "pattern_anchor_x": 0,
+              "pattern_anchor_y": 0,
+              "pattern_rotation": 0,
+              "pattern_mirror": false,
+              "pixel_type": "basic",
+              "related_id": null
+            },
+            "consumptionResult": {
+              "consumed": 1,
+              "remainingPoints": 63,
+              "itemPoints": 0,
+              "naturalPoints": 63,
+              "freezeUntil": 0
+            },
+            "processingTime": 155,
+            "drawType": "ad"
+          },
+          {
+            "success": true,
+            "pixel": {
+              "id": "42632",
+              "grid_id": "grid_2964080_1299047",
+              "latitude": "39.90480000",
+              "longitude": "116.40800000",
+              "color": "#FF0000",
+              "user_id": "8102e0fb-920e-417e-ae40-171c7c2dbc15",
+              "created_at": "2025-09-15T00:46:51.402Z",
+              "updated_at": "2025-09-15T08:27:22.444Z",
+              "pattern_id": "1",
+              "pattern_anchor_x": 0,
+              "pattern_anchor_y": 0,
+              "pattern_rotation": 0,
+              "pattern_mirror": false,
+              "pixel_type": "basic",
+              "related_id": null
+            },
+            "consumptionResult": {
+              "consumed": 1,
+              "remainingPoints": 63,
+              "itemPoints": 0,
+              "naturalPoints": 63,
+              "freezeUntil": 0
+            },
+            "processingTime": 165,
+            "drawType": "ad"
+          }
+        ]
+      },
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "大批量广告绘制",
+      "success": true,
+      "status": 200,
+      "data": {
+        "success": true,
+        "totalPixels": 10,
+        "successCount": 0,
+        "failureCount": 10,
+        "processingTime": 271,
+        "results": [
+          {
+            "success": false,
+            "error": "用户无法绘制: 绘制冷却中",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          },
+          {
+            "success": false,
+            "error": "insert into \"pixels\" (\"color\", \"created_at\", \"grid_id\", \"latitude\", \"longitude\", \"pattern_anchor_x\", \"pattern_anchor_y\", \"pattern_id\", \"pattern_mirror\", \"pattern_rotation\", \"pixel_type\", \"related_id\", \"updated_at\", \"user_id\") values ($1, CURRENT_TIMESTAMP, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, $12) returning * - invalid input syntax for type integer: \"0.5\"",
+            "drawType": "ad"
+          }
+        ]
+      },
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "空数组测试",
+      "success": false,
+      "status": 400,
+      "error": "Request failed with status code 400",
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "超过100个像素测试",
+      "success": false,
+      "status": 400,
+      "error": "Request failed with status code 400",
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "无效数据测试",
+      "success": true,
+      "status": 200,
+      "data": {
+        "success": true,
+        "totalPixels": 2,
+        "successCount": 2,
+        "failureCount": 0,
+        "processingTime": 89,
+        "results": [
+          {
+            "success": true,
+            "pixel": {
+              "id": "42633",
+              "grid_id": "grid_2964083_NaN",
+              "latitude": "NaN",
+              "longitude": "116.40830000",
+              "color": "#FF0000",
+              "user_id": "8102e0fb-920e-417e-ae40-171c7c2dbc15",
+              "created_at": "2025-09-15T00:46:51.802Z",
+              "updated_at": "2025-09-15T08:27:22.919Z",
+              "pattern_id": "1",
+              "pattern_anchor_x": 0,
+              "pattern_anchor_y": 0,
+              "pattern_rotation": 0,
+              "pattern_mirror": false,
+              "pixel_type": "basic",
+              "related_id": null
+            },
+            "consumptionResult": {
+              "consumed": 1,
+              "remainingPoints": 62,
+              "itemPoints": 0,
+              "naturalPoints": 62,
+              "freezeUntil": 0
+            },
+            "processingTime": 76,
+            "drawType": "ad"
+          },
+          {
+            "success": true,
+            "pixel": {
+              "id": "42634",
+              "grid_id": "grid_NaN_1299051",
+              "latitude": "39.90510000",
+              "longitude": "NaN",
+              "color": "#FF0000",
+              "user_id": "8102e0fb-920e-417e-ae40-171c7c2dbc15",
+              "created_at": "2025-09-15T00:46:51.805Z",
+              "updated_at": "2025-09-15T08:27:22.921Z",
+              "pattern_id": "1",
+              "pattern_anchor_x": 0,
+              "pattern_anchor_y": 0,
+              "pattern_rotation": 0,
+              "pattern_mirror": false,
+              "pixel_type": "basic",
+              "related_id": null
+            },
+            "consumptionResult": {
+              "consumed": 1,
+              "remainingPoints": 62,
+              "itemPoints": 0,
+              "naturalPoints": 62,
+              "freezeUntil": 0
+            },
+            "processingTime": 89,
+            "drawType": "ad"
+          }
+        ]
+      },
+      "responseTime": "N/A"
+    }
+  ]
+}

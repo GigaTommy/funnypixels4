@@ -1,0 +1,25 @@
+{
+  "database": {
+    "host": "dpg-d2tfm0ndiees73879o80-a.singapore-postgres.render.com",
+    "port": 5432,
+    "user": "funnypixels",
+    "password": "QLpdpDGojmcxRNdMsoTmcuspnaQBls4y",
+    "database": "funnypixels_postgres",
+    "ssl": true
+  },
+  "redis": {
+    "url": "https://novel-cub-21980.upstash.io",
+    "token": "AVXcAAIncDFkY2Y4MGFlZTFlYjc0ZTgyOWQ5ZjlkMWU0NTkzMzRhNXAxMjE5ODA"
+  },
+  "jwt": {
+    "secret": "c486375261c9f7591443fe1959174a0e",
+    "refreshSecret": "c486375261c9f7591443fe1959174a0e_refresh"
+  },
+  "server": {
+    "port": 3001,
+    "corsOrigin": "https://funnypixels.pages.dev",
+    "frontendUrl": "https://funnypixels.pages.dev"
+  },
+  "lastUpdated": "2024-01-15T10:30:00.000Z",
+  "description": "Render生产环境配置备份"
+}

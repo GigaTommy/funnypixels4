@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="FunnyPixels" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>上海外滩游览路线</name>
+    <desc>模拟在上海外滩游览的GPS轨迹</desc>
+    <author>FunnyPixels Team</author>
+  </metadata>
+
+  <!-- 起点：人民广场 -->
+  <wpt lat="31.2317" lon="121.4678">
+    <name>人民广场</name>
+    <desc>起点：人民广场</desc>
+    <time>2024-01-08T09:00:00Z</time>
+  </wpt>
+
+  <!-- 途经：南京东路 -->
+  <wpt lat="31.2350" lon="121.4730">
+    <name>南京东路</name>
+    <desc>途经：南京东路步行街</desc>
+    <time>2024-01-08T09:15:00Z</time>
+  </wpt>
+
+  <!-- 途经：外滩 -->
+  <wpt lat="31.2385" lon="121.4855">
+    <name>外滩</name>
+    <desc>途经：外滩核心区域</desc>
+    <time>2024-01-08T09:30:00Z</time>
+  </wpt>
+
+  <!-- 途经：东方明珠 -->
+  <wpt lat="31.2397" lon="121.4990">
+    <name>东方明珠</name>
+    <desc>途经：东方明珠电视塔</desc>
+    <time>2024-01-08T09:45:00Z</time>
+  </wpt>
+
+  <!-- 途经：陆家嘴 -->
+  <wpt lat="31.2416" lon="121.5057">
+    <name>陆家嘴</name>
+    <desc>途经：陆家嘴金融中心</desc>
+    <time>2024-01-08T10:00:00Z</time>
+  </wpt>
+
+  <!-- 终点：上海中心大厦 -->
+  <wpt lat="31.2336" lon="121.5058">
+    <name>上海中心大厦</name>
+    <desc>终点：上海中心大厦</desc>
+    <time>2024-01-08T10:15:00Z</time>
+  </wpt>
+
+  <!-- 路线轨迹 -->
+  <trk>
+    <name>上海游览路线</name>
+    <trkseg>
+      <trkpt lat="31.2317" lon="121.4678"><time>2024-01-08T09:00:00Z</time></trkpt>
+      <trkpt lat="31.2325" lon="121.4690"><time>2024-01-08T09:05:00Z</time></trkpt>
+      <trkpt lat="31.2338" lon="121.4700"><time>2024-01-08T09:10:00Z</time></trkpt>
+      <trkpt lat="31.2350" lon="121.4730"><time>2024-01-08T09:15:00Z</time></trkpt>
+      <trkpt lat="31.2365" lon="121.4780"><time>2024-01-08T09:20:00Z</time></trkpt>
+      <trkpt lat="31.2380" lon="121.4820"><time>2024-01-08T09:25:00Z</time></trkpt>
+      <trkpt lat="31.2385" lon="121.4855"><time>2024-01-08T09:30:00Z</time></trkpt>
+      <trkpt lat="31.2390" lon="121.4900"><time>2024-01-08T09:35:00Z</time></trkpt>
+      <trkpt lat="31.2397" lon="121.4990"><time>2024-01-08T09:45:00Z</time></trkpt>
+      <trkpt lat="31.2405" lon="121.5020"><time>2024-01-08T09:50:00Z</time></trkpt>
+      <trkpt lat="31.2416" lon="121.5057"><time>2024-01-08T10:00:00Z</time></trkpt>
+      <trkpt lat="31.2375" lon="121.5058"><time>2024-01-08T10:05:00Z</time></trkpt>
+      <trkpt lat="31.2336" lon="121.5058"><time>2024-01-08T10:15:00Z</time></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

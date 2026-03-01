@@ -1,0 +1,98 @@
+{
+  "environment": "staging",
+  "api": {
+    "baseUrl": "http://staging.funnypixels.local:3001",
+    "wsUrl": "ws://staging.funnypixels.local:3001/ws/tile-updates",
+    "timeout": 20000,
+    "retries": 2
+  },
+  "load_test": {
+    "gradual_ramp": {
+      "start_vus": 0,
+      "max_vus": 1000,
+      "ramp_duration": "15m",
+      "stages": [
+        {"duration": "2m", "target": 50},
+        {"duration": "3m", "target": 50},
+        {"duration": "2m", "target": 200},
+        {"duration": "3m", "target": 200},
+        {"duration": "2m", "target": 500},
+        {"duration": "3m", "target": 500},
+        {"duration": "2m", "target": 1000},
+        {"duration": "5m", "target": 1000},
+        {"duration": "2m", "target": 0}
+      ]
+    },
+    "spike_test": {
+      "baseline_vus": 100,
+      "spike_multiplier": 5,
+      "spike_duration": "1m"
+    },
+    "soak_test": {
+      "target_vus": 500,
+      "duration_hours": 2
+    },
+    "websocket": {
+      "max_connections": 5000,
+      "rooms": 50,
+      "messages_per_second": 5000
+    }
+  },
+  "thresholds": {
+    "success_rate": {
+      "min": 0.95,
+      "target": 0.98
+    },
+    "latency": {
+      "p50": 250,
+      "p95": 600,
+      "p99": 1200,
+      "max": 8000
+    },
+    "error_rate": {
+      "max": 0.05
+    }
+  },
+  "monitoring": {
+    "prometheus": {
+      "enabled": true,
+      "url": "http://localhost:9090"
+    },
+    "grafana": {
+      "enabled": true,
+      "url": "http://localhost:3000"
+    },
+    "alerting": {
+      "enabled": false
+    }
+  },
+  "database": {
+    "pool_size": {
+      "min": 10,
+      "max": 100
+    },
+    "query_timeout": 15000,
+    "slow_query_threshold": 2000
+  },
+  "redis": {
+    "max_memory": "4GB",
+    "eviction_policy": "allkeys-lru",
+    "max_connections": 500
+  },
+  "test_data": {
+    "users_count": 5000,
+    "region": {
+      "beijing": {"lat": [39.88, 39.92], "lng": [116.38, 116.42]}
+    },
+    "user_distribution": {
+      "casual": 0.60,
+      "active": 0.30,
+      "artist": 0.10
+    }
+  },
+  "reporting": {
+    "output_format": ["json", "html"],
+    "retention_days": 30,
+    "comparison_baseline": null
+  }
+}

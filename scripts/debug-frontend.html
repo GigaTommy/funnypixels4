@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端错误诊断</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #444;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #console-output {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .iframe-container {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 FunnyPixels 前端错误诊断工具</h1>
+
+        <div class="test-section">
+            <h2>1. 环境检查</h2>
+            <div id="env-check"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>2. 后端API测试</h2>
+            <div id="api-test"></div>
+            <button onclick="testBackendAPI()">测试后端连接</button>
+        </div>
+
+        <div class="test-section">
+            <h2>3. 前端应用加载测试</h2>
+            <div id="app-test"></div>
+            <button onclick="loadFrontend()">加载前端应用</button>
+        </div>
+
+        <div class="test-section">
+            <h2>4. 控制台错误捕获</h2>
+            <div id="console-errors"></div>
+            <button onclick="clearConsole()">清空日志</button>
+            <div id="console-output"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>5. 前端应用预览</h2>
+            <div class="iframe-container">
+                <iframe id="app-frame" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 捕获控制台输出
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        const consoleOutput = document.getElementById('console-output');
+
+        function addToConsole(type, ...args) {
+            const timestamp = new Date().toLocaleTimeString();
+            const message = args.map(arg =>
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+
+            consoleOutput.textContent += `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole('log', ...args);
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole('error', ...args);
+        };
+
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole('warn', ...args);
+        };
+
+        // 环境检查
+        function checkEnvironment() {
+            const envCheck = document.getElementById('env-check');
+            let html = '';
+
+            // 检查浏览器
+            html += `<div class="status">浏览器: ${navigator.userAgent}</div>`;
+
+            // 检查当前URL
+            html += `<div class="status">当前URL: ${window.location.href}</div>`;
+
+            // 检查是否能访问localhost:5173
+            html += `<div class="status">前端服务: <span id="frontend-status">检查中...</span></div>`;
+
+            // 检查是否能访问localhost:3001
+            html += `<div class="status">后端服务: <span id="backend-status">检查中...</span></div>`;
+
+            envCheck.innerHTML = html;
+
+            // 测试前端服务
+            fetch('http://localhost:5173')
+                .then(() => {
+                    document.getElementById('frontend-status').innerHTML =
+                        '<span class="success">✅ 可访问 (http://localhost:5173)</span>';
+                })
+                .catch(() => {
+                    document.getElementById('frontend-status').innerHTML =
+                        '<span class="error">❌ 无法访问 (http://localhost:5173)</span>';
+                });
+
+            // 测试后端服务
+            fetch('http://localhost:3001/api/health')
+                .then(() => {
+                    document.getElementById('backend-status').innerHTML =
+                        '<span class="success">✅ 可访问 (http://localhost:3001)</span>';
+                })
+                .catch(() => {
+                    document.getElementById('backend-status').innerHTML =
+                        '<span class="error">❌ 无法访问 (http://localhost:3001)</span>';
+                });
+        }
+
+        // 测试后端API
+        async function testBackendAPI() {
+            const apiTest = document.getElementById('api-test');
+            apiTest.innerHTML = '<div class="status warning">测试中...</div>';
+
+            try {
+                // 测试健康检查
+                const healthResponse = await fetch('http://localhost:3001/api/health');
+                const healthData = await healthResponse.json();
+
+                let html = '<div class="status success">✅ API健康检查通过</div>';
+                html += `<pre>${JSON.stringify(healthData, null, 2)}</pre>`;
+
+                // 测试MVT瓦片服务
+                const tileResponse = await fetch('http://localhost:3001/api/tiles/pixels/14/8196/5350.pbf');
+                html += `<div class="status">MVT瓦片服务: ${tileResponse.ok ?
+                    '<span class="success">✅ 可用</span>' :
+                    '<span class="error">❌ 不可用</span>'}</div>`;
+
+                apiTest.innerHTML = html;
+            } catch (error) {
+                apiTest.innerHTML = `<div class="status error">❌ API测试失败: ${error.message}</div>`;
+            }
+        }
+
+        // 加载前端应用
+        function loadFrontend() {
+            const appTest = document.getElementById('app-test');
+            const appFrame = document.getElementById('app-frame');
+
+            appTest.innerHTML = '<div class="status warning">正在加载前端应用...</div>';
+
+            // 在iframe中加载前端应用
+            appFrame.src = 'http://localhost:5173';
+
+            appFrame.onload = function() {
+                appTest.innerHTML = '<div class="status success">✅ 前端应用加载成功</div>';
+            };
+
+            appFrame.onerror = function() {
+                appTest.innerHTML = '<div class="status error">❌ 前端应用加载失败</div>';
+            };
+        }
+
+        // 清空控制台
+        function clearConsole() {
+            consoleOutput.textContent = '';
+        }
+
+        // 页面加载完成后执行检查
+        window.onload = function() {
+            checkEnvironment();
+            console.log('🔍 诊断工具已启动');
+        };
+    </script>
+</body>
+</html>

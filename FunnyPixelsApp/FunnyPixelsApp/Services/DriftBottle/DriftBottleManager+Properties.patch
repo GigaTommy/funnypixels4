@@ -1,0 +1,18 @@
+// 在 DriftBottleManager.swift 中添加以下属性
+
+// MARK: - Published State
+
+// ... 现有属性 ...
+
+// MARK: - Map Markers (新增)
+
+/// 地图上的漂流瓶标记列表
+@Published var mapMarkers: [BottleMapMarker] = []
+
+/// 是否正在加载地图标记
+@Published var isLoadingMarkers = false
+
+/// 地图标记刷新定时器
+private var markersRefreshTimer: Timer?
+
+// ... 其他现有代码 ...

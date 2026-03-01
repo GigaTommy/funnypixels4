@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>有趣的像素</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 🗺️ MapLibre GL CDN 加载 - 必须在 React 应用之前 -->
+    <script>
+      // Fix for MapLibre GL 5.x __publicField error
+      window.__publicField = function(obj, key, value) {
+        obj[key] = value;
+        return obj;
+      };
+    </script>
+    <script src="https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css" rel="stylesheet" />
+
+    <!-- 🗺️ MapLibre 容器高度修复 -->
+    <style>
+      /* 强制设置MapLibre内部容器高度，解决容器高度为0的问题 */
+      .maplibregl-map,
+      .maplibregl-canvas-container {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 100vh !important;
+      }
+
+      .maplibregl-canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    </style>
+
+    <!-- ✅ CDN 版本已包含所有辅助函数，无需额外注入 -->
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- 🚀 性能优化：高德地图预连接和DNS预解析 -->
+    <link rel="preconnect" href="https://webapi.amap.com">
+    <link rel="dns-prefetch" href="https://webapi.amap.com">
+    <link rel="preconnect" href="https://restapi.amap.com">
+    <link rel="dns-prefetch" href="https://restapi.amap.com">
+
+    <!-- 使用本地安装的字体，无需网络加载 -->
+
+    <!-- Leaflet CSS 已移除 - 本项目使用高德地图，不需要Leaflet -->
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- 高德地图安全密钥配置 - 必须在加载高德地图之前设置 -->
+    <script>
+      // 初始化安全配置，将由main.tsx中的config模块设置
+      window._AMapSecurityConfig = window._AMapSecurityConfig || {};
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- 🧪 开发环境：绘制功能测试脚本 -->
+    <script>
+      // 检查是否为开发环境
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('🧪 开发环境检测到，加载绘制测试脚本...');
+
+        // 动态加载测试脚本
+        const script = document.createElement('script');
+        script.src = '/src/test/drawing-test-browser.js';
+        script.onload = function() {
+          console.log('✅ 绘制测试脚本加载完成');
+          console.log('💡 使用 quickDrawingTest() 进行快速测试');
+          console.log('💡 使用 DetailedDrawingTest() 进行详细测试');
+        };
+        script.onerror = function() {
+          console.warn('⚠️ 绘制测试脚本加载失败');
+        };
+        document.head.appendChild(script);
+      }
+    </script>
+  </body>
+</html>

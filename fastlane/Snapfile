@@ -1,0 +1,20 @@
+# Snapfile - Multi-language screenshot configuration
+
+devices([
+  "iPhone 16 Pro Max",
+  "iPhone 16",
+  "iPad Pro (12.9-inch) (6th generation)"
+])
+
+languages([
+  "en-US",
+  "zh-Hans",
+  "ja",
+  "ko",
+  "es-ES",
+  "pt-BR"
+])
+
+scheme("FunnyPixelsApp")
+output_directory("./fastlane/screenshots")
+clear_previous_screenshots(true)

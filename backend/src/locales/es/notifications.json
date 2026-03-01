@@ -1,0 +1,18 @@
+{
+  "task_completed": {
+    "title": "🎉 ¡Tarea Completada!",
+    "body": "¡Felicitaciones! Has completado la tarea \"{{title}}\" y ganado {{reward}} puntos!"
+  },
+  "all_tasks_completed": {
+    "title": "🏆 ¡Bonificación por Asistencia Perfecta!",
+    "body": "¡Increíble! Has completado todas las tareas diarias hoy. ¡Sigue así mañana!"
+  },
+  "streak_reward": {
+    "title": "🔥 ¡{{days}} Días Consecutivos!",
+    "body": "¡Has completado todas las tareas diarias durante {{days}} días consecutivos! ¡Sigue adelante para obtener mejores recompensas!"
+  },
+  "task_reminder": {
+    "title": "⏰ Tareas No Completadas",
+    "body": "Todavía tienes tareas sin terminar hoy. ¡Completa todas las tareas para obtener recompensas adicionales!"
+  }
+}

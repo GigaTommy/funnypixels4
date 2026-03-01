@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-09-15T08:34:08.087Z",
+  "testType": "manual_draw",
+  "successRate": "50.0",
+  "totalTests": 2,
+  "successCount": 1,
+  "results": [
+    {
+      "test": "基本手动绘制",
+      "success": true,
+      "processingTime": 57,
+      "details": {
+        "pixel": {
+          "id": "42626",
+          "grid_id": "grid_2964074_1299042",
+          "latitude": "39.90420000",
+          "longitude": "116.40740000",
+          "color": "#FF0000",
+          "user_id": "8102e0fb-920e-417e-ae40-171c7c2dbc15",
+          "created_at": "2025-09-14T23:31:04.964Z",
+          "updated_at": "2025-09-15T08:34:07.722Z",
+          "pattern_id": "color_red",
+          "pattern_anchor_x": 0,
+          "pattern_anchor_y": 0,
+          "pattern_rotation": 0,
+          "pattern_mirror": false,
+          "pixel_type": "basic",
+          "related_id": null
+        },
+        "consumptionResult": {
+          "consumed": 1,
+          "remainingPoints": 63,
+          "itemPoints": 0,
+          "naturalPoints": 63,
+          "freezeUntil": 0
+        },
+        "processingTime": 57
+      }
+    },
+    {
+      "test": "带图案的手动绘制",
+      "success": false,
+      "error": {
+        "success": false,
+        "error": "用户无法绘制: 绘制冷却中"
+      }
+    }
+  ]
+}

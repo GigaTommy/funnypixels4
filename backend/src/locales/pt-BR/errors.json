@@ -1,0 +1,102 @@
+{
+  "common": {
+    "internalServerError": "Internal server error",
+    "notFound": "Resource not found",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Access forbidden",
+    "badRequest": "Bad request parameters",
+    "conflict": "Resource conflict",
+    "tooManyRequests": "Too many requests, please try again later",
+    "serviceUnavailable": "Service temporarily unavailable",
+    "timeout": "Request timeout"
+  },
+  "auth": {
+    "invalidCredentials": "Invalid username or password",
+    "emailNotFound": "Email not found",
+    "emailAlreadyExists": "Email already registered",
+    "invalidToken": "Invalid access token",
+    "tokenExpired": "Access token expired",
+    "refreshTokenExpired": "Refresh token expired",
+    "invalidRefreshToken": "Invalid refresh token",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordTooLong": "Password cannot exceed 128 characters",
+    "invalidEmail": "Invalid email format",
+    "verificationCodeInvalid": "Invalid verification code",
+    "verificationCodeExpired": "Verification code expired",
+    "verificationCodeNotFound": "Verification code not found",
+    "accountLocked": "Account locked",
+    "accountDisabled": "Account disabled",
+    "loginRequired": "Login required",
+    "sessionExpired": "Session expired, please login again",
+    "passwordMismatch": "Passwords do not match",
+    "oldPasswordIncorrect": "Old password incorrect",
+    "newPasswordSameAsOld": "New password cannot be the same as old password"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "invalid": "{{field}} is invalid",
+    "tooShort": "{{field}} must be at least {{min}} characters",
+    "tooLong": "{{field}} cannot exceed {{max}} characters",
+    "outOfRange": "{{field}} must be between {{min}} and {{max}}",
+    "invalidType": "{{field}} has invalid type",
+    "mustBeNumber": "{{field}} must be a number",
+    "mustBeInteger": "{{field}} must be an integer",
+    "mustBePositive": "{{field}} must be positive",
+    "invalidEmail": "Invalid email format",
+    "invalidPhone": "Invalid phone number format",
+    "invalidUrl": "Invalid URL format",
+    "invalidDate": "Invalid date format",
+    "invalidColor": "Invalid color format",
+    "invalidCoordinates": "Invalid coordinates format",
+    "arrayTooShort": "At least {{min}} items required",
+    "arrayTooLong": "Maximum {{max}} items allowed"
+  },
+  "pixel": {
+    "notFound": "Pixel not found",
+    "alreadyExists": "Pixel already exists",
+    "invalidColor": "Invalid color format",
+    "invalidCoordinates": "Coordinates out of valid range",
+    "drawingFailed": "Drawing failed",
+    "insufficientBalance": "Insufficient balance"
+  },
+  "user": {
+    "notFound": "User not found",
+    "alreadyExists": "User already exists",
+    "cannotDeleteSelf": "Cannot delete yourself",
+    "notOwner": "You are not the owner of this resource"
+  },
+  "alliance": {
+    "notFound": "Alliance not found",
+    "alreadyMember": "Already a member of this alliance",
+    "notMember": "Not a member of this alliance",
+    "nameTaken": "Alliance name already taken",
+    "insufficientPermission": "Insufficient permission",
+    "cannotLeave": "Creator cannot leave alliance"
+  },
+  "upload": {
+    "fileTooLarge": "File size exceeds limit (max {{maxSize}}MB)",
+    "invalidFileType": "Unsupported file type",
+    "invalidFileExtension": "Unsupported file extension",
+    "uploadFailed": "File upload failed"
+  },
+  "database": {
+    "connectionFailed": "Database connection failed",
+    "queryFailed": "Query failed",
+    "transactionFailed": "Transaction failed",
+    "constraintViolation": "Data constraint violation"
+  },
+  "redis": {
+    "connectionFailed": "Redis connection failed",
+    "operationFailed": "Redis operation failed"
+  },
+  "rateLimit": {
+    "tooManyRequests": "Too many requests, please retry after {{retryAfter}} seconds",
+    "tooManyLoginAttempts": "Too many login attempts, please try again in 15 minutes",
+    "tooManyRegistrations": "Too many registration attempts, please try again in 1 hour"
+  },
+  "pattern": {
+    "notFound": "Pattern not found",
+    "invalidKey": "Invalid pattern key",
+    "loadFailed": "Failed to load pattern information"
+  }
+}

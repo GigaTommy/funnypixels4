@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Emoji Atlas 预览</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .preview {
+      border: 2px solid #ddd;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 4px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    img {
+      max-width: 100%;
+      border: 1px solid #ccc;
+      image-rendering: pixelated;
+    }
+    .info {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    .warning {
+      background: #fff3e0;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+      border-left: 4px solid #ff9800;
+    }
+    .success {
+      background: #e8f5e9;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+      border-left: 4px solid #4CAF50;
+    }
+    .error {
+      background: #ffebee;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+      border-left: 4px solid #f44336;
+    }
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Emoji Atlas 预览</h1>
+
+    <div class="info">
+      <h3>📍 检查点</h3>
+      <p>此页面用于验证生成的 <code>atlas.png</code> 是否包含<strong>彩色</strong> emoji。</p>
+      <p>如果下方显示的是<strong>黑色/灰色</strong> emoji，说明浏览器的 Canvas fillText 无法渲染彩色 emoji。</p>
+    </div>
+
+    <div class="preview">
+      <h3>完整 Atlas 预览（4096×4096，已缩小显示）</h3>
+      <img id="atlasImage" src="/assets/emoji/atlas.png" alt="Emoji Atlas" style="width: 600px; height: 600px;">
+      <p id="imageStatus">加载中...</p>
+    </div>
+
+    <div class="preview">
+      <h3>放大预览前 10 个 Emoji</h3>
+      <canvas id="zoomCanvas" width="640" height="64" style="image-rendering: auto; border: 1px solid #ddd;"></canvas>
+      <p id="zoomStatus">等待 atlas 加载...</p>
+    </div>
+
+    <div id="diagnostic"></div>
+
+    <div class="warning">
+      <h3>⚠️ 如果 emoji 是黑色/灰色的</h3>
+      <p><strong>问题根源</strong>：浏览器的 Canvas fillText 不支持渲染彩色 emoji。</p>
+      <p><strong>解决方案</strong>：需要使用真正的彩色 emoji 图像生成 atlas（例如使用 twemoji 库）。</p>
+    </div>
+
+    <div class="success">
+      <h3>✅ 如果 emoji 是彩色的</h3>
+      <p>说明 atlas 生成正确，需要：</p>
+      <ol>
+        <li>在生成器中添加 🔥 等缺失的 emoji</li>
+        <li>重新生成 atlas</li>
+        <li>刷新应用即可看到彩色 emoji</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    const img = document.getElementById('atlasImage');
+    const imageStatus = document.getElementById('imageStatus');
+    const zoomCanvas = document.getElementById('zoomCanvas');
+    const zoomStatus = document.getElementById('zoomStatus');
+    const diagnostic = document.getElementById('diagnostic');
+
+    img.onload = function() {
+      imageStatus.textContent = `✅ Atlas 加载成功 (${img.naturalWidth}×${img.naturalHeight})`;
+
+      // 放大显示前10个emoji
+      const ctx = zoomCanvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+
+      // 从atlas中提取前10个emoji（每个64x64），放大显示
+      for (let i = 0; i < 10; i++) {
+        const sx = i * 64;  // source x
+        const sy = 0;       // source y (第一行)
+        const sw = 64;      // source width
+        const sh = 64;      // source height
+        const dx = i * 64;  // destination x
+        const dy = 0;       // destination y
+        const dw = 64;      // destination width
+        const dh = 64;      // destination height
+
+        ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+      }
+
+      zoomStatus.textContent = '✅ 前 10 个 emoji 预览（放大显示）';
+
+      // 诊断：检查颜色
+      analyzeColors(ctx);
+    };
+
+    img.onerror = function() {
+      imageStatus.textContent = '❌ Atlas 加载失败';
+      diagnostic.innerHTML = '<div class="error"><strong>错误</strong>：无法加载 atlas.png，请确认文件存在于 public/assets/emoji/</div>';
+    };
+
+    function analyzeColors(ctx) {
+      // 采样第一个emoji的中心点颜色
+      const imageData = ctx.getImageData(32, 32, 1, 1);
+      const [r, g, b, a] = imageData.data;
+
+      let diagHtml = '<div class="info"><h3>🔍 颜色诊断</h3>';
+      diagHtml += `<p><strong>第一个 emoji 中心点颜色</strong>：RGB(${r}, ${g}, ${b})</p>`;
+
+      if (r === g && g === b) {
+        // 灰度图
+        diagHtml += '<div class="error"><strong>⚠️ 检测到灰度图</strong><br>';
+        diagHtml += '说明：emoji 是黑色/灰色的（RGB 三个值相同）。<br>';
+        diagHtml += '<strong>原因</strong>：浏览器的 Canvas fillText 无法渲染彩色 emoji。<br>';
+        diagHtml += '<strong>解决方案</strong>：需要使用外部彩色 emoji 图像库（如 twemoji）生成 atlas。</div>';
+      } else {
+        // 彩色图
+        diagHtml += '<div class="success"><strong>✅ 检测到彩色图</strong><br>';
+        diagHtml += '说明：emoji 包含彩色信息（RGB 值不同）。<br>';
+        diagHtml += '<strong>下一步</strong>：添加缺失的 emoji（如 🔥）并重新生成 atlas。</div>';
+      }
+
+      diagHtml += '</div>';
+      diagnostic.innerHTML = diagHtml;
+    }
+  </script>
+</body>
+</html>

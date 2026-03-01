@@ -1,0 +1,345 @@
+# GitHub Actions Workflow - FunnyPixels Load Testing
+#
+# 触发条件:
+# 1. 每周日凌晨2点自动运行
+# 2. 手动触发
+# 3. PR到main分支时运行快速测试
+
+name: Load Test
+
+on:
+  # 定时运行 - 每周日凌晨2点
+  schedule:
+    - cron: '0 2 * * 0'
+
+  # 手动触发
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: '测试类型'
+        required: true
+        default: 'quick'
+        type: choice
+        options:
+          - quick        # 快速测试 (5分钟)
+          - standard     # 标准测试 (15分钟)
+          - full         # 完整测试 (30分钟)
+      target_vus:
+        description: '目标并发用户数'
+        required: false
+        default: '100'
+
+  # PR触发 - 仅运行快速测试
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'backend/src/**'
+      - 'ops/loadtest/**'
+
+env:
+  NODE_VERSION: '18'
+  K6_VERSION: '0.48.0'
+  BASE_URL: ${{ secrets.STAGING_URL || 'http://localhost:3001' }}
+
+jobs:
+  # 作业1: 快速烟雾测试
+  smoke-test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ops/loadtest/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ops/loadtest
+        run: npm ci
+
+      - name: Install k6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
+            --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | \
+            sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Run smoke test
+        working-directory: ops/loadtest
+        run: |
+          k6 run \
+            --vus 1 \
+            --duration 1m \
+            --env BASE_URL=${{ env.BASE_URL }} \
+            --out json=reports/smoke-test.json \
+            k6/canvas-draw-load.js
+
+      - name: Check smoke test results
+        working-directory: ops/loadtest
+        run: |
+          SUCCESS_RATE=$(jq -r '.metrics.draw_success_rate.values.rate // 0' reports/smoke-test.json)
+          SUCCESS_PCT=$(echo "$SUCCESS_RATE * 100" | bc)
+          echo "Success Rate: ${SUCCESS_PCT}%"
+
+          if (( $(echo "$SUCCESS_PCT < 95" | bc -l) )); then
+            echo "❌ Smoke test failed: Success rate ${SUCCESS_PCT}% < 95%"
+            exit 1
+          fi
+
+          echo "✅ Smoke test passed"
+
+      - name: Upload smoke test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-report
+          path: ops/loadtest/reports/smoke-test.json
+          retention-days: 30
+
+  # 作业2: 负载测试
+  load-test:
+    name: Load Test
+    runs-on: ubuntu-latest
+    needs: smoke-test
+    if: github.event_name != 'pull_request'
+    timeout-minutes: 60
+
+    strategy:
+      matrix:
+        test:
+          - name: gradual-ramp-up
+            script: k6/advanced/gradual-ramp-up.js
+            duration: 30m
+          - name: realistic-user-journey
+            script: k6/advanced/realistic-user-journey.js
+            duration: 15m
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install k6
+        run: |
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
+            --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | \
+            sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Generate test users
+        working-directory: ops/loadtest
+        run: |
+          npm ci
+          npm run generate:users -- --count 1000
+
+      - name: Run ${{ matrix.test.name }}
+        working-directory: ops/loadtest
+        run: |
+          k6 run \
+            --env BASE_URL=${{ env.BASE_URL }} \
+            --out json=reports/${{ matrix.test.name }}.json \
+            ${{ matrix.test.script }}
+
+      - name: Analyze results
+        working-directory: ops/loadtest
+        run: |
+          REPORT_FILE="reports/${{ matrix.test.name }}.json"
+
+          SUCCESS_RATE=$(jq -r '.metrics.draw_success_rate.values.rate // 0' $REPORT_FILE)
+          P95_LATENCY=$(jq -r '.metrics.pixel_draw_latency.values["p(95)"] // 0' $REPORT_FILE)
+          P99_LATENCY=$(jq -r '.metrics.pixel_draw_latency.values["p(99)"] // 0' $REPORT_FILE)
+
+          SUCCESS_PCT=$(echo "$SUCCESS_RATE * 100" | bc)
+
+          echo "## ${{ matrix.test.name }} Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Success Rate: ${SUCCESS_PCT}%" >> $GITHUB_STEP_SUMMARY
+          echo "- P95 Latency: ${P95_LATENCY}ms" >> $GITHUB_STEP_SUMMARY
+          echo "- P99 Latency: ${P99_LATENCY}ms" >> $GITHUB_STEP_SUMMARY
+
+          # Check thresholds
+          if (( $(echo "$SUCCESS_PCT < 95" | bc -l) )); then
+            echo "❌ Test failed: Success rate too low"
+            exit 1
+          fi
+
+          if (( $(echo "$P95_LATENCY > 800" | bc -l) )); then
+            echo "⚠️ Warning: P95 latency high"
+          fi
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.test.name }}-report
+          path: ops/loadtest/reports/${{ matrix.test.name }}.json
+          retention-days: 90
+
+  # 作业3: WebSocket测试
+  websocket-test:
+    name: WebSocket Load Test
+    runs-on: ubuntu-latest
+    needs: smoke-test
+    if: github.event_name != 'pull_request'
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install k6
+        run: |
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
+            --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | \
+            sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Run WebSocket connection test
+        working-directory: ops/loadtest
+        run: |
+          k6 run \
+            --vus 500 \
+            --duration 5m \
+            --env WS_URL=${{ secrets.WS_URL || 'ws://localhost:3001/ws/tile-updates' }} \
+            --out json=reports/websocket-test.json \
+            k6/websocket/ws-connection-limit.js
+
+      - name: Upload WebSocket report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: websocket-test-report
+          path: ops/loadtest/reports/websocket-test.json
+
+  # 作业4: 性能回归检测
+  performance-regression:
+    name: Performance Regression Check
+    runs-on: ubuntu-latest
+    needs: [load-test]
+    if: github.event_name != 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download current test results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-report'
+          path: ops/loadtest/reports/current
+
+      - name: Download baseline results
+        uses: dawidd6/action-download-artifact@v2
+        continue-on-error: true
+        with:
+          workflow: load-test.yml
+          name: baseline-report
+          path: ops/loadtest/reports/baseline
+
+      - name: Compare results
+        working-directory: ops/loadtest
+        run: |
+          npm ci
+
+          if [ -f "reports/baseline/gradual-ramp-up.json" ]; then
+            node ci/performance-regression-check.js \
+              --baseline reports/baseline/gradual-ramp-up.json \
+              --current reports/current/gradual-ramp-up-report/gradual-ramp-up.json \
+              --threshold 10
+          else
+            echo "No baseline found, skipping regression check"
+          fi
+
+  # 作业5: 生成综合报告
+  generate-report:
+    name: Generate Test Report
+    runs-on: ubuntu-latest
+    needs: [load-test, websocket-test]
+    if: always() && github.event_name != 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download all reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-report'
+          path: ops/loadtest/reports
+
+      - name: Generate HTML report
+        working-directory: ops/loadtest
+        run: |
+          npm ci
+          node ci/auto-report-generator.js \
+            --input reports \
+            --output reports/summary.html
+
+      - name: Upload summary report
+        uses: actions/upload-artifact@v4
+        with:
+          name: summary-report
+          path: ops/loadtest/reports/summary.html
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('ops/loadtest/reports/summary.html', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '## 📊 Load Test Results\n\nSee attached artifacts for detailed reports.'
+            });
+
+  # 作业6: 保存基线
+  save-baseline:
+    name: Save Performance Baseline
+    runs-on: ubuntu-latest
+    needs: [load-test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'schedule'
+
+    steps:
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        with:
+          name: gradual-ramp-up-report
+          path: baseline
+
+      - name: Upload baseline
+        uses: actions/upload-artifact@v4
+        with:
+          name: baseline-report
+          path: baseline
+          retention-days: 365

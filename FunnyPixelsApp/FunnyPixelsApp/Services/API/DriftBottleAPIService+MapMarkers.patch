@@ -1,0 +1,74 @@
+// 修改 DriftBottleAPIService.swift 中的 getMapBottles 方法
+
+// MARK: - 地图瓶子
+
+/// 获取地图上的漂流瓶（用于地图显示）
+/// - Parameters:
+///   - lat: 纬度
+///   - lng: 经度
+///   - radius: 半径（米）
+/// - Returns: 瓶子列表
+func getMapBottles(lat: Double, lng: Double, radius: Double = 500) async throws -> [MapBottleInfo] {
+    let response: MapBottlesResponse = try await apiManager.get(
+        "/drift-bottles/map-markers",  // ✅ 修改：使用正确的端点
+        parameters: [
+            "lat": lat,
+            "lng": lng,
+            "radius": radius / 1000  // ✅ 修改：转换为km（500米 = 0.5km）
+        ]
+    )
+    guard response.success else {
+        throw NetworkError.serverError(response.message ?? "获取地图瓶子失败")
+    }
+    return response.data?.bottles ?? []
+}
+
+// MARK: - 瓶子详情（新增）
+
+/// 获取漂流瓶详情（用于点击标记后获取完整信息）
+/// - Parameter bottleId: 瓶子ID
+/// - Returns: 瓶子详情
+func getBottleDetails(bottleId: String) async throws -> DriftBottle {
+    let response: DriftBottleResponse = try await apiManager.get(
+        "/drift-bottles/\(bottleId)"
+    )
+    guard response.success, let bottle = response.data?.bottle else {
+        throw NetworkError.serverError(response.message ?? "获取瓶子详情失败")
+    }
+    return bottle
+}
+
+// MARK: - Response Models（新增）
+
+/// 地图瓶子信息（简化版）
+struct MapBottleInfo: Codable {
+    let bottleId: String
+    let lat: Double
+    let lng: Double
+    let distance: Double?  // API返回的距离（km）
+
+    enum CodingKeys: String, CodingKey {
+        case bottleId = "bottle_id"
+        case lat
+        case lng
+        case distance
+    }
+}
+
+/// 地图瓶子响应
+struct MapBottlesResponse: Codable {
+    let success: Bool
+    let message: String?
+    let data: MapBottlesData?
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case message
+        case data
+    }
+}
+
+/// 地图瓶子数据
+struct MapBottlesData: Codable {
+    let bottles: [MapBottleInfo]
+}

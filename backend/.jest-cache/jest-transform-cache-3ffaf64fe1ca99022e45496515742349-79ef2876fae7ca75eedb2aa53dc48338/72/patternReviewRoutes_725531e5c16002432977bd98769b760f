@@ -1,0 +1,218 @@
+bc64241a622a10c6e4ff355c9389838f
+/* istanbul ignore next */
+function cov_2mjbxeeqff() {
+  var path = "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\patternReviewRoutes.js";
+  var hash = "4e80e5d86df8bd8c9e02ec5071c05faafe7a0ebc";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\patternReviewRoutes.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 16
+        },
+        end: {
+          line: 1,
+          column: 34
+        }
+      },
+      "1": {
+        start: {
+          line: 2,
+          column: 32
+        },
+        end: {
+          line: 2,
+          column: 81
+        }
+      },
+      "2": {
+        start: {
+          line: 3,
+          column: 44
+        },
+        end: {
+          line: 3,
+          column: 73
+        }
+      },
+      "3": {
+        start: {
+          line: 5,
+          column: 15
+        },
+        end: {
+          line: 5,
+          column: 31
+        }
+      },
+      "4": {
+        start: {
+          line: 8,
+          column: 0
+        },
+        end: {
+          line: 8,
+          column: 30
+        }
+      },
+      "5": {
+        start: {
+          line: 9,
+          column: 0
+        },
+        end: {
+          line: 9,
+          column: 25
+        }
+      },
+      "6": {
+        start: {
+          line: 12,
+          column: 0
+        },
+        end: {
+          line: 12,
+          column: 66
+        }
+      },
+      "7": {
+        start: {
+          line: 15,
+          column: 0
+        },
+        end: {
+          line: 15,
+          column: 72
+        }
+      },
+      "8": {
+        start: {
+          line: 18,
+          column: 0
+        },
+        end: {
+          line: 18,
+          column: 66
+        }
+      },
+      "9": {
+        start: {
+          line: 21,
+          column: 0
+        },
+        end: {
+          line: 21,
+          column: 61
+        }
+      },
+      "10": {
+        start: {
+          line: 24,
+          column: 0
+        },
+        end: {
+          line: 24,
+          column: 65
+        }
+      },
+      "11": {
+        start: {
+          line: 26,
+          column: 0
+        },
+        end: {
+          line: 26,
+          column: 24
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "4e80e5d86df8bd8c9e02ec5071c05faafe7a0ebc"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2mjbxeeqff = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2mjbxeeqff();
+const express =
+/* istanbul ignore next */
+(cov_2mjbxeeqff().s[0]++, require('express'));
+const PatternReviewController =
+/* istanbul ignore next */
+(cov_2mjbxeeqff().s[1]++, require('../controllers/patternReviewController'));
+const {
+  authenticateToken,
+  requireAdmin
+} =
+/* istanbul ignore next */
+(cov_2mjbxeeqff().s[2]++, require('../middleware/auth'));
+const router =
+/* istanbul ignore next */
+(cov_2mjbxeeqff().s[3]++, express.Router());
+
+// 所有路由都需要管理员权限
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[4]++;
+router.use(authenticateToken);
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[5]++;
+router.use(requireAdmin);
+
+// 获取待审核的图案列表
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[6]++;
+router.get('/pending', PatternReviewController.getPendingReviews);
+
+// 审核单个图案
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[7]++;
+router.post('/review/:uploadId', PatternReviewController.reviewPattern);
+
+// 批量审核
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[8]++;
+router.post('/batch-review', PatternReviewController.batchReview);
+
+// 获取审核统计信息
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[9]++;
+router.get('/stats', PatternReviewController.getReviewStats);
+
+// 获取审核历史
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[10]++;
+router.get('/history', PatternReviewController.getReviewHistory);
+/* istanbul ignore next */
+cov_2mjbxeeqff().s[11]++;
+module.exports = router;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMm1qYnhlZXFmZiIsImFjdHVhbENvdmVyYWdlIiwiZXhwcmVzcyIsInMiLCJyZXF1aXJlIiwiUGF0dGVyblJldmlld0NvbnRyb2xsZXIiLCJhdXRoZW50aWNhdGVUb2tlbiIsInJlcXVpcmVBZG1pbiIsInJvdXRlciIsIlJvdXRlciIsInVzZSIsImdldCIsImdldFBlbmRpbmdSZXZpZXdzIiwicG9zdCIsInJldmlld1BhdHRlcm4iLCJiYXRjaFJldmlldyIsImdldFJldmlld1N0YXRzIiwiZ2V0UmV2aWV3SGlzdG9yeSIsIm1vZHVsZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyJwYXR0ZXJuUmV2aWV3Um91dGVzLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IGV4cHJlc3MgPSByZXF1aXJlKCdleHByZXNzJyk7XHJcbmNvbnN0IFBhdHRlcm5SZXZpZXdDb250cm9sbGVyID0gcmVxdWlyZSgnLi4vY29udHJvbGxlcnMvcGF0dGVyblJldmlld0NvbnRyb2xsZXInKTtcclxuY29uc3QgeyBhdXRoZW50aWNhdGVUb2tlbiwgcmVxdWlyZUFkbWluIH0gPSByZXF1aXJlKCcuLi9taWRkbGV3YXJlL2F1dGgnKTtcclxuXHJcbmNvbnN0IHJvdXRlciA9IGV4cHJlc3MuUm91dGVyKCk7XHJcblxyXG4vLyDmiYDmnInot6/nlLHpg73pnIDopoHnrqHnkIblkZjmnYPpmZBcclxucm91dGVyLnVzZShhdXRoZW50aWNhdGVUb2tlbik7XHJcbnJvdXRlci51c2UocmVxdWlyZUFkbWluKTtcclxuXHJcbi8vIOiOt+WPluW+heWuoeaguOeahOWbvuahiOWIl+ihqFxyXG5yb3V0ZXIuZ2V0KCcvcGVuZGluZycsIFBhdHRlcm5SZXZpZXdDb250cm9sbGVyLmdldFBlbmRpbmdSZXZpZXdzKTtcclxuXHJcbi8vIOWuoeaguOWNleS4quWbvuahiFxyXG5yb3V0ZXIucG9zdCgnL3Jldmlldy86dXBsb2FkSWQnLCBQYXR0ZXJuUmV2aWV3Q29udHJvbGxlci5yZXZpZXdQYXR0ZXJuKTtcclxuXHJcbi8vIOaJuemHj+WuoeaguFxyXG5yb3V0ZXIucG9zdCgnL2JhdGNoLXJldmlldycsIFBhdHRlcm5SZXZpZXdDb250cm9sbGVyLmJhdGNoUmV2aWV3KTtcclxuXHJcbi8vIOiOt+WPluWuoeaguOe7n+iuoeS/oeaBr1xyXG5yb3V0ZXIuZ2V0KCcvc3RhdHMnLCBQYXR0ZXJuUmV2aWV3Q29udHJvbGxlci5nZXRSZXZpZXdTdGF0cyk7XHJcblxyXG4vLyDojrflj5blrqHmoLjljoblj7Jcclxucm91dGVyLmdldCgnL2hpc3RvcnknLCBQYXR0ZXJuUmV2aWV3Q29udHJvbGxlci5nZXRSZXZpZXdIaXN0b3J5KTtcclxuXHJcbm1vZHVsZS5leHBvcnRzID0gcm91dGVyO1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUFlWTtJQUFBQSxjQUFBLFlBQUFBLENBQUE7TUFBQSxPQUFBQyxjQUFBO0lBQUE7RUFBQTtFQUFBLE9BQUFBLGNBQUE7QUFBQTtBQUFBRCxjQUFBO0FBZlosTUFBTUUsT0FBTztBQUFBO0FBQUEsQ0FBQUYsY0FBQSxHQUFBRyxDQUFBLE9BQUdDLE9BQU8sQ0FBQyxTQUFTLENBQUM7QUFDbEMsTUFBTUMsdUJBQXVCO0FBQUE7QUFBQSxDQUFBTCxjQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLHdDQUF3QyxDQUFDO0FBQ2pGLE1BQU07RUFBRUUsaUJBQWlCO0VBQUVDO0FBQWEsQ0FBQztBQUFBO0FBQUEsQ0FBQVAsY0FBQSxHQUFBRyxDQUFBLE9BQUdDLE9BQU8sQ0FBQyxvQkFBb0IsQ0FBQztBQUV6RSxNQUFNSSxNQUFNO0FBQUE7QUFBQSxDQUFBUixjQUFBLEdBQUFHLENBQUEsT0FBR0QsT0FBTyxDQUFDTyxNQUFNLENBQUMsQ0FBQzs7QUFFL0I7QUFBQTtBQUFBVCxjQUFBLEdBQUFHLENBQUE7QUFDQUssTUFBTSxDQUFDRSxHQUFHLENBQUNKLGlCQUFpQixDQUFDO0FBQUM7QUFBQU4sY0FBQSxHQUFBRyxDQUFBO0FBQzlCSyxNQUFNLENBQUNFLEdBQUcsQ0FBQ0gsWUFBWSxDQUFDOztBQUV4QjtBQUFBO0FBQUFQLGNBQUEsR0FBQUcsQ0FBQTtBQUNBSyxNQUFNLENBQUNHLEdBQUcsQ0FBQyxVQUFVLEVBQUVOLHVCQUF1QixDQUFDTyxpQkFBaUIsQ0FBQzs7QUFFakU7QUFBQTtBQUFBWixjQUFBLEdBQUFHLENBQUE7QUFDQUssTUFBTSxDQUFDSyxJQUFJLENBQUMsbUJBQW1CLEVBQUVSLHVCQUF1QixDQUFDUyxhQUFhLENBQUM7O0FBRXZFO0FBQUE7QUFBQWQsY0FBQSxHQUFBRyxDQUFBO0FBQ0FLLE1BQU0sQ0FBQ0ssSUFBSSxDQUFDLGVBQWUsRUFBRVIsdUJBQXVCLENBQUNVLFdBQVcsQ0FBQzs7QUFFakU7QUFBQTtBQUFBZixjQUFBLEdBQUFHLENBQUE7QUFDQUssTUFBTSxDQUFDRyxHQUFHLENBQUMsUUFBUSxFQUFFTix1QkFBdUIsQ0FBQ1csY0FBYyxDQUFDOztBQUU1RDtBQUFBO0FBQUFoQixjQUFBLEdBQUFHLENBQUE7QUFDQUssTUFBTSxDQUFDRyxHQUFHLENBQUMsVUFBVSxFQUFFTix1QkFBdUIsQ0FBQ1ksZ0JBQWdCLENBQUM7QUFBQztBQUFBakIsY0FBQSxHQUFBRyxDQUFBO0FBRWpFZSxNQUFNLENBQUNDLE9BQU8sR0FBR1gsTUFBTSIsImlnbm9yZUxpc3QiOltdfQ==

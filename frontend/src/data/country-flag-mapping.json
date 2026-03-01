@@ -1,0 +1,1357 @@
+{
+  "ad": {
+    "name": "AD国旗",
+    "emoji": "🇦🇩",
+    "key": "flag_ad"
+  },
+  "ae": {
+    "name": "AE国旗",
+    "emoji": "🇦🇪",
+    "key": "flag_ae"
+  },
+  "af": {
+    "name": "AF国旗",
+    "emoji": "🇦🇫",
+    "key": "flag_af"
+  },
+  "ag": {
+    "name": "AG国旗",
+    "emoji": "🇦🇬",
+    "key": "flag_ag"
+  },
+  "ai": {
+    "name": "AI国旗",
+    "emoji": "🇦🇮",
+    "key": "flag_ai"
+  },
+  "al": {
+    "name": "AL国旗",
+    "emoji": "🇦🇱",
+    "key": "flag_al"
+  },
+  "am": {
+    "name": "AM国旗",
+    "emoji": "🇦🇲",
+    "key": "flag_am"
+  },
+  "ao": {
+    "name": "AO国旗",
+    "emoji": "🇦🇴",
+    "key": "flag_ao"
+  },
+  "aq": {
+    "name": "AQ国旗",
+    "emoji": "🇦🇶",
+    "key": "flag_aq"
+  },
+  "ar": {
+    "name": "AR国旗",
+    "emoji": "🇦🇷",
+    "key": "flag_ar"
+  },
+  "arab": {
+    "name": "ARAB国旗",
+    "emoji": "🏳️",
+    "key": "flag_arab"
+  },
+  "as": {
+    "name": "AS国旗",
+    "emoji": "🇦🇸",
+    "key": "flag_as"
+  },
+  "asean": {
+    "name": "ASEAN国旗",
+    "emoji": "🏳️",
+    "key": "flag_asean"
+  },
+  "at": {
+    "name": "function at() { [native code] }国旗",
+    "emoji": "🇦🇹",
+    "key": "flag_at"
+  },
+  "au": {
+    "name": "AU国旗",
+    "emoji": "🇦🇺",
+    "key": "flag_au"
+  },
+  "aw": {
+    "name": "AW国旗",
+    "emoji": "🇦🇼",
+    "key": "flag_aw"
+  },
+  "ax": {
+    "name": "AX国旗",
+    "emoji": "🇦🇽",
+    "key": "flag_ax"
+  },
+  "az": {
+    "name": "AZ国旗",
+    "emoji": "🇦🇿",
+    "key": "flag_az"
+  },
+  "ba": {
+    "name": "BA国旗",
+    "emoji": "🇧🇦",
+    "key": "flag_ba"
+  },
+  "bb": {
+    "name": "BB国旗",
+    "emoji": "🇧🇧",
+    "key": "flag_bb"
+  },
+  "bd": {
+    "name": "BD国旗",
+    "emoji": "🇧🇩",
+    "key": "flag_bd"
+  },
+  "be": {
+    "name": "BE国旗",
+    "emoji": "🇧🇪",
+    "key": "flag_be"
+  },
+  "bf": {
+    "name": "BF国旗",
+    "emoji": "🇧🇫",
+    "key": "flag_bf"
+  },
+  "bg": {
+    "name": "BG国旗",
+    "emoji": "🇧🇬",
+    "key": "flag_bg"
+  },
+  "bh": {
+    "name": "BH国旗",
+    "emoji": "🇧🇭",
+    "key": "flag_bh"
+  },
+  "bi": {
+    "name": "BI国旗",
+    "emoji": "🇧🇮",
+    "key": "flag_bi"
+  },
+  "bj": {
+    "name": "BJ国旗",
+    "emoji": "🇧🇯",
+    "key": "flag_bj"
+  },
+  "bl": {
+    "name": "BL国旗",
+    "emoji": "🇧🇱",
+    "key": "flag_bl"
+  },
+  "bm": {
+    "name": "BM国旗",
+    "emoji": "🇧🇲",
+    "key": "flag_bm"
+  },
+  "bn": {
+    "name": "BN国旗",
+    "emoji": "🇧🇳",
+    "key": "flag_bn"
+  },
+  "bo": {
+    "name": "BO国旗",
+    "emoji": "🇧🇴",
+    "key": "flag_bo"
+  },
+  "bq": {
+    "name": "BQ国旗",
+    "emoji": "🇧🇶",
+    "key": "flag_bq"
+  },
+  "br": {
+    "name": "BR国旗",
+    "emoji": "🇧🇷",
+    "key": "flag_br"
+  },
+  "bs": {
+    "name": "BS国旗",
+    "emoji": "🇧🇸",
+    "key": "flag_bs"
+  },
+  "bt": {
+    "name": "BT国旗",
+    "emoji": "🇧🇹",
+    "key": "flag_bt"
+  },
+  "bv": {
+    "name": "BV国旗",
+    "emoji": "🇧🇻",
+    "key": "flag_bv"
+  },
+  "bw": {
+    "name": "BW国旗",
+    "emoji": "🇧🇼",
+    "key": "flag_bw"
+  },
+  "by": {
+    "name": "BY国旗",
+    "emoji": "🇧🇾",
+    "key": "flag_by"
+  },
+  "bz": {
+    "name": "BZ国旗",
+    "emoji": "🇧🇿",
+    "key": "flag_bz"
+  },
+  "ca": {
+    "name": "CA国旗",
+    "emoji": "🇨🇦",
+    "key": "flag_ca"
+  },
+  "cc": {
+    "name": "CC国旗",
+    "emoji": "🇨🇨",
+    "key": "flag_cc"
+  },
+  "cd": {
+    "name": "CD国旗",
+    "emoji": "🇨🇩",
+    "key": "flag_cd"
+  },
+  "cefta": {
+    "name": "CEFTA国旗",
+    "emoji": "🏳️",
+    "key": "flag_cefta"
+  },
+  "cf": {
+    "name": "CF国旗",
+    "emoji": "🇨🇫",
+    "key": "flag_cf"
+  },
+  "cg": {
+    "name": "CG国旗",
+    "emoji": "🇨🇬",
+    "key": "flag_cg"
+  },
+  "ch": {
+    "name": "CH国旗",
+    "emoji": "🇨🇭",
+    "key": "flag_ch"
+  },
+  "ci": {
+    "name": "CI国旗",
+    "emoji": "🇨🇮",
+    "key": "flag_ci"
+  },
+  "ck": {
+    "name": "CK国旗",
+    "emoji": "🇨🇰",
+    "key": "flag_ck"
+  },
+  "cl": {
+    "name": "CL国旗",
+    "emoji": "🇨🇱",
+    "key": "flag_cl"
+  },
+  "cm": {
+    "name": "CM国旗",
+    "emoji": "🇨🇲",
+    "key": "flag_cm"
+  },
+  "cn": {
+    "name": "CN国旗",
+    "emoji": "🇨🇳",
+    "key": "flag_cn"
+  },
+  "co": {
+    "name": "CO国旗",
+    "emoji": "🇨🇴",
+    "key": "flag_co"
+  },
+  "cp": {
+    "name": "CP国旗",
+    "emoji": "🏳️",
+    "key": "flag_cp"
+  },
+  "cr": {
+    "name": "CR国旗",
+    "emoji": "🇨🇷",
+    "key": "flag_cr"
+  },
+  "cu": {
+    "name": "CU国旗",
+    "emoji": "🇨🇺",
+    "key": "flag_cu"
+  },
+  "cv": {
+    "name": "CV国旗",
+    "emoji": "🇨🇻",
+    "key": "flag_cv"
+  },
+  "cw": {
+    "name": "CW国旗",
+    "emoji": "🇨🇼",
+    "key": "flag_cw"
+  },
+  "cx": {
+    "name": "CX国旗",
+    "emoji": "🇨🇽",
+    "key": "flag_cx"
+  },
+  "cy": {
+    "name": "CY国旗",
+    "emoji": "🇨🇾",
+    "key": "flag_cy"
+  },
+  "cz": {
+    "name": "CZ国旗",
+    "emoji": "🇨🇿",
+    "key": "flag_cz"
+  },
+  "de": {
+    "name": "DE国旗",
+    "emoji": "🇩🇪",
+    "key": "flag_de"
+  },
+  "dg": {
+    "name": "DG国旗",
+    "emoji": "🏳️",
+    "key": "flag_dg"
+  },
+  "dj": {
+    "name": "DJ国旗",
+    "emoji": "🇩🇯",
+    "key": "flag_dj"
+  },
+  "dk": {
+    "name": "DK国旗",
+    "emoji": "🇩🇰",
+    "key": "flag_dk"
+  },
+  "dm": {
+    "name": "DM国旗",
+    "emoji": "🇩🇲",
+    "key": "flag_dm"
+  },
+  "do": {
+    "name": "DO国旗",
+    "emoji": "🇩🇴",
+    "key": "flag_do"
+  },
+  "dz": {
+    "name": "DZ国旗",
+    "emoji": "🇩🇿",
+    "key": "flag_dz"
+  },
+  "eac": {
+    "name": "EAC国旗",
+    "emoji": "🏳️",
+    "key": "flag_eac"
+  },
+  "ec": {
+    "name": "EC国旗",
+    "emoji": "🇪🇨",
+    "key": "flag_ec"
+  },
+  "ee": {
+    "name": "EE国旗",
+    "emoji": "🇪🇪",
+    "key": "flag_ee"
+  },
+  "eg": {
+    "name": "EG国旗",
+    "emoji": "🇪🇬",
+    "key": "flag_eg"
+  },
+  "eh": {
+    "name": "EH国旗",
+    "emoji": "🇪🇭",
+    "key": "flag_eh"
+  },
+  "er": {
+    "name": "ER国旗",
+    "emoji": "🇪🇷",
+    "key": "flag_er"
+  },
+  "es-ct": {
+    "name": "ES-CT国旗",
+    "emoji": "🏳️",
+    "key": "flag_es-ct"
+  },
+  "es-ga": {
+    "name": "ES-GA国旗",
+    "emoji": "🏳️",
+    "key": "flag_es-ga"
+  },
+  "es-pv": {
+    "name": "ES-PV国旗",
+    "emoji": "🏳️",
+    "key": "flag_es-pv"
+  },
+  "es": {
+    "name": "ES国旗",
+    "emoji": "🇪🇸",
+    "key": "flag_es"
+  },
+  "et": {
+    "name": "ET国旗",
+    "emoji": "🇪🇹",
+    "key": "flag_et"
+  },
+  "eu": {
+    "name": "EU国旗",
+    "emoji": "🏳️",
+    "key": "flag_eu"
+  },
+  "fi": {
+    "name": "FI国旗",
+    "emoji": "🇫🇮",
+    "key": "flag_fi"
+  },
+  "fj": {
+    "name": "FJ国旗",
+    "emoji": "🇫🇯",
+    "key": "flag_fj"
+  },
+  "fk": {
+    "name": "FK国旗",
+    "emoji": "🇫🇰",
+    "key": "flag_fk"
+  },
+  "fm": {
+    "name": "FM国旗",
+    "emoji": "🇫🇲",
+    "key": "flag_fm"
+  },
+  "fo": {
+    "name": "FO国旗",
+    "emoji": "🇫🇴",
+    "key": "flag_fo"
+  },
+  "fr": {
+    "name": "FR国旗",
+    "emoji": "🇫🇷",
+    "key": "flag_fr"
+  },
+  "ga": {
+    "name": "GA国旗",
+    "emoji": "🇬🇦",
+    "key": "flag_ga"
+  },
+  "gb-eng": {
+    "name": "GB-ENG国旗",
+    "emoji": "🏳️",
+    "key": "flag_gb-eng"
+  },
+  "gb-nir": {
+    "name": "GB-NIR国旗",
+    "emoji": "🏳️",
+    "key": "flag_gb-nir"
+  },
+  "gb-sct": {
+    "name": "GB-SCT国旗",
+    "emoji": "🏳️",
+    "key": "flag_gb-sct"
+  },
+  "gb-wls": {
+    "name": "GB-WLS国旗",
+    "emoji": "🏳️",
+    "key": "flag_gb-wls"
+  },
+  "gb": {
+    "name": "GB国旗",
+    "emoji": "🇬🇧",
+    "key": "flag_gb"
+  },
+  "gd": {
+    "name": "GD国旗",
+    "emoji": "🇬🇩",
+    "key": "flag_gd"
+  },
+  "ge": {
+    "name": "GE国旗",
+    "emoji": "🇬🇪",
+    "key": "flag_ge"
+  },
+  "gf": {
+    "name": "GF国旗",
+    "emoji": "🇬🇫",
+    "key": "flag_gf"
+  },
+  "gg": {
+    "name": "GG国旗",
+    "emoji": "🇬🇬",
+    "key": "flag_gg"
+  },
+  "gh": {
+    "name": "GH国旗",
+    "emoji": "🇬🇭",
+    "key": "flag_gh"
+  },
+  "gi": {
+    "name": "GI国旗",
+    "emoji": "🇬🇮",
+    "key": "flag_gi"
+  },
+  "gl": {
+    "name": "GL国旗",
+    "emoji": "🇬🇱",
+    "key": "flag_gl"
+  },
+  "gm": {
+    "name": "GM国旗",
+    "emoji": "🇬🇲",
+    "key": "flag_gm"
+  },
+  "gn": {
+    "name": "GN国旗",
+    "emoji": "🇬🇳",
+    "key": "flag_gn"
+  },
+  "gp": {
+    "name": "GP国旗",
+    "emoji": "🇬🇵",
+    "key": "flag_gp"
+  },
+  "gq": {
+    "name": "GQ国旗",
+    "emoji": "🇬🇶",
+    "key": "flag_gq"
+  },
+  "gr": {
+    "name": "GR国旗",
+    "emoji": "🇬🇷",
+    "key": "flag_gr"
+  },
+  "gs": {
+    "name": "GS国旗",
+    "emoji": "🇬🇸",
+    "key": "flag_gs"
+  },
+  "gt": {
+    "name": "GT国旗",
+    "emoji": "🇬🇹",
+    "key": "flag_gt"
+  },
+  "gu": {
+    "name": "GU国旗",
+    "emoji": "🇬🇺",
+    "key": "flag_gu"
+  },
+  "gw": {
+    "name": "GW国旗",
+    "emoji": "🇬🇼",
+    "key": "flag_gw"
+  },
+  "gy": {
+    "name": "GY国旗",
+    "emoji": "🇬🇾",
+    "key": "flag_gy"
+  },
+  "hk": {
+    "name": "HK国旗",
+    "emoji": "🇭🇰",
+    "key": "flag_hk"
+  },
+  "hm": {
+    "name": "HM国旗",
+    "emoji": "🇭🇲",
+    "key": "flag_hm"
+  },
+  "hn": {
+    "name": "HN国旗",
+    "emoji": "🇭🇳",
+    "key": "flag_hn"
+  },
+  "hr": {
+    "name": "HR国旗",
+    "emoji": "🇭🇷",
+    "key": "flag_hr"
+  },
+  "ht": {
+    "name": "HT国旗",
+    "emoji": "🇭🇹",
+    "key": "flag_ht"
+  },
+  "hu": {
+    "name": "HU国旗",
+    "emoji": "🇭🇺",
+    "key": "flag_hu"
+  },
+  "ic": {
+    "name": "IC国旗",
+    "emoji": "🏳️",
+    "key": "flag_ic"
+  },
+  "id": {
+    "name": "ID国旗",
+    "emoji": "🇮🇩",
+    "key": "flag_id"
+  },
+  "ie": {
+    "name": "IE国旗",
+    "emoji": "🇮🇪",
+    "key": "flag_ie"
+  },
+  "il": {
+    "name": "IL国旗",
+    "emoji": "🇮🇱",
+    "key": "flag_il"
+  },
+  "im": {
+    "name": "IM国旗",
+    "emoji": "🇮🇲",
+    "key": "flag_im"
+  },
+  "in": {
+    "name": "IN国旗",
+    "emoji": "🇮🇳",
+    "key": "flag_in"
+  },
+  "io": {
+    "name": "IO国旗",
+    "emoji": "🇮🇴",
+    "key": "flag_io"
+  },
+  "iq": {
+    "name": "IQ国旗",
+    "emoji": "🇮🇶",
+    "key": "flag_iq"
+  },
+  "ir": {
+    "name": "IR国旗",
+    "emoji": "🇮🇷",
+    "key": "flag_ir"
+  },
+  "is": {
+    "name": "IS国旗",
+    "emoji": "🇮🇸",
+    "key": "flag_is"
+  },
+  "it": {
+    "name": "IT国旗",
+    "emoji": "🇮🇹",
+    "key": "flag_it"
+  },
+  "je": {
+    "name": "JE国旗",
+    "emoji": "🇯🇪",
+    "key": "flag_je"
+  },
+  "jm": {
+    "name": "JM国旗",
+    "emoji": "🇯🇲",
+    "key": "flag_jm"
+  },
+  "jo": {
+    "name": "JO国旗",
+    "emoji": "🇯🇴",
+    "key": "flag_jo"
+  },
+  "jp": {
+    "name": "JP国旗",
+    "emoji": "🇯🇵",
+    "key": "flag_jp"
+  },
+  "ke": {
+    "name": "KE国旗",
+    "emoji": "🇰🇪",
+    "key": "flag_ke"
+  },
+  "kg": {
+    "name": "KG国旗",
+    "emoji": "🇰🇬",
+    "key": "flag_kg"
+  },
+  "kh": {
+    "name": "KH国旗",
+    "emoji": "🇰🇭",
+    "key": "flag_kh"
+  },
+  "ki": {
+    "name": "KI国旗",
+    "emoji": "🇰🇮",
+    "key": "flag_ki"
+  },
+  "km": {
+    "name": "KM国旗",
+    "emoji": "🇰🇲",
+    "key": "flag_km"
+  },
+  "kn": {
+    "name": "KN国旗",
+    "emoji": "🇰🇳",
+    "key": "flag_kn"
+  },
+  "kp": {
+    "name": "KP国旗",
+    "emoji": "🇰🇵",
+    "key": "flag_kp"
+  },
+  "kr": {
+    "name": "KR国旗",
+    "emoji": "🇰🇷",
+    "key": "flag_kr"
+  },
+  "kw": {
+    "name": "KW国旗",
+    "emoji": "🇰🇼",
+    "key": "flag_kw"
+  },
+  "ky": {
+    "name": "KY国旗",
+    "emoji": "🇰🇾",
+    "key": "flag_ky"
+  },
+  "kz": {
+    "name": "KZ国旗",
+    "emoji": "🇰🇿",
+    "key": "flag_kz"
+  },
+  "la": {
+    "name": "LA国旗",
+    "emoji": "🇱🇦",
+    "key": "flag_la"
+  },
+  "lb": {
+    "name": "LB国旗",
+    "emoji": "🇱🇧",
+    "key": "flag_lb"
+  },
+  "lc": {
+    "name": "LC国旗",
+    "emoji": "🇱🇨",
+    "key": "flag_lc"
+  },
+  "li": {
+    "name": "LI国旗",
+    "emoji": "🇱🇮",
+    "key": "flag_li"
+  },
+  "lk": {
+    "name": "LK国旗",
+    "emoji": "🇱🇰",
+    "key": "flag_lk"
+  },
+  "lr": {
+    "name": "LR国旗",
+    "emoji": "🇱🇷",
+    "key": "flag_lr"
+  },
+  "ls": {
+    "name": "LS国旗",
+    "emoji": "🇱🇸",
+    "key": "flag_ls"
+  },
+  "lt": {
+    "name": "LT国旗",
+    "emoji": "🇱🇹",
+    "key": "flag_lt"
+  },
+  "lu": {
+    "name": "LU国旗",
+    "emoji": "🇱🇺",
+    "key": "flag_lu"
+  },
+  "lv": {
+    "name": "LV国旗",
+    "emoji": "🇱🇻",
+    "key": "flag_lv"
+  },
+  "ly": {
+    "name": "LY国旗",
+    "emoji": "🇱🇾",
+    "key": "flag_ly"
+  },
+  "ma": {
+    "name": "MA国旗",
+    "emoji": "🇲🇦",
+    "key": "flag_ma"
+  },
+  "mc": {
+    "name": "MC国旗",
+    "emoji": "🇲🇨",
+    "key": "flag_mc"
+  },
+  "md": {
+    "name": "MD国旗",
+    "emoji": "🇲🇩",
+    "key": "flag_md"
+  },
+  "me": {
+    "name": "ME国旗",
+    "emoji": "🇲🇪",
+    "key": "flag_me"
+  },
+  "mf": {
+    "name": "MF国旗",
+    "emoji": "🇲🇫",
+    "key": "flag_mf"
+  },
+  "mg": {
+    "name": "MG国旗",
+    "emoji": "🇲🇬",
+    "key": "flag_mg"
+  },
+  "mh": {
+    "name": "MH国旗",
+    "emoji": "🇲🇭",
+    "key": "flag_mh"
+  },
+  "mk": {
+    "name": "MK国旗",
+    "emoji": "🇲🇰",
+    "key": "flag_mk"
+  },
+  "ml": {
+    "name": "ML国旗",
+    "emoji": "🇲🇱",
+    "key": "flag_ml"
+  },
+  "mm": {
+    "name": "MM国旗",
+    "emoji": "🇲🇲",
+    "key": "flag_mm"
+  },
+  "mn": {
+    "name": "MN国旗",
+    "emoji": "🇲🇳",
+    "key": "flag_mn"
+  },
+  "mo": {
+    "name": "MO国旗",
+    "emoji": "🇲🇴",
+    "key": "flag_mo"
+  },
+  "mp": {
+    "name": "MP国旗",
+    "emoji": "🇲🇵",
+    "key": "flag_mp"
+  },
+  "mq": {
+    "name": "MQ国旗",
+    "emoji": "🇲🇶",
+    "key": "flag_mq"
+  },
+  "mr": {
+    "name": "MR国旗",
+    "emoji": "🇲🇷",
+    "key": "flag_mr"
+  },
+  "ms": {
+    "name": "MS国旗",
+    "emoji": "🇲🇸",
+    "key": "flag_ms"
+  },
+  "mt": {
+    "name": "MT国旗",
+    "emoji": "🇲🇹",
+    "key": "flag_mt"
+  },
+  "mu": {
+    "name": "MU国旗",
+    "emoji": "🇲🇺",
+    "key": "flag_mu"
+  },
+  "mv": {
+    "name": "MV国旗",
+    "emoji": "🇲🇻",
+    "key": "flag_mv"
+  },
+  "mw": {
+    "name": "MW国旗",
+    "emoji": "🇲🇼",
+    "key": "flag_mw"
+  },
+  "mx": {
+    "name": "MX国旗",
+    "emoji": "🇲🇽",
+    "key": "flag_mx"
+  },
+  "my": {
+    "name": "MY国旗",
+    "emoji": "🇲🇾",
+    "key": "flag_my"
+  },
+  "mz": {
+    "name": "MZ国旗",
+    "emoji": "🇲🇿",
+    "key": "flag_mz"
+  },
+  "na": {
+    "name": "NA国旗",
+    "emoji": "🇳🇦",
+    "key": "flag_na"
+  },
+  "nc": {
+    "name": "NC国旗",
+    "emoji": "🇳🇨",
+    "key": "flag_nc"
+  },
+  "ne": {
+    "name": "NE国旗",
+    "emoji": "🇳🇪",
+    "key": "flag_ne"
+  },
+  "nf": {
+    "name": "NF国旗",
+    "emoji": "🇳🇫",
+    "key": "flag_nf"
+  },
+  "ng": {
+    "name": "NG国旗",
+    "emoji": "🇳🇬",
+    "key": "flag_ng"
+  },
+  "ni": {
+    "name": "NI国旗",
+    "emoji": "🇳🇮",
+    "key": "flag_ni"
+  },
+  "nl": {
+    "name": "NL国旗",
+    "emoji": "🇳🇱",
+    "key": "flag_nl"
+  },
+  "no": {
+    "name": "NO国旗",
+    "emoji": "🇳🇴",
+    "key": "flag_no"
+  },
+  "np": {
+    "name": "NP国旗",
+    "emoji": "🇳🇵",
+    "key": "flag_np"
+  },
+  "nr": {
+    "name": "NR国旗",
+    "emoji": "🇳🇷",
+    "key": "flag_nr"
+  },
+  "nu": {
+    "name": "NU国旗",
+    "emoji": "🇳🇺",
+    "key": "flag_nu"
+  },
+  "nz": {
+    "name": "NZ国旗",
+    "emoji": "🇳🇿",
+    "key": "flag_nz"
+  },
+  "om": {
+    "name": "OM国旗",
+    "emoji": "🇴🇲",
+    "key": "flag_om"
+  },
+  "pa": {
+    "name": "PA国旗",
+    "emoji": "🇵🇦",
+    "key": "flag_pa"
+  },
+  "pc": {
+    "name": "PC国旗",
+    "emoji": "🏳️",
+    "key": "flag_pc"
+  },
+  "pe": {
+    "name": "PE国旗",
+    "emoji": "🇵🇪",
+    "key": "flag_pe"
+  },
+  "pf": {
+    "name": "PF国旗",
+    "emoji": "🇵🇫",
+    "key": "flag_pf"
+  },
+  "pg": {
+    "name": "PG国旗",
+    "emoji": "🇵🇬",
+    "key": "flag_pg"
+  },
+  "ph": {
+    "name": "PH国旗",
+    "emoji": "🇵🇭",
+    "key": "flag_ph"
+  },
+  "pk": {
+    "name": "PK国旗",
+    "emoji": "🇵🇰",
+    "key": "flag_pk"
+  },
+  "pl": {
+    "name": "PL国旗",
+    "emoji": "🇵🇱",
+    "key": "flag_pl"
+  },
+  "pm": {
+    "name": "PM国旗",
+    "emoji": "🇵🇲",
+    "key": "flag_pm"
+  },
+  "pn": {
+    "name": "PN国旗",
+    "emoji": "🇵🇳",
+    "key": "flag_pn"
+  },
+  "pr": {
+    "name": "PR国旗",
+    "emoji": "🇵🇷",
+    "key": "flag_pr"
+  },
+  "ps": {
+    "name": "PS国旗",
+    "emoji": "🇵🇸",
+    "key": "flag_ps"
+  },
+  "pt": {
+    "name": "PT国旗",
+    "emoji": "🇵🇹",
+    "key": "flag_pt"
+  },
+  "pw": {
+    "name": "PW国旗",
+    "emoji": "🇵🇼",
+    "key": "flag_pw"
+  },
+  "py": {
+    "name": "PY国旗",
+    "emoji": "🇵🇾",
+    "key": "flag_py"
+  },
+  "qa": {
+    "name": "QA国旗",
+    "emoji": "🇶🇦",
+    "key": "flag_qa"
+  },
+  "re": {
+    "name": "RE国旗",
+    "emoji": "🇷🇪",
+    "key": "flag_re"
+  },
+  "ro": {
+    "name": "RO国旗",
+    "emoji": "🇷🇴",
+    "key": "flag_ro"
+  },
+  "rs": {
+    "name": "RS国旗",
+    "emoji": "🇷🇸",
+    "key": "flag_rs"
+  },
+  "ru": {
+    "name": "RU国旗",
+    "emoji": "🇷🇺",
+    "key": "flag_ru"
+  },
+  "rw": {
+    "name": "RW国旗",
+    "emoji": "🇷🇼",
+    "key": "flag_rw"
+  },
+  "sa": {
+    "name": "SA国旗",
+    "emoji": "🇸🇦",
+    "key": "flag_sa"
+  },
+  "sb": {
+    "name": "SB国旗",
+    "emoji": "🇸🇧",
+    "key": "flag_sb"
+  },
+  "sc": {
+    "name": "SC国旗",
+    "emoji": "🇸🇨",
+    "key": "flag_sc"
+  },
+  "sd": {
+    "name": "SD国旗",
+    "emoji": "🇸🇩",
+    "key": "flag_sd"
+  },
+  "se": {
+    "name": "SE国旗",
+    "emoji": "🇸🇪",
+    "key": "flag_se"
+  },
+  "sg": {
+    "name": "SG国旗",
+    "emoji": "🇸🇬",
+    "key": "flag_sg"
+  },
+  "sh-ac": {
+    "name": "SH-AC国旗",
+    "emoji": "🏳️",
+    "key": "flag_sh-ac"
+  },
+  "sh-hl": {
+    "name": "SH-HL国旗",
+    "emoji": "🏳️",
+    "key": "flag_sh-hl"
+  },
+  "sh-ta": {
+    "name": "SH-TA国旗",
+    "emoji": "🏳️",
+    "key": "flag_sh-ta"
+  },
+  "sh": {
+    "name": "SH国旗",
+    "emoji": "🇸🇭",
+    "key": "flag_sh"
+  },
+  "si": {
+    "name": "SI国旗",
+    "emoji": "🇸🇮",
+    "key": "flag_si"
+  },
+  "sj": {
+    "name": "SJ国旗",
+    "emoji": "🇸🇯",
+    "key": "flag_sj"
+  },
+  "sk": {
+    "name": "SK国旗",
+    "emoji": "🇸🇰",
+    "key": "flag_sk"
+  },
+  "sl": {
+    "name": "SL国旗",
+    "emoji": "🇸🇱",
+    "key": "flag_sl"
+  },
+  "sm": {
+    "name": "SM国旗",
+    "emoji": "🇸🇲",
+    "key": "flag_sm"
+  },
+  "sn": {
+    "name": "SN国旗",
+    "emoji": "🇸🇳",
+    "key": "flag_sn"
+  },
+  "so": {
+    "name": "SO国旗",
+    "emoji": "🇸🇴",
+    "key": "flag_so"
+  },
+  "sr": {
+    "name": "SR国旗",
+    "emoji": "🇸🇷",
+    "key": "flag_sr"
+  },
+  "ss": {
+    "name": "SS国旗",
+    "emoji": "🇸🇸",
+    "key": "flag_ss"
+  },
+  "st": {
+    "name": "ST国旗",
+    "emoji": "🇸🇹",
+    "key": "flag_st"
+  },
+  "sv": {
+    "name": "SV国旗",
+    "emoji": "🇸🇻",
+    "key": "flag_sv"
+  },
+  "sx": {
+    "name": "SX国旗",
+    "emoji": "🇸🇽",
+    "key": "flag_sx"
+  },
+  "sy": {
+    "name": "SY国旗",
+    "emoji": "🇸🇾",
+    "key": "flag_sy"
+  },
+  "sz": {
+    "name": "SZ国旗",
+    "emoji": "🇸🇿",
+    "key": "flag_sz"
+  },
+  "tc": {
+    "name": "TC国旗",
+    "emoji": "🇹🇨",
+    "key": "flag_tc"
+  },
+  "td": {
+    "name": "TD国旗",
+    "emoji": "🇹🇩",
+    "key": "flag_td"
+  },
+  "tf": {
+    "name": "TF国旗",
+    "emoji": "🇹🇫",
+    "key": "flag_tf"
+  },
+  "tg": {
+    "name": "TG国旗",
+    "emoji": "🇹🇬",
+    "key": "flag_tg"
+  },
+  "th": {
+    "name": "TH国旗",
+    "emoji": "🇹🇭",
+    "key": "flag_th"
+  },
+  "tj": {
+    "name": "TJ国旗",
+    "emoji": "🇹🇯",
+    "key": "flag_tj"
+  },
+  "tk": {
+    "name": "TK国旗",
+    "emoji": "🇹🇰",
+    "key": "flag_tk"
+  },
+  "tl": {
+    "name": "TL国旗",
+    "emoji": "🇹🇱",
+    "key": "flag_tl"
+  },
+  "tm": {
+    "name": "TM国旗",
+    "emoji": "🇹🇲",
+    "key": "flag_tm"
+  },
+  "tn": {
+    "name": "TN国旗",
+    "emoji": "🇹🇳",
+    "key": "flag_tn"
+  },
+  "to": {
+    "name": "TO国旗",
+    "emoji": "🇹🇴",
+    "key": "flag_to"
+  },
+  "tr": {
+    "name": "TR国旗",
+    "emoji": "🇹🇷",
+    "key": "flag_tr"
+  },
+  "tt": {
+    "name": "TT国旗",
+    "emoji": "🇹🇹",
+    "key": "flag_tt"
+  },
+  "tv": {
+    "name": "TV国旗",
+    "emoji": "🇹🇻",
+    "key": "flag_tv"
+  },
+  "tw": {
+    "name": "TW国旗",
+    "emoji": "🇹🇼",
+    "key": "flag_tw"
+  },
+  "tz": {
+    "name": "TZ国旗",
+    "emoji": "🇹🇿",
+    "key": "flag_tz"
+  },
+  "ua": {
+    "name": "UA国旗",
+    "emoji": "🇺🇦",
+    "key": "flag_ua"
+  },
+  "ug": {
+    "name": "UG国旗",
+    "emoji": "🇺🇬",
+    "key": "flag_ug"
+  },
+  "um": {
+    "name": "UM国旗",
+    "emoji": "🇺🇲",
+    "key": "flag_um"
+  },
+  "un": {
+    "name": "UN国旗",
+    "emoji": "🏳️",
+    "key": "flag_un"
+  },
+  "us": {
+    "name": "US国旗",
+    "emoji": "🇺🇸",
+    "key": "flag_us"
+  },
+  "uy": {
+    "name": "UY国旗",
+    "emoji": "🇺🇾",
+    "key": "flag_uy"
+  },
+  "uz": {
+    "name": "UZ国旗",
+    "emoji": "🇺🇿",
+    "key": "flag_uz"
+  },
+  "va": {
+    "name": "VA国旗",
+    "emoji": "🇻🇦",
+    "key": "flag_va"
+  },
+  "vc": {
+    "name": "VC国旗",
+    "emoji": "🇻🇨",
+    "key": "flag_vc"
+  },
+  "ve": {
+    "name": "VE国旗",
+    "emoji": "🇻🇪",
+    "key": "flag_ve"
+  },
+  "vg": {
+    "name": "VG国旗",
+    "emoji": "🇻🇬",
+    "key": "flag_vg"
+  },
+  "vi": {
+    "name": "VI国旗",
+    "emoji": "🇻🇮",
+    "key": "flag_vi"
+  },
+  "vn": {
+    "name": "VN国旗",
+    "emoji": "🇻🇳",
+    "key": "flag_vn"
+  },
+  "vu": {
+    "name": "VU国旗",
+    "emoji": "🇻🇺",
+    "key": "flag_vu"
+  },
+  "wf": {
+    "name": "WF国旗",
+    "emoji": "🇼🇫",
+    "key": "flag_wf"
+  },
+  "ws": {
+    "name": "WS国旗",
+    "emoji": "🇼🇸",
+    "key": "flag_ws"
+  },
+  "xk": {
+    "name": "XK国旗",
+    "emoji": "🏳️",
+    "key": "flag_xk"
+  },
+  "xx": {
+    "name": "XX国旗",
+    "emoji": "🏳️",
+    "key": "flag_xx"
+  },
+  "ye": {
+    "name": "YE国旗",
+    "emoji": "🇾🇪",
+    "key": "flag_ye"
+  },
+  "yt": {
+    "name": "YT国旗",
+    "emoji": "🇾🇹",
+    "key": "flag_yt"
+  },
+  "za": {
+    "name": "ZA国旗",
+    "emoji": "🇿🇦",
+    "key": "flag_za"
+  },
+  "zm": {
+    "name": "ZM国旗",
+    "emoji": "🇿🇲",
+    "key": "flag_zm"
+  },
+  "zw": {
+    "name": "ZW国旗",
+    "emoji": "🇿🇼",
+    "key": "flag_zw"
+  }
+}

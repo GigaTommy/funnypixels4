@@ -1,0 +1,105 @@
+{
+  "environment": "production",
+  "api": {
+    "baseUrl": "https://api.funnypixels.com",
+    "wsUrl": "wss://api.funnypixels.com/ws/tile-updates",
+    "timeout": 30000,
+    "retries": 3
+  },
+  "load_test": {
+    "gradual_ramp": {
+      "start_vus": 0,
+      "max_vus": 5000,
+      "ramp_duration": "30m",
+      "stages": [
+        {"duration": "5m", "target": 100},
+        {"duration": "5m", "target": 100},
+        {"duration": "5m", "target": 500},
+        {"duration": "5m", "target": 500},
+        {"duration": "5m", "target": 1000},
+        {"duration": "5m", "target": 1000},
+        {"duration": "5m", "target": 2000},
+        {"duration": "5m", "target": 2000},
+        {"duration": "5m", "target": 5000},
+        {"duration": "10m", "target": 5000},
+        {"duration": "5m", "target": 0}
+      ]
+    },
+    "spike_test": {
+      "baseline_vus": 200,
+      "spike_multiplier": 5,
+      "spike_duration": "2m"
+    },
+    "soak_test": {
+      "target_vus": 1000,
+      "duration_hours": 4
+    },
+    "websocket": {
+      "max_connections": 10000,
+      "rooms": 100,
+      "messages_per_second": 10000
+    }
+  },
+  "thresholds": {
+    "success_rate": {
+      "min": 0.98,
+      "target": 0.995
+    },
+    "latency": {
+      "p50": 200,
+      "p95": 500,
+      "p99": 1000,
+      "max": 5000
+    },
+    "error_rate": {
+      "max": 0.02
+    }
+  },
+  "monitoring": {
+    "prometheus": {
+      "enabled": true,
+      "url": "http://prometheus.funnypixels.com:9090"
+    },
+    "grafana": {
+      "enabled": true,
+      "url": "http://grafana.funnypixels.com:3000"
+    },
+    "alerting": {
+      "enabled": true,
+      "slack_webhook": "${SLACK_WEBHOOK_URL}",
+      "email": "ops@funnypixels.com"
+    }
+  },
+  "database": {
+    "pool_size": {
+      "min": 20,
+      "max": 200
+    },
+    "query_timeout": 10000,
+    "slow_query_threshold": 1000
+  },
+  "redis": {
+    "max_memory": "8GB",
+    "eviction_policy": "allkeys-lru",
+    "max_connections": 1000
+  },
+  "test_data": {
+    "users_count": 10000,
+    "region": {
+      "beijing": {"lat": [39.88, 39.92], "lng": [116.38, 116.42]},
+      "shanghai": {"lat": [31.22, 31.26], "lng": [121.47, 121.51]},
+      "guangzhou": {"lat": [23.11, 23.15], "lng": [113.24, 113.28]},
+      "international": {"lat": [-85, 85], "lng": [-180, 180]}
+    },
+    "user_distribution": {
+      "casual": 0.60,
+      "active": 0.30,
+      "artist": 0.10
+    }
+  },
+  "reporting": {
+    "output_format": ["json", "html"],
+    "retention_days": 90,
+    "comparison_baseline": "latest_stable"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "auth": {
+    "registerSuccess": "Registration successful",
+    "loginSuccess": "Login successful",
+    "logoutSuccess": "Logout successful",
+    "passwordChanged": "Password changed successfully",
+    "profileUpdated": "Profile updated successfully",
+    "verificationCodeSent": "Verification code sent",
+    "emailVerified": "Email verified successfully",
+    "phoneVerified": "Phone verified successfully"
+  },
+  "pixel": {
+    "created": "Pixel created successfully",
+    "updated": "Pixel updated successfully",
+    "deleted": "Pixel deleted successfully",
+    "batchCreated": "Batch created successfully, {{count}} pixels"
+  },
+  "user": {
+    "created": "User created successfully",
+    "updated": "User updated successfully",
+    "deleted": "User deleted successfully"
+  },
+  "alliance": {
+    "created": "Alliance created successfully",
+    "joined": "Joined alliance successfully",
+    "left": "Left alliance successfully",
+    "updated": "Alliance updated successfully",
+    "deleted": "Alliance disbanded successfully",
+    "memberInvited": "Member invited successfully",
+    "memberRemoved": "Member removed successfully"
+  },
+  "upload": {
+    "success": "File uploaded successfully",
+    "imageUploaded": "Image uploaded successfully"
+  },
+  "general": {
+    "operationSuccess": "Operation successful",
+    "saveSuccess": "Saved successfully",
+    "deleteSuccess": "Deleted successfully",
+    "updateSuccess": "Updated successfully"
+  }
+}

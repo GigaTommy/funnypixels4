@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-09-09T16:52:59.336Z",
+  "originalSize": 118,
+  "rleSize": 63873,
+  "compressionRatio": "-54029.66",
+  "encoding": "rle",
+  "renderType": "complex",
+  "pixelCount": 1024,
+  "rleSegments": 1024,
+  "colorFeatures": {
+    "dominantColors": [],
+    "averageColor": "#808080",
+    "totalColors": 0,
+    "totalPixels": 0
+  }
+}

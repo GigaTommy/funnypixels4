@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FunnyPixels API Endpoints",
+  "description": "统一的 API 端点定义，供所有前端使用",
+  "version": "1.0.0",
+  "endpoints": {
+    "auth": {
+      "login": "/auth/login",
+      "register": "/auth",
+      "refreshToken": "/auth/refresh",
+      "logout": "/auth/logout",
+      "me": "/auth/me",
+      "profile": "/auth/profile",
+      "stats": "/auth/stats",
+      "delete": "/auth/delete",
+      "changePassword": "/auth/change-password",
+      "sendCode": "/auth/send-code",
+      "verifyCode": "/auth/verify-code"
+    },
+    "pixels": {
+      "list": "/pixels",
+      "create": "/pixels",
+      "update": "/pixels",
+      "delete": "/pixels",
+      "area": "/pixels/area",
+      "details": "/pixels/details",
+      "report": "/pixels/report"
+    },
+    "store": {
+      "items": "/store/items",
+      "inventory": "/store/inventory",
+      "purchase": "/store/purchase",
+      "use": "/store/use",
+      "points": "/store/points",
+      "flagPatterns": "/store/flag-patterns"
+    },
+    "pixelsHistory": {
+      "user": "/pixels-history/user",
+      "userStats": "/pixels-history/user/stats",
+      "location": "/pixels-history/location",
+      "regionStats": "/pixels-history/region/stats",
+      "statsOverview": "/pixels-history/stats/overview"
+    },
+    "user": {
+      "availablePixels": "/user/pixels/available"
+    },
+    "alliances": {
+      "userAlliances": "/alliances/user/alliances",
+      "public": "/alliances/public",
+      "search": "/alliances/search",
+      "create": "/alliances",
+      "update": "/alliances/{id}",
+      "disband": "/alliances/{id}/disband",
+      "join": "/alliances/{id}/join",
+      "leave": "/alliances/leave",
+      "apply": "/alliances/{id}/apply",
+      "applications": "/alliances/{id}/applications",
+      "reviewApplication": "/alliances/review-application",
+      "kickMember": "/alliances/{id}/kick-member",
+      "updateMemberRole": "/alliances/{id}/update-member-role",
+      "transferLeadership": "/alliances/{id}/transfer-leadership",
+      "generateInvite": "/alliances/generate-invite",
+      "joinByInvite": "/alliances/join-by-invite",
+      "invites": "/alliances/{id}/invites",
+      "deleteInvite": "/alliances/invites/{inviteId}",
+      "members": "/alliances/{id}/members",
+      "flagPatterns": "/alliances/flag-patterns"
+    },
+    "leaderboard": {
+      "personal": "/leaderboard/personal",
+      "alliance": "/leaderboard/alliance",
+      "region": "/leaderboard/region",
+      "like": "/leaderboard/like",
+      "unlike": "/leaderboard/unlike",
+      "userRank": "/leaderboard/user-rank"
+    },
+    "geographic": {
+      "regions": "/geographic/regions"
+    }
+  }
+}
+
+

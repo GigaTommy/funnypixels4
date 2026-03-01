@@ -1,0 +1,41 @@
+# 从 modood/administrative-divisions-of-China 下载中国行政区划数据
+# 请在 backend/data 目录下执行以下命令
+
+# 创建数据目录
+mkdir data
+cd data
+
+# 1. 省级行政区划数据 (31个)
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/provinces.json" -OutFile "provinces.json"
+
+# 2. 地级行政区划数据 (342个)
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/cities.json" -OutFile "cities.json"
+
+# 3. 县级行政区划数据 (2978个)
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/areas.json" -OutFile "areas.json"
+
+# 4. 乡级行政区划数据 (41352个)
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/streets.json" -OutFile "streets.json"
+
+# 5. 村级行政区划数据 (约50万个)
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/villages.json" -OutFile "villages.json"
+
+# 6. 联动数据 - 省份城市二级联动
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/pc.json" -OutFile "pc.json"
+
+# 7. 联动数据 - 省份城市区县三级联动
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/pca.json" -OutFile "pca.json"
+
+# 8. 联动数据 - 省份城市区县乡镇四级联动
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/pcas.json" -OutFile "pcas.json"
+
+# 9. 带编码的联动数据
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/pc-code.json" -OutFile "pc-code.json"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/pca-code.json" -OutFile "pca-code.json"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/modood/Administrative-divisions-of-China/master/dist/pcas-code.json" -OutFile "pcas-code.json"
+
+# 验证下载结果
+Get-ChildItem *.json | Select-Object Name, @{Name="Size(KB)";Expression={[math]::Round($_.Length/1KB,2)}}
+
+# 返回上级目录
+cd ..

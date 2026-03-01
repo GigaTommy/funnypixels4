@@ -1,0 +1,72 @@
+{
+  "name": "funnypixels-loadtest",
+  "version": "2.0.0",
+  "description": "FunnyPixels production-grade load testing suite",
+  "scripts": {
+    "test:draw": "k6 run --vus 100 --duration 5m k6/canvas-draw-load.js",
+    "test:websocket": "k6 run --vus 200 --duration 5m k6/canvas-websocket-load.js",
+    "test:artillery": "artillery run artillery/canvas-scenario.yml",
+    "test:artillery:report": "artillery run --output report.json artillery/canvas-scenario.yml && artillery report report.json",
+    "test:simulator": "node scripts/realistic-user-simulator.js --users 100 --duration 600",
+    "test:gradual": "k6 run --out json=reports/gradual-$(date +%Y%m%d-%H%M%S).json k6/advanced/gradual-ramp-up.js",
+    "test:spike": "k6 run --out json=reports/spike-$(date +%Y%m%d-%H%M%S).json k6/advanced/spike-test.js",
+    "test:soak": "k6 run --out json=reports/soak-$(date +%Y%m%d-%H%M%S).json k6/advanced/soak-test.js",
+    "test:stress": "k6 run --out json=reports/stress-$(date +%Y%m%d-%H%M%S).json k6/advanced/stress-test.js",
+    "test:stress-10k": "k6 run --out json=reports/stress-10k-$(date +%Y%m%d-%H%M%S).json k6/stress-10k-mixed.js",
+    "test:stress-10k-smoke": "k6 run --env SMOKE=true k6/stress-10k-mixed.js",
+    "test:stress-10k-full": "k6 run --env FULL_SCALE=true --out json=reports/stress-10k-full-$(date +%Y%m%d-%H%M%S).json k6/stress-10k-mixed.js",
+    "test:capacity": "k6 run --out json=reports/capacity-$(date +%Y%m%d-%H%M%S).json k6/advanced/capacity-planning.js",
+    "test:journey": "k6 run --vus 100 --duration 10m --out json=reports/journey-$(date +%Y%m%d-%H%M%S).json k6/advanced/realistic-user-journey.js",
+    "test:ws-limit": "k6 run --vus 1000 --duration 10m --out json=reports/ws-limit-$(date +%Y%m%d-%H%M%S).json k6/websocket/ws-connection-limit.js",
+    "test:ws-broadcast": "k6 run --vus 1000 --duration 10m --out json=reports/ws-broadcast-$(date +%Y%m%d-%H%M%S).json k6/websocket/ws-broadcast-latency.js",
+    "test:mixed": "node scenarios/mixed-traffic-simulator.js --users 100 --duration 600 --output reports/mixed-$(date +%Y%m%d-%H%M%S).json",
+    "test:pre-deploy": "bash ci/pre-deployment-test.sh staging 95",
+    "test:pre-deploy:prod": "bash ci/pre-deployment-test.sh production 98",
+    "generate:users": "node scripts/generate-test-users.js --count 1000",
+    "generate:users:sql": "node scripts/generate-test-users.js --count 1000 --db-insert",
+    "generate:users:large": "node scripts/generate-test-users.js --count 10000",
+    "cleanup": "node scripts/cleanup-test-data.js --prefix load_test_ --dry-run",
+    "cleanup:confirm": "node scripts/cleanup-test-data.js --prefix load_test_ --confirm",
+
+    "test:ws-reconnect": "k6 run --out json=reports/ws-reconnect-$(date +%Y%m%d-%H%M%S).json k6/websocket/ws-reconnect-storm.js",
+    "test:ws-subscribe": "k6 run --out json=reports/ws-subscribe-$(date +%Y%m%d-%H%M%S).json k6/websocket/ws-subscription-pressure.js",
+
+    "test:db-pool": "node database/db-connection-pool.js --concurrency 100 --duration 60",
+    "test:db-writes": "node database/db-concurrent-writes.js --writers 50 --duration 30",
+    "test:redis": "node database/redis-memory-pressure.js --concurrency 50 --duration 30",
+
+    "chaos:latency": "node chaos/network-latency-injection.js --scenario progressive --duration 60",
+    "chaos:failure": "node chaos/service-failure-simulation.js --scenario cascade --duration 120",
+
+    "analyze": "node reporting/performance-analyzer.js",
+    "detect:bottleneck": "node reporting/bottleneck-detector.js --input reports/",
+    "report": "node reporting/report-generator.js",
+    "report:summary": "node ci/auto-report-generator.js --input reports --output reports/summary.html",
+    "regression:check": "node ci/performance-regression-check.js"
+  },
+  "keywords": [
+    "load-testing",
+    "performance",
+    "k6",
+    "artillery",
+    "websocket",
+    "stress-testing"
+  ],
+  "author": "FunnyPixels Team",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "bcryptjs": "^2.4.3",
+    "commander": "^11.1.0",
+    "knex": "^3.0.1",
+    "pg": "^8.11.0",
+    "redis": "^4.6.0",
+    "ws": "^8.14.0"
+  },
+  "devDependencies": {
+    "artillery": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

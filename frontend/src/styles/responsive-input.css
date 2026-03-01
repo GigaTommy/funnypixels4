@@ -1,0 +1,109 @@
+/* 响应式输入框CSS变量 */
+:root {
+  /* 基础设置 */
+  --input-width: 100%;
+  --input-max-width: 100%;
+  --input-box-sizing: border-box;
+  
+  /* 响应式内边距 - 左侧 */
+  --input-padding-left-xs: 64px;    /* 16 * 4 = 64px */
+  --input-padding-left-sm: 80px;    /* 20 * 4 = 80px */
+  --input-padding-left-md: 96px;    /* 24 * 4 = 96px */
+  --input-padding-left-lg: 112px;   /* 28 * 4 = 112px */
+  --input-padding-left-xl: 128px;   /* 32 * 4 = 128px */
+  --input-padding-left-2xl: 144px;  /* 36 * 4 = 144px */
+  
+  /* 响应式内边距 - 右侧 */
+  --input-padding-right-xs: 64px;   /* 16 * 4 = 64px */
+  --input-padding-right-sm: 80px;   /* 20 * 4 = 80px */
+  --input-padding-right-md: 96px;   /* 24 * 4 = 96px */
+  --input-padding-right-lg: 112px;  /* 28 * 4 = 112px */
+  --input-padding-right-xl: 128px;  /* 32 * 4 = 128px */
+  --input-padding-right-2xl: 144px; /* 36 * 4 = 144px */
+  
+  /* 响应式按钮位置 - 左侧 */
+  --button-left-xs: 16px;   /* 4 * 4 = 16px */
+  --button-left-sm: 20px;   /* 5 * 4 = 20px */
+  --button-left-md: 24px;   /* 6 * 4 = 24px */
+  --button-left-lg: 32px;   /* 8 * 4 = 32px */
+  --button-left-xl: 40px;   /* 10 * 4 = 40px */
+  --button-left-2xl: 48px;  /* 12 * 4 = 48px */
+}
+
+/* 响应式断点设置 */
+@media (min-width: 640px) { /* sm */
+  :root {
+    --input-padding-left: var(--input-padding-left-sm);
+    --input-padding-right: var(--input-padding-right-sm);
+    --button-left: var(--button-left-sm);
+  }
+}
+
+@media (min-width: 768px) { /* md */
+  :root {
+    --input-padding-left: var(--input-padding-left-md);
+    --input-padding-right: var(--input-padding-right-md);
+    --button-left: var(--button-left-md);
+  }
+}
+
+@media (min-width: 1024px) { /* lg */
+  :root {
+    --input-padding-left: var(--input-padding-left-lg);
+    --input-padding-right: var(--input-padding-right-lg);
+    --button-left: var(--button-left-lg);
+  }
+}
+
+@media (min-width: 1280px) { /* xl */
+  :root {
+    --input-padding-left: var(--input-padding-left-xl);
+    --input-padding-right: var(--input-padding-right-xl);
+    --button-left: var(--button-left-xl);
+  }
+}
+
+@media (min-width: 1536px) { /* 2xl */
+  :root {
+    --input-padding-left: var(--input-padding-left-2xl);
+    --input-padding-right: var(--input-padding-right-2xl);
+    --button-left: var(--button-left-2xl);
+  }
+}
+
+/* 默认值（xs及以下） */
+:root {
+  --input-padding-left: var(--input-padding-left-xs);
+  --input-padding-right: var(--input-padding-right-xs);
+  --button-left: var(--button-left-xs);
+}
+
+/* 响应式输入框样式 */
+.responsive-input {
+  width: var(--input-width);
+  max-width: var(--input-max-width);
+  box-sizing: var(--input-box-sizing);
+  padding-left: var(--input-padding-left);
+  padding-right: var(--input-padding-right);
+}
+
+/* 响应式按钮容器 */
+.responsive-button-container {
+  left: var(--button-left);
+}
+
+/* 视口宽度适配 */
+.viewport-adaptive {
+  width: 100vw;
+  max-width: 100vw;
+  padding-left: 6vw;  /* 视口宽度的6% */
+  padding-right: 6vw; /* 视口宽度的6% */
+}
+
+/* 容器宽度适配 */
+.container-adaptive {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 8%;   /* 容器宽度的8% */
+  padding-right: 8%;  /* 容器宽度的8% */
+}

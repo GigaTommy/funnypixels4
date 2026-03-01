@@ -1,0 +1,91 @@
+{
+  "_description": "FunnyPixels 性能基线数据 - 用于回归检测和容量规划",
+  "_updated": "2026-02-25",
+  "_environment": "development",
+  "_note": "实际值需要在首次测试后用真实数据替换",
+
+  "api_endpoints": {
+    "GET /api/health": {
+      "p50": 5,
+      "p95": 15,
+      "p99": 30,
+      "target_rps": 1000
+    },
+    "GET /api/pixels/tile/:z/:x/:y": {
+      "p50": 50,
+      "p95": 150,
+      "p99": 300,
+      "target_rps": 500
+    },
+    "POST /api/pixels": {
+      "p50": 80,
+      "p95": 200,
+      "p99": 500,
+      "target_rps": 200
+    },
+    "POST /api/pixels/batch": {
+      "p50": 150,
+      "p95": 400,
+      "p99": 800,
+      "target_rps": 100
+    },
+    "GET /api/leaderboard/personal": {
+      "p50": 30,
+      "p95": 100,
+      "p99": 200,
+      "target_rps": 200
+    },
+    "GET /api/auth/me": {
+      "p50": 20,
+      "p95": 60,
+      "p99": 120,
+      "target_rps": 300
+    }
+  },
+
+  "websocket": {
+    "connection_time_p95": 200,
+    "max_concurrent_connections": 5000,
+    "broadcast_latency_p95": 100,
+    "message_throughput_per_second": 10000
+  },
+
+  "database": {
+    "connection_pool": {
+      "recommended_min": 5,
+      "recommended_max": 50,
+      "max_wait_time": 5000
+    },
+    "queries": {
+      "simple_select_p95": 5,
+      "pixel_area_query_p95": 50,
+      "write_operation_p95": 30,
+      "batch_write_p95": 100
+    }
+  },
+
+  "redis": {
+    "set_p95": 2,
+    "get_p95": 1,
+    "pubsub_latency_p95": 5,
+    "max_memory_usage": "2GB",
+    "target_hit_rate": 0.85
+  },
+
+  "system_capacity": {
+    "max_safe_vus": 1000,
+    "max_safe_rps": 5000,
+    "recommended_limit_vus": 700,
+    "degradation_threshold_vus": 1500,
+    "failure_threshold_vus": 3000
+  },
+
+  "slo": {
+    "availability": 0.995,
+    "latency_p50_ms": 200,
+    "latency_p95_ms": 500,
+    "latency_p99_ms": 1000,
+    "error_rate_max": 0.02,
+    "draw_success_rate_min": 0.95
+  }
+}

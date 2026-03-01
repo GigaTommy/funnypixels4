@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Test data
+data/*.json
+data/*.csv
+data/*.sql
+
+# Test reports
+reports/*.json
+reports/*.html
+reports/*.xml
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《有趣的像素》用户使用协议 - FunnyPixels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'SimSun', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1890ff;
+            cursor: default;
+        }
+
+        .back-btn {
+            background: #1890ff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #40a9ff;
+            box-shadow: 0 2px 8px rgba(24,144,255,0.3);
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        .content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 48px;
+        }
+
+        .doc-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #000;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .effective-date {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .intro {
+            text-align: justify;
+            margin-bottom: 32px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #1890ff;
+            border-radius: 4px;
+            line-height: 2;
+        }
+
+        .section {
+            margin-bottom: 36px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 32px 0 20px 0;
+            color: #000;
+            padding-left: 12px;
+            border-left: 5px solid #1890ff;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0 12px 0;
+            color: #333;
+        }
+
+        .content p {
+            margin-bottom: 16px;
+            text-align: justify;
+            text-indent: 0;
+        }
+
+        .content ul {
+            margin: 12px 0 16px 0;
+            padding-left: 24px;
+            list-style: none;
+        }
+
+        .content ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+            text-align: justify;
+        }
+
+        .content ul li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #1890ff;
+            font-weight: bold;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+            margin: 32px 0;
+        }
+
+        .highlight-box {
+            background: #fff7e6;
+            border-left: 4px solid #faad14;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .contact-info {
+            background: #f0f5ff;
+            padding: 24px;
+            border-radius: 8px;
+            margin-top: 32px;
+        }
+
+        .contact-info h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #1890ff;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-info ul li {
+            padding: 8px 0;
+            padding-left: 0;
+        }
+
+        .contact-info ul li:before {
+            display: none;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid #f0f0f0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .emoji {
+            font-style: normal;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 16px;
+            }
+
+            .container {
+                padding: 20px 16px 40px;
+            }
+
+            .content {
+                padding: 24px 20px;
+            }
+
+            .doc-title {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <span class="logo">有趣的像素</span>
+            <a href="javascript:void(0)" onclick="handleBack()" class="back-btn">返回</a>
+        </div>
+    </div>
+
+    <script>
+        function handleBack() {
+            // 检查是否有浏览器历史记录
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // 没有历史记录，尝试关闭窗口
+                window.close();
+                // 如果窗口无法关闭（浏览器可能阻止），显示提示
+                setTimeout(() => {
+                    if (!window.closed) {
+                        alert('请关闭此标签页');
+                    }
+                }, 100);
+            }
+        }
+    </script>
+
+    <div class="container">
+        <div class="content">
+            <h1 class="doc-title">《有趣的像素》用户使用协议</h1>
+            <div class="effective-date">生效日期：2025年10月30日</div>
+
+            <div class="intro">
+                <p>欢迎使用 <strong>《有趣的像素》</strong>（以下简称"本平台"或"我们"）提供的像素创作与分享服务。</p>
+                <p>在您注册账号、访问网站（如 <strong>https://funnypixels.live</strong>）或使用我们的移动应用程序（iOS/Android）前，请务必仔细阅读并充分理解本《用户使用协议》（以下简称"本协议"）全部内容。</p>
+                <p><strong>一旦您点击"同意"、完成注册流程、或以任何方式使用本平台服务，即视为您已完全接受本协议所有条款。</strong></p>
+                <p>如您不同意本协议任何内容，请立即停止使用本平台服务。</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">一、服务内容说明</h2>
+                <p><strong>1.1</strong> 《有趣的像素》 是一个允许用户创建、编辑、分享像素艺术作品的在线平台，提供网页端及移动端应用服务。</p>
+                <p><strong>1.2</strong> 我们可能根据业务发展需要，不时更新、调整或终止部分功能，恕不另行通知，但会尽量保障您的核心权益。</p>
+                <p><strong>1.3</strong> 您理解并同意：本平台不保证服务永不中断、无错误或绝对安全，但我们将尽合理努力保障服务稳定性。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">二、用户资格与账号管理</h2>
+                <p><strong>2.1</strong> 您确认：</p>
+                <ul>
+                    <li>已年满 <strong>14 周岁</strong>；</li>
+                    <li>若未满 18 周岁，需在监护人知情并同意下使用本服务；</li>
+                    <li>不属于法律法规禁止使用网络服务的主体。</li>
+                </ul>
+                <p><strong>2.2</strong> 您应提供真实、准确、完整的注册信息（如手机号、邮箱），并及时更新。因信息不实导致的损失由您自行承担。</p>
+                <p><strong>2.3</strong> 您有义务妥善保管账号与密码，对账号下的一切行为承担法律责任。如发现账号被盗用，请立即联系我们冻结账号。</p>
+                <p><strong>2.4</strong> 您不得：</p>
+                <ul>
+                    <li>出租、出借、转让账号；</li>
+                    <li>使用自动化脚本批量操作；</li>
+                    <li>冒充他人或虚构身份。</li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">三、用户内容规范</h2>
+                <p><strong>3.1</strong> 您在本平台上传、发布、分享的所有内容（包括像素作品、评论、昵称等），其知识产权归您所有，但您授予 《有趣的像素》 全球性、免费、可再许可的使用权，用于提供、优化及推广本服务（如展示、缓存、分发、技术分析等）。</p>
+                <p><strong>3.2</strong> 您承诺对所发布内容拥有完整合法权利，且不侵犯他人知识产权、肖像权、隐私权等合法权益。</p>
+                <p><strong>3.3</strong> 您不得发布以下内容：</p>
+                <ul>
+                    <li>违反宪法基本原则或危害国家主权、安全的内容；</li>
+                    <li>涉及恐怖主义、极端主义、色情、暴力、赌博、诈骗的信息；</li>
+                    <li>侮辱、诽谤他人，侵害他人名誉权、隐私权的内容；</li>
+                    <li>未经许可的广告、营销、引流信息；</li>
+                    <li>侵犯第三方知识产权（如盗用他人像素作品）；</li>
+                    <li>其他违反法律法规或公序良俗的内容。</li>
+                </ul>
+                <p><strong>3.4</strong> 我们有权对违规内容采取删除、屏蔽、断开链接等措施，并视情节对账号警告、限制功能、封禁，且不退还已支付费用（如有）。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">四、隐私与个人信息保护</h2>
+                <p><strong>4.1</strong> 我们高度重视您的个人信息安全，将严格按照《<有趣的像素>隐私政策》（另行公布）处理您的信息。</p>
+                <p><strong>4.2</strong> 您理解：为提供短信验证码登录、防刷风控等服务，我们需收集您的手机号码，该信息仅用于身份验证与安全防护。</p>
+                <p><strong>4.3</strong> 未经您同意，我们不会向任何第三方出售或共享您的个人信息，但以下情形除外：</p>
+                <ul>
+                    <li>法律法规要求；</li>
+                    <li>司法机关依法调取；</li>
+                    <li>为履行合同所必需（如支付服务商）；</li>
+                    <li>经您明确授权。</li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">五、知识产权声明</h2>
+                <p><strong>5.1</strong> 《有趣的像素》 的软件、界面设计、商标、LOGO、数据库、技术架构等一切权益归我们或其许可方所有，受《著作权法》《商标法》等保护。</p>
+                <p><strong>5.2</strong> 未经书面许可，您不得对本平台进行反向工程、反编译、抓取数据、爬虫采集等行为。</p>
+                <p><strong>5.3</strong> 您不得利用本平台服务从事任何侵犯我们或第三方知识产权的行为。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">六、免责与责任限制</h2>
+                <p><strong>6.1</strong> 在法律允许的最大范围内，《有趣的像素》 不对以下情况承担责任：</p>
+                <ul>
+                    <li>因不可抗力（如地震、断网、政策调整）导致的服务中断；</li>
+                    <li>因您自身设备、网络问题导致的使用异常；</li>
+                    <li>因您违反本协议导致的账号损失或内容删除；</li>
+                    <li>第三方通过非官方渠道提供的服务或链接造成的损失。</li>
+                </ul>
+                <p><strong>6.2</strong> 本平台不保证用户内容的真实性、准确性或合法性，相关责任由发布者自行承担。</p>
+                <p><strong>6.3</strong> 在任何情况下，我们的累计赔偿责任不超过您就相关服务实际支付的费用（如有）。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">七、协议修改与终止</h2>
+                <p><strong>7.1</strong> 我们有权根据法律法规变化或业务需要更新本协议。更新后将通过网站公告、站内信等方式通知，若您继续使用服务，视为接受修改。</p>
+                <p><strong>7.2</strong> 您可随时注销账号停止使用服务。</p>
+                <p><strong>7.3</strong> 如您严重违反本协议，我们有权立即终止服务且不退款。</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">八、法律适用与争议解决</h2>
+                <p><strong>8.1</strong> 本协议的订立、执行和解释均适用 <strong>中华人民共和国大陆地区法律</strong>。</p>
+                <p><strong>8.2</strong> 因本协议引起的或与本协议有关的任何争议，双方应友好协商；协商不成的，任何一方均有权提交 《有趣的像素》 运营方所在地有管辖权的人民法院诉讼解决。</p>
+                <div class="highlight-box">
+                    <strong><span class="emoji">📌</span> 运营方所在地：广东省广州市</strong>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">九、其他</h2>
+                <p><strong>9.1</strong> 本协议中未尽事宜，可由双方另行签订补充协议。</p>
+                <p><strong>9.2</strong> 本协议中英文版本如有冲突，以中文版本为准。</p>
+                <p><strong>9.3</strong> 您可通过以下方式联系我们：</p>
+
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <ul>
+                        <li><strong>邮箱：</strong>funnypixels@163.com</li>
+                        <li><strong>客服入口：</strong>平台内"帮助与反馈"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-note">
+                <p><strong>感谢您选择 《有趣的像素》！愿您在这里创作快乐，分享美好。 <span class="emoji">🎨</span></strong></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

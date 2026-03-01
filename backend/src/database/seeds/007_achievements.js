@@ -1,0 +1,375 @@
+// achievements 种子数据
+const createPixelMeta = (rarity, overrides = {}) => ({
+  progress_unit: '像素',
+  cta_label: '前往绘制',
+  cta_link: '/app/map',
+  recommended_action: '在像素画布继续创作，完成更多像素',
+  rarity,
+  ...overrides
+});
+
+const createSocialMeta = (rarity, overrides = {}) => ({
+  progress_unit: '条消息',
+  cta_label: '前往聊天',
+  cta_link: '/chat',
+  recommended_action: '积极在频道互动，提升社交热度',
+  rarity,
+  ...overrides
+});
+
+const createAllianceMeta = (rarity, overrides = {}) => ({
+  progress_unit: '次活动',
+  cta_label: '查看联盟',
+  cta_link: '/alliances',
+  recommended_action: '参加联盟活动积累荣誉值',
+  rarity,
+  ...overrides
+});
+
+const createShopMeta = (rarity, overrides = {}) => ({
+  progress_unit: '次购买',
+  cta_label: '前往商店',
+  cta_link: '/store',
+  recommended_action: '探索新品并完成购买',
+  rarity,
+  ...overrides
+});
+
+const createSpecialMeta = (rarity, overrides = {}) => ({
+  progress_unit: '次',
+  cta_label: '查看详情',
+  cta_link: '/events',
+  recommended_action: '关注限时活动获取更多奖励',
+  rarity,
+  ...overrides
+});
+
+exports.seed = async function(knex) {
+  await knex('achievements').del();
+
+  await knex('achievements').insert([
+    {
+      'id': 145,
+      'name': '像素新手',
+      'description': '绘制第一个像素',
+      'icon_url': '/achievements/pixel_beginner.png',
+      'reward_points': 10,
+      'type': 'milestone',
+      'requirement': 1,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '解锁像素入门徽章，可在个人资料展示' },
+      'metadata': createPixelMeta('common'),
+      'display_priority': 60,
+      'is_active': true,
+      'category': 'pixel',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 146,
+      'name': '像素爱好者',
+      'description': '绘制100个像素',
+      'icon_url': '/achievements/pixel_lover.png',
+      'reward_points': 50,
+      'type': 'milestone',
+      'requirement': 100,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '背包扩容 +10，助你保存更多图案' },
+      'metadata': createPixelMeta('rare', { recommended_action: '尝试完成大型像素图案，快速提升进度' }),
+      'display_priority': 80,
+      'is_active': true,
+      'category': 'pixel',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 147,
+      'name': '像素大师',
+      'description': '绘制1000个像素',
+      'icon_url': '/achievements/pixel_master.png',
+      'reward_points': 200,
+      'type': 'milestone',
+      'requirement': 1000,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '解锁像素大师边框与 50 积分额外奖励' },
+      'metadata': createPixelMeta('epic', { recommended_action: '与好友协作完成巨型作品，迅速提升进度' }),
+      'display_priority': 95,
+      'is_active': true,
+      'category': 'pixel',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 148,
+      'name': '像素传奇',
+      'description': '绘制10000个像素',
+      'icon_url': '/achievements/pixel_legend.png',
+      'reward_points': 1000,
+      'type': 'milestone',
+      'requirement': 10000,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '授予像素传奇称号，全服公告一次' },
+      'metadata': createPixelMeta('legendary', { recommended_action: '参与长期创作计划，逐步累积像素里程碑' }),
+      'display_priority': 100,
+      'is_active': true,
+      'category': 'pixel',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 149,
+      'name': '连续绘制',
+      'description': '连续7天每天至少绘制1个像素',
+      'icon_url': '/achievements/pixel_streak.png',
+      'reward_points': 100,
+      'type': 'repeatable',
+      'requirement': 7,
+      'repeat_cycle': 'daily',
+      'reward_items': [],
+      'reward_details': { 'description': '保留每日连续奖励，可兑换专属图案' },
+      'metadata': createPixelMeta('rare', {
+        progress_unit: '天',
+        cta_label: '查看签到',
+        cta_link: '/daily',
+        recommended_action: '连续签到并绘制像素，保持创作节奏'
+      }),
+      'display_priority': 70,
+      'is_active': true,
+      'category': 'pixel',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 150,
+      'name': '社交新手',
+      'description': '发送第一条聊天消息',
+      'icon_url': '/achievements/social_beginner.png',
+      'reward_points': 10,
+      'type': 'milestone',
+      'requirement': 1,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '解锁社区欢迎表情与昵称高亮' },
+      'metadata': createSocialMeta('common'),
+      'display_priority': 55,
+      'is_active': true,
+      'category': 'social',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 151,
+      'name': '聊天达人',
+      'description': '发送100条聊天消息',
+      'icon_url': '/achievements/chat_expert.png',
+      'reward_points': 50,
+      'type': 'milestone',
+      'requirement': 100,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '获得聊天气泡·银色主题' },
+      'metadata': createSocialMeta('rare'),
+      'display_priority': 65,
+      'is_active': true,
+      'category': 'social',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 152,
+      'name': '社交明星',
+      'description': '发送1000条聊天消息',
+      'icon_url': '/achievements/social_star.png',
+      'reward_points': 200,
+      'type': 'milestone',
+      'requirement': 1000,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '获得聊天气泡·星光主题' },
+      'metadata': createSocialMeta('epic', { recommended_action: '活跃于多个频道，提升社交影响力' }),
+      'display_priority': 85,
+      'is_active': true,
+      'category': 'social',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 153,
+      'name': '私信达人',
+      'description': '发送10条私信',
+      'icon_url': '/achievements/pm_expert.png',
+      'reward_points': 30,
+      'type': 'milestone',
+      'requirement': 10,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '私信解锁贴纸包：密友系列' },
+      'metadata': createSocialMeta('rare', {
+        progress_unit: '条私信',
+        recommended_action: '向好友分享创作灵感，保持互动'
+      }),
+      'display_priority': 60,
+      'is_active': true,
+      'category': 'social',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 154,
+      'name': '联盟新手',
+      'description': '加入第一个联盟',
+      'icon_url': '/achievements/alliance_beginner.png',
+      'reward_points': 20,
+      'type': 'milestone',
+      'requirement': 1,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '解锁联盟成员称号：萌新' },
+      'metadata': createAllianceMeta('common', { progress_unit: '次加入' }),
+      'display_priority': 50,
+      'is_active': true,
+      'category': 'alliance',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 155,
+      'name': '联盟领袖',
+      'description': '创建第一个联盟',
+      'icon_url': '/achievements/alliance_leader.png',
+      'reward_points': 100,
+      'type': 'milestone',
+      'requirement': 1,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '联盟大厅展示卡片 + 领袖特效' },
+      'metadata': createAllianceMeta('epic', { progress_unit: '次创建' }),
+      'display_priority': 90,
+      'is_active': true,
+      'category': 'alliance',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 156,
+      'name': '联盟活跃分子',
+      'description': '在联盟中活跃7天',
+      'icon_url': '/achievements/alliance_active.png',
+      'reward_points': 50,
+      'type': 'repeatable',
+      'requirement': 7,
+      'repeat_cycle': 'weekly',
+      'reward_items': [],
+      'reward_details': { 'description': '领取联盟贡献奖励，提升贡献度' },
+      'metadata': createAllianceMeta('rare', {
+        progress_unit: '天',
+        recommended_action: '连续参与联盟签到与任务，累计活跃天数'
+      }),
+      'display_priority': 75,
+      'is_active': true,
+      'category': 'alliance',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 157,
+      'name': '购物新手',
+      'description': '购买第一个商品',
+      'icon_url': '/achievements/shop_beginner.png',
+      'reward_points': 10,
+      'type': 'milestone',
+      'requirement': 1,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '首次购买返还 10 积分' },
+      'metadata': createShopMeta('common'),
+      'display_priority': 45,
+      'is_active': true,
+      'category': 'shop',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 158,
+      'name': '购物达人',
+      'description': '购买10个商品',
+      'icon_url': '/achievements/shop_expert.png',
+      'reward_points': 50,
+      'type': 'milestone',
+      'requirement': 10,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '解锁购物返利 5%，持续 7 天' },
+      'metadata': createShopMeta('rare'),
+      'display_priority': 55,
+      'is_active': true,
+      'category': 'shop',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 159,
+      'name': '土豪',
+      'description': '消费1000金币',
+      'icon_url': '/achievements/shop_rich.png',
+      'reward_points': 200,
+      'type': 'milestone',
+      'requirement': 1000,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '尊享土豪限定头像框与 5 张折扣券' },
+      'metadata': createShopMeta('epic', { progress_unit: '金币' }),
+      'display_priority': 85,
+      'is_active': true,
+      'category': 'shop',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 160,
+      'name': '早起鸟',
+      'description': '在早上6-9点之间绘制像素',
+      'icon_url': '/achievements/early_bird.png',
+      'reward_points': 30,
+      'type': 'special',
+      'requirement': 1,
+      'repeat_cycle': 'daily',
+      'reward_items': [],
+      'reward_details': { 'description': '获取晨光特效头像框，持续 24 小时' },
+      'metadata': createSpecialMeta('rare', { time_range: '06:00-09:00', progress_unit: '次绘制' }),
+      'display_priority': 65,
+      'is_active': true,
+      'category': 'special',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 161,
+      'name': '夜猫子',
+      'description': '在晚上10-12点之间绘制像素',
+      'icon_url': '/achievements/night_owl.png',
+      'reward_points': 30,
+      'type': 'special',
+      'requirement': 1,
+      'repeat_cycle': 'daily',
+      'reward_items': [],
+      'reward_details': { 'description': '解锁夜色主题界面 1 天' },
+      'metadata': createSpecialMeta('rare', { time_range: '22:00-24:00', progress_unit: '次绘制' }),
+      'display_priority': 60,
+      'is_active': true,
+      'category': 'special',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    },
+    {
+      'id': 162,
+      'name': '幸运儿',
+      'description': '在特殊活动中获得奖励',
+      'icon_url': '/achievements/lucky.png',
+      'reward_points': 100,
+      'type': 'special',
+      'requirement': 1,
+      'repeat_cycle': 'permanent',
+      'reward_items': [],
+      'reward_details': { 'description': '额外获得神秘盲盒一枚' },
+      'metadata': createSpecialMeta('legendary', {
+        cta_label: '查看活动',
+        cta_link: '/events/highlight',
+        recommended_action: '关注官方活动，参与抽奖或闯关赢取奖励'
+      }),
+      'display_priority': 90,
+      'is_active': true,
+      'category': 'special',
+      'created_at': '2025-09-02T08:46:14.446Z'
+    }
+  ]);
+
+  console.log('✅ achievements: 插入了 18 条记录');
+};

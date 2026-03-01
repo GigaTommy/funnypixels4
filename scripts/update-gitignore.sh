@@ -1,0 +1,295 @@
+#!/bin/bash
+# =============================================================================
+# 更新.gitignore - 符合monorepo规范
+# 用途：更新.gitignore，确保临时文件被忽略，重要文档被跟踪
+# =============================================================================
+
+set -e
+
+PROJECT_ROOT="/Users/ginochow/code/funnypixels3"
+cd "$PROJECT_ROOT"
+
+echo "======================================"
+echo "更新.gitignore文件"
+echo "======================================"
+echo ""
+
+# 备份当前.gitignore
+cp .gitignore .gitignore.backup.$(date +%Y%m%d_%H%M%S)
+echo "✓ 已备份当前.gitignore"
+
+# 创建新的.gitignore内容
+cat > .gitignore << 'EOF'
+# =============================================================================
+# FunnyPixels 项目 .gitignore (Monorepo规范)
+# 最后更新: 2026-02-22
+# =============================================================================
+
+# =============================================================================
+# Node.js / Backend / Frontend / Admin-Frontend
+# =============================================================================
+
+# 依赖包
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 生产构建
+dist/
+build/
+.next/
+out/
+.vite/
+dist-ssr/
+*.tsbuildinfo
+
+# 测试覆盖率
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+
+# 环境变量文件（安全敏感）
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 后端特定
+backend/uploads/
+backend/tmp/
+backend/temp/
+
+# 前端特定
+frontend/.cache/
+frontend/.parcel-cache/
+admin-frontend/.cache/
+admin-frontend/.parcel-cache/
+
+# =============================================================================
+# iOS / Swift / Xcode / FunnyPixelsApp
+# =============================================================================
+
+# Xcode 用户数据
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad
+*.xcworkspace/xcuserdata/
+
+# Xcode 构建
+DerivedData/
+*.build/
+*.ipa
+*.dSYM.zip
+*.dSYM/
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Package.resolved
+
+# Xcode 项目配置
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# iOS 模拟器数据
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# iOS 构建产物
+*.app
+*.framework
+*.dylib
+*.o
+*.a
+
+# =============================================================================
+# 操作系统
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# =============================================================================
+# 日志和临时文件（重要：这些不应提交到Git）
+# =============================================================================
+
+# 日志目录和文件
+logs/
+log/
+*.log
+*.log.*
+
+# 临时文件目录
+.temp/
+temp/
+tmp/
+
+# 临时文件扩展名
+*.swp
+*.swo
+.*.swa
+*.tmp
+*.temp
+*.bak
+*.backup
+*.backup.*
+*.disabled
+*.old
+*.orig
+
+# =============================================================================
+# IDE 和编辑器
+# =============================================================================
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim
+*.swp
+*.swo
+.*.swa
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# =============================================================================
+# Docker 和容器
+# =============================================================================
+
+docker-compose.override.yml
+.dockerignore.bak
+
+# =============================================================================
+# 数据库和缓存
+# =============================================================================
+
+*.db
+*.sqlite
+*.sqlite3
+*.pgdata
+postgres-data/
+redis-data/
+mysql-data/
+
+# 数据库备份文件（SQL）
+*.sql
+!database/migrations/*.sql
+!database/seeds/*.sql
+
+# =============================================================================
+# 部署和 CI/CD
+# =============================================================================
+
+.serverless/
+.vercel/
+.netlify/
+
+# =============================================================================
+# 项目特定 - 开发工具和调试文件（临时性质）
+# =============================================================================
+
+# zeroclaw日志（Claude Code工具）
+.zeroclaw/*.log
+.zeroclaw/*.error.log
+
+# 旧的 app 目录日志
+app/FunnyPixels/build/
+app/FunnyPixels/*.log
+
+# Build目录（临时构建产物）
+Build/
+
+# =============================================================================
+# 其他
+# =============================================================================
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 文档临时文件
+~$*
+~$*.doc*
+~$*.xls*
+~$*.ppt*
+
+# Python虚拟环境
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# 快速文件列表
+files-to-remove.txt
+
+# =============================================================================
+# 注意事项：
+# =============================================================================
+# 以下目录/文件应该被Git跟踪（不应被忽略）：
+#   ✓ docs/          - 项目文档（重要）
+#   ✓ scripts/       - 项目脚本（重要）
+#   ✓ backend/docs/  - 后端文档
+#   ✓ app/docs/      - iOS文档
+#   ✓ frontend/docs/ - 前端文档
+#   ✓ README.md      - 项目说明
+#   ✓ package.json   - 依赖配置
+# =============================================================================
+EOF
+
+echo "✓ .gitignore已更新"
+echo ""
+echo "主要变更："
+echo "  • 添加 logs/ 和 .temp/ 到忽略列表"
+echo "  • 移除 docs/ 和 scripts/ 的忽略（现在会被跟踪）"
+echo "  • 优化日志文件和备份文件的忽略规则"
+echo "  • 添加详细的注释说明"
+echo ""
+echo "下一步："
+echo "  1. 检查差异: git diff .gitignore"
+echo "  2. 验证忽略规则: git status"
+echo ""

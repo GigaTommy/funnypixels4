@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="FunnyPixels" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>中国主要地标位置</name>
+    <desc>包含中国各大城市主要地标的静态位置，用于测试定位功能</desc>
+    <author>FunnyPixels Team</author>
+  </metadata>
+
+  <!-- 北京地标 -->
+  <wpt lat="39.9042" lon="116.4074">
+    <name>北京-天安门</name>
+    <desc>天安门广场</desc>
+  </wpt>
+
+  <wpt lat="39.9163" lon="116.3971">
+    <name>北京-故宫</name>
+    <desc>紫禁城</desc>
+  </wpt>
+
+  <wpt lat="40.4319" lon="116.5704">
+    <name>北京-长城</name>
+    <desc>慕田峪长城</desc>
+  </wpt>
+
+  <wpt lat="39.9998" lon="116.3279">
+    <name>北京-颐和园</name>
+    <desc>颐和园</desc>
+  </wpt>
+
+  <!-- 上海地标 -->
+  <wpt lat="31.2397" lon="121.4990">
+    <name>上海-东方明珠</name>
+    <desc>东方明珠电视塔</desc>
+  </wpt>
+
+  <wpt lat="31.2385" lon="121.4855">
+    <name>上海-外滩</name>
+    <desc>外滩</desc>
+  </wpt>
+
+  <wpt lat="31.2336" lon="121.5058">
+    <name>上海-上海中心</name>
+    <desc>上海中心大厦</desc>
+  </wpt>
+
+  <!-- 深圳地标 -->
+  <wpt lat="22.5431" lon="114.0554">
+    <name>深圳-市民中心</name>
+    <desc>深圳市市民中心</desc>
+  </wpt>
+
+  <wpt lat="22.5478" lon="114.0560">
+    <name>深圳-莲花山</name>
+    <desc>莲花山公园</desc>
+  </wpt>
+
+  <wpt lat="22.4849" lon="114.2095">
+    <name>深圳-深圳湾</name>
+    <desc>深圳湾公园</desc>
+  </wpt>
+
+  <!-- 广州地标 -->
+  <wpt lat="23.1291" lon="113.2644">
+    <name>广州-广州塔</name>
+    <desc>广州塔（小蛮腰）</desc>
+  </wpt>
+
+  <wpt lat="23.1358" lon="113.2751">
+    <name>广州-天河体育中心</name>
+    <desc>天河体育中心</desc>
+  </wpt>
+
+  <!-- 杭州地标 -->
+  <wpt lat="30.2549" lon="120.1552">
+    <name>杭州-西湖</name>
+    <desc>西湖风景区</desc>
+  </wpt>
+
+  <wpt lat="30.2592" lon="120.1687">
+    <name>杭州-雷峰塔</name>
+    <desc>雷峰塔</desc>
+  </wpt>
+
+  <!-- 成都地标 -->
+  <wpt lat="30.6586" lon="104.0648">
+    <name>成都-天府广场</name>
+    <desc>天府广场</desc>
+  </wpt>
+
+  <wpt lat="30.6472" lon="104.0827">
+    <name>成都-春熙路</name>
+    <desc>春熙路步行街</desc>
+  </wpt>
+
+  <wpt lat="30.6546" lon="104.0475">
+    <name>成都-宽窄巷子</name>
+    <desc>宽窄巷子</desc>
+  </wpt>
+
+  <!-- 西安地标 -->
+  <wpt lat="34.2658" lon="108.9543">
+    <name>西安-钟楼</name>
+    <desc>西安钟楼</desc>
+  </wpt>
+
+  <wpt lat="34.3841" lon="109.2785">
+    <name>西安-兵马俑</name>
+    <desc>秦始皇兵马俑</desc>
+  </wpt>
+
+  <!-- 南京地标 -->
+  <wpt lat="32.0603" lon="118.7969">
+    <name>南京-夫子庙</name>
+    <desc>夫子庙秦淮河</desc>
+  </wpt>
+
+  <wpt lat="32.0583" lon="118.7879">
+    <name>南京-中山陵</name>
+    <desc>中山陵</desc>
+  </wpt>
+
+  <!-- 厦门地标 -->
+  <wpt lat="24.4459" lon="118.0894">
+    <name>厦门-鼓浪屿</name>
+    <desc>鼓浪屿</desc>
+  </wpt>
+
+  <wpt lat="24.4798" lon="118.0894">
+    <name>厦门-厦门大学</name>
+    <desc>厦门大学</desc>
+  </wpt>
+
+  <!-- 青岛地标 -->
+  <wpt lat="36.0671" lon="120.3826">
+    <name>青岛-栈桥</name>
+    <desc>栈桥</desc>
+  </wpt>
+
+  <wpt lat="36.0557" lon="120.4073">
+    <name>青岛-崂山</name>
+    <desc>崂山风景区</desc>
+  </wpt>
+
+  <!-- 武汉地标 -->
+  <wpt lat="30.5606" lon="114.2734">
+    <name>武汉-黄鹤楼</name>
+    <desc>黄鹤楼</desc>
+  </wpt>
+
+  <wpt lat="30.5516" lon="114.2708">
+    <name>武汉-长江大桥</name>
+    <desc>武汉长江大桥</desc>
+  </wpt>
+
+  <!-- 重庆地标 -->
+  <wpt lat="29.5630" lon="106.5538">
+    <name>重庆-解放碑</name>
+    <desc>解放碑</desc>
+  </wpt>
+
+  <wpt lat="29.5569" lon="106.5808">
+    <name>重庆-洪崖洞</name>
+    <desc>洪崖洞</desc>
+  </wpt>
+
+  <!-- 香港地标 -->
+  <wpt lat="22.3193" lon="114.1694">
+    <name>香港-维多利亚港</name>
+    <desc>维多利亚港</desc>
+  </wpt>
+
+  <wpt lat="22.2783" lon="114.1747">
+    <name>香港-迪士尼</name>
+    <desc>香港迪士尼乐园</desc>
+  </wpt>
+
+  <!-- 澳门地标 -->
+  <wpt lat="22.1987" lon="113.5439">
+    <name>澳门-大三巴</name>
+    <desc>大三巴牌坊</desc>
+  </wpt>
+
+  <wpt lat="22.1449" lon="113.5638">
+    <name>澳门-威尼斯人</name>
+    <desc>威尼斯人</desc>
+  </wpt>
+</gpx>

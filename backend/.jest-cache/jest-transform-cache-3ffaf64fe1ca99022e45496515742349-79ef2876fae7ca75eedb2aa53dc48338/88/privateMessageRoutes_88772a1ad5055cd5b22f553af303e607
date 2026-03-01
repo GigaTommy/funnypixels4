@@ -1,0 +1,235 @@
+d05011e0bd66c4147a974578a9fc93ff
+/* istanbul ignore next */
+function cov_1x2bo318rp() {
+  var path = "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\privateMessageRoutes.js";
+  var hash = "fc8aa9336ea9b2313cc21f10898f2442f6985813";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\privateMessageRoutes.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 16
+        },
+        end: {
+          line: 1,
+          column: 34
+        }
+      },
+      "1": {
+        start: {
+          line: 2,
+          column: 33
+        },
+        end: {
+          line: 2,
+          column: 83
+        }
+      },
+      "2": {
+        start: {
+          line: 3,
+          column: 30
+        },
+        end: {
+          line: 3,
+          column: 59
+        }
+      },
+      "3": {
+        start: {
+          line: 5,
+          column: 15
+        },
+        end: {
+          line: 5,
+          column: 31
+        }
+      },
+      "4": {
+        start: {
+          line: 8,
+          column: 0
+        },
+        end: {
+          line: 8,
+          column: 30
+        }
+      },
+      "5": {
+        start: {
+          line: 11,
+          column: 0
+        },
+        end: {
+          line: 11,
+          column: 55
+        }
+      },
+      "6": {
+        start: {
+          line: 14,
+          column: 0
+        },
+        end: {
+          line: 14,
+          column: 75
+        }
+      },
+      "7": {
+        start: {
+          line: 17,
+          column: 0
+        },
+        end: {
+          line: 17,
+          column: 86
+        }
+      },
+      "8": {
+        start: {
+          line: 20,
+          column: 0
+        },
+        end: {
+          line: 20,
+          column: 78
+        }
+      },
+      "9": {
+        start: {
+          line: 23,
+          column: 0
+        },
+        end: {
+          line: 23,
+          column: 98
+        }
+      },
+      "10": {
+        start: {
+          line: 26,
+          column: 0
+        },
+        end: {
+          line: 26,
+          column: 79
+        }
+      },
+      "11": {
+        start: {
+          line: 29,
+          column: 0
+        },
+        end: {
+          line: 29,
+          column: 69
+        }
+      },
+      "12": {
+        start: {
+          line: 31,
+          column: 0
+        },
+        end: {
+          line: 31,
+          column: 24
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "fc8aa9336ea9b2313cc21f10898f2442f6985813"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1x2bo318rp = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1x2bo318rp();
+const express =
+/* istanbul ignore next */
+(cov_1x2bo318rp().s[0]++, require('express'));
+const PrivateMessageController =
+/* istanbul ignore next */
+(cov_1x2bo318rp().s[1]++, require('../controllers/privateMessageController'));
+const {
+  authenticateToken
+} =
+/* istanbul ignore next */
+(cov_1x2bo318rp().s[2]++, require('../middleware/auth'));
+const router =
+/* istanbul ignore next */
+(cov_1x2bo318rp().s[3]++, express.Router());
+
+// 所有私信路由都需要认证
+/* istanbul ignore next */
+cov_1x2bo318rp().s[4]++;
+router.use(authenticateToken);
+
+// 发送私信
+/* istanbul ignore next */
+cov_1x2bo318rp().s[5]++;
+router.post('/', PrivateMessageController.sendMessage);
+
+// 获取对话列表
+/* istanbul ignore next */
+cov_1x2bo318rp().s[6]++;
+router.get('/conversations', PrivateMessageController.getConversationList);
+
+// 获取与特定用户的对话
+/* istanbul ignore next */
+cov_1x2bo318rp().s[7]++;
+router.get('/conversations/:other_user_id', PrivateMessageController.getConversation);
+
+// 标记消息为已读
+/* istanbul ignore next */
+cov_1x2bo318rp().s[8]++;
+router.put('/messages/:message_id/read', PrivateMessageController.markAsRead);
+
+// 标记对话为已读
+/* istanbul ignore next */
+cov_1x2bo318rp().s[9]++;
+router.put('/conversations/:other_user_id/read', PrivateMessageController.markConversationAsRead);
+
+// 删除消息
+/* istanbul ignore next */
+cov_1x2bo318rp().s[10]++;
+router.delete('/messages/:message_id', PrivateMessageController.deleteMessage);
+
+// 获取未读消息数量
+/* istanbul ignore next */
+cov_1x2bo318rp().s[11]++;
+router.get('/unread-count', PrivateMessageController.getUnreadCount);
+/* istanbul ignore next */
+cov_1x2bo318rp().s[12]++;
+module.exports = router;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMXgyYm8zMThycCIsImFjdHVhbENvdmVyYWdlIiwiZXhwcmVzcyIsInMiLCJyZXF1aXJlIiwiUHJpdmF0ZU1lc3NhZ2VDb250cm9sbGVyIiwiYXV0aGVudGljYXRlVG9rZW4iLCJyb3V0ZXIiLCJSb3V0ZXIiLCJ1c2UiLCJwb3N0Iiwic2VuZE1lc3NhZ2UiLCJnZXQiLCJnZXRDb252ZXJzYXRpb25MaXN0IiwiZ2V0Q29udmVyc2F0aW9uIiwicHV0IiwibWFya0FzUmVhZCIsIm1hcmtDb252ZXJzYXRpb25Bc1JlYWQiLCJkZWxldGUiLCJkZWxldGVNZXNzYWdlIiwiZ2V0VW5yZWFkQ291bnQiLCJtb2R1bGUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsicHJpdmF0ZU1lc3NhZ2VSb3V0ZXMuanMiXSwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTtcclxuY29uc3QgUHJpdmF0ZU1lc3NhZ2VDb250cm9sbGVyID0gcmVxdWlyZSgnLi4vY29udHJvbGxlcnMvcHJpdmF0ZU1lc3NhZ2VDb250cm9sbGVyJyk7XHJcbmNvbnN0IHsgYXV0aGVudGljYXRlVG9rZW4gfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpO1xyXG5cclxuY29uc3Qgcm91dGVyID0gZXhwcmVzcy5Sb3V0ZXIoKTtcclxuXHJcbi8vIOaJgOacieengeS/oei3r+eUsemDvemcgOimgeiupOivgVxyXG5yb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZVRva2VuKTtcclxuXHJcbi8vIOWPkemAgeengeS/oVxyXG5yb3V0ZXIucG9zdCgnLycsIFByaXZhdGVNZXNzYWdlQ29udHJvbGxlci5zZW5kTWVzc2FnZSk7XHJcblxyXG4vLyDojrflj5blr7nor53liJfooahcclxucm91dGVyLmdldCgnL2NvbnZlcnNhdGlvbnMnLCBQcml2YXRlTWVzc2FnZUNvbnRyb2xsZXIuZ2V0Q29udmVyc2F0aW9uTGlzdCk7XHJcblxyXG4vLyDojrflj5bkuI7nibnlrprnlKjmiLfnmoTlr7nor51cclxucm91dGVyLmdldCgnL2NvbnZlcnNhdGlvbnMvOm90aGVyX3VzZXJfaWQnLCBQcml2YXRlTWVzc2FnZUNvbnRyb2xsZXIuZ2V0Q29udmVyc2F0aW9uKTtcclxuXHJcbi8vIOagh+iusOa2iOaBr+S4uuW3suivu1xyXG5yb3V0ZXIucHV0KCcvbWVzc2FnZXMvOm1lc3NhZ2VfaWQvcmVhZCcsIFByaXZhdGVNZXNzYWdlQ29udHJvbGxlci5tYXJrQXNSZWFkKTtcclxuXHJcbi8vIOagh+iusOWvueivneS4uuW3suivu1xyXG5yb3V0ZXIucHV0KCcvY29udmVyc2F0aW9ucy86b3RoZXJfdXNlcl9pZC9yZWFkJywgUHJpdmF0ZU1lc3NhZ2VDb250cm9sbGVyLm1hcmtDb252ZXJzYXRpb25Bc1JlYWQpO1xyXG5cclxuLy8g5Yig6Zmk5raI5oGvXHJcbnJvdXRlci5kZWxldGUoJy9tZXNzYWdlcy86bWVzc2FnZV9pZCcsIFByaXZhdGVNZXNzYWdlQ29udHJvbGxlci5kZWxldGVNZXNzYWdlKTtcclxuXHJcbi8vIOiOt+WPluacquivu+a2iOaBr+aVsOmHj1xyXG5yb3V0ZXIuZ2V0KCcvdW5yZWFkLWNvdW50JywgUHJpdmF0ZU1lc3NhZ2VDb250cm9sbGVyLmdldFVucmVhZENvdW50KTtcclxuXHJcbm1vZHVsZS5leHBvcnRzID0gcm91dGVyO1xyXG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixNQUFNRSxPQUFPO0FBQUE7QUFBQSxDQUFBRixjQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLFNBQVMsQ0FBQztBQUNsQyxNQUFNQyx3QkFBd0I7QUFBQTtBQUFBLENBQUFMLGNBQUEsR0FBQUcsQ0FBQSxPQUFHQyxPQUFPLENBQUMseUNBQXlDLENBQUM7QUFDbkYsTUFBTTtFQUFFRTtBQUFrQixDQUFDO0FBQUE7QUFBQSxDQUFBTixjQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLG9CQUFvQixDQUFDO0FBRTNELE1BQU1HLE1BQU07QUFBQTtBQUFBLENBQUFQLGNBQUEsR0FBQUcsQ0FBQSxPQUFHRCxPQUFPLENBQUNNLE1BQU0sQ0FBQyxDQUFDOztBQUUvQjtBQUFBO0FBQUFSLGNBQUEsR0FBQUcsQ0FBQTtBQUNBSSxNQUFNLENBQUNFLEdBQUcsQ0FBQ0gsaUJBQWlCLENBQUM7O0FBRTdCO0FBQUE7QUFBQU4sY0FBQSxHQUFBRyxDQUFBO0FBQ0FJLE1BQU0sQ0FBQ0csSUFBSSxDQUFDLEdBQUcsRUFBRUwsd0JBQXdCLENBQUNNLFdBQVcsQ0FBQzs7QUFFdEQ7QUFBQTtBQUFBWCxjQUFBLEdBQUFHLENBQUE7QUFDQUksTUFBTSxDQUFDSyxHQUFHLENBQUMsZ0JBQWdCLEVBQUVQLHdCQUF3QixDQUFDUSxtQkFBbUIsQ0FBQzs7QUFFMUU7QUFBQTtBQUFBYixjQUFBLEdBQUFHLENBQUE7QUFDQUksTUFBTSxDQUFDSyxHQUFHLENBQUMsK0JBQStCLEVBQUVQLHdCQUF3QixDQUFDUyxlQUFlLENBQUM7O0FBRXJGO0FBQUE7QUFBQWQsY0FBQSxHQUFBRyxDQUFBO0FBQ0FJLE1BQU0sQ0FBQ1EsR0FBRyxDQUFDLDRCQUE0QixFQUFFVix3QkFBd0IsQ0FBQ1csVUFBVSxDQUFDOztBQUU3RTtBQUFBO0FBQUFoQixjQUFBLEdBQUFHLENBQUE7QUFDQUksTUFBTSxDQUFDUSxHQUFHLENBQUMsb0NBQW9DLEVBQUVWLHdCQUF3QixDQUFDWSxzQkFBc0IsQ0FBQzs7QUFFakc7QUFBQTtBQUFBakIsY0FBQSxHQUFBRyxDQUFBO0FBQ0FJLE1BQU0sQ0FBQ1csTUFBTSxDQUFDLHVCQUF1QixFQUFFYix3QkFBd0IsQ0FBQ2MsYUFBYSxDQUFDOztBQUU5RTtBQUFBO0FBQUFuQixjQUFBLEdBQUFHLENBQUE7QUFDQUksTUFBTSxDQUFDSyxHQUFHLENBQUMsZUFBZSxFQUFFUCx3QkFBd0IsQ0FBQ2UsY0FBYyxDQUFDO0FBQUM7QUFBQXBCLGNBQUEsR0FBQUcsQ0FBQTtBQUVyRWtCLE1BQU0sQ0FBQ0MsT0FBTyxHQUFHZixNQUFNIiwiaWdub3JlTGlzdCI6W119

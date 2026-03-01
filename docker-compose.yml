@@ -1,0 +1,148 @@
+# Docker Compose configuration for FunnyPixels project
+
+services:
+  # ==========================================
+  # 数据库服务
+  # ==========================================
+  postgres:
+    image: postgis/postgis:15-3.3
+    container_name: funnypixels_postgres
+    environment:
+      POSTGRES_DB: funnypixels_postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - funnypixels_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7
+    container_name: funnypixels_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - funnypixels_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # ==========================================
+  # 数据库管理工具
+  # ==========================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: funnypixels_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@funnypixels.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./config/pgadmin-servers.json:/pgadmin4/servers.json
+    depends_on:
+      - postgres
+    networks:
+      - funnypixels_network
+
+  # ==========================================
+  # 监控服务（新增）
+  # ==========================================
+
+  # Grafana - 监控可视化面板
+  grafana:
+    image: grafana/grafana:latest
+    container_name: funnypixels_grafana
+    ports:
+      - "3000:3000"  # 访问 http://localhost:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboards:/etc/grafana/dashboards
+    environment:
+      # 允许 iframe 嵌入（让 admin-frontend 可以嵌入）
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_SECURITY_COOKIE_SAMESITE=none
+
+      # 匿名访问（只读权限，无需登录）
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+
+      # 管理员账号（编辑 Dashboard 时使用）
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=funnypixels2024
+
+      # 禁用注册
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - funnypixels_network
+    restart: unless-stopped
+
+  # Prometheus - 指标收集和存储
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: funnypixels_prometheus
+    ports:
+      - "9090:9090"  # 访问 http://localhost:9090
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # 允许访问宿主机服务
+    networks:
+      - funnypixels_network
+    restart: unless-stopped
+
+  # Alertmanager - 告警管理
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: funnypixels_alertmanager
+    ports:
+      - "9093:9093"  # 访问 http://localhost:9093
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # 允许访问宿主机服务
+    networks:
+      - funnypixels_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  pgadmin_data:
+  grafana_data:      # 新增：Grafana 数据
+  prometheus_data:   # 新增：Prometheus 数据
+  alertmanager_data: # 新增：Alertmanager 数据
+
+networks:
+  funnypixels_network:
+    driver: bridge

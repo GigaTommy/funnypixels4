@@ -1,0 +1,159 @@
+# Prometheus 监控配置 - FunnyPixels 压力测试
+#
+# 使用说明:
+# 1. 安装Prometheus: brew install prometheus (macOS) 或参考官方文档
+# 2. 配置文件路径: /usr/local/etc/prometheus.yml 或自定义路径
+# 3. 启动: prometheus --config.file=prometheus-config.yml
+# 4. 访问: http://localhost:9090
+
+global:
+  scrape_interval: 15s      # 每15秒采集一次指标
+  evaluation_interval: 15s  # 每15秒评估一次规则
+  scrape_timeout: 10s       # 采集超时时间
+
+  external_labels:
+    cluster: 'funnypixels-prod'
+    environment: 'load-test'
+
+# 告警规则文件
+rule_files:
+  - 'alerts/*.yml'
+
+# Alertmanager 配置
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - localhost:9093
+
+# 采集目标配置
+scrape_configs:
+  # Prometheus 自监控
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # FunnyPixels 后端 API
+  - job_name: 'funnypixels-api'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets:
+          - 'localhost:3001'
+        labels:
+          service: 'api'
+          tier: 'backend'
+
+  # Node.js 应用指标 (prom-client)
+  - job_name: 'nodejs-app'
+    static_configs:
+      - targets: ['localhost:3001']
+        labels:
+          app: 'funnypixels'
+          runtime: 'nodejs'
+
+  # PostgreSQL 数据库指标
+  - job_name: 'postgresql'
+    static_configs:
+      - targets: ['localhost:9187']
+        labels:
+          service: 'database'
+          db_type: 'postgresql'
+
+  # Redis 指标
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+        labels:
+          service: 'cache'
+          cache_type: 'redis'
+
+  # K6 测试指标 (通过 StatsD/Prometheus exporter)
+  - job_name: 'k6-tests'
+    static_configs:
+      - targets: ['localhost:9091']
+        labels:
+          service: 'load-testing'
+          tool: 'k6'
+
+  # 系统指标 (Node Exporter)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+        labels:
+          service: 'system'
+          exporter: 'node'
+
+  # WebSocket 服务指标
+  - job_name: 'websocket-server'
+    metrics_path: '/ws/metrics'
+    static_configs:
+      - targets: ['localhost:3001']
+        labels:
+          service: 'websocket'
+          protocol: 'ws'
+
+  # 自定义应用指标
+  - job_name: 'custom-metrics'
+    honor_labels: true
+    static_configs:
+      - targets: ['localhost:8080']
+        labels:
+          service: 'custom'
+
+# 远程写入配置 (可选 - 用于长期存储)
+# remote_write:
+#   - url: 'http://localhost:9009/api/v1/push'
+#     queue_config:
+#       capacity: 10000
+#       max_shards: 5
+#       max_samples_per_send: 1000
+
+# 远程读取配置 (可选)
+# remote_read:
+#   - url: 'http://localhost:9009/api/v1/read'
+
+# 存储配置
+storage:
+  tsdb:
+    path: /var/lib/prometheus/data
+    retention.time: 30d  # 保留30天数据
+    retention.size: 50GB # 或保留最多50GB
+
+# 关键业务指标记录规则
+recording_rules:
+  - name: funnypixels_aggregations
+    interval: 15s
+    rules:
+      # HTTP 请求率 (每秒)
+      - record: job:http_requests:rate5m
+        expr: sum(rate(http_requests_total[5m])) by (job)
+
+      # HTTP 错误率
+      - record: job:http_errors:rate5m
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) by (job)
+
+      # 像素绘制成功率
+      - record: funnypixels:pixel_draw_success:rate5m
+        expr: |
+          sum(rate(pixel_draw_success[5m]))
+          /
+          sum(rate(pixel_draw_total[5m]))
+
+      # WebSocket 连接数
+      - record: funnypixels:ws_connections:current
+        expr: sum(websocket_connections_active)
+
+      # 数据库查询延迟 P95
+      - record: funnypixels:db_query_duration:p95
+        expr: histogram_quantile(0.95, sum(rate(db_query_duration_bucket[5m])) by (le))
+
+      # API 响应时间 P95
+      - record: funnypixels:http_request_duration:p95
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))
+
+      # Redis 缓存命中率
+      - record: funnypixels:redis_cache_hit_rate:5m
+        expr: |
+          sum(rate(redis_cache_hits[5m]))
+          /
+          (sum(rate(redis_cache_hits[5m])) + sum(rate(redis_cache_misses[5m])))

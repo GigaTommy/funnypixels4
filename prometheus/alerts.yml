@@ -1,0 +1,39 @@
+groups:
+  - name: funnypixels_alerts
+    interval: 30s
+    rules:
+      # 服务宕机告警
+      - alert: ServiceDown
+        expr: up{job="funnypixels-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          app: funnypixels
+        annotations:
+          summary: "FunnyPixels 后端服务宕机"
+          description: "服务已宕机超过1分钟"
+
+      # 高响应时间告警
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+          app: funnypixels
+        annotations:
+          summary: "API响应时间过高"
+          description: "P95响应时间超过1秒，当前值: {{ $value }}秒"
+
+      # 高错误率告警
+      - alert: HighErrorRate
+        expr: |
+          rate(http_request_duration_seconds_count{status_code=~"5.."}[5m])
+          /
+          rate(http_request_duration_seconds_count[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          app: funnypixels
+        annotations:
+          summary: "API错误率过高"
+          description: "5xx错误率超过5%"

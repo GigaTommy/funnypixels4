@@ -1,0 +1,203 @@
+6b20d254964ac4dc4999ad40919afdc9
+/* istanbul ignore next */
+function cov_24x0xzgi9w() {
+  var path = "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\leaderboardRoutes.js";
+  var hash = "b4167019267abc299565fd700eae845f3b9318b9";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "C:\\Users\\GinoChow\\web3\\funnypixels\\backend\\src\\routes\\leaderboardRoutes.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 16
+        },
+        end: {
+          line: 1,
+          column: 34
+        }
+      },
+      "1": {
+        start: {
+          line: 2,
+          column: 30
+        },
+        end: {
+          line: 2,
+          column: 77
+        }
+      },
+      "2": {
+        start: {
+          line: 3,
+          column: 30
+        },
+        end: {
+          line: 3,
+          column: 59
+        }
+      },
+      "3": {
+        start: {
+          line: 5,
+          column: 15
+        },
+        end: {
+          line: 5,
+          column: 31
+        }
+      },
+      "4": {
+        start: {
+          line: 8,
+          column: 0
+        },
+        end: {
+          line: 8,
+          column: 30
+        }
+      },
+      "5": {
+        start: {
+          line: 11,
+          column: 0
+        },
+        end: {
+          line: 11,
+          column: 70
+        }
+      },
+      "6": {
+        start: {
+          line: 14,
+          column: 0
+        },
+        end: {
+          line: 14,
+          column: 70
+        }
+      },
+      "7": {
+        start: {
+          line: 17,
+          column: 0
+        },
+        end: {
+          line: 17,
+          column: 66
+        }
+      },
+      "8": {
+        start: {
+          line: 20,
+          column: 0
+        },
+        end: {
+          line: 20,
+          column: 64
+        }
+      },
+      "9": {
+        start: {
+          line: 23,
+          column: 0
+        },
+        end: {
+          line: 23,
+          column: 70
+        }
+      },
+      "10": {
+        start: {
+          line: 25,
+          column: 0
+        },
+        end: {
+          line: 25,
+          column: 24
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "b4167019267abc299565fd700eae845f3b9318b9"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_24x0xzgi9w = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_24x0xzgi9w();
+const express =
+/* istanbul ignore next */
+(cov_24x0xzgi9w().s[0]++, require('express'));
+const LeaderboardController =
+/* istanbul ignore next */
+(cov_24x0xzgi9w().s[1]++, require('../controllers/leaderboardController'));
+const {
+  authenticateToken
+} =
+/* istanbul ignore next */
+(cov_24x0xzgi9w().s[2]++, require('../middleware/auth'));
+const router =
+/* istanbul ignore next */
+(cov_24x0xzgi9w().s[3]++, express.Router());
+
+// 所有路由都需要认证
+/* istanbul ignore next */
+cov_24x0xzgi9w().s[4]++;
+router.use(authenticateToken);
+
+// 获取个人排行榜
+/* istanbul ignore next */
+cov_24x0xzgi9w().s[5]++;
+router.get('/personal', LeaderboardController.getPersonalLeaderboard);
+
+// 获取联盟排行榜
+/* istanbul ignore next */
+cov_24x0xzgi9w().s[6]++;
+router.get('/alliance', LeaderboardController.getAllianceLeaderboard);
+
+// 获取地区排行榜
+/* istanbul ignore next */
+cov_24x0xzgi9w().s[7]++;
+router.get('/region', LeaderboardController.getRegionLeaderboard);
+
+// 点赞排行榜项目
+/* istanbul ignore next */
+cov_24x0xzgi9w().s[8]++;
+router.post('/like', LeaderboardController.likeLeaderboardItem);
+
+// 取消点赞排行榜项目
+/* istanbul ignore next */
+cov_24x0xzgi9w().s[9]++;
+router.delete('/unlike', LeaderboardController.unlikeLeaderboardItem);
+/* istanbul ignore next */
+cov_24x0xzgi9w().s[10]++;
+module.exports = router;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMjR4MHh6Z2k5dyIsImFjdHVhbENvdmVyYWdlIiwiZXhwcmVzcyIsInMiLCJyZXF1aXJlIiwiTGVhZGVyYm9hcmRDb250cm9sbGVyIiwiYXV0aGVudGljYXRlVG9rZW4iLCJyb3V0ZXIiLCJSb3V0ZXIiLCJ1c2UiLCJnZXQiLCJnZXRQZXJzb25hbExlYWRlcmJvYXJkIiwiZ2V0QWxsaWFuY2VMZWFkZXJib2FyZCIsImdldFJlZ2lvbkxlYWRlcmJvYXJkIiwicG9zdCIsImxpa2VMZWFkZXJib2FyZEl0ZW0iLCJkZWxldGUiLCJ1bmxpa2VMZWFkZXJib2FyZEl0ZW0iLCJtb2R1bGUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsibGVhZGVyYm9hcmRSb3V0ZXMuanMiXSwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTtcclxuY29uc3QgTGVhZGVyYm9hcmRDb250cm9sbGVyID0gcmVxdWlyZSgnLi4vY29udHJvbGxlcnMvbGVhZGVyYm9hcmRDb250cm9sbGVyJyk7XHJcbmNvbnN0IHsgYXV0aGVudGljYXRlVG9rZW4gfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpO1xyXG5cclxuY29uc3Qgcm91dGVyID0gZXhwcmVzcy5Sb3V0ZXIoKTtcclxuXHJcbi8vIOaJgOaciei3r+eUsemDvemcgOimgeiupOivgVxyXG5yb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZVRva2VuKTtcclxuXHJcbi8vIOiOt+WPluS4quS6uuaOkuihjOamnFxyXG5yb3V0ZXIuZ2V0KCcvcGVyc29uYWwnLCBMZWFkZXJib2FyZENvbnRyb2xsZXIuZ2V0UGVyc29uYWxMZWFkZXJib2FyZCk7XHJcblxyXG4vLyDojrflj5bogZTnm5/mjpLooYzmppxcclxucm91dGVyLmdldCgnL2FsbGlhbmNlJywgTGVhZGVyYm9hcmRDb250cm9sbGVyLmdldEFsbGlhbmNlTGVhZGVyYm9hcmQpO1xyXG5cclxuLy8g6I635Y+W5Zyw5Yy65o6S6KGM5qacXHJcbnJvdXRlci5nZXQoJy9yZWdpb24nLCBMZWFkZXJib2FyZENvbnRyb2xsZXIuZ2V0UmVnaW9uTGVhZGVyYm9hcmQpO1xyXG5cclxuLy8g54K56LWe5o6S6KGM5qac6aG555uuXHJcbnJvdXRlci5wb3N0KCcvbGlrZScsIExlYWRlcmJvYXJkQ29udHJvbGxlci5saWtlTGVhZGVyYm9hcmRJdGVtKTtcclxuXHJcbi8vIOWPlua2iOeCuei1nuaOkuihjOamnOmhueebrlxyXG5yb3V0ZXIuZGVsZXRlKCcvdW5saWtlJywgTGVhZGVyYm9hcmRDb250cm9sbGVyLnVubGlrZUxlYWRlcmJvYXJkSXRlbSk7XHJcblxyXG5tb2R1bGUuZXhwb3J0cyA9IHJvdXRlcjtcclxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixNQUFNRSxPQUFPO0FBQUE7QUFBQSxDQUFBRixjQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLFNBQVMsQ0FBQztBQUNsQyxNQUFNQyxxQkFBcUI7QUFBQTtBQUFBLENBQUFMLGNBQUEsR0FBQUcsQ0FBQSxPQUFHQyxPQUFPLENBQUMsc0NBQXNDLENBQUM7QUFDN0UsTUFBTTtFQUFFRTtBQUFrQixDQUFDO0FBQUE7QUFBQSxDQUFBTixjQUFBLEdBQUFHLENBQUEsT0FBR0MsT0FBTyxDQUFDLG9CQUFvQixDQUFDO0FBRTNELE1BQU1HLE1BQU07QUFBQTtBQUFBLENBQUFQLGNBQUEsR0FBQUcsQ0FBQSxPQUFHRCxPQUFPLENBQUNNLE1BQU0sQ0FBQyxDQUFDOztBQUUvQjtBQUFBO0FBQUFSLGNBQUEsR0FBQUcsQ0FBQTtBQUNBSSxNQUFNLENBQUNFLEdBQUcsQ0FBQ0gsaUJBQWlCLENBQUM7O0FBRTdCO0FBQUE7QUFBQU4sY0FBQSxHQUFBRyxDQUFBO0FBQ0FJLE1BQU0sQ0FBQ0csR0FBRyxDQUFDLFdBQVcsRUFBRUwscUJBQXFCLENBQUNNLHNCQUFzQixDQUFDOztBQUVyRTtBQUFBO0FBQUFYLGNBQUEsR0FBQUcsQ0FBQTtBQUNBSSxNQUFNLENBQUNHLEdBQUcsQ0FBQyxXQUFXLEVBQUVMLHFCQUFxQixDQUFDTyxzQkFBc0IsQ0FBQzs7QUFFckU7QUFBQTtBQUFBWixjQUFBLEdBQUFHLENBQUE7QUFDQUksTUFBTSxDQUFDRyxHQUFHLENBQUMsU0FBUyxFQUFFTCxxQkFBcUIsQ0FBQ1Esb0JBQW9CLENBQUM7O0FBRWpFO0FBQUE7QUFBQWIsY0FBQSxHQUFBRyxDQUFBO0FBQ0FJLE1BQU0sQ0FBQ08sSUFBSSxDQUFDLE9BQU8sRUFBRVQscUJBQXFCLENBQUNVLG1CQUFtQixDQUFDOztBQUUvRDtBQUFBO0FBQUFmLGNBQUEsR0FBQUcsQ0FBQTtBQUNBSSxNQUFNLENBQUNTLE1BQU0sQ0FBQyxTQUFTLEVBQUVYLHFCQUFxQixDQUFDWSxxQkFBcUIsQ0FBQztBQUFDO0FBQUFqQixjQUFBLEdBQUFHLENBQUE7QUFFdEVlLE1BQU0sQ0FBQ0MsT0FBTyxHQUFHWixNQUFNIiwiaWdub3JlTGlzdCI6W119

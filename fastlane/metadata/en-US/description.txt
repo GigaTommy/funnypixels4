@@ -1,0 +1,12 @@
+FunnyPixels is a global co-creation pixel map where your GPS movements become pixel art. Walk, run, or bike through cities and watch your path transform into vibrant pixels on a shared world map.
+
+KEY FEATURES:
+- GPS Drawing: Move around to automatically draw pixels on the world map
+- Alliance Wars: Join an alliance and conquer territories together
+- Drift Bottles: Send messages in bottles that travel between players
+- Shop & Customize: Bombs, boost cards, custom flags, and more
+- Achievements: Unlock milestones as you explore and create
+- Daily Check-in: Earn rewards for daily activity
+- Leaderboards: Compete for the most pixels globally and locally
+
+Join millions of players worldwide and leave your mark on the map!

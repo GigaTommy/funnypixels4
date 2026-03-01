@@ -1,0 +1,23 @@
+{
+  "name": "funnypixels-gps-simulation",
+  "version": "1.0.0",
+  "description": "GPS绘制模拟测试脚本",
+  "main": "simulate-gps-draw.js",
+  "scripts": {
+    "test": "node ../archive/scripts-tests/quick-gps-test.js",
+    "simulate": "node simulate-gps-draw.js",
+    "install-deps": "npm install axios socket.io-client"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "socket.io-client": "^4.8.1"
+  },
+  "keywords": [
+    "gps",
+    "simulation",
+    "testing",
+    "funnypixels"
+  ],
+  "author": "FunnyPixels Team",
+  "license": "MIT"
+}

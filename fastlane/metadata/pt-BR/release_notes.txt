@@ -1,0 +1,4 @@
+- Suporte a 6 idiomas: ingles, chines, japones, coreano, espanhol e portugues
+- Novo seletor de idioma nas Configuracoes
+- Suporte a plurais aprimorado em todos os idiomas
+- Correcoes de bugs e melhorias de desempenho

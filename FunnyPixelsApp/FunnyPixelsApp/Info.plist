@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>GIDClientID</key>
+	<string>YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.YOUR_GOOGLE_CLIENT_ID</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>funnypixels</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.funnypixels.app</string>
+		</dict>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>NSSupportsLiveActivitiesFrequentUpdates</key>
+	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>我们需要访问您的本地网络以连接到开发服务器进行调试。</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>sinaweibo</string>
+		<string>xhsdiscover</string>
+	</array>
+	<key>AppConfiguration</key>
+	<dict>
+		<key>DevelopmentServerIP</key>
+		<string>192.168.0.3</string>
+		<key>DevelopmentServerPort</key>
+		<string>3001</string>
+		<key>DevelopmentFrontendPort</key>
+		<string>3000</string>
+		<key>ProductionAPIURL</key>
+		<string>https://api.funnypixelsapp.com</string>
+		<key>ProductionWebURL</key>
+		<string>https://funnypixelsapp.com</string>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-09-15T08:26:47.380Z",
+  "testType": "ad_batch_draw",
+  "totalTests": 5,
+  "successCount": 0,
+  "successRate": "0.0",
+  "results": [
+    {
+      "test": "ad_batch_draw",
+      "name": "小批量广告绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403",
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "大批量广告绘制",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403",
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "空数组测试",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403",
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "超过100个像素测试",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403",
+      "responseTime": "N/A"
+    },
+    {
+      "test": "ad_batch_draw",
+      "name": "无效数据测试",
+      "success": false,
+      "status": 403,
+      "error": "Request failed with status code 403",
+      "responseTime": "N/A"
+    }
+  ]
+}

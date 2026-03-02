@@ -215,9 +215,16 @@ mysql-data/
 .pids/
 .logs/
 
-# zeroclaw日志（Claude Code工具）
-.zeroclaw/*.log
-.zeroclaw/*.error.log
+# Claude Code 相关
+.claude/
+.zeroclaw/
+
+# Git 备份和配置
+.git.backup/
+.github/
+
+# 其他临时目录
+.venu/
 
 # 旧的 app 目录日志
 app/FunnyPixels/build/

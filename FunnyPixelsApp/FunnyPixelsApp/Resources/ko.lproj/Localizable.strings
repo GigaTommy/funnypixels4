@@ -1186,3 +1186,74 @@
 "message.category.all" = "전체";
 "message.category.interaction" = "상호작용";
 "message.category.system" = "시스템";
+
+// ========== 2026-03-02 추가: 하드코딩된 문자열 수정 ==========
+
+/* 픽셀 상세 시트 */
+"pixel.share.message" = "이 흥미로운 픽셀을 확인하세요! 좌표: %@";
+"pixel.report.success" = "신고가 완료되었습니다";
+"pixel.report.title" = "픽셀 신고";
+"pixel.report.inappropriate" = "부적절한 콘텐츠";
+"pixel.report.spam" = "스팸";
+"pixel.report.other" = "기타";
+"pixel.info.coordinates" = "좌표";
+"pixel.info.country" = "국가/지역";
+"pixel.info.created_at" = "생성일";
+
+/* 작업 시스템 */
+"task.state.locked" = "잠김";
+"task.state.available" = "사용 가능";
+"task.state.in_progress" = "진행 중";
+"task.state.completed" = "완료됨";
+"task.state.claimed" = "수령함";
+"task.location.radius_meters" = "· 반경 %d미터";
+"task.progress.label" = "진행률";
+"task.reward.points" = "보상: %d 포인트";
+"task.action.navigate" = "탐색";
+"task.action.claim_reward" = "보상 받기";
+"task.difficulty.easy" = "쉬움";
+"task.difficulty.normal" = "보통";
+"task.difficulty.hard" = "어려움";
+
+/* 지도 레이어 */
+"map.layer.title" = "지도 레이어";
+"map.layer.reset" = "재설정";
+"map.layer.pixels" = "픽셀 레이어";
+"map.layer.pixels_desc" = "모든 그려진 픽셀 표시";
+"map.layer.territory" = "영토 레이어";
+"map.layer.territory_desc" = "동맹 영토 경계 표시";
+"map.layer.nearby_players" = "주변 플레이어";
+"map.layer.nearby_players_desc" = "5km 이내의 활성 플레이어 표시";
+"map.layer.tasks" = "작업 마커";
+"map.layer.tasks_desc" = "일일 작업 위치 표시";
+"map.layer.heatmap" = "영역 히트맵";
+"map.layer.heatmap_desc" = "픽셀 밀도 분포 표시";
+"map.layer.war_zones" = "전쟁 구역";
+"map.layer.war_zones_desc" = "영토 전투 지역 표시";
+"map.layer.treasures" = "보물 상자";
+"map.layer.treasures_desc" = "보물 생성 위치 표시";
+"map.layer.friends" = "친구 위치";
+"map.layer.friends_desc" = "팔로우한 친구 표시";
+
+/* 공통 구성요소 */
+"common.anonymous_user" = "익명 사용자";
+"common.unknown_user" = "알 수 없는 사용자";
+"common.confirm" = "확인";
+"common.report" = "신고";
+"common.view" = "보기";
+"common.edit" = "편집";
+"common.hint" = "힌트";
+"common.done" = "완료";
+
+/* 소셜 기능 */
+"social.following" = "팔로잉";
+"social.follow" = "팔로우";
+"social.liked" = "좋아요함";
+"social.like" = "좋아요";
+
+/* 메시지 센터 */
+"message.select_none" = "모두 선택 해제";
+"message.select_all" = "모두 선택";
+"message.mark_read" = "읽음으로 표시";
+"message.delete_count" = "%d개 메시지 삭제";
+"message.delete_warning" = "삭제 후 복구할 수 없습니다";

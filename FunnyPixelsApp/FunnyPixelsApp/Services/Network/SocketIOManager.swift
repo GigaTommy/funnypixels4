@@ -340,7 +340,8 @@ public actor SocketIOManager {
 
         // 每日任务更新通知
         socket.on("dailyTaskUpdated") { [weak self] data, _ in
-            guard let self = self else { return }
+            // Check if self still exists
+            guard self != nil else { return }
             Logger.info("📡 收到每日任务更新通知")
             // 发送本地通知，让DailyTaskViewModel刷新
             Task { @MainActor in

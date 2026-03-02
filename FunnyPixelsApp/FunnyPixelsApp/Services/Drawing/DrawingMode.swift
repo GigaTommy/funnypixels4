@@ -497,7 +497,24 @@ class DrawingStateManager: ObservableObject {
     private func endSession() async {
         guard currentSessionId != nil else { return }
 
-        // 如果有后端会话，结束它
+        // 🚀 乐观更新：在调用后端前，立即本地更新UI
+        let sessionPixelCount = currentMode == .gps ? gpsDrawingPixelCount : pixelsDrawnInSession
+
+        // 立即发送通知更新UI（携带像素数和会话数）
+        Task { @MainActor in
+            NotificationCenter.default.post(
+                name: .dailyTasksNeedRefresh,
+                object: nil,
+                userInfo: [
+                    "optimisticUpdate": true,
+                    "sessionCompleted": 1,
+                    "pixelsDrawn": sessionPixelCount
+                ]
+            )
+            Logger.info("🚀 已发送乐观更新通知: sessions=1, pixels=\(sessionPixelCount)")
+        }
+
+        // 如果有后端会话，异步结束它
         if let backendId = backendSessionId {
             do {
                 _ = try await DrawingSessionService.shared.endSession(
@@ -507,14 +524,29 @@ class DrawingStateManager: ObservableObject {
                 Logger.info("✅ Backend session ended: \(backendId)")
                 // 注意：成就检查已由 GPSDrawingService 在绘制像素时内联处理（API 响应直接返回 newAchievements）
                 // 此处不再额外调用 checkAndNotify()，避免重复 API 请求
-                // ✨ 通知每日任务刷新（绘画完成）
-                NotificationCenter.default.post(name: .dailyTasksNeedRefresh, object: nil)
+
+                // ✅ 后端成功：发送正常刷新通知（用于同步后端返回的准确数据）
+                Task { @MainActor in
+                    NotificationCenter.default.post(
+                        name: .dailyTasksNeedRefresh,
+                        object: nil,
+                        userInfo: ["optimisticUpdate": false]
+                    )
+                    Logger.info("✅ 已发送后端同步通知")
+                }
             } catch {
                 Logger.error("Failed to end backend session: \(error.localizedDescription)")
+                // ❌ 后端失败：回滚乐观更新，重新加载任务
+                Task { @MainActor in
+                    NotificationCenter.default.post(
+                        name: .dailyTasksNeedRefresh,
+                        object: nil,
+                        userInfo: ["optimisticUpdate": false, "rollback": true]
+                    )
+                    Logger.error("❌ 后端失败，回滚乐观更新")
+                }
             }
         }
-        
-        let sessionPixelCount = currentMode == .gps ? gpsDrawingPixelCount : pixelsDrawnInSession
         let sessionDuration = sessionStartTime.map { Date().timeIntervalSince($0) } ?? 0
         let sessionDurationString = "\(Int(sessionDuration))s"
 

@@ -256,7 +256,7 @@ struct MainMapView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .navigateToDailyTasks)) { _ in
-            appState.navigateToProfile(subTab: .more)
+            appState.navigateToProfile(subTab: .personal)
             showDailyTasksFromMap = true
         }
         .onReceive(NotificationCenter.default.publisher(for: .openEventDetail)) { notification in

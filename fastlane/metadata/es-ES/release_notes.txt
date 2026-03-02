@@ -1,4 +1,0 @@
-- Soporte para 6 idiomas: ingles, chino, japones, coreano, espanol y portugues
-- Nuevo selector de idioma en Ajustes
-- Mejor soporte de plurales en todos los idiomas
-- Correccion de errores y mejoras de rendimiento

@@ -14,11 +14,11 @@ class DailyTaskService {
         let title: String
         let description: String
         let target: Int
-        let current: Int
-        let isCompleted: Bool
-        let isClaimed: Bool
+        var current: Int  // 改为var，支持乐观更新
+        var isCompleted: Bool  // 改为var，支持乐观更新
+        var isClaimed: Bool  // 改为var，支持领取奖励
         let rewardPoints: Int
-        let progress: Double
+        var progress: Double  // 改为var，支持乐观更新
 
         // Map task fields (Phase 1)
         let taskCategory: String?
@@ -39,6 +39,76 @@ class DailyTaskService {
             case locationLng = "location_lng"
             case locationRadius = "location_radius"
             case locationName = "location_name"
+        }
+
+        // 🔧 手动初始化器（用于代码中创建实例）
+        init(
+            id: Int,
+            type: String,
+            title: String,
+            description: String,
+            target: Int,
+            current: Int,
+            isCompleted: Bool,
+            isClaimed: Bool,
+            rewardPoints: Int,
+            progress: Double,
+            taskCategory: String? = nil,
+            difficulty: String? = nil,
+            locationLat: Double? = nil,
+            locationLng: Double? = nil,
+            locationRadius: Int? = nil,
+            locationName: String? = nil
+        ) {
+            self.id = id
+            self.type = type
+            self.title = title
+            self.description = description
+            self.target = target
+            self.current = current
+            self.isCompleted = isCompleted
+            self.isClaimed = isClaimed
+            self.rewardPoints = rewardPoints
+            self.progress = progress
+            self.taskCategory = taskCategory
+            self.difficulty = difficulty
+            self.locationLat = locationLat
+            self.locationLng = locationLng
+            self.locationRadius = locationRadius
+            self.locationName = locationName
+        }
+
+        // 🔧 自定义解码器：处理后端返回的字符串类型坐标
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+
+            id = try container.decode(Int.self, forKey: .id)
+            type = try container.decode(String.self, forKey: .type)
+            title = try container.decode(String.self, forKey: .title)
+            description = try container.decode(String.self, forKey: .description)
+            target = try container.decode(Int.self, forKey: .target)
+            current = try container.decode(Int.self, forKey: .current)
+            isCompleted = try container.decode(Bool.self, forKey: .isCompleted)
+            isClaimed = try container.decode(Bool.self, forKey: .isClaimed)
+            rewardPoints = try container.decode(Int.self, forKey: .rewardPoints)
+            progress = try container.decode(Double.self, forKey: .progress)
+            taskCategory = try container.decodeIfPresent(String.self, forKey: .taskCategory)
+            difficulty = try container.decodeIfPresent(String.self, forKey: .difficulty)
+            locationRadius = try container.decodeIfPresent(Int.self, forKey: .locationRadius)
+            locationName = try container.decodeIfPresent(String.self, forKey: .locationName)
+
+            // 🔧 处理字符串或数字类型的坐标
+            if let latString = try? container.decodeIfPresent(String.self, forKey: .locationLat) {
+                locationLat = Double(latString)
+            } else {
+                locationLat = try container.decodeIfPresent(Double.self, forKey: .locationLat)
+            }
+
+            if let lngString = try? container.decodeIfPresent(String.self, forKey: .locationLng) {
+                locationLng = Double(lngString)
+            } else {
+                locationLng = try container.decodeIfPresent(Double.self, forKey: .locationLng)
+            }
         }
 
         var taskIcon: String {

@@ -38,7 +38,7 @@ struct MapLayerControl: View {
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.blue)
 
-                Text("地图图层")
+                Text(NSLocalizedString("map.layer.title", comment: ""))
                     .font(.system(size: 16, weight: .bold))
 
                 Spacer()
@@ -46,7 +46,7 @@ struct MapLayerControl: View {
                 Button(action: {
                     layerSettings.resetToDefault()
                 }) {
-                    Text("重置")
+                    Text(NSLocalizedString("map.layer.reset", comment: ""))
                         .font(.system(size: 13, weight: .medium))
                         .foregroundColor(.blue)
                 }
@@ -61,8 +61,8 @@ struct MapLayerControl: View {
                 VStack(spacing: 0) {
                     layerToggle(
                         icon: "square.grid.3x3.fill",
-                        title: "像素层",
-                        subtitle: "显示所有绘制的像素",
+                        title: NSLocalizedString("map.layer.pixels", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.pixels_desc", comment: ""),
                         color: .purple,
                         isOn: $layerSettings.showPixelLayer,
                         isLocked: true
@@ -70,56 +70,56 @@ struct MapLayerControl: View {
 
                     layerToggle(
                         icon: "shield.fill",
-                        title: "领地控制层",
-                        subtitle: "显示联盟领地边界",
+                        title: NSLocalizedString("map.layer.territory", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.territory_desc", comment: ""),
                         color: .red,
                         isOn: $layerSettings.showTerritoryLayer
                     )
 
                     layerToggle(
                         icon: "person.2.fill",
-                        title: "附近玩家",
-                        subtitle: "显示5km内活跃玩家",
+                        title: NSLocalizedString("map.layer.nearby_players", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.nearby_players_desc", comment: ""),
                         color: .green,
                         isOn: $layerSettings.showNearbyPlayers
                     )
 
                     layerToggle(
                         icon: "flag.fill",
-                        title: "任务标记",
-                        subtitle: "显示每日任务位置",
+                        title: NSLocalizedString("map.layer.tasks", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.tasks_desc", comment: ""),
                         color: .orange,
                         isOn: $layerSettings.showTaskMarkers
                     )
 
                     layerToggle(
                         icon: "flame.fill",
-                        title: "区域热力图",
-                        subtitle: "显示像素密度分布",
+                        title: NSLocalizedString("map.layer.heatmap", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.heatmap_desc", comment: ""),
                         color: .pink,
                         isOn: $layerSettings.showHeatmap
                     )
 
                     layerToggle(
                         icon: "exclamationmark.triangle.fill",
-                        title: "战争区域",
-                        subtitle: "显示领地争夺战区",
+                        title: NSLocalizedString("map.layer.war_zones", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.war_zones_desc", comment: ""),
                         color: .yellow,
                         isOn: $layerSettings.showWarZones
                     )
 
                     layerToggle(
                         icon: "gift.fill",
-                        title: "宝箱资源点",
-                        subtitle: "显示宝箱刷新位置",
+                        title: NSLocalizedString("map.layer.treasures", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.treasures_desc", comment: ""),
                         color: .cyan,
                         isOn: $layerSettings.showTreasureChests
                     )
 
                     layerToggle(
                         icon: "person.crop.circle.fill",
-                        title: "好友位置",
-                        subtitle: "显示关注的好友",
+                        title: NSLocalizedString("map.layer.friends", comment: ""),
+                        subtitle: NSLocalizedString("map.layer.friends_desc", comment: ""),
                         color: .indigo,
                         isOn: $layerSettings.showFriendLocations
                     )

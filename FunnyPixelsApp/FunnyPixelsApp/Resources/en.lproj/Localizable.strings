@@ -1498,3 +1498,74 @@
 "message.category.all" = "All";
 "message.category.interaction" = "Interactions";
 "message.category.system" = "System";
+
+// ========== 2026-03-02 Added: Fix Hardcoded Strings ==========
+
+/* Pixel Bottom Sheet */
+"pixel.share.message" = "Check out this interesting pixel! Coordinates: %@";
+"pixel.report.success" = "Reported successfully";
+"pixel.report.title" = "Report Pixel";
+"pixel.report.inappropriate" = "Inappropriate content";
+"pixel.report.spam" = "Spam";
+"pixel.report.other" = "Other";
+"pixel.info.coordinates" = "Coordinates";
+"pixel.info.country" = "Country/Region";
+"pixel.info.created_at" = "Created at";
+
+/* Task System */
+"task.state.locked" = "Locked";
+"task.state.available" = "Available";
+"task.state.in_progress" = "In Progress";
+"task.state.completed" = "Completed";
+"task.state.claimed" = "Claimed";
+"task.location.radius_meters" = "· Radius %d meters";
+"task.progress.label" = "Progress";
+"task.reward.points" = "Reward: %d points";
+"task.action.navigate" = "Navigate";
+"task.action.claim_reward" = "Claim Reward";
+"task.difficulty.easy" = "Easy";
+"task.difficulty.normal" = "Normal";
+"task.difficulty.hard" = "Hard";
+
+/* Map Layers */
+"map.layer.title" = "Map Layers";
+"map.layer.reset" = "Reset";
+"map.layer.pixels" = "Pixel Layer";
+"map.layer.pixels_desc" = "Show all drawn pixels";
+"map.layer.territory" = "Territory Layer";
+"map.layer.territory_desc" = "Show alliance territory boundaries";
+"map.layer.nearby_players" = "Nearby Players";
+"map.layer.nearby_players_desc" = "Show active players within 5km";
+"map.layer.tasks" = "Task Markers";
+"map.layer.tasks_desc" = "Show daily task locations";
+"map.layer.heatmap" = "Area Heatmap";
+"map.layer.heatmap_desc" = "Show pixel density distribution";
+"map.layer.war_zones" = "War Zones";
+"map.layer.war_zones_desc" = "Show territory battle areas";
+"map.layer.treasures" = "Treasure Chests";
+"map.layer.treasures_desc" = "Show treasure spawn locations";
+"map.layer.friends" = "Friend Locations";
+"map.layer.friends_desc" = "Show followed friends";
+
+/* Common Components */
+"common.anonymous_user" = "Anonymous User";
+"common.unknown_user" = "Unknown User";
+"common.confirm" = "Confirm";
+"common.report" = "Report";
+"common.view" = "View";
+"common.edit" = "Edit";
+"common.hint" = "Hint";
+"common.done" = "Done";
+
+/* Social Features */
+"social.following" = "Following";
+"social.follow" = "Follow";
+"social.liked" = "Liked";
+"social.like" = "Like";
+
+/* Message Center */
+"message.select_none" = "Deselect All";
+"message.select_all" = "Select All";
+"message.mark_read" = "Mark as Read";
+"message.delete_count" = "Delete %d messages";
+"message.delete_warning" = "Cannot be recovered after deletion";

@@ -118,11 +118,11 @@ extension DailyTaskService.DailyTask {
 
         var displayName: String {
             switch self {
-            case .locked: return "锁定"
-            case .available: return "可用"
-            case .inProgress: return "进行中"
-            case .completed: return "已完成"
-            case .claimed: return "已领取"
+            case .locked: return NSLocalizedString("task.state.locked", comment: "")
+            case .available: return NSLocalizedString("task.state.available", comment: "")
+            case .inProgress: return NSLocalizedString("task.state.in_progress", comment: "")
+            case .completed: return NSLocalizedString("task.state.completed", comment: "")
+            case .claimed: return NSLocalizedString("task.state.claimed", comment: "")
             }
         }
     }
@@ -190,7 +190,7 @@ struct TaskDetailCard: View {
                         .font(.system(size: 12))
                         .foregroundColor(.blue)
 
-                    Text("\(locationName) · 半径 \(radius)米")
+                    Text("\(locationName) " + String(format: NSLocalizedString("task.location.radius_meters", comment: ""), radius))
                         .font(.system(size: 13))
                         .foregroundColor(.secondary)
                 }
@@ -199,7 +199,7 @@ struct TaskDetailCard: View {
             // Progress bar
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text("进度")
+                    Text(NSLocalizedString("task.progress.label", comment: ""))
                         .font(.system(size: 13, weight: .medium))
 
                     Spacer()
@@ -232,7 +232,7 @@ struct TaskDetailCard: View {
                     .font(.system(size: 14))
                     .foregroundColor(.orange)
 
-                Text("奖励: \(task.rewardPoints) 积分")
+                Text(String(format: NSLocalizedString("task.reward.points", comment: ""), task.rewardPoints))
                     .font(.system(size: 13, weight: .medium))
             }
 
@@ -242,7 +242,7 @@ struct TaskDetailCard: View {
                     Button(action: onNavigate) {
                         HStack {
                             Image(systemName: "location.fill")
-                            Text("导航")
+                            Text(NSLocalizedString("task.action.navigate", comment: ""))
                         }
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.white)
@@ -260,7 +260,7 @@ struct TaskDetailCard: View {
                     }) {
                         HStack {
                             Image(systemName: "gift.fill")
-                            Text("领取奖励")
+                            Text(NSLocalizedString("task.action.claim_reward", comment: ""))
                         }
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.white)
@@ -301,9 +301,9 @@ struct TaskDetailCard: View {
 
     private func difficultyText(_ difficulty: String) -> String {
         switch difficulty {
-        case "easy": return "简单"
-        case "normal": return "中等"
-        case "hard": return "困难"
+        case "easy": return NSLocalizedString("task.difficulty.easy", comment: "")
+        case "normal": return NSLocalizedString("task.difficulty.normal", comment: "")
+        case "hard": return NSLocalizedString("task.difficulty.hard", comment: "")
         default: return difficulty
         }
     }

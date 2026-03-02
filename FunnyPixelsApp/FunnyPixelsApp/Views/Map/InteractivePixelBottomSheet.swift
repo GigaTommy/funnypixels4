@@ -58,25 +58,27 @@ struct InteractivePixelBottomSheet: View {
             checkStatus()
         }
         .sheet(isPresented: $showShareSheet) {
-            let text = "快来看看这个有趣的像素！坐标：\(pixel.latitude), \(pixel.longitude)"
+            let text = String(format: NSLocalizedString("pixel.share.message", comment: ""),
+                            "\(pixel.latitude), \(pixel.longitude)")
             ShareSheet(activityItems: [text])
         }
-        .alert("举报成功", isPresented: $showReportAlert) {
-            Button("确定", role: .cancel) { }
+        .alert(NSLocalizedString("pixel.report.success", comment: ""), isPresented: $showReportAlert) {
+            Button(NSLocalizedString("common.confirm", comment: ""), role: .cancel) { }
         } message: {
             Text(NSLocalizedString("pixel.feedback_thanks", comment: ""))
         }
-        .confirmationDialog("举报像素", isPresented: $showReportSheet, titleVisibility: .visible) {
-             Button("不当内容", role: .destructive) {
+        .confirmationDialog(NSLocalizedString("pixel.report.title", comment: ""),
+                           isPresented: $showReportSheet, titleVisibility: .visible) {
+             Button(NSLocalizedString("pixel.report.inappropriate", comment: ""), role: .destructive) {
                  reportPixel(reason: "inappropriate_content")
              }
-             Button("垃圾广告", role: .destructive) {
+             Button(NSLocalizedString("pixel.report.spam", comment: ""), role: .destructive) {
                  reportPixel(reason: "spam")
              }
-             Button("其他", role: .destructive) {
+             Button(NSLocalizedString("pixel.report.other", comment: ""), role: .destructive) {
                  reportPixel(reason: "other")
              }
-             Button("取消", role: .cancel) { }
+             Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) { }
         }
     }
     
@@ -89,7 +91,7 @@ struct InteractivePixelBottomSheet: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 // Author Name
-                Text("@\(pixel.authorName ?? "匿名用户")")
+                Text("@\(pixel.authorName ?? NSLocalizedString("common.anonymous_user", comment: ""))")
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
@@ -166,28 +168,28 @@ struct InteractivePixelBottomSheet: View {
         HStack(spacing: 20) {
             ActionButton(
                 icon: isFollowing ? "person.badge.minus" : "person.badge.plus",
-                label: isFollowing ? "已关注" : "关注",
+                label: isFollowing ? NSLocalizedString("social.following", comment: "") : NSLocalizedString("social.follow", comment: ""),
                 isActive: isFollowing,
                 action: toggleFollow
             )
-            
+
             ActionButton(
                 icon: isLiked ? "heart.fill" : "heart",
-                label: isLiked ? "已喜欢" : "喜欢",
+                label: isLiked ? NSLocalizedString("social.liked", comment: "") : NSLocalizedString("social.like", comment: ""),
                 isActive: isLiked,
                 activeColor: .red,
                 action: toggleLike
             )
-            
+
             ActionButton(
                 icon: "square.and.arrow.up",
-                label: "分享",
+                label: NSLocalizedString("common.share", comment: ""),
                 action: { showShareSheet = true }
             )
-            
+
             ActionButton(
                 icon: "exclamationmark.bubble",
-                label: "举报",
+                label: NSLocalizedString("common.report", comment: ""),
                 activeColor: .orange,
                 action: { showReportSheet = true }
             )
@@ -196,13 +198,19 @@ struct InteractivePixelBottomSheet: View {
     
     private var detailedInfo: some View {
         VStack(alignment: .leading, spacing: 16) {
-            InfoRow(icon: "location.fill", title: "坐标", value: String(format: "%.4f, %.4f", pixel.latitude, pixel.longitude))
-            
+            InfoRow(icon: "location.fill",
+                   title: NSLocalizedString("pixel.info.coordinates", comment: ""),
+                   value: String(format: "%.4f, %.4f", pixel.latitude, pixel.longitude))
+
             if let country = pixel.country {
-                InfoRow(icon: "globe", title: "国家/地区", value: country) // Can add flag conversion if needed
+                InfoRow(icon: "globe",
+                       title: NSLocalizedString("pixel.info.country", comment: ""),
+                       value: country) // Can add flag conversion if needed
             }
-            
-            InfoRow(icon: "clock", title: "创建时间", value: pixel.createdAt.formatted(date: .numeric, time: .shortened))
+
+            InfoRow(icon: "clock",
+                   title: NSLocalizedString("pixel.info.created_at", comment: ""),
+                   value: pixel.createdAt.formatted(date: .numeric, time: .shortened))
             
             // Placeholder for Ad or History
             if selectedDetent == .large {

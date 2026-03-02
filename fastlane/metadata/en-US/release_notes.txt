@@ -1,4 +1,0 @@
-- Added support for 6 languages: English, Chinese, Japanese, Korean, Spanish, and Portuguese
-- New Language Picker in Settings
-- Improved plural support across all languages
-- Bug fixes and performance improvements

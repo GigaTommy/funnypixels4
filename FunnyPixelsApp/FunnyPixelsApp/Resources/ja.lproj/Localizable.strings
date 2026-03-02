@@ -1420,3 +1420,74 @@
 "message.category.all" = "すべて";
 "message.category.interaction" = "インタラクション";
 "message.category.system" = "システム";
+
+// ========== 2026-03-02 追加：ハードコード文字列の修正 ==========
+
+/* ピクセル詳細シート */
+"pixel.share.message" = "この面白いピクセルをチェック！座標：%@";
+"pixel.report.success" = "通報が完了しました";
+"pixel.report.title" = "ピクセルを通報";
+"pixel.report.inappropriate" = "不適切なコンテンツ";
+"pixel.report.spam" = "スパム";
+"pixel.report.other" = "その他";
+"pixel.info.coordinates" = "座標";
+"pixel.info.country" = "国/地域";
+"pixel.info.created_at" = "作成日時";
+
+/* タスクシステム */
+"task.state.locked" = "ロック中";
+"task.state.available" = "利用可能";
+"task.state.in_progress" = "進行中";
+"task.state.completed" = "完了";
+"task.state.claimed" = "受領済み";
+"task.location.radius_meters" = "· 半径 %dメートル";
+"task.progress.label" = "進捗";
+"task.reward.points" = "報酬：%d ポイント";
+"task.action.navigate" = "ナビゲート";
+"task.action.claim_reward" = "報酬を受け取る";
+"task.difficulty.easy" = "簡単";
+"task.difficulty.normal" = "普通";
+"task.difficulty.hard" = "難しい";
+
+/* 地図レイヤー */
+"map.layer.title" = "地図レイヤー";
+"map.layer.reset" = "リセット";
+"map.layer.pixels" = "ピクセルレイヤー";
+"map.layer.pixels_desc" = "すべての描画されたピクセルを表示";
+"map.layer.territory" = "領土レイヤー";
+"map.layer.territory_desc" = "アライアンス領土の境界を表示";
+"map.layer.nearby_players" = "近くのプレイヤー";
+"map.layer.nearby_players_desc" = "5km以内のアクティブプレイヤーを表示";
+"map.layer.tasks" = "タスクマーカー";
+"map.layer.tasks_desc" = "デイリータスクの場所を表示";
+"map.layer.heatmap" = "エリアヒートマップ";
+"map.layer.heatmap_desc" = "ピクセル密度分布を表示";
+"map.layer.war_zones" = "戦争ゾーン";
+"map.layer.war_zones_desc" = "領土戦闘エリアを表示";
+"map.layer.treasures" = "宝箱";
+"map.layer.treasures_desc" = "宝箱の出現場所を表示";
+"map.layer.friends" = "友達の場所";
+"map.layer.friends_desc" = "フォロー中の友達を表示";
+
+/* 共通コンポーネント */
+"common.anonymous_user" = "匿名ユーザー";
+"common.unknown_user" = "不明なユーザー";
+"common.confirm" = "確認";
+"common.report" = "通報";
+"common.view" = "表示";
+"common.edit" = "編集";
+"common.hint" = "ヒント";
+"common.done" = "完了";
+
+/* ソーシャル機能 */
+"social.following" = "フォロー中";
+"social.follow" = "フォロー";
+"social.liked" = "いいね済み";
+"social.like" = "いいね";
+
+/* メッセージセンター */
+"message.select_none" = "選択解除";
+"message.select_all" = "すべて選択";
+"message.mark_read" = "既読にする";
+"message.delete_count" = "%d件のメッセージを削除";
+"message.delete_warning" = "削除後は復元できません";

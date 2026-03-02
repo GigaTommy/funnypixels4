@@ -1227,3 +1227,74 @@
 "message.category.all" = "Todos";
 "message.category.interaction" = "Interacciones";
 "message.category.system" = "Sistema";
+
+// ========== 2026-03-02 Agregado: Corregir cadenas codificadas ==========
+
+/* Hoja de detalles del píxel */
+"pixel.share.message" = "¡Mira este píxel interesante! Coordenadas: %@";
+"pixel.report.success" = "Reportado con éxito";
+"pixel.report.title" = "Reportar Píxel";
+"pixel.report.inappropriate" = "Contenido inapropiado";
+"pixel.report.spam" = "Spam";
+"pixel.report.other" = "Otro";
+"pixel.info.coordinates" = "Coordenadas";
+"pixel.info.country" = "País/Región";
+"pixel.info.created_at" = "Creado el";
+
+/* Sistema de tareas */
+"task.state.locked" = "Bloqueado";
+"task.state.available" = "Disponible";
+"task.state.in_progress" = "En progreso";
+"task.state.completed" = "Completado";
+"task.state.claimed" = "Reclamado";
+"task.location.radius_meters" = "· Radio %d metros";
+"task.progress.label" = "Progreso";
+"task.reward.points" = "Recompensa: %d puntos";
+"task.action.navigate" = "Navegar";
+"task.action.claim_reward" = "Reclamar recompensa";
+"task.difficulty.easy" = "Fácil";
+"task.difficulty.normal" = "Normal";
+"task.difficulty.hard" = "Difícil";
+
+/* Capas del mapa */
+"map.layer.title" = "Capas del mapa";
+"map.layer.reset" = "Restablecer";
+"map.layer.pixels" = "Capa de píxeles";
+"map.layer.pixels_desc" = "Mostrar todos los píxeles dibujados";
+"map.layer.territory" = "Capa de territorio";
+"map.layer.territory_desc" = "Mostrar límites de territorio de alianza";
+"map.layer.nearby_players" = "Jugadores cercanos";
+"map.layer.nearby_players_desc" = "Mostrar jugadores activos dentro de 5km";
+"map.layer.tasks" = "Marcadores de tareas";
+"map.layer.tasks_desc" = "Mostrar ubicaciones de tareas diarias";
+"map.layer.heatmap" = "Mapa de calor del área";
+"map.layer.heatmap_desc" = "Mostrar distribución de densidad de píxeles";
+"map.layer.war_zones" = "Zonas de guerra";
+"map.layer.war_zones_desc" = "Mostrar áreas de batalla territorial";
+"map.layer.treasures" = "Cofres del tesoro";
+"map.layer.treasures_desc" = "Mostrar ubicaciones de aparición de tesoros";
+"map.layer.friends" = "Ubicaciones de amigos";
+"map.layer.friends_desc" = "Mostrar amigos seguidos";
+
+/* Componentes comunes */
+"common.anonymous_user" = "Usuario anónimo";
+"common.unknown_user" = "Usuario desconocido";
+"common.confirm" = "Confirmar";
+"common.report" = "Reportar";
+"common.view" = "Ver";
+"common.edit" = "Editar";
+"common.hint" = "Sugerencia";
+"common.done" = "Hecho";
+
+/* Características sociales */
+"social.following" = "Siguiendo";
+"social.follow" = "Seguir";
+"social.liked" = "Me gusta";
+"social.like" = "Me gusta";
+
+/* Centro de mensajes */
+"message.select_none" = "Deseleccionar todo";
+"message.select_all" = "Seleccionar todo";
+"message.mark_read" = "Marcar como leído";
+"message.delete_count" = "Eliminar %d mensajes";
+"message.delete_warning" = "No se puede recuperar después de eliminar";

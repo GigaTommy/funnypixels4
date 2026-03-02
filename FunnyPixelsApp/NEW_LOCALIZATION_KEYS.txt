@@ -1,0 +1,213 @@
+==============================================
+新增本地化键 - 添加到所有 6 种语言文件
+==============================================
+
+/* ========== 像素详情弹窗 ========== */
+"pixel.share.message" = "快来看看这个有趣的像素！坐标：%@";
+"pixel.report.success" = "举报成功";
+"pixel.report.title" = "举报像素";
+"pixel.report.inappropriate" = "不当内容";
+"pixel.report.spam" = "垃圾广告";
+"pixel.report.other" = "其他";
+"pixel.info.coordinates" = "坐标";
+"pixel.info.country" = "国家/地区";
+"pixel.info.created_at" = "创建时间";
+
+/* ========== 任务系统 ========== */
+"task.state.locked" = "锁定";
+"task.state.available" = "可用";
+"task.state.in_progress" = "进行中";
+"task.state.completed" = "已完成";
+"task.state.claimed" = "已领取";
+"task.location.radius_meters" = "· 半径 %d米";
+"task.progress.label" = "进度";
+"task.reward.points" = "奖励: %d 积分";
+"task.action.navigate" = "导航";
+"task.action.claim_reward" = "领取奖励";
+"task.difficulty.easy" = "简单";
+"task.difficulty.normal" = "中等";
+"task.difficulty.hard" = "困难";
+
+/* ========== 地图图层 ========== */
+"map.layer.title" = "地图图层";
+"map.layer.reset" = "重置";
+"map.layer.pixels" = "像素层";
+"map.layer.pixels_desc" = "显示所有绘制的像素";
+"map.layer.territory" = "领地控制层";
+"map.layer.territory_desc" = "显示联盟领地边界";
+"map.layer.nearby_players" = "附近玩家";
+"map.layer.nearby_players_desc" = "显示5km内活跃玩家";
+"map.layer.tasks" = "任务标记";
+"map.layer.tasks_desc" = "显示每日任务位置";
+"map.layer.heatmap" = "区域热力图";
+"map.layer.heatmap_desc" = "显示像素密度分布";
+"map.layer.war_zones" = "战争区域";
+"map.layer.war_zones_desc" = "显示领地争夺战区";
+"map.layer.treasures" = "宝箱资源点";
+"map.layer.treasures_desc" = "显示宝箱刷新位置";
+"map.layer.friends" = "好友位置";
+"map.layer.friends_desc" = "显示关注的好友";
+
+/* ========== 漂流瓶 ========== */
+"drift_bottle.available" = "可用漂流瓶";
+"drift_bottle.message_title" = "漂流瓶留言";
+"drift_bottle.message_placeholder" = "写下你想说的话，让它漂向远方...";
+"drift_bottle.quota_details" = "配额详情";
+"drift_bottle.thrown.title" = "漂流瓶已扔出！";
+"drift_bottle.thrown.message" = "它将漂向远方，寻找有缘人...";
+"drift_bottle.range.out" = "范围外";
+"drift_bottle.range.in" = "范围内";
+
+/* ========== 联盟绘制 ========== */
+"alliance.drawing.flag" = "联盟旗帜";
+"alliance.drawing.default_color" = "默认颜色";
+"alliance.drawing.color" = "颜色";
+"alliance.drawing.emoji" = "表情";
+"alliance.drawing.pattern" = "图案";
+
+/* ========== 通用组件 ========== */
+"common.anonymous_user" = "匿名用户";
+"common.unknown_user" = "未知用户";
+"common.confirm" = "确定";
+"common.report" = "举报";
+"common.view" = "查看";
+"common.edit" = "编辑";
+"common.hint" = "提示";
+"common.done" = "完成";
+
+/* ========== 社交功能 ========== */
+"social.following" = "已关注";
+"social.follow" = "关注";
+"social.liked" = "已喜欢";
+"social.like" = "喜欢";
+
+/* ========== 战斗动态 ========== */
+"battle.feed.title" = "领土动态";
+
+/* ========== 消息中心 ========== */
+"message.select_none" = "取消全选";
+"message.select_all" = "全选";
+"message.mark_read" = "标记已读";
+"message.delete_count" = "删除 %d 条消息";
+"message.delete_warning" = "删除后无法恢复";
+
+/* ========== 活动/事件 ========== */
+"event.your_rank" = "你的排名";
+"event.my_rank" = "我的排名";
+"event.ended" = "已结束";
+"event.pixels_count" = "%d 像素";
+"event.time_remaining" = "剩余 %@";
+"event.unit.pixels" = "像素";
+
+/* ========== 空状态/错误 ========== */
+"empty_state.no_data" = "暂无数据";
+"empty_state.no_pixels" = "还没有任何像素点，快去探索吧！";
+"empty_state.action_explore" = "去探索";
+"error.load_failed" = "加载失败，请稍后重试";
+
+==============================================
+英文翻译参考 (en.lproj)
+==============================================
+
+/* ========== Pixel Bottom Sheet ========== */
+"pixel.share.message" = "Check out this interesting pixel! Coordinates: %@";
+"pixel.report.success" = "Reported successfully";
+"pixel.report.title" = "Report Pixel";
+"pixel.report.inappropriate" = "Inappropriate content";
+"pixel.report.spam" = "Spam";
+"pixel.report.other" = "Other";
+"pixel.info.coordinates" = "Coordinates";
+"pixel.info.country" = "Country/Region";
+"pixel.info.created_at" = "Created at";
+
+/* ========== Task System ========== */
+"task.state.locked" = "Locked";
+"task.state.available" = "Available";
+"task.state.in_progress" = "In Progress";
+"task.state.completed" = "Completed";
+"task.state.claimed" = "Claimed";
+"task.location.radius_meters" = "· Radius %d meters";
+"task.progress.label" = "Progress";
+"task.reward.points" = "Reward: %d points";
+"task.action.navigate" = "Navigate";
+"task.action.claim_reward" = "Claim Reward";
+"task.difficulty.easy" = "Easy";
+"task.difficulty.normal" = "Normal";
+"task.difficulty.hard" = "Hard";
+
+/* ========== Map Layers ========== */
+"map.layer.title" = "Map Layers";
+"map.layer.reset" = "Reset";
+"map.layer.pixels" = "Pixel Layer";
+"map.layer.pixels_desc" = "Show all drawn pixels";
+"map.layer.territory" = "Territory Layer";
+"map.layer.territory_desc" = "Show alliance territory boundaries";
+"map.layer.nearby_players" = "Nearby Players";
+"map.layer.nearby_players_desc" = "Show active players within 5km";
+"map.layer.tasks" = "Task Markers";
+"map.layer.tasks_desc" = "Show daily task locations";
+"map.layer.heatmap" = "Area Heatmap";
+"map.layer.heatmap_desc" = "Show pixel density distribution";
+"map.layer.war_zones" = "War Zones";
+"map.layer.war_zones_desc" = "Show territory battle areas";
+"map.layer.treasures" = "Treasure Chests";
+"map.layer.treasures_desc" = "Show treasure spawn locations";
+"map.layer.friends" = "Friend Locations";
+"map.layer.friends_desc" = "Show followed friends";
+
+/* ========== Drift Bottle ========== */
+"drift_bottle.available" = "Available Bottles";
+"drift_bottle.message_title" = "Bottle Message";
+"drift_bottle.message_placeholder" = "Write your message, let it drift away...";
+"drift_bottle.quota_details" = "Quota Details";
+"drift_bottle.thrown.title" = "Bottle Thrown!";
+"drift_bottle.thrown.message" = "It will drift away to find someone...";
+"drift_bottle.range.out" = "Out of Range";
+"drift_bottle.range.in" = "In Range";
+
+/* ========== Alliance Drawing ========== */
+"alliance.drawing.flag" = "Alliance Flag";
+"alliance.drawing.default_color" = "Default Color";
+"alliance.drawing.color" = "Color";
+"alliance.drawing.emoji" = "Emoji";
+"alliance.drawing.pattern" = "Pattern";
+
+/* ========== Common ========== */
+"common.anonymous_user" = "Anonymous User";
+"common.unknown_user" = "Unknown User";
+"common.confirm" = "Confirm";
+"common.report" = "Report";
+"common.view" = "View";
+"common.edit" = "Edit";
+"common.hint" = "Hint";
+"common.done" = "Done";
+
+/* ========== Social ========== */
+"social.following" = "Following";
+"social.follow" = "Follow";
+"social.liked" = "Liked";
+"social.like" = "Like";
+
+/* ========== Battle Feed ========== */
+"battle.feed.title" = "Territory Feed";
+
+/* ========== Messages ========== */
+"message.select_none" = "Deselect All";
+"message.select_all" = "Select All";
+"message.mark_read" = "Mark as Read";
+"message.delete_count" = "Delete %d messages";
+"message.delete_warning" = "Cannot be recovered after deletion";
+
+/* ========== Events ========== */
+"event.your_rank" = "Your Rank";
+"event.my_rank" = "My Rank";
+"event.ended" = "Ended";
+"event.pixels_count" = "%d pixels";
+"event.time_remaining" = "Remaining %@";
+"event.unit.pixels" = "pixels";
+
+/* ========== Empty States / Errors ========== */
+"empty_state.no_data" = "No Data";
+"empty_state.no_pixels" = "No pixels yet, start exploring!";
+"empty_state.action_explore" = "Explore";
+"error.load_failed" = "Failed to load, please try again later";

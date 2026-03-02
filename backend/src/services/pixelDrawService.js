@@ -359,9 +359,9 @@ class PixelDrawService {
       ];
 
       // 🆕 9. 添加到批处理队列（高性能批量写入）
-      // ✅ FIX 2026-02-22: 恢复历史记录写入，修复会话详情和分享页面数据缺失问题
-      // 历史记录包含pattern_id，用于在分享页面显示联盟旗帜/用户头像
-      const batchResult = await batchPixelService.addToBatch(pixelData, historyData, cacheUpdates);
+      // 🔧 FIX 2026-03-02: 移除historyData参数，避免重复写入pixels_history
+      // 历史记录统一由asyncGeocodingService.writeCompleteHistoryRecord()负责写入
+      const batchResult = await batchPixelService.addToBatch(pixelData, null, cacheUpdates);
       if (!batchResult.success) {
         logger.warn('批处理添加失败，降级到同步处理:', batchResult.error);
         // 降级到同步处理

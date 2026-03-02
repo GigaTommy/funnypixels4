@@ -83,7 +83,13 @@ class DailyTaskViewModel: ObservableObject {
                     isCompleted: oldTask.isCompleted,
                     isClaimed: true,
                     rewardPoints: oldTask.rewardPoints,
-                    progress: oldTask.progress
+                    progress: oldTask.progress,
+                    taskCategory: oldTask.taskCategory,
+                    difficulty: oldTask.difficulty,
+                    locationLat: oldTask.locationLat,
+                    locationLng: oldTask.locationLng,
+                    locationRadius: oldTask.locationRadius,
+                    locationName: oldTask.locationName
                 )
                 tasks[index] = updated
             }

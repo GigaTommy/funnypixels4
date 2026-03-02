@@ -105,18 +105,52 @@ class DrawingSessionController {
       // 每日任务进度更新
       try {
         const DailyTaskController = require('./dailyTaskController');
+        const mapTaskGenerationService = require('../services/mapTaskGenerationService');
 
         // 🔧 FIX: 从 metadata.statistics 获取准确的像素数
         const pixelCount = updatedSession.metadata?.statistics?.pixelCount || 0;
 
         logger.info(`📊 会话结束任务更新: sessionId=${sessionId}, pixelCount=${pixelCount}`);
 
+        // 基础任务更新
         // 🔧 FIX: 无论像素数是否为0，都更新会话数任务
         await DailyTaskController.updateTaskProgress(userId, 'draw_sessions', 1);
 
         // 只有像素数 > 0 时才更新像素任务
         if (pixelCount > 0) {
           await DailyTaskController.updateTaskProgress(userId, 'draw_pixels', pixelCount);
+
+          // 🆕 地图任务更新
+          try {
+            // Update draw_at_location tasks (location-based drawing)
+            if (updatedSession.start_latitude && updatedSession.start_longitude) {
+              await mapTaskGenerationService.updateMapTaskProgress(userId, 'draw_at_location', {
+                lat: updatedSession.start_latitude,
+                lng: updatedSession.start_longitude,
+                count: pixelCount
+              });
+            }
+
+            // Update draw_distance tasks (GPS drawing distance)
+            const gpsDistance = updatedSession.metadata?.statistics?.totalDistance || 0;
+            if (gpsDistance > 0) {
+              await mapTaskGenerationService.updateMapTaskProgress(userId, 'draw_distance', {
+                distance: gpsDistance
+              });
+            }
+
+            // Update explore_regions tasks (unique region exploration)
+            const h3Index = updatedSession.metadata?.h3Index || updatedSession.h3_index;
+            if (h3Index) {
+              await mapTaskGenerationService.updateMapTaskProgress(userId, 'explore_regions', {
+                h3Index: h3Index
+              });
+            }
+
+            logger.info(`✅ 地图任务更新成功: userId=${userId}, distance=${gpsDistance}m, h3=${h3Index}`);
+          } catch (mapTaskErr) {
+            logger.error('更新地图任务进度失败（不影响主流程）:', mapTaskErr.message);
+          }
         } else {
           logger.warn(`⚠️ 会话 ${sessionId} 的 pixelCount 为 0，跳过像素任务更新`);
         }

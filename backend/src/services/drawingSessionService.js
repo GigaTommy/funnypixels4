@@ -109,6 +109,12 @@ class DrawingSessionService {
         await redis.del(`user_active_session:${session.user_id}`);
       }
 
+      // 🔧 FIX: 先刷新批处理队列，确保所有像素都已写入数据库
+      // 否则统计信息会不准确（会话结束时可能还有像素在批处理队列中）
+      const batchPixelService = require('./batchPixelService');
+      await batchPixelService.flushBatch();
+      logger.info(`会话 ${sessionId} 批处理已刷新，准备计算统计信息`);
+
       // 计算会话统计信息
       await this.calculateSessionStatistics(sessionId);
 

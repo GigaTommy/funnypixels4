@@ -48,6 +48,7 @@ const { initializeRedis, closeRedis, getHealthStatus } = require('./config/redis
 let redis = null; // 将在 initializeRedis 后赋值
 let subscriber = null; // Pub/Sub 订阅客户端
 const Pixel = require('./models/Pixel');
+const TreasureSpawnService = require('./services/treasureSpawnService');
 const UserPixelState = require('./models/UserPixelState');
 const User = require('./models/User'); // Added missing import for User
 const prometheusMetrics = require('./monitoring/prometheusMetrics');
@@ -433,8 +434,11 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api/feed', require('./routes/feedRoutes'));
 app.use('/api/stats', require('./routes/personalStatsRoutes'));
+app.use('/api/stats', require('./routes/quickStatsRoutes'));
 app.use('/api/daily-tasks', require('./routes/dailyTaskRoutes'));
 app.use('/api/map-social', require('./routes/mapSocialRoutes'));
+app.use('/api/map-notifications', require('./routes/mapNotificationRoutes'));
+app.use('/api/treasure-chests', require('./routes/treasureChestRoutes'));
 app.use('/api/profile', profileRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
@@ -1163,6 +1167,14 @@ server.listen(PORT, HOST, async () => {
 
       // 在 Redis 可用后才启动预加载服务（单例，仅主worker）
       if (isPrimaryWorker) {
+        // 🎁 Initialize Treasure Spawn Service
+        try {
+          TreasureSpawnService.initializeScheduledSpawning();
+          logger.info('✅ 宝箱自动刷新服务已启动');
+        } catch (treasureError) {
+          logger.error('❌ 宝箱服务启动失败（不影响主服务）:', treasureError);
+        }
+
         try {
           regionLeaderboardPreloadService.start();
           logger.info('地区榜数据预加载服务已启动');

@@ -309,8 +309,12 @@ struct MessageDetailView: View {
                     Text(message.content)
                         .font(.body)
                         .lineSpacing(6)
-                    
-                    if message.type == "territory_battle", let attachments = message.attachments {
+
+                    // ✅ 成就解锁：显示成就图标和信息
+                    if message.type == "achievement", let attachments = message.attachments {
+                        AchievementAttachmentView(attachments: attachments)
+                    }
+                    else if message.type == "territory_battle", let attachments = message.attachments {
                         // 领土动态：显示前往查看按钮
                         let sampleLat = attachments["sample_lat"]?.doubleValue
                         let sampleLng = attachments["sample_lng"]?.doubleValue
@@ -419,6 +423,90 @@ struct RewardRow: View {
         case .int(let v): return "\(v)"
         case .string(let v): return v
         default: return "1"
+        }
+    }
+}
+
+/// 成就附件视图 - 显示成就图标和奖励信息
+struct AchievementAttachmentView: View {
+    let attachments: [String: JSONValue]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(spacing: 16) {
+                // 成就图标
+                if let iconUrl = attachments["icon_url"]?.stringValue,
+                   !iconUrl.isEmpty {
+                    AsyncImage(url: URL(string: iconUrl.hasPrefix("http") ? iconUrl : "\(APIEndpoint.baseURL)\(iconUrl)")) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 64, height: 64)
+                        case .failure(_), .empty:
+                            Image(systemName: "trophy.fill")
+                                .font(.system(size: 40))
+                                .foregroundColor(.orange)
+                                .frame(width: 64, height: 64)
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                } else {
+                    Image(systemName: "trophy.fill")
+                        .font(.system(size: 40))
+                        .foregroundColor(.orange)
+                        .frame(width: 64, height: 64)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    // 成就名称
+                    if let achievementName = attachments["achievement_name"]?.stringValue {
+                        Text(achievementName)
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                    }
+
+                    // 奖励积分
+                    if let points = attachments["points"]?.intValue, points > 0 {
+                        HStack(spacing: 4) {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.orange)
+                                .font(.caption)
+                            Text("+\(points) " + NSLocalizedString("profile.points", comment: "积分"))
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+
+                Spacer()
+            }
+            .padding()
+            .background(Color.orange.opacity(0.05))
+            .cornerRadius(12)
+        }
+    }
+}
+
+// ✅ JSONValue 扩展 - 便捷访问字符串和整数值
+extension JSONValue {
+    var stringValue: String? {
+        switch self {
+        case .string(let v): return v
+        case .int(let v): return "\(v)"
+        case .double(let v): return "\(v)"
+        default: return nil
+        }
+    }
+
+    var intValue: Int? {
+        switch self {
+        case .int(let v): return v
+        case .double(let v): return Int(v)
+        case .string(let v): return Int(v)
+        default: return nil
         }
     }
 }

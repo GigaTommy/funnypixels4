@@ -16,6 +16,7 @@
 		29E399562F0E900400E98633 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 29E3994D2F0E900400E98633 /* KeychainAccess */; };
 		29E399572F0E900500E98633 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 29E3994E2F0E900500E98633 /* Dependencies */; };
 		29E399582F0E900600E98633 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 29E3994F2F0E900600E98633 /* Logging */; };
+		29E399592F0E900700E98633 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 29E399502F0E900700E98633 /* ComposableArchitecture */; };
 		29E3995A2F0E900800E98633 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = 29E399512F0E900800E98633 /* MapLibre */; };
 		29EC90F52F487E73008C110A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29EC90F42F487E73008C110A /* WidgetKit.framework */; };
 		29EC90F72F487E73008C110A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29EC90F62F487E73008C110A /* SwiftUI.framework */; };
@@ -139,6 +140,7 @@
 				29CDEAC22F35E6B1003A2DCA /* GoogleSignIn in Frameworks */,
 				29E399572F0E900500E98633 /* Dependencies in Frameworks */,
 				29E399582F0E900600E98633 /* Logging in Frameworks */,
+				29E399592F0E900700E98633 /* ComposableArchitecture in Frameworks */,
 				29E3995A2F0E900800E98633 /* MapLibre in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +233,7 @@
 				29E3994D2F0E900400E98633 /* KeychainAccess */,
 				29E3994E2F0E900500E98633 /* Dependencies */,
 				29E3994F2F0E900600E98633 /* Logging */,
+				29E399502F0E900700E98633 /* ComposableArchitecture */,
 				29E399512F0E900800E98633 /* MapLibre */,
 				29CDEAC12F35E6B1003A2DCA /* GoogleSignIn */,
 			);
@@ -354,6 +357,7 @@
 				29E399442F0E900400E98633 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				29E399452F0E900500E98633 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
 				29E399462F0E900600E98633 /* XCRemoteSwiftPackageReference "swift-log" */,
+				29E399472F0E900700E98633 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				29E399482F0E900800E98633 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 				29CDEAC02F35E6B1003A2DCA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
@@ -911,6 +915,14 @@
 				minimumVersion = 1.5.3;
 			};
 		};
+		29E399472F0E900700E98633 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.16.0;
+			};
+		};
 		29E399482F0E900800E98633 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution.git";
@@ -961,6 +973,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 29E399462F0E900600E98633 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		29E399502F0E900700E98633 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29E399472F0E900700E98633 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 		29E399512F0E900800E98633 /* MapLibre */ = {
 			isa = XCSwiftPackageProductDependency;

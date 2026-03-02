@@ -20,11 +20,25 @@ class DailyTaskService {
         let rewardPoints: Int
         let progress: Double
 
+        // Map task fields (Phase 1)
+        let taskCategory: String?
+        let difficulty: String?
+        let locationLat: Double?
+        let locationLng: Double?
+        let locationRadius: Int?
+        let locationName: String?
+
         private enum CodingKeys: String, CodingKey {
             case id, type, title, description, target, current, progress
             case isCompleted = "is_completed"
             case isClaimed = "is_claimed"
             case rewardPoints = "reward_points"
+            case taskCategory = "task_category"
+            case difficulty
+            case locationLat = "location_lat"
+            case locationLng = "location_lng"
+            case locationRadius = "location_radius"
+            case locationName = "location_name"
         }
 
         var taskIcon: String {

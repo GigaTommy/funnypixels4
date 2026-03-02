@@ -1,6 +1,7 @@
 const { db } = require('../config/database');
 const logger = require('../utils/logger');
 const pushNotificationService = require('../services/pushNotificationService');
+const mapTaskGenerationService = require('../services/mapTaskGenerationService');
 const {
   getTaskCompletedNotification,
   getAllTasksCompletedNotification
@@ -59,7 +60,15 @@ class DailyTaskController {
             is_completed: t.is_completed,
             is_claimed: t.is_claimed,
             reward_points: t.reward_points,
-            progress: Math.min(t.current / t.target, 1.0)
+            progress: Math.min(t.current / t.target, 1.0),
+            // Map task fields
+            task_category: t.task_category || 'basic',
+            difficulty: t.difficulty || 'normal',
+            location_lat: t.location_lat,
+            location_lng: t.location_lng,
+            location_radius: t.location_radius,
+            location_name: t.location_name,
+            metadata: t.metadata
           })),
           completed_count: completedCount,
           total_count: tasks.length,
@@ -181,45 +190,70 @@ class DailyTaskController {
   }
 
   /**
-   * 自动生成每日任务
+   * 自动生成每日任务（混合系统：2个基础任务 + 3个地图任务）
    */
   static async generateDailyTasks(userId, date) {
-    // 随机选取5个不同类型的任务
+    const allTasks = [];
+
+    // Part 1: Generate 2 basic tasks (from existing templates)
     const shuffled = [...TASK_TEMPLATES].sort(() => Math.random() - 0.5);
-    const selected = [];
-    const usedTypes = new Set();
+    const basicTasks = shuffled.slice(0, 2);
 
-    for (const tpl of shuffled) {
-      if (selected.length >= 5) break;
-      // 允许同类型但不同目标的任务（最多1个相同类型）
-      const typeCount = selected.filter(s => s.type === tpl.type).length;
-      if (typeCount < 1) {
-        selected.push(tpl);
+    for (const tpl of basicTasks) {
+      allTasks.push({
+        user_id: userId,
+        type: tpl.type,
+        title: tpl.title,
+        description: tpl.description,
+        target: tpl.target,
+        current: 0,
+        is_completed: false,
+        is_claimed: false,
+        reward_points: tpl.reward,
+        task_date: date,
+        task_category: 'basic',
+        difficulty: 'normal'
+      });
+    }
+
+    // Part 2: Generate 3 map tasks (location-based)
+    try {
+      const mapTasks = await mapTaskGenerationService.generateMapTasks(userId, 'normal', 3);
+
+      for (const mapTask of mapTasks) {
+        allTasks.push({
+          user_id: userId,
+          task_date: date,
+          ...mapTask,
+          metadata: mapTask.metadata ? JSON.stringify(mapTask.metadata) : null
+        });
+      }
+
+      logger.info(`✅ 为用户 ${userId} 生成混合任务: ${basicTasks.length}个基础 + ${mapTasks.length}个地图`);
+    } catch (error) {
+      logger.error(`❌ 生成地图任务失败，仅使用基础任务: userId=${userId}`, error);
+
+      // Fallback: If map task generation fails, add 3 more basic tasks
+      const fallbackTasks = shuffled.slice(2, 5);
+      for (const tpl of fallbackTasks) {
+        allTasks.push({
+          user_id: userId,
+          type: tpl.type,
+          title: tpl.title,
+          description: tpl.description,
+          target: tpl.target,
+          current: 0,
+          is_completed: false,
+          is_claimed: false,
+          reward_points: tpl.reward,
+          task_date: date,
+          task_category: 'basic',
+          difficulty: 'normal'
+        });
       }
     }
 
-    // 如果不足5个，补充重复类型
-    for (const tpl of shuffled) {
-      if (selected.length >= 5) break;
-      if (!selected.includes(tpl)) {
-        selected.push(tpl);
-      }
-    }
-
-    const rows = selected.map(tpl => ({
-      user_id: userId,
-      type: tpl.type,
-      title: tpl.title,
-      description: tpl.description,
-      target: tpl.target,
-      current: 0,
-      is_completed: false,
-      is_claimed: false,
-      reward_points: tpl.reward,
-      task_date: date
-    }));
-
-    await db('user_daily_tasks').insert(rows);
+    await db('user_daily_tasks').insert(allTasks);
 
     return db('user_daily_tasks')
       .where({ user_id: userId, task_date: date })
@@ -282,8 +316,7 @@ class DailyTaskController {
               .update({
                 current: newCurrent,
                 is_completed: isCompleted,
-                completed_at: isCompleted ? db.fn.now() : null,
-                updated_at: db.fn.now()
+                completed_at: isCompleted ? db.fn.now() : null
               });
 
             logger.info(`✅ 更新任务进度: userId=${userId}, type=${taskType}, ${task.current}→${newCurrent}/${task.target}`);
@@ -303,12 +336,29 @@ class DailyTaskController {
           .update({
             current: newCurrent,
             is_completed: isCompleted,
-            completed_at: isCompleted ? db.fn.now() : null,
-            updated_at: db.fn.now()
+            completed_at: isCompleted ? db.fn.now() : null
           });
 
         // 🔧 FIX: 添加详细日志
         logger.info(`✅ 更新任务进度: userId=${userId}, type=${taskType}, ${task.current}→${newCurrent}/${task.target} ${isCompleted ? '✓已完成' : ''}`);
+
+        // 🆕 实时通知：通过Socket.IO推送任务进度更新
+        try {
+          const { getIO } = require('../socket');
+          const io = getIO();
+          if (io) {
+            io.to(`user:${userId}`).emit('dailyTaskUpdated', {
+              taskId: task.id,
+              type: task.type,
+              current: newCurrent,
+              target: task.target,
+              isCompleted: isCompleted
+            });
+            logger.debug(`📡 已发送任务更新通知: userId=${userId}, taskId=${task.id}`);
+          }
+        } catch (socketErr) {
+          logger.warn('发送任务更新Socket通知失败（不影响主流程）:', socketErr.message);
+        }
 
         // 🆕 P0功能：任务完成时发送推送通知（多语言支持）
         if (isCompleted && task.current < task.target) {

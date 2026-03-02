@@ -337,7 +337,17 @@ public actor SocketIOManager {
                 await self.eventsUpdatedSubject.send()
             }
         }
-        
+
+        // 每日任务更新通知
+        socket.on("dailyTaskUpdated") { [weak self] data, _ in
+            guard let self = self else { return }
+            Logger.info("📡 收到每日任务更新通知")
+            // 发送本地通知，让DailyTaskViewModel刷新
+            Task { @MainActor in
+                NotificationCenter.default.post(name: .dailyTasksNeedRefresh, object: nil)
+            }
+        }
+
         // MARK: - 瓦片事件
 
         // 瓦片数据（初始数据）
@@ -437,8 +447,8 @@ public actor SocketIOManager {
                 return
             }
 
-            // 使用 nonisolated 上下文解码
-            Task.detached {
+            // 在主线程解码并处理
+            Task { @MainActor in
                 guard let notification = try? JSONDecoder().decode(NotificationService.SystemMessage.self, from: jsonData) else {
                     Logger.warning("Failed to decode notification")
                     return

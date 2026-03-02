@@ -97,6 +97,16 @@ class ProfileViewModel: ObservableObject {
                 )
             }
             .store(in: &cancellables)
+
+        // ✅ 监听未读消息数更新通知（由 MessageCenterViewModel 发送）
+        NotificationCenter.default.publisher(for: .init("RefreshUnreadCount"))
+            .compactMap { $0.object as? NotificationService.UnreadCount }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] count in
+                self?.unreadMessageCount = count.total_unread
+                Logger.info("✅ Badge updated: unread count = \(count.total_unread)")
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Public Methods

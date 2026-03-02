@@ -645,6 +645,35 @@ class AsyncGeocodingService {
           partitionTable
         });
 
+        // 🔧 FIX 2026-03-02: 防止重复插入 - 先检查是否已存在相同的记录
+        const existing = await db('pixels_history')
+          .where({
+            grid_id: targetGridId,
+            user_id: targetUserId,
+            history_date: historyDate
+          })
+          .where('created_at', '>=', new Date(targetTime.getTime() - 5000))
+          .where('created_at', '<=', new Date(targetTime.getTime() + 5000))
+          .first();
+
+        if (existing) {
+          // 记录已存在，更新地理信息而不是插入新记录
+          logger.info('⚠️ 历史记录已存在，更新地理信息而非重复插入', {
+            gridId: targetGridId,
+            existingId: existing.id,
+            hasCity: !!existing.city,
+            newCity: geoUpdateData.city
+          });
+
+          await db('pixels_history')
+            .where('id', existing.id)
+            .update(geoUpdateData);
+
+          logger.info('✅ 历史记录地理信息已更新', { gridId: targetGridId });
+          return;
+        }
+
+        // 记录不存在，执行插入
         await db(partitionTable).insert(fullHistoryRecord);
         logger.info('✅ 完整历史记录已成功写入 (无冲突插入)', { gridId: targetGridId });
         return;

@@ -911,6 +911,14 @@
 				minimumVersion = 1.5.3;
 			};
 		};
+		29E399472F0E900700E98633 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.16.0;
+			};
+		};
 		29E399482F0E900800E98633 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution.git";
@@ -961,6 +969,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 29E399462F0E900600E98633 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		29E399502F0E900700E98633 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29E399472F0E900700E98633 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 		29E399512F0E900800E98633 /* MapLibre */ = {
 			isa = XCSwiftPackageProductDependency;

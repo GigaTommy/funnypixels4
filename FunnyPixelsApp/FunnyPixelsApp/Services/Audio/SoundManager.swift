@@ -9,10 +9,12 @@ class SoundManager: ObservableObject {
     static let shared = SoundManager()
 
     private static let mutedKey = "soundEffectsMuted"
+    private static let hasUserSetPreferenceKey = "soundEffectsHasUserSetPreference"
 
     @Published var isMuted: Bool {
         didSet {
             UserDefaults.standard.set(isMuted, forKey: Self.mutedKey)
+            UserDefaults.standard.set(true, forKey: Self.hasUserSetPreferenceKey)
         }
     }
 
@@ -23,7 +25,15 @@ class SoundManager: ObservableObject {
     private let throttleInterval: TimeInterval = 0.05  // 50ms 节流间隔
 
     private init() {
-        self.isMuted = UserDefaults.standard.bool(forKey: Self.mutedKey)
+        // ✅ 默认静音，除非用户主动开启过
+        let hasUserSetPreference = UserDefaults.standard.bool(forKey: Self.hasUserSetPreferenceKey)
+        if hasUserSetPreference {
+            // 用户已设置过偏好，使用保存的值
+            self.isMuted = UserDefaults.standard.bool(forKey: Self.mutedKey)
+        } else {
+            // 首次使用，默认静音
+            self.isMuted = true
+        }
         configureAudioSession()  // ✅ 启动时配置音频会话
         preloadCommonSounds()     // ✅ 预加载常用音效
     }

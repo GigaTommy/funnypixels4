@@ -556,30 +556,116 @@ async function renderComplex(patternId, scale) {
   if (imageUrl.startsWith('http') && (!localFilePath || !fs.existsSync(localFilePath))) {
     try {
       logger.info(`🌐 Downloading image via HTTP: ${imageUrl}`);
+
+      // 🔧 特殊处理：DiceBear SVG头像需要增加超时时间
+      const isDiceBear = imageUrl.includes('dicebear.com');
+      const timeout = isDiceBear ? 10000 : 5000; // DiceBear使用10秒超时
+
       const response = await axios.get(imageUrl, {
         responseType: 'arraybuffer',
-        timeout: 5000
+        timeout: timeout,
+        headers: {
+          'User-Agent': 'FunnyPixels-SpriteService/1.0'
+        }
       });
 
       // Resize using Sharp with nearest-neighbor (preserve pixel-art style)
+      // 🔧 DiceBear返回SVG，Sharp可以直接处理
       const pngBuffer = await sharp(response.data)
         .resize(size, size, {
-          kernel: 'nearest', // Critical: preserve pixel-art aesthetics
-          fit: 'cover'
+          kernel: isDiceBear ? 'lanczos3' : 'nearest', // SVG用lanczos3，像素艺术用nearest
+          fit: 'cover',
+          background: { r: 255, g: 255, b: 255, alpha: 0 } // 透明背景
         })
         .png({ compressionLevel: 6 })
         .toBuffer();
 
-      logger.info(`✅ Successfully loaded and resized HTTP image: ${patternId}`);
+      logger.info(`✅ Successfully loaded and resized HTTP image: ${patternId} (DiceBear: ${isDiceBear})`);
       return pngBuffer;
     } catch (downloadError) {
       logger.warn(`⚠️ Failed to download image via HTTP: ${imageUrl}`, downloadError.message);
+
+      // 🔧 对于DiceBear失败，使用基于用户ID的默认颜色，而不是灰色问号
+      if (imageUrl.includes('dicebear.com') && patternId.startsWith('user_avatar_')) {
+        logger.info(`🎨 DiceBear failed, using PersonalColorPalette fallback for: ${patternId}`);
+        const userId = patternId.replace('user_avatar_', '');
+        return renderPersonalColorAvatar(userId, size);
+      }
     }
   }
 
-  // If all loading methods fail, use OSM fallback
+  // If all loading methods fail, use intelligent fallback
+  // 🔧 对于用户头像，使用PersonalColorPalette而不是灰色问号
+  if (patternId.startsWith('user_avatar_')) {
+    logger.warn(`🎨 All loading methods failed for user avatar, using PersonalColorPalette fallback: ${patternId}`);
+    const userId = patternId.replace('user_avatar_', '');
+    return renderPersonalColorAvatar(userId, size);
+  }
+
+  // For other patterns, use OSM fallback
   logger.warn(`🗂️ Using OSM fallback for: ${patternId} (all loading methods failed)`);
   return createOSMFallbackIcon(patternId, scale);
+}
+
+/**
+ * 渲染基于PersonalColorPalette的默认头像
+ * 用于DiceBear失败时的回退
+ * ✅ 重要：从pattern_assets表查询颜色，数据库是唯一数据源
+ */
+async function renderPersonalColorAvatar(userId, size) {
+  const crypto = require('crypto');
+
+  // PersonalColorPalette - 16色hex值（与iOS端一致）
+  // 仅用于计算索引和生成pattern key，实际颜色值从数据库获取
+  const colorHexValues = [
+    'e53e3e',  // 红色
+    'dd6b20',  // 橙色
+    'd69e2e',  // 黄色
+    '38a169',  // 绿色
+    '319795',  // 青色
+    '3182ce',  // 蓝色
+    '5a67d8',  // 靛蓝
+    '805ad5',  // 紫色
+    'd53f8c',  // 粉色
+    'c53030',  // 深红
+    '2d3748',  // 灰色
+    '744210',  // 棕色
+    '276749',  // 深绿
+    '2a4365',  // 深蓝
+    '553c9a',  // 深紫
+    '97266d'   // 深粉
+  ];
+
+  // 使用SHA256哈希userId，与iOS端逻辑一致
+  const hash = crypto.createHash('sha256').update(userId).digest();
+  const index = hash[0] % colorHexValues.length;
+  const colorHex = colorHexValues[index];
+
+  // 生成pattern key（与iOS端AllianceDrawingPatternProvider一致）
+  const patternKey = `personal_color_${colorHex}`;
+
+  // 从pattern_assets表查询颜色（数据库是唯一数据源）
+  const pattern = await db('pattern_assets')
+    .where('key', patternKey)
+    .select('color', 'name')
+    .first();
+
+  if (!pattern || !pattern.color) {
+    logger.warn(`⚠️ Personal color pattern not found in DB: ${patternKey}, using fallback`);
+    // 如果数据库中找不到，使用硬编码fallback（应该不会发生）
+    const fallbackColor = `#${colorHex.toUpperCase()}`;
+    logger.info(`🎨 Personal color avatar for userId=${userId.substring(0, 8)}...: ${fallbackColor} (index=${index}, FALLBACK)`);
+    const padding = 8;
+    const innerSize = size - 2 * padding;
+    return renderColorSquare(fallbackColor, size, padding, innerSize, 1);
+  }
+
+  logger.info(`🎨 Personal color avatar for userId=${userId.substring(0, 8)}...: ${pattern.color} (index=${index}, from DB: ${patternKey})`);
+
+  // 渲染方格（像素格子），与其他颜色pattern保持一致
+  const padding = 8;
+  const innerSize = size - 2 * padding;
+  return renderColorSquare(pattern.color, size, padding, innerSize, 1);
 }
 
 /**

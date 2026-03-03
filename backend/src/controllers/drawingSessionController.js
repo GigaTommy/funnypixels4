@@ -297,14 +297,44 @@ class DrawingSessionController {
 
   /**
    * 获取会话像素列表
+   * ✨ 支持查看其他用户的已完成会话（用于动态流）
    */
   async getSessionPixels(req, res) {
     try {
       const userId = req.user.id;
       const { sessionId } = req.params;
 
-      const result = await drawingSessionService.getSessionDetails(sessionId, userId);
+      logger.info(`📸 [getSessionPixels] Request: userId=${userId}, sessionId=${sessionId}`);
 
+      // 🔄 第一次尝试：查询当前用户的会话
+      let result = await drawingSessionService.getSessionDetails(sessionId, userId);
+      logger.info(`📸 [getSessionPixels] First attempt result: ${result ? 'found' : 'not found'}`);
+
+      // 🔄 如果会话不属于当前用户，检查是否为已完成的公开会话
+      if (!result) {
+        logger.info(`📸 [getSessionPixels] Not user's session, trying public access...`);
+        result = await drawingSessionService.getSessionDetails(sessionId, null);
+        logger.info(`📸 [getSessionPixels] Second attempt result: ${result ? 'found' : 'not found'}`);
+
+        // 验证：只允许访问已完成的会话（保护隐私）
+        if (result && result.session.status !== 'completed') {
+          logger.warn(`📸 [getSessionPixels] Access denied: session status=${result.session.status}`);
+          return res.status(403).json({
+            success: false,
+            message: '只能查看已完成的会话'
+          });
+        }
+      }
+
+      if (!result) {
+        logger.warn(`📸 [getSessionPixels] Session not found: ${sessionId}`);
+        return res.status(404).json({
+          success: false,
+          message: '会话不存在'
+        });
+      }
+
+      logger.info(`📸 [getSessionPixels] Success: returning ${result.pixels.length} pixels`);
       res.json({
         success: true,
         data: {
@@ -313,7 +343,8 @@ class DrawingSessionController {
       });
 
     } catch (error) {
-      logger.error('获取会话像素列表失败:', error);
+      logger.error(`❌ [getSessionPixels] Error for sessionId=${req.params.sessionId}:`, error.message);
+      logger.error('Stack:', error.stack);
       res.status(500).json({
         success: false,
         message: '获取会话像素列表失败',

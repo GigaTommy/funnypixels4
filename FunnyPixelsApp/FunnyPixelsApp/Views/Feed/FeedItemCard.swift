@@ -10,34 +10,49 @@ struct FeedItemCard: View {
 
     @State private var showReportAlert = false
     @State private var reportReason: String?
+    @State private var showSessionDetail = false  // ✅ 控制会话详情显示
 
     var body: some View {
         VStack(alignment: .leading, spacing: FeedDesign.Spacing.m) {
-            // 头部：头像 + 名称 + 时间（可点击跳转用户主页）
-            NavigationLink(destination: UserProfileView(userId: item.user.id)) {
-                HStack(spacing: FeedDesign.Spacing.s) {
-                    AvatarView(
-                        avatarUrl: item.user.avatar_url,
-                        avatar: item.user.avatar,
-                        displayName: item.user.displayName,
-                        size: 40
-                    )
+            // 头部：头像 + 名称 + 时间 + 缩略图（如果有）
+            HStack(alignment: .top, spacing: FeedDesign.Spacing.s) {
+                // 左侧：用户信息（可点击跳转）
+                NavigationLink(destination: UserProfileView(userId: item.user.id)) {
+                    HStack(spacing: FeedDesign.Spacing.s) {
+                        AvatarView(
+                            avatarUrl: item.user.avatar_url,
+                            avatar: item.user.avatar,
+                            displayName: item.user.displayName,
+                            size: 40
+                        )
 
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(item.user.displayName)
-                            .font(FeedDesign.Typography.body)
-                            .foregroundColor(FeedDesign.Colors.text)
-                            .lineLimit(1)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(item.user.displayName)
+                                .font(FeedDesign.Typography.body)
+                                .foregroundColor(FeedDesign.Colors.text)
+                                .lineLimit(1)
 
-                        Text(item.timeAgo)
-                            .font(FeedDesign.Typography.caption)
-                            .foregroundColor(FeedDesign.Colors.textSecondary)
+                            Text(item.timeAgo)
+                                .font(FeedDesign.Typography.caption)
+                                .foregroundColor(FeedDesign.Colors.textSecondary)
+                        }
                     }
+                }
+                .buttonStyle(PlainButtonStyle())
 
-                    Spacer()
+                Spacer()
+
+                // 右侧：缩略图（与头像平齐）
+                if let sessionId = item.drawing_session_id, !sessionId.isEmpty,
+                   (item.type == "drawing_complete" || item.type == "showcase") {
+                    SessionThumbnailView(sessionId: sessionId)
+                        .frame(width: 80, height: 80)
+                        .cornerRadius(8)
+                        .onTapGesture {
+                            showSessionDetail = true
+                        }
                 }
             }
-            .buttonStyle(PlainButtonStyle())
 
             // 内容描述
             feedContentView
@@ -117,6 +132,12 @@ struct FeedItemCard: View {
             Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
         } message: {
             Text(NSLocalizedString("feed.report.reason", comment: ""))
+        }
+        .sheet(isPresented: $showSessionDetail) {
+            // ✅ 显示会话详情（只显示地图部分）
+            if let sessionId = item.drawing_session_id {
+                SessionDetailMapView(sessionId: sessionId)
+            }
         }
     }
 

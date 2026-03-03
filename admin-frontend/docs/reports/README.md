@@ -60,7 +60,7 @@ Admin Frontend 模块的开发报告和分析文档集合。
 - 维护文档的时效性
 
 ## 🔗 相关文档
-- [Backend Documentation](../../../backend/docs/README.md)
+- [Backend Documentation](../../../docs/backend/README.md)
 - [Frontend Documentation](../../../frontend/docs/README.md)
 - [Project Architecture](../../../docs/README.md)
 

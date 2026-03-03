@@ -150,17 +150,13 @@ struct LeaderboardTabView: View {
                         MyRankCard(myRank: myRank)
                     }
 
-                    // Top 3 展台
-                    let top3 = viewModel.personalEntries.filter { $0.rank <= 3 }
-                    if top3.count >= 3 {
-                        Top3PodiumView(entries: top3)
+                    // Top 3 展台（🚀 使用预分组数据，零开销）
+                    if viewModel.personalTop3.count >= 3 {
+                        Top3PodiumView(entries: viewModel.personalTop3)
                     }
 
-                    // 第4名起的列表
-                    let rest = top3.count >= 3
-                        ? viewModel.personalEntries.filter { $0.rank > 3 }
-                        : viewModel.personalEntries
-                    ForEach(rest) { entry in
+                    // 第4名起的列表（🚀 使用预分组数据，零开销）
+                    ForEach(viewModel.personalRest) { entry in
                         LeaderboardEntryRow(entry: entry)
                             .onTapGesture {
                                 HapticManager.shared.impact(style: .light)

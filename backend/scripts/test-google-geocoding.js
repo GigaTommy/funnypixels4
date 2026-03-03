@@ -60,7 +60,7 @@ async function testGoogleGeocoding() {
 
   if (!status.available) {
     console.log('❌ Google API未配置，请设置环境变量 GOOGLE_MAPS_API_KEY');
-    console.log('📖 查看配置指南: backend/docs/GOOGLE_GEOCODING_SETUP.md\n');
+    console.log('📖 查看配置指南: docs/backend/geo/GOOGLE_GEOCODING_SETUP.md\n');
     process.exit(1);
   }
 

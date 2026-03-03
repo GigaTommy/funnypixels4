@@ -12,6 +12,37 @@ const geoUtils = require('../utils/geoUtils');
  * - Difficulty adjusts based on user level
  */
 
+/**
+ * 根据用户语言获取本地化地图任务文本
+ * @param {Object} template - 任务模板（包含所有语言的title和description）
+ * @param {string} lang - 语言代码（zh-Hans, en, es, ja, ko, pt-BR）
+ * @returns {Object} - 包含本地化的title和description
+ */
+function getLocalizedMapTask(template, lang) {
+  const langMap = {
+    'zh-Hans': { titleKey: 'title', descKey: 'description' },
+    'zh-CN': { titleKey: 'title', descKey: 'description' },
+    'zh': { titleKey: 'title', descKey: 'description' },
+    'en': { titleKey: 'titleEn', descKey: 'descriptionEn' },
+    'en-US': { titleKey: 'titleEn', descKey: 'descriptionEn' },
+    'es': { titleKey: 'titleEs', descKey: 'descriptionEs' },
+    'es-ES': { titleKey: 'titleEs', descKey: 'descriptionEs' },
+    'ja': { titleKey: 'titleJa', descKey: 'descriptionJa' },
+    'ja-JP': { titleKey: 'titleJa', descKey: 'descriptionJa' },
+    'ko': { titleKey: 'titleKo', descKey: 'descriptionKo' },
+    'ko-KR': { titleKey: 'titleKo', descKey: 'descriptionKo' },
+    'pt-BR': { titleKey: 'titlePt', descKey: 'descriptionPt' },
+    'pt': { titleKey: 'titlePt', descKey: 'descriptionPt' }
+  };
+
+  const keys = langMap[lang] || langMap['en'];
+
+  return {
+    title: template[keys.titleKey] || template.title || template.titleEn,
+    description: template[keys.descKey] || template.description || template.descriptionEn
+  };
+}
+
 // Map task templates with difficulty ratings
 const MAP_TASK_TEMPLATES = {
   draw_at_location: [
@@ -21,8 +52,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 15,
       title: '定点绘画',
       titleEn: 'Draw at Location',
+      titleEs: 'Dibujar en Ubicación',
+      titleJa: '地点描画',
+      titleKo: '위치 그리기',
+      titlePt: 'Desenhar em Local',
       description: '在指定地点绘画20个像素',
       descriptionEn: 'Draw 20 pixels at the specified location',
+      descriptionEs: 'Dibuja 20 píxeles en la ubicación especificada',
+      descriptionJa: '指定された場所で20ピクセルを描画',
+      descriptionKo: '지정된 위치에서 20픽셀 그리기',
+      descriptionPt: 'Desenhe 20 pixels no local especificado',
       radiusRange: [300, 500]
     },
     {
@@ -31,8 +70,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 30,
       title: '区域创作',
       titleEn: 'Area Creation',
+      titleEs: 'Creación de Área',
+      titleJa: 'エリア制作',
+      titleKo: '영역 창작',
+      titlePt: 'Criação de Área',
       description: '在指定区域绘画50个像素',
       descriptionEn: 'Draw 50 pixels in the specified area',
+      descriptionEs: 'Dibuja 50 píxeles en el área especificada',
+      descriptionJa: '指定されたエリアで50ピクセルを描画',
+      descriptionKo: '지정된 영역에서 50픽셀 그리기',
+      descriptionPt: 'Desenhe 50 pixels na área especificada',
       radiusRange: [400, 600]
     }
   ],
@@ -43,8 +90,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 25,
       title: '距离挑战',
       titleEn: 'Distance Challenge',
+      titleEs: 'Desafío de Distancia',
+      titleJa: '距離チャレンジ',
+      titleKo: '거리 도전',
+      titlePt: 'Desafio de Distância',
       description: 'GPS绘画连续500米',
       descriptionEn: 'Draw continuously for 500 meters using GPS',
+      descriptionEs: 'Dibuja continuamente durante 500 metros usando GPS',
+      descriptionJa: 'GPSで500メートル連続して描画',
+      descriptionKo: 'GPS로 500미터 연속 그리기',
+      descriptionPt: 'Desenhe continuamente por 500 metros usando GPS',
       radiusRange: [0, 0] // No location needed
     },
     {
@@ -53,8 +108,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 40,
       title: '长距离征服',
       titleEn: 'Long Distance Conquest',
+      titleEs: 'Conquista de Larga Distancia',
+      titleJa: '長距離征服',
+      titleKo: '장거리 정복',
+      titlePt: 'Conquista de Longa Distância',
       description: 'GPS绘画连续1公里',
       descriptionEn: 'Draw continuously for 1 kilometer using GPS',
+      descriptionEs: 'Dibuja continuamente durante 1 kilómetro usando GPS',
+      descriptionJa: 'GPSで1キロメートル連続して描画',
+      descriptionKo: 'GPS로 1킬로미터 연속 그리기',
+      descriptionPt: 'Desenhe continuamente por 1 quilômetro usando GPS',
       radiusRange: [0, 0]
     }
   ],
@@ -65,8 +128,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 30,
       title: '区域探索',
       titleEn: 'Region Explorer',
-      description: '在3个不同区域绘画',
-      descriptionEn: 'Draw in 3 different regions',
+      titleEs: 'Explorador de Regiones',
+      titleJa: 'エリア探索',
+      titleKo: '지역 탐험',
+      titlePt: 'Explorador de Regiões',
+      description: '在3个不同区域绘画（建议相距500米以上）',
+      descriptionEn: 'Draw in 3 different regions (500m+ apart recommended)',
+      descriptionEs: 'Dibuja en 3 regiones diferentes (recomendado 500m+ de distancia)',
+      descriptionJa: '3つの異なるエリアで描画（500m以上離れることを推奨）',
+      descriptionKo: '3개의 다른 지역에서 그리기 (500m 이상 떨어진 곳 권장)',
+      descriptionPt: 'Desenhe em 3 regiões diferentes (recomendado 500m+ de distância)',
       radiusRange: [0, 0]
     },
     {
@@ -75,8 +146,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 50,
       title: '探索达人',
       titleEn: 'Exploration Master',
-      description: '在5个不同区域绘画',
-      descriptionEn: 'Draw in 5 different regions',
+      titleEs: 'Maestro de Exploración',
+      titleJa: '探索マスター',
+      titleKo: '탐험 달인',
+      titlePt: 'Mestre da Exploração',
+      description: '在5个不同区域绘画（建议相距500米以上）',
+      descriptionEn: 'Draw in 5 different regions (500m+ apart recommended)',
+      descriptionEs: 'Dibuja en 5 regiones diferentes (recomendado 500m+ de distancia)',
+      descriptionJa: '5つの異なるエリアで描画（500m以上離れることを推奨）',
+      descriptionKo: '5개의 다른 지역에서 그리기 (500m 이상 떨어진 곳 권장)',
+      descriptionPt: 'Desenhe em 5 regiões diferentes (recomendado 500m+ de distância)',
       radiusRange: [0, 0]
     }
   ],
@@ -87,8 +166,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 35,
       title: '联盟协作',
       titleEn: 'Alliance Cooperation',
+      titleEs: 'Cooperación de Alianza',
+      titleJa: '同盟協力',
+      titleKo: '동맹 협력',
+      titlePt: 'Cooperação de Aliança',
       description: '与联盟成员在同一位置绘画',
       descriptionEn: 'Draw at the same location with alliance members',
+      descriptionEs: 'Dibuja en la misma ubicación con miembros de la alianza',
+      descriptionJa: '同盟メンバーと同じ場所で描画',
+      descriptionKo: '동맹 회원과 같은 위치에서 그리기',
+      descriptionPt: 'Desenhe no mesmo local com membros da aliança',
       radiusRange: [400, 600]
     }
   ],
@@ -99,8 +186,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 20,
       title: '宝箱猎人',
       titleEn: 'Treasure Hunter',
+      titleEs: 'Cazador de Tesoros',
+      titleJa: '宝箱ハンター',
+      titleKo: '보물 사냥꾼',
+      titlePt: 'Caçador de Tesouros',
       description: '拾取1个地图宝箱',
       descriptionEn: 'Collect 1 map treasure chest',
+      descriptionEs: 'Recoge 1 cofre del tesoro del mapa',
+      descriptionJa: 'マップの宝箱を1つ回収',
+      descriptionKo: '지도 보물 상자 1개 수집',
+      descriptionPt: 'Colete 1 baú de tesouro do mapa',
       radiusRange: [0, 0]
     },
     {
@@ -109,8 +204,16 @@ const MAP_TASK_TEMPLATES = {
       reward: 35,
       title: '资深猎人',
       titleEn: 'Veteran Hunter',
+      titleEs: 'Cazador Veterano',
+      titleJa: 'ベテランハンター',
+      titleKo: '베테랑 사냥꾼',
+      titlePt: 'Caçador Veterano',
       description: '拾取3个地图宝箱',
       descriptionEn: 'Collect 3 map treasure chests',
+      descriptionEs: 'Recoge 3 cofres del tesoro del mapa',
+      descriptionJa: 'マップの宝箱を3つ回収',
+      descriptionKo: '지도 보물 상자 3개 수집',
+      descriptionPt: 'Colete 3 baús de tesouro do mapa',
       radiusRange: [0, 0]
     }
   ]
@@ -372,6 +475,20 @@ class MapTaskGenerationService {
       logger.error(`❌ 更新地图任务进度失败: userId=${userId}, type=${taskType}`, error);
       throw error;
     }
+  }
+
+  /**
+   * 获取地图任务模板（用于多语言处理）
+   */
+  getTaskTemplates() {
+    return MAP_TASK_TEMPLATES;
+  }
+
+  /**
+   * 获取本地化的地图任务文本
+   */
+  getLocalizedTask(template, lang) {
+    return getLocalizedMapTask(template, lang);
   }
 }
 

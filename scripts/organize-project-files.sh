@@ -29,7 +29,7 @@ mkdir -p docs/reports
 mkdir -p docs/guides
 mkdir -p docs/monitoring
 mkdir -p docs/configuration
-mkdir -p backend/docs
+mkdir -p docs/backend
 mkdir -p app/docs
 mkdir -p frontend/docs
 mkdir -p admin-frontend/docs
@@ -143,12 +143,12 @@ echo "📚 [5/6] 整理子目录文档..."
 
 # Backend文档
 echo "  整理backend文档..."
-mv backend/CONTROLLER_REFACTORING_GUIDE.md backend/docs/ 2>/dev/null || true
-mv backend/REFACTORING_SUMMARY.md backend/docs/ 2>/dev/null || true
-mv backend/JSDOC_GUIDE.md backend/docs/ 2>/dev/null || true
-mv backend/SECURITY_*.md backend/docs/ 2>/dev/null || true
-mv backend/PROJECT_COMPLETION_SUMMARY.md backend/docs/ 2>/dev/null || true
-mv backend/IOS_LEADERBOARD_FIXES_SUMMARY.md backend/docs/ 2>/dev/null || true
+mv backend/CONTROLLER_REFACTORING_GUIDE.md docs/backend/ 2>/dev/null || true
+mv backend/REFACTORING_SUMMARY.md docs/backend/ 2>/dev/null || true
+mv backend/JSDOC_GUIDE.md docs/backend/ 2>/dev/null || true
+mv backend/SECURITY_*.md docs/backend/ 2>/dev/null || true
+mv backend/PROJECT_COMPLETION_SUMMARY.md docs/backend/ 2>/dev/null || true
+mv backend/IOS_LEADERBOARD_FIXES_SUMMARY.md docs/backend/ 2>/dev/null || true
 
 # iOS App文档
 echo "  整理iOS app文档..."
@@ -192,7 +192,7 @@ echo "  logs/build/       - 构建日志 ($(find logs/build/ -type f 2>/dev/null
 echo "  logs/runtime/     - 运行时日志 ($(find logs/runtime/ -type f 2>/dev/null | wc -l | xargs) 个文件)"
 echo "  .temp/backups/    - 备份文件 ($(find .temp/backups/ -type f 2>/dev/null | wc -l | xargs) 个文件)"
 echo "  docs/            - 项目文档"
-echo "  backend/docs/    - 后端文档"
+echo "  docs/backend/    - 后端文档"
 echo "  app/docs/        - iOS文档"
 echo ""
 echo "下一步："

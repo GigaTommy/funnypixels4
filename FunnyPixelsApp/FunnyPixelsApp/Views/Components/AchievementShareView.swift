@@ -108,7 +108,6 @@ struct AchievementShareView: View {
                         flagPatternId: userProfile?.flagPatternId,
                         size: 44
                     )
-                    .overlay(Circle().stroke(.white, lineWidth: 2))
                     
                     VStack(alignment: .leading, spacing: 2) {
                         Text(userProfile?.displayOrUsername ?? "PixelArtist")

@@ -172,7 +172,7 @@ await tileLayerManager.updatePixels([{
 
 ## 📚 文档清单
 
-### 1. PERFORMANCE_OPTIMIZATION_REPORT.md
+### 1. docs/performance/PERFORMANCE_OPTIMIZATION_REPORT.md
 - ✅ 完整的优化报告
 - ✅ 技术细节说明
 - ✅ 性能基准测试

@@ -13,19 +13,24 @@ struct AvatarView: View {
     let unicodeChar: String?   // emoji character for emoji-type patterns
     let size: CGFloat
 
+    // 🚀 性能优化：缓存 URL 构建结果，避免每次渲染时重复计算
+    @State private var cachedAvatarUrl: URL?
+    @State private var cachedComplexIconUrl: URL?
+    @State private var urlsCached = false
+
     private var patternCache: FlagPatternCache { FlagPatternCache.shared }
 
     private var isPixelAvatar: Bool {
         (avatar?.contains(",") == true) || (avatarUrl?.contains(",") == true)
     }
-    
+
     private var pixelData: String? {
         if let avatar = avatar, avatar.contains(",") { return avatar }
         if let avatarUrl = avatarUrl, avatarUrl.contains(",") { return avatarUrl }
         return nil
     }
 
-    private var resolvedAvatarUrl: URL? {
+    private func computeResolvedAvatarUrl() -> URL? {
         // If it's pixel data, it's not a URL
         guard !isPixelAvatar else { return nil }
         
@@ -66,14 +71,22 @@ struct AvatarView: View {
         return url
     }
 
-    private var complexIconUrl: URL? {
+    private func computeComplexIconUrl() -> URL? {
         guard let patternId = flagPatternId, !patternId.isEmpty else { return nil }
 
         let baseUrl = APIEndpoint.baseURL.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         let url = URL(string: "\(baseUrl)/sprites/icon/2/complex/\(patternId).png")
-        
+
         Logger.debug("📸 AvatarView: [\(displayName)] complexIconUrl=\(url?.absoluteString ?? "nil")")
         return url
+    }
+
+    // 🚀 缓存 URL 计算结果（只执行一次）
+    private func cacheUrlsIfNeeded() {
+        guard !urlsCached else { return }
+        cachedAvatarUrl = computeResolvedAvatarUrl()
+        cachedComplexIconUrl = computeComplexIconUrl()
+        urlsCached = true
     }
 
     init(
@@ -113,7 +126,7 @@ struct AvatarView: View {
                         Logger.debug("👤 [testuser1] AvatarView: Using PixelAvatarView (data length: \(data.count))")
                     }
                 }
-            } else if let url = resolvedAvatarUrl {
+            } else if let url = cachedAvatarUrl {  // 🚀 使用缓存的 URL
                 // URL头像 - 从CDN加载
                 CachedAsyncImagePhase(url: url) { phase in
                     switch phase {
@@ -155,12 +168,15 @@ struct AvatarView: View {
         }
         .frame(width: size, height: size)
         .clipShape(Circle())
-        .shadow(color: .black.opacity(0.1), radius: 2, y: 1)
+        .onAppear {
+            // 🚀 首次渲染时缓存 URL（只执行一次）
+            cacheUrlsIfNeeded()
+        }
     }
 
     @ViewBuilder
     private func failureContent() -> some View {
-        if let iconUrl = complexIconUrl {
+        if let iconUrl = cachedComplexIconUrl {  // 🚀 使用缓存的 URL
             CachedAsyncImagePhase(url: iconUrl) { iconPhase in
                 switch iconPhase {
                 case .success(let iconImage):

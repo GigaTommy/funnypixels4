@@ -13,12 +13,20 @@ class FeedController {
       const parsedLimit = Math.min(parseInt(limit) || 20, 50);
       const parsedOffset = parseInt(offset) || 0;
 
-      // 单条查询：feed + user + 当前用户是否已点赞（LEFT JOIN 合并，避免二次查询）
+      // 单条查询：feed + user + 当前用户是否已点赞/收藏/投票（LEFT JOIN 合并，避免二次查询）
       let query = db('feed_items')
         .leftJoin('users', 'feed_items.user_id', 'users.id')
         .leftJoin('feed_likes as my_like', function() {
           this.on('my_like.feed_item_id', 'feed_items.id')
               .andOnVal('my_like.user_id', currentUserId);
+        })
+        .leftJoin('feed_bookmarks as my_bookmark', function() {
+          this.on('my_bookmark.feed_item_id', 'feed_items.id')
+              .andOnVal('my_bookmark.user_id', currentUserId);
+        })
+        .leftJoin('poll_votes as my_vote', function() {
+          this.on('my_vote.feed_item_id', 'feed_items.id')
+              .andOnVal('my_vote.user_id', currentUserId);
         })
         .select(
           'feed_items.*',
@@ -26,7 +34,9 @@ class FeedController {
           'users.display_name',
           'users.avatar_url',
           'users.avatar',
-          db.raw('CASE WHEN my_like.id IS NOT NULL THEN true ELSE false END as is_liked')
+          db.raw('CASE WHEN my_like.id IS NOT NULL THEN true ELSE false END as is_liked'),
+          db.raw('CASE WHEN my_bookmark.id IS NOT NULL THEN true ELSE false END as is_bookmarked'),
+          'my_vote.option_index as my_vote_option_index'
         )
         .limit(parsedLimit)
         .offset(parsedOffset);
@@ -85,13 +95,23 @@ class FeedController {
           `ST_Distance(feed_items.location, ST_SetSRID(ST_MakePoint(?, ?), 4326)::geography)`,
           [parseFloat(lng), parseFloat(lat)]
         );
+      } else if (filter === 'trending') {
+        // ✨ 新增：热门筛选 - 按互动分数排序
+        query = query
+          .orderBy('feed_items.engagement_score', 'desc')
+          .orderBy('feed_items.created_at', 'desc');
+      } else if (filter === 'challenges') {
+        // ✨ 新增：挑战筛选 - 只显示挑战相关动态
+        query = query
+          .whereNotNull('feed_items.challenge_id')
+          .orderBy('feed_items.created_at', 'desc');
       } else {
         // filter === 'all' 或其他：显示所有公开动态，按时间排序
         query = query.orderBy('feed_items.created_at', 'desc');
       }
 
-      // 非nearby筛选，按时间排序（nearby已经按距离排序）
-      if (filter !== 'nearby') {
+      // 非nearby和trending筛选，按时间排序
+      if (filter !== 'nearby' && filter !== 'trending') {
         query = query.orderBy('feed_items.created_at', 'desc');
       }
 
@@ -105,6 +125,9 @@ class FeedController {
         like_count: item.like_count,
         comment_count: item.comment_count,
         is_liked: !!item.is_liked,
+        is_bookmarked: !!item.is_bookmarked,
+        poll_data: item.poll_data,
+        my_vote_option_index: item.my_vote_option_index !== null ? item.my_vote_option_index : null,
         created_at: item.created_at,
         user: {
           id: item.user_id,
@@ -417,6 +440,464 @@ class FeedController {
     } catch (error) {
       logger.error('删除评论失败:', error);
       res.status(500).json({ success: false, message: '删除评论失败', error: error.message });
+    }
+  }
+
+  /**
+   * 创建心情动态（用户主动发布）
+   * POST /api/feed/create
+   */
+  static async createMoment(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { content, hashtags, location, media } = req.body;
+
+      // 验证内容
+      if (!content || content.trim().length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: req.t('feed:validation.content_required')
+        });
+      }
+
+      if (content.length > 500) {
+        return res.status(400).json({
+          success: false,
+          message: req.t('feed:validation.content_too_long', { max: 500 })
+        });
+      }
+
+      // 验证图片数量
+      if (media && media.length > 9) {
+        return res.status(400).json({
+          success: false,
+          message: req.t('feed:errors.too_many_images')
+        });
+      }
+
+      // 验证话题标签数量
+      if (hashtags && hashtags.length > 10) {
+        return res.status(400).json({
+          success: false,
+          message: req.t('feed:validation.hashtag_too_many', { max: 10 })
+        });
+      }
+
+      // 规范化话题标签
+      const HashtagService = require('../services/hashtagService');
+      const userLanguage = req.language || 'zh-Hans';
+      const normalizedHashtags = hashtags && hashtags.length > 0
+        ? await HashtagService.normalizeBatch(hashtags, userLanguage)
+        : null;
+
+      // 构建插入数据
+      const insertData = {
+        user_id: currentUserId,
+        type: 'moment',
+        content: JSON.stringify({ text: content.trim() }),
+        media: media ? JSON.stringify(media) : null,
+        hashtags: normalizedHashtags,
+        location_name: location?.name || null
+      };
+
+      // 添加地理位置（用于nearby筛选）
+      if (location?.lat && location?.lng) {
+        insertData.location = db.raw(
+          'ST_SetSRID(ST_MakePoint(?, ?), 4326)::geography',
+          [location.lng, location.lat]
+        );
+      }
+
+      // 插入动态
+      const [feedItem] = await db('feed_items')
+        .insert(insertData)
+        .returning('*');
+
+      logger.info(`Moment created: userId=${currentUserId}, id=${feedItem.id}, hashtags=${normalizedHashtags?.length || 0}`);
+
+      // ✨ 更新每日任务：发布动态
+      try {
+        const DailyTaskController = require('./dailyTaskController');
+        await DailyTaskController.updateTaskProgress(currentUserId, 'publish_feed', 1);
+      } catch (taskError) {
+        logger.error('更新每日任务失败（发布动态）:', taskError);
+      }
+
+      res.json({
+        success: true,
+        data: {
+          id: feedItem.id,
+          created_at: feedItem.created_at
+        },
+        message: req.t('feed:success.created')
+      });
+    } catch (error) {
+      logger.error('创建心情动态失败:', error);
+      res.status(500).json({
+        success: false,
+        message: req.t('feed:errors.create_failed')
+      });
+    }
+  }
+
+  /**
+   * 创建投票动态
+   * POST /api/feed/create-poll
+   */
+  static async createPoll(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { question, options, end_time } = req.body;
+
+      // 验证参数
+      if (!question || question.trim().length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: '投票问题不能为空'
+        });
+      }
+
+      if (!options || !Array.isArray(options) || options.length < 2 || options.length > 4) {
+        return res.status(400).json({
+          success: false,
+          message: '投票选项必须为2-4个'
+        });
+      }
+
+      // 验证选项不为空
+      for (const option of options) {
+        if (!option || option.trim().length === 0) {
+          return res.status(400).json({
+            success: false,
+            message: '投票选项不能为空'
+          });
+        }
+      }
+
+      // 构建投票数据
+      const pollData = {
+        question: question.trim(),
+        options: options.map(o => o.trim()),
+        votes: options.map(() => 0), // 初始化投票数为0
+        end_time: end_time || null
+      };
+
+      // 插入动态
+      const [feedItem] = await db('feed_items').insert({
+        user_id: currentUserId,
+        type: 'poll',
+        content: JSON.stringify({ question: question.trim() }),
+        poll_data: JSON.stringify(pollData)
+      }).returning('*');
+
+      logger.info(`Poll created: userId=${currentUserId}, id=${feedItem.id}`);
+
+      res.json({
+        success: true,
+        data: {
+          id: feedItem.id,
+          created_at: feedItem.created_at
+        },
+        message: '投票创建成功'
+      });
+    } catch (error) {
+      logger.error('创建投票失败:', error);
+      res.status(500).json({
+        success: false,
+        message: '创建投票失败'
+      });
+    }
+  }
+
+  /**
+   * 对投票进行投票
+   * POST /api/feed/:id/vote
+   */
+  static async votePoll(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { id } = req.params;
+      const { option_index } = req.body;
+
+      // 验证参数
+      if (option_index === undefined || option_index === null) {
+        return res.status(400).json({
+          success: false,
+          message: '请选择投票选项'
+        });
+      }
+
+      // 获取投票动态
+      const feedItem = await db('feed_items')
+        .where({ id, type: 'poll' })
+        .first();
+
+      if (!feedItem) {
+        return res.status(404).json({
+          success: false,
+          message: '投票不存在'
+        });
+      }
+
+      const pollData = JSON.parse(feedItem.poll_data);
+
+      // 验证选项索引
+      if (option_index < 0 || option_index >= pollData.options.length) {
+        return res.status(400).json({
+          success: false,
+          message: '无效的投票选项'
+        });
+      }
+
+      // 检查投票是否已结束
+      if (pollData.end_time && new Date(pollData.end_time) < new Date()) {
+        return res.status(400).json({
+          success: false,
+          message: '投票已结束'
+        });
+      }
+
+      // 检查是否已投票
+      const existingVote = await db('poll_votes')
+        .where({ feed_item_id: id, user_id: currentUserId })
+        .first();
+
+      if (existingVote) {
+        return res.status(400).json({
+          success: false,
+          message: '您已经投过票了'
+        });
+      }
+
+      // 记录投票并更新计数
+      await db.transaction(async trx => {
+        // 插入投票记录
+        await trx('poll_votes').insert({
+          feed_item_id: id,
+          user_id: currentUserId,
+          option_index: parseInt(option_index)
+        });
+
+        // 更新投票计数
+        pollData.votes[option_index] = (pollData.votes[option_index] || 0) + 1;
+        await trx('feed_items')
+          .where('id', id)
+          .update({
+            poll_data: JSON.stringify(pollData)
+          });
+      });
+
+      res.json({
+        success: true,
+        message: '投票成功',
+        data: {
+          votes: pollData.votes
+        }
+      });
+    } catch (error) {
+      logger.error('投票失败:', error);
+      res.status(500).json({
+        success: false,
+        message: '投票失败'
+      });
+    }
+  }
+
+  /**
+   * 创建作品展示动态
+   * POST /api/feed/create-showcase
+   */
+  static async createShowcase(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { session_id, story } = req.body;
+
+      // 验证参数
+      if (!session_id) {
+        return res.status(400).json({
+          success: false,
+          message: '请选择要展示的作品'
+        });
+      }
+
+      // 验证故事文本
+      if (story && story.length > 500) {
+        return res.status(400).json({
+          success: false,
+          message: '创作故事不能超过500字'
+        });
+      }
+
+      // 验证绘画会话是否存在且属于当前用户
+      const session = await db('drawing_sessions')
+        .where({ id: session_id, user_id: currentUserId })
+        .select('id', 'pixel_count', 'duration_seconds', 'city', 'start_lat', 'start_lng')
+        .first();
+
+      if (!session) {
+        return res.status(404).json({
+          success: false,
+          message: '作品不存在或无权访问'
+        });
+      }
+
+      // 构建内容
+      const content = {
+        story: story?.trim() || '',
+        pixel_count: session.pixel_count,
+        duration_seconds: session.duration_seconds,
+        city: session.city
+      };
+
+      // 构建插入数据
+      const insertData = {
+        user_id: currentUserId,
+        type: 'showcase',
+        content: JSON.stringify(content),
+        drawing_session_id: session_id
+      };
+
+      // 添加地理位置
+      if (session.start_lat && session.start_lng) {
+        insertData.location = db.raw(
+          'ST_SetSRID(ST_MakePoint(?, ?), 4326)::geography',
+          [session.start_lng, session.start_lat]
+        );
+      }
+
+      // 插入动态
+      const [feedItem] = await db('feed_items')
+        .insert(insertData)
+        .returning('*');
+
+      logger.info(`Showcase created: userId=${currentUserId}, sessionId=${session_id}`);
+
+      res.json({
+        success: true,
+        data: {
+          id: feedItem.id,
+          created_at: feedItem.created_at
+        },
+        message: '作品展示成功'
+      });
+    } catch (error) {
+      logger.error('创建作品展示失败:', error);
+      res.status(500).json({
+        success: false,
+        message: '创建作品展示失败'
+      });
+    }
+  }
+
+  /**
+   * 收藏动态
+   * POST /api/feed/:id/bookmark
+   */
+  static async bookmarkFeedItem(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { id } = req.params;
+
+      // 检查动态是否存在
+      const feedItem = await db('feed_items').where('id', id).first();
+      if (!feedItem) {
+        return res.status(404).json({ success: false, message: 'Feed不存在' });
+      }
+
+      // 检查是否已收藏
+      const existing = await db('feed_bookmarks')
+        .where({ user_id: currentUserId, feed_item_id: id })
+        .first();
+
+      if (existing) {
+        return res.json({ success: true, message: '已收藏' });
+      }
+
+      // 添加收藏
+      await db('feed_bookmarks').insert({
+        user_id: currentUserId,
+        feed_item_id: id
+      });
+
+      res.json({ success: true, message: '收藏成功' });
+    } catch (error) {
+      logger.error('收藏失败:', error);
+      res.status(500).json({ success: false, message: '收藏失败', error: error.message });
+    }
+  }
+
+  /**
+   * 举报动态
+   * POST /api/feed/:id/report
+   */
+  static async reportFeedItem(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { id } = req.params;
+      const { reason, description } = req.body;
+
+      // 验证原因
+      const validReasons = ['spam', 'harassment', 'inappropriate', 'other'];
+      if (!reason || !validReasons.includes(reason)) {
+        return res.status(400).json({
+          success: false,
+          message: '请选择举报原因'
+        });
+      }
+
+      // 检查动态是否存在
+      const feedItem = await db('feed_items').where('id', id).first();
+      if (!feedItem) {
+        return res.status(404).json({ success: false, message: 'Feed不存在' });
+      }
+
+      // 检查是否已举报
+      const existing = await db('reports')
+        .where({
+          reporter_id: currentUserId,
+          target_type: 'feed_item',
+          target_id: id
+        })
+        .first();
+
+      if (existing) {
+        return res.json({ success: true, message: '您已经举报过此内容' });
+      }
+
+      // 创建举报
+      await db('reports').insert({
+        reporter_id: currentUserId,
+        target_type: 'feed_item',
+        target_id: id,
+        reason,
+        description: description?.trim() || null,
+        status: 'pending'
+      });
+
+      res.json({ success: true, message: '举报已提交，感谢您的反馈' });
+    } catch (error) {
+      logger.error('举报失败:', error);
+      res.status(500).json({ success: false, message: '举报失败' });
+    }
+  }
+
+  /**
+   * 取消收藏动态
+   * DELETE /api/feed/:id/bookmark
+   */
+  static async unbookmarkFeedItem(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { id } = req.params;
+
+      await db('feed_bookmarks')
+        .where({ user_id: currentUserId, feed_item_id: id })
+        .del();
+
+      res.json({ success: true, message: '取消收藏成功' });
+    } catch (error) {
+      logger.error('取消收藏失败:', error);
+      res.status(500).json({ success: false, message: '取消收藏失败', error: error.message });
     }
   }
 

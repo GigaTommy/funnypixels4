@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "load_failed": "Failed to load feed",
+    "create_failed": "Failed to create post",
+    "update_failed": "Failed to update post",
+    "delete_failed": "Failed to delete post",
+    "not_found": "Post not found",
+    "permission_denied": "Permission denied",
+    "invalid_content": "Invalid content format",
+    "content_too_long": "Content is too long",
+    "too_many_images": "Too many images",
+    "invalid_image": "Invalid image format",
+    "hashtag_invalid": "Invalid hashtag format",
+    "poll_invalid": "Invalid poll options",
+    "challenge_not_found": "Challenge not found",
+    "already_voted": "Already voted",
+    "poll_ended": "Poll has ended",
+    "bookmark_exists": "Already bookmarked",
+    "bookmark_not_found": "Bookmark not found"
+  },
+  "success": {
+    "created": "Posted successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "liked": "Liked",
+    "unliked": "Unliked",
+    "bookmarked": "Bookmarked",
+    "unbookmarked": "Unbookmarked",
+    "commented": "Commented",
+    "voted": "Voted",
+    "reported": "Report submitted"
+  },
+  "types": {
+    "moment": "Moment",
+    "showcase": "Showcase",
+    "drawing_complete": "Completed drawing",
+    "achievement": "Achievement unlocked",
+    "checkin": "Checked in",
+    "alliance_join": "Joined alliance",
+    "challenge": "Challenge",
+    "poll": "Poll"
+  },
+  "filters": {
+    "all": "All",
+    "following": "Following",
+    "alliance": "Alliance",
+    "nearby": "Nearby",
+    "trending": "Trending",
+    "challenges": "Challenges"
+  },
+  "validation": {
+    "content_required": "Content is required",
+    "content_too_short": "Content is too short",
+    "content_too_long": "Content cannot exceed {{max}} characters",
+    "hashtag_required": "At least one hashtag is required",
+    "hashtag_too_many": "Cannot exceed {{max}} hashtags",
+    "images_required": "Please select images",
+    "images_too_many": "Cannot exceed {{max}} images",
+    "poll_options_required": "At least 2 options required",
+    "poll_options_too_many": "Cannot exceed {{max}} options"
+  }
+}

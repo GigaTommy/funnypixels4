@@ -45,8 +45,8 @@ i18next
     // 预加载语言
     preload: ['zh-Hans', 'en', 'ja', 'ko', 'es', 'pt-BR'],
 
-    // 命名空间（添加 notifications）
-    ns: ['common', 'errors', 'validation', 'success', 'notifications'],
+    // 命名空间（添加 notifications, feed）
+    ns: ['common', 'errors', 'validation', 'success', 'notifications', 'feed'],
     defaultNS: 'common',
 
     // Backend 配置

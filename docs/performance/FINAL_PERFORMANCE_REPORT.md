@@ -99,7 +99,7 @@ pool: {
 #### 修改文件
 - ✅ `backend/knexfile.js`
 - ✅ `backend/.env.production.example`
-- ✅ `backend/docs/DATABASE_POOL_CONFIG.md`（新增）
+- ✅ `docs/backend/operations/DATABASE_POOL_CONFIG.md`（新增）
 
 ---
 
@@ -154,7 +154,7 @@ GET /api/leaderboard/personal?period=daily&limit=50&cursor=<base64>
 ```
 
 #### 文档
-- ✅ `backend/docs/CURSOR_PAGINATION_GUIDE.md`（详细实施指南）
+- ✅ `docs/backend/architecture/CURSOR_PAGINATION_GUIDE.md`（详细实施指南）
 
 ---
 
@@ -322,9 +322,9 @@ async function invalidateCountCache(period, periodStart) {
 ### 新增文件 (13个)
 
 **文档类** (5个):
-1. ✅ `backend/docs/DATABASE_POOL_CONFIG.md`
-2. ✅ `backend/docs/CURSOR_PAGINATION_GUIDE.md`
-3. ✅ `backend/docs/REMAINING_OPTIMIZATIONS.md`
+1. ✅ `docs/backend/operations/DATABASE_POOL_CONFIG.md`
+2. ✅ `docs/backend/architecture/CURSOR_PAGINATION_GUIDE.md`
+3. ✅ `docs/backend/overview/REMAINING_OPTIMIZATIONS.md`
 4. ✅ `PERFORMANCE_OPTIMIZATION_SUMMARY.md`
 5. ✅ `FINAL_PERFORMANCE_REPORT.md` (本文档)
 
@@ -504,7 +504,7 @@ async function invalidateCountCache(period, periodStart) {
 
 ### 问题反馈
 - GitHub Issues: https://github.com/your-org/funnypixels/issues
-- 技术文档: `/backend/docs/`
+- 技术文档: `docs/backend/`
 
 ### 性能监控
 - Prometheus: http://localhost:9090

@@ -153,13 +153,7 @@ class CurrencyController {
       const userId = req.user.id;
       const checkin = await DailyCheckin.checkin(userId);
 
-      // 每日任务进度：签到类型
-      try {
-        const DailyTaskController = require('./dailyTaskController');
-        await DailyTaskController.updateTaskProgress(userId, 'checkin', 1);
-      } catch (taskErr) {
-        console.error('更新每日任务进度失败（不影响签到）:', taskErr.message);
-      }
+      // 注：签到功能已弃用，不再更新每日任务
 
       res.json({
         success: true,

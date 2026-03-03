@@ -1,67 +1,61 @@
 import SwiftUI
 
-/// 动态卡片
+/// 动态卡片 - 遵循简约设计原则
 struct FeedItemCard: View {
     let item: FeedService.FeedItem
     let onLike: () -> Void
     let onComment: () -> Void
-    @State private var likeAnimating = false
+    let onBookmark: () -> Void
+    let onVote: ((Int) -> Void)?
+
+    @State private var showReportAlert = false
+    @State private var reportReason: String?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.m) {
-            // 头部：头像 + 名称 + 时间
-            HStack(spacing: AppSpacing.m) {
-                AvatarView(
-                    avatarUrl: item.user.avatar_url,
-                    avatar: item.user.avatar,
-                    displayName: item.user.displayName,
-                    size: 40
-                )
+        VStack(alignment: .leading, spacing: FeedDesign.Spacing.m) {
+            // 头部：头像 + 名称 + 时间（可点击跳转用户主页）
+            NavigationLink(destination: UserProfileView(userId: item.user.id)) {
+                HStack(spacing: FeedDesign.Spacing.s) {
+                    AvatarView(
+                        avatarUrl: item.user.avatar_url,
+                        avatar: item.user.avatar,
+                        displayName: item.user.displayName,
+                        size: 40
+                    )
 
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(item.user.displayName)
-                        .font(AppTypography.body())
-                        .foregroundColor(AppColors.textPrimary)
-                        .lineLimit(1)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(item.user.displayName)
+                            .font(FeedDesign.Typography.body)
+                            .foregroundColor(FeedDesign.Colors.text)
+                            .lineLimit(1)
 
-                    Text(item.timeAgo)
-                        .font(AppTypography.caption())
-                        .foregroundColor(AppColors.textTertiary)
+                        Text(item.timeAgo)
+                            .font(FeedDesign.Typography.caption)
+                            .foregroundColor(FeedDesign.Colors.textSecondary)
+                    }
+
+                    Spacer()
                 }
-
-                Spacer()
-
-                feedTypeIcon
             }
+            .buttonStyle(PlainButtonStyle())
 
             // 内容描述
             feedContentView
 
             // 底部操作栏
-            HStack(spacing: AppSpacing.xl) {
+            HStack(spacing: FeedDesign.Spacing.xl) {
                 // 点赞
                 Button {
-                    // ⚡ 点赞反馈
-                    SoundManager.shared.play(.likeSend)
-                    HapticManager.shared.impact(style: .light)
-
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                        likeAnimating = true
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        likeAnimating = false
-                    }
                     onLike()
                 } label: {
                     HStack(spacing: 4) {
                         Image(systemName: item.is_liked ? "heart.fill" : "heart")
                             .font(.system(size: 16))
-                            .foregroundColor(item.is_liked ? .red : AppColors.textTertiary)
-                            .scaleEffect(likeAnimating ? 1.3 : 1.0)
+                            .foregroundColor(item.is_liked ? FeedDesign.Colors.like : FeedDesign.Colors.textTertiary)
                         if item.like_count > 0 {
                             Text("\(item.like_count)")
-                                .font(AppTypography.caption())
-                                .foregroundColor(AppColors.textSecondary)
+                                .font(FeedDesign.Typography.caption)
+                                .foregroundColor(FeedDesign.Colors.textSecondary)
                         }
                     }
                 }
@@ -71,49 +65,71 @@ struct FeedItemCard: View {
                     HStack(spacing: 4) {
                         Image(systemName: "bubble.right")
                             .font(.system(size: 16))
-                            .foregroundColor(AppColors.textTertiary)
+                            .foregroundColor(FeedDesign.Colors.textTertiary)
                         if item.comment_count > 0 {
                             Text("\(item.comment_count)")
-                                .font(AppTypography.caption())
-                                .foregroundColor(AppColors.textSecondary)
+                                .font(FeedDesign.Typography.caption)
+                                .foregroundColor(FeedDesign.Colors.textSecondary)
                         }
                     }
                 }
 
                 Spacer()
+
+                // 分享
+                ShareLink(item: shareText) {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.system(size: 16))
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                }
+
+                // 收藏
+                Button(action: onBookmark) {
+                    Image(systemName: item.is_bookmarked ? "bookmark.fill" : "bookmark")
+                        .font(.system(size: 16))
+                        .foregroundColor(item.is_bookmarked ? FeedDesign.Colors.text : FeedDesign.Colors.textTertiary)
+                }
             }
         }
-        .padding(AppSpacing.l)
-        .background(AppColors.surface)
-        .clipShape(RoundedRectangle(cornerRadius: AppRadius.l))
-        .modifier(AppShadows.small())
-    }
-
-    // MARK: - Type Icon
-
-    @ViewBuilder
-    private var feedTypeIcon: some View {
-        switch item.type {
-        case "drawing_complete":
-            Image(systemName: "paintbrush.fill")
-                .font(.system(size: 14))
-                .foregroundColor(AppColors.primary)
-        case "achievement":
-            Image(systemName: "trophy.fill")
-                .font(.system(size: 14))
-                .foregroundColor(.orange)
-        case "checkin":
-            Image(systemName: "calendar.badge.checkmark")
-                .font(.system(size: 14))
-                .foregroundColor(.green)
-        case "alliance_join":
-            Image(systemName: "flag.fill")
-                .font(.system(size: 14))
-                .foregroundColor(.blue)
-        default:
-            EmptyView()
+        .padding(FeedDesign.Spacing.m)
+        .background(FeedDesign.Colors.background)
+        .overlay(
+            Rectangle()
+                .stroke(FeedDesign.Colors.line, lineWidth: FeedDesign.Layout.borderWidth)
+        )
+        .contextMenu {
+            Button {
+                showReportAlert = true
+            } label: {
+                Label(NSLocalizedString("feed.report.title", comment: ""), systemImage: "exclamationmark.triangle")
+            }
+        }
+        .alert(NSLocalizedString("feed.report.title", comment: ""), isPresented: $showReportAlert) {
+            Button(NSLocalizedString("feed.report.spam", comment: "")) {
+                reportItem(reason: "spam")
+            }
+            Button(NSLocalizedString("feed.report.harassment", comment: "")) {
+                reportItem(reason: "harassment")
+            }
+            Button(NSLocalizedString("feed.report.inappropriate", comment: "")) {
+                reportItem(reason: "inappropriate")
+            }
+            Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
+        } message: {
+            Text(NSLocalizedString("feed.report.reason", comment: ""))
         }
     }
+
+    private func reportItem(reason: String) {
+        Task {
+            do {
+                _ = try await FeedService.shared.reportFeedItem(id: item.id, reason: reason, description: nil)
+            } catch {
+                Logger.error("Failed to report: \(error)")
+            }
+        }
+    }
+
 
     // MARK: - Content View
 
@@ -128,74 +144,220 @@ struct FeedItemCard: View {
             checkinContent
         case "alliance_join":
             allianceContent
+        case "moment":
+            momentContent
+        case "showcase":
+            showcaseContent
+        case "poll":
+            pollContent
         default:
             Text(item.type)
-                .font(AppTypography.body())
-                .foregroundColor(AppColors.textSecondary)
+                .font(FeedDesign.Typography.body)
+                .foregroundColor(FeedDesign.Colors.textSecondary)
         }
     }
 
     private var drawingContent: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.s) {
-            HStack(spacing: AppSpacing.m) {
+        VStack(alignment: .leading, spacing: FeedDesign.Spacing.xs) {
+            Text(String(format: NSLocalizedString("feed.drawing.description", comment: ""), item.content.pixel_count ?? 0))
+                .font(FeedDesign.Typography.body)
+                .foregroundColor(FeedDesign.Colors.text)
+
+            // 元数据：像素数 · 位置 · 时长
+            HStack(spacing: 4) {
                 if let pixelCount = item.content.pixel_count, pixelCount > 0 {
-                    Label("\(pixelCount)", systemImage: "square.grid.3x3.fill")
-                        .font(AppTypography.caption())
-                        .foregroundColor(AppColors.secondary)
+                    Text("\(pixelCount)")
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
 
                 if let city = item.content.city, !city.isEmpty {
-                    Label(city, systemImage: "mappin")
-                        .font(AppTypography.caption())
-                        .foregroundColor(AppColors.textSecondary)
+                    Text("·")
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                    Text(city)
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
 
                 if let duration = item.content.duration_seconds, duration > 0 {
-                    Label(formatDuration(duration), systemImage: "clock")
-                        .font(AppTypography.caption())
-                        .foregroundColor(AppColors.textSecondary)
+                    Text("·")
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                    Text(FeedFormatters.formatDuration(duration))
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
             }
-
-            Text(String(format: NSLocalizedString("feed.drawing.description", comment: ""), item.content.pixel_count ?? 0))
-                .font(AppTypography.body())
-                .foregroundColor(AppColors.textPrimary)
         }
     }
 
     private var achievementContent: some View {
-        HStack(spacing: AppSpacing.m) {
-            Image(systemName: "trophy.fill")
-                .font(.system(size: 24))
-                .foregroundColor(.orange)
-            Text(item.content.achievement_name ?? NSLocalizedString("feed.achievement.unlocked", comment: "Achievement unlocked"))
-                .font(AppTypography.body())
-                .foregroundColor(AppColors.textPrimary)
-        }
+        Text(item.content.achievement_name ?? NSLocalizedString("feed.achievement.unlocked", comment: ""))
+            .font(FeedDesign.Typography.body)
+            .foregroundColor(FeedDesign.Colors.text)
     }
 
     private var checkinContent: some View {
-        Text(NSLocalizedString("feed.checkin.description", comment: "Checked in today"))
-            .font(AppTypography.body())
-            .foregroundColor(AppColors.textPrimary)
+        Text(NSLocalizedString("feed.checkin.description", comment: ""))
+            .font(FeedDesign.Typography.body)
+            .foregroundColor(FeedDesign.Colors.text)
     }
 
     private var allianceContent: some View {
-        HStack(spacing: AppSpacing.m) {
-            Image(systemName: "flag.fill")
-                .font(.system(size: 20))
-                .foregroundColor(.blue)
-            Text(String(format: NSLocalizedString("feed.alliance.joined", comment: ""), item.content.alliance_name ?? ""))
-                .font(AppTypography.body())
-                .foregroundColor(AppColors.textPrimary)
+        Text(String(format: NSLocalizedString("feed.alliance.joined", comment: ""), item.content.alliance_name ?? ""))
+            .font(FeedDesign.Typography.body)
+            .foregroundColor(FeedDesign.Colors.text)
+    }
+
+    private var momentContent: some View {
+        VStack(alignment: .leading, spacing: FeedDesign.Spacing.xs) {
+            if let text = item.content.text, !text.isEmpty {
+                Text(text)
+                    .font(FeedDesign.Typography.body)
+                    .foregroundColor(FeedDesign.Colors.text)
+            }
         }
     }
 
-    private func formatDuration(_ seconds: Int) -> String {
-        if seconds < 60 { return "\(seconds)s" }
-        let minutes = seconds / 60
-        if minutes < 60 { return "\(minutes)m" }
-        let hours = minutes / 60
-        return "\(hours)h \(minutes % 60)m"
+    private var showcaseContent: some View {
+        VStack(alignment: .leading, spacing: FeedDesign.Spacing.s) {
+            // 作品统计
+            HStack(spacing: 4) {
+                if let pixelCount = item.content.pixel_count {
+                    Text("\(pixelCount)")
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textSecondary)
+                }
+
+                if let city = item.content.city, !city.isEmpty {
+                    Text("·")
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                    Text(city)
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textSecondary)
+                }
+
+                if let duration = item.content.duration_seconds {
+                    Text("·")
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                    Text(FeedFormatters.formatDuration(duration))
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textSecondary)
+                }
+            }
+
+            // 创作故事
+            if let story = item.content.story, !story.isEmpty {
+                Text(story)
+                    .font(FeedDesign.Typography.body)
+                    .foregroundColor(FeedDesign.Colors.text)
+                    .lineLimit(5)
+            }
+        }
+    }
+
+    private var pollContent: some View {
+        VStack(alignment: .leading, spacing: FeedDesign.Spacing.m) {
+            if let pollData = item.poll_data {
+                // 投票问题
+                Text(pollData.question)
+                    .font(FeedDesign.Typography.body)
+                    .foregroundColor(FeedDesign.Colors.text)
+
+                // 投票选项
+                VStack(spacing: FeedDesign.Spacing.xs) {
+                    ForEach(Array(pollData.options.enumerated()), id: \.offset) { index, option in
+                        pollOption(option: option, index: index, pollData: pollData)
+                    }
+                }
+
+                // 总票数
+                let totalVotes = pollData.votes.reduce(0, +)
+                if totalVotes > 0 {
+                    Text(String(format: NSLocalizedString("feed.poll.votes_count", comment: ""), totalVotes))
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func pollOption(option: String, index: Int, pollData: FeedService.FeedItem.PollData) -> some View {
+        let totalVotes = pollData.votes.reduce(0, +)
+        let votes = pollData.votes[index]
+        let percentage = totalVotes > 0 ? Double(votes) / Double(totalVotes) : 0.0
+        let hasVoted = item.my_vote_option_index != nil
+        let isSelected = item.my_vote_option_index == index
+
+        Button {
+            if !hasVoted, let onVote = onVote {
+                onVote(index)
+            }
+        } label: {
+            HStack(spacing: FeedDesign.Spacing.s) {
+                Text(option)
+                    .font(FeedDesign.Typography.body)
+                    .foregroundColor(FeedDesign.Colors.text)
+
+                Spacer()
+
+                if hasVoted {
+                    Text(String(format: "%.0f%%", percentage * 100))
+                        .font(FeedDesign.Typography.caption)
+                        .foregroundColor(FeedDesign.Colors.textSecondary)
+                }
+            }
+            .padding(FeedDesign.Spacing.s)
+            .background(
+                GeometryReader { geometry in
+                    HStack(spacing: 0) {
+                        Rectangle()
+                            .fill(isSelected ? FeedDesign.Colors.surface : FeedDesign.Colors.background)
+                            .opacity(hasVoted ? 0.5 : 0)
+                            .frame(width: hasVoted ? geometry.size.width * percentage : 0)
+
+                        Spacer(minLength: 0)
+                    }
+                }
+            )
+            .overlay(
+                Rectangle()
+                    .stroke(isSelected ? FeedDesign.Colors.text : FeedDesign.Colors.line, lineWidth: FeedDesign.Layout.borderWidth)
+            )
+        }
+        .disabled(hasVoted)
+    }
+
+    // MARK: - Share Text
+
+    private var shareText: String {
+        let username = item.user.displayName
+        switch item.type {
+        case "moment":
+            if let text = item.content.text {
+                return "\(username): \(text) - FunnyPixels"
+            }
+        case "showcase":
+            if let story = item.content.story, !story.isEmpty {
+                return "\(username) 分享了作品: \(story) - FunnyPixels"
+            } else if let pixels = item.content.pixel_count {
+                return "\(username) 创作了\(pixels)像素的作品 - FunnyPixels"
+            }
+        case "poll":
+            if let pollData = item.poll_data {
+                return "\(username) 发起投票: \(pollData.question) - FunnyPixels"
+            }
+        case "drawing_complete":
+            if let pixels = item.content.pixel_count {
+                return "\(username) 完成了\(pixels)像素的绘画 - FunnyPixels"
+            }
+        default:
+            break
+        }
+        return "\(username) 在 FunnyPixels 上发布了动态"
     }
 }

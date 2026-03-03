@@ -28,7 +28,6 @@ struct PlayerDetailSheet: View {
                     unicodeChar: entry.unicode_char,
                     size: 72
                 )
-                .overlay(Circle().stroke(AppColors.primary.opacity(0.3), lineWidth: 2))
 
                 HStack(spacing: 6) {
                     Text(entry.displayName)

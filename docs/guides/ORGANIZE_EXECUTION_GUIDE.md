@@ -93,7 +93,7 @@ mkdir -p docs/optimization
 mkdir -p docs/configuration
 mkdir -p docs/monitoring
 mkdir -p docs/guides
-mkdir -p backend/docs
+mkdir -p docs/backend
 mkdir -p app/docs
 mkdir -p frontend/docs
 ```
@@ -149,13 +149,13 @@ mv app/FunnyPixels/*.md app/docs/ 2>/dev/null
 
 ##### Step 2.6: 移动Backend文档
 ```bash
-# Backend文档（无需更新引用，backend/docs/已被正确引用）
-mv backend/CONTROLLER_REFACTORING_GUIDE.md backend/docs/
-mv backend/REFACTORING_SUMMARY.md backend/docs/
-mv backend/JSDOC_GUIDE.md backend/docs/
-mv backend/SECURITY_*.md backend/docs/
-mv backend/PROJECT_COMPLETION_SUMMARY.md backend/docs/
-mv backend/IOS_LEADERBOARD_FIXES_SUMMARY.md backend/docs/
+# Backend文档（无需更新引用，docs/backend/ 已被正确引用）
+mv backend/CONTROLLER_REFACTORING_GUIDE.md docs/backend/
+mv backend/REFACTORING_SUMMARY.md docs/backend/
+mv backend/JSDOC_GUIDE.md docs/backend/
+mv backend/SECURITY_*.md docs/backend/
+mv backend/PROJECT_COMPLETION_SUMMARY.md docs/backend/
+mv backend/IOS_LEADERBOARD_FIXES_SUMMARY.md docs/backend/
 ```
 
 ##### Step 2.7: 移动其他独立文档
@@ -277,7 +277,7 @@ echo "3. 如有问题，查看详细指南：cat ../docs/gps/GPS_LOCATION_TESTIN
 - [ ] `logs/build/` 包含所有构建日志
 - [ ] `.temp/backups/` 包含所有备份文件
 - [ ] `docs/` 子目录结构正确
-- [ ] `backend/docs/`、`app/docs/` 包含相应文档
+- [ ] `docs/backend/`、`app/docs/` 包含相应文档
 
 ### 引用有效性验证
 ```bash

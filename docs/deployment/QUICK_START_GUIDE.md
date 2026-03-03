@@ -330,4 +330,4 @@ tileLayerManager.enableHotPatchMode();      // 🔥 启用高性能模式
 - ✅ 支持10k QPS并发
 - ✅ Complex像素即时显示
 
-更多详情请查看：`PERFORMANCE_OPTIMIZATION_REPORT.md`
+更多详情请查看：`docs/performance/PERFORMANCE_OPTIMIZATION_REPORT.md`

@@ -105,7 +105,7 @@
 - REDIS_DEPLOYMENT.md
 
 #### 📦 子项目文档 (23个)
-**→ `backend/docs/` (7个)**
+**→ `docs/backend/` (7个)**
 - CONTROLLER_REFACTORING_GUIDE.md
 - REFACTORING_SUMMARY.md
 - JSDOC_GUIDE.md
@@ -274,7 +274,7 @@ funnypixels3/
 | `docs/development/` | 15 | 开发指南 |
 | `docs/deployment/` | 9 | 部署文档 |
 | `docs/guides/` | 1 | 快速开始 |
-| `backend/docs/` | 21 | 后端文档 |
+| `docs/backend/` | 21 | 后端文档 |
 | `app/docs/` | 16 | iOS文档 |
 | **总计** | **107** | 所有项目文档 |
 
@@ -352,7 +352,7 @@ Phase 2 (Document organization):
 - Move 9 troubleshooting docs to docs/troubleshooting/
 - Move 5 config docs to docs/configuration/
 - Move 7 development docs to docs/development/
-- Move 7 backend docs to backend/docs/
+- Move 7 backend docs to docs/backend/
 - Move 16 iOS docs to app/docs/
 
 Reference updates:

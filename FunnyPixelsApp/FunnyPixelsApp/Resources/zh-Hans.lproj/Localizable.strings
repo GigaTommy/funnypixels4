@@ -1567,3 +1567,145 @@
 "message.mark_read" = "标记已读";
 "message.delete_count" = "删除 %d 条消息";
 "message.delete_warning" = "删除后无法恢复";
+
+/* Feed Module Enhancement - UGC Features */
+
+// Feed Create & Publish
+"feed.create.title" = "发布";
+"feed.create.cancel" = "取消";
+"feed.create.publish" = "发布";
+"feed.create.placeholder" = "分享你的想法...";
+"feed.create.add_photo" = "照片";
+"feed.create.add_location" = "位置";
+"feed.create.add_hashtag" = "话题";
+"feed.create.add_hashtags" = "添加话题";
+"feed.create.success" = "发布成功";
+"feed.create.failed" = "发布失败";
+"feed.create.location" = "位置";
+"feed.create.select_images" = "选择图片";
+"feed.create.max_images" = "最多 %d 张图片";
+"feed.create.location.manual" = "手动输入位置";
+"feed.create.location.placeholder" = "输入位置名称";
+"feed.create.location.confirm" = "确认";
+"feed.create.location.current" = "当前位置";
+"feed.create.location.unavailable" = "位置不可用";
+"feed.create.location.selected" = "已选位置";
+
+// Feed Types
+"feed.type.moment" = "动态";
+"feed.type.showcase" = "作品";
+"feed.type.challenge" = "挑战";
+"feed.type.poll" = "投票";
+"feed.type.tutorial" = "教程";
+"feed.type.track_story" = "轨迹故事";
+
+// Feed Filters
+"feed.filter.trending" = "热门";
+"feed.filter.challenges" = "挑战";
+
+// Feed Actions
+"feed.action.like" = "赞";
+"feed.action.unlike" = "取消赞";
+"feed.action.comment" = "评论";
+"feed.action.share" = "分享";
+"feed.action.bookmark" = "收藏";
+"feed.action.unbookmark" = "取消收藏";
+"feed.action.follow" = "关注";
+"feed.action.following" = "已关注";
+
+// Empty States
+"feed.empty.all.title" = "暂无动态";
+"feed.empty.all.message" = "开始创作并分享";
+"feed.empty.following.title" = "暂无关注的动态";
+"feed.empty.following.action" = "发现创作者";
+"feed.empty.alliance.title" = "加入联盟";
+"feed.empty.alliance.message" = "与志同道合的艺术家一起";
+"feed.empty.alliance.action" = "浏览联盟";
+"feed.empty.nearby.title" = "附近暂无动态";
+"feed.empty.nearby.message" = "试试扩大搜索范围";
+"feed.empty.bookmarks.title" = "暂无收藏";
+"feed.empty.bookmarks.message" = "收藏的内容将显示在这里";
+
+// Time Format Extended
+"feed.time.week" = "%d周";
+"feed.time.month" = "%d月";
+"feed.time.year" = "%d年";
+
+// Engagement
+"feed.likes.count" = "%d";
+"feed.comments.count" = "%d";
+"feed.participants.count" = "%d人参与";
+"feed.views.count" = "%d次浏览";
+
+// Comments
+"feed.comments.title" = "评论";
+"feed.comments.empty" = "暂无评论";
+"feed.comments.placeholder" = "写评论...";
+"feed.comments.send" = "发送";
+"feed.comments.delete" = "删除";
+"feed.comments.delete_confirm" = "确认删除这条评论？";
+"feed.comments.sort.latest" = "最新";
+"feed.comments.sort.oldest" = "最早";
+"feed.comments.remaining" = "还可输入%d字";
+
+// Showcase
+"feed.showcase.title" = "作品展示";
+"feed.showcase.select_work" = "选择作品";
+"feed.showcase.add_story" = "讲述创作故事";
+"feed.showcase.story_placeholder" = "分享你的创作故事...";
+"feed.showcase.stats" = "%d像素 · %@ · %@";
+
+// Poll
+"feed.poll.create" = "创建投票";
+"feed.poll.question" = "问题";
+"feed.poll.option" = "选项%d";
+"feed.poll.add_option" = "添加选项";
+"feed.poll.end_time" = "结束时间";
+"feed.poll.vote" = "投票";
+"feed.poll.voted" = "已投票";
+"feed.poll.ended" = "投票已结束";
+"feed.poll.votes_count" = "%d票";
+
+// Challenge
+"feed.challenge.title" = "挑战";
+"feed.challenge.active" = "进行中";
+"feed.challenge.ended" = "已结束";
+"feed.challenge.join" = "参加挑战";
+"feed.challenge.joined" = "已参加";
+"feed.challenge.participants" = "%d人参与";
+"feed.challenge.view_entries" = "查看作品";
+"feed.challenge.time_remaining" = "剩余%@";
+"feed.challenge.submit_work" = "提交作品";
+
+// Hashtags
+"feed.hashtag.trending" = "热门话题";
+"feed.hashtag.search" = "搜索话题";
+"feed.hashtag.suggestions" = "建议";
+"feed.hashtag.posts_count" = "%d条动态";
+
+// Share
+"feed.share.copy_link" = "复制链接";
+"feed.share.save_image" = "保存图片";
+"feed.share.copied" = "已复制链接";
+
+// Report
+"feed.report.title" = "举报";
+"feed.report.reason" = "举报原因";
+"feed.report.spam" = "垃圾信息";
+"feed.report.harassment" = "骚扰";
+"feed.report.inappropriate" = "不当内容";
+"feed.report.other" = "其他";
+"feed.report.description" = "补充说明";
+"feed.report.submit" = "提交举报";
+"feed.report.success" = "举报已提交";
+
+// Errors
+"feed.error.load_failed" = "加载失败";
+"feed.error.create_failed" = "发布失败";
+"feed.error.like_failed" = "点赞失败";
+"feed.error.comment_failed" = "评论失败";
+"feed.error.network" = "网络错误";
+"feed.error.location_denied" = "位置权限被拒绝";
+"feed.create.error.title" = "发布失败";
+"feed.create.error.unknown" = "未知错误";
+

@@ -244,6 +244,6 @@ MapLibreMapView init/deinit
 
 ## 🔗 相关文档
 
-- [URL配置指南](backend/docs/URL_CONFIG_GUIDE.md)
+- [URL配置指南](docs/backend/operations/URL_CONFIG_GUIDE.md)
 - [修复总结](BUGFIX_SUMMARY.md)
 - [坐标对齐测试](backend/scripts/test-url-config.js)

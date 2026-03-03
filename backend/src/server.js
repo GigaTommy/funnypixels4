@@ -63,6 +63,7 @@ const GeographicStatsMaintenanceService = require('./services/geographicStatsMai
 const PartitionMaintenanceService = require('./services/partitionMaintenanceService');
 const driftBottleService = require('./services/driftBottleService');
 const DailyRewardService = require('./services/dailyRewardService');
+const eventPixelLogListener = require('./events/eventPixelLogListener');
 const { pixelLimiter, apiLimiter } = require('./middleware/rateLimit');
 
 
@@ -433,6 +434,7 @@ app.use('/api/payment', unifiedPaymentRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api/feed', require('./routes/feedRoutes'));
+app.use('/api/hashtags', require('./routes/hashtagRoutes'));
 app.use('/api/stats', require('./routes/personalStatsRoutes'));
 app.use('/api/stats', require('./routes/quickStatsRoutes'));
 app.use('/api/daily-tasks', require('./routes/dailyTaskRoutes'));
@@ -499,7 +501,7 @@ app.use('/api/session-heartbeat', require('./routes/sessionHeartbeatRoutes'));
 app.use('/api/pixel-sessions', require('./routes/pixelSessionRoutes'));
 app.use('/api/avatars', require('./routes/avatarRoutes'));
 app.use('/api/debug', require('./routes/debugRoutes'));
-app.use('/api/test', require('./routes/testAmap'));
+app.use('/api/test', require('../scripts/tests/testAmapRoute'));
 app.use('/api/battles', require('./routes/battleRoutes'));
 app.use('/api/v1/localization', require('./routes/localizationRoutes'));
 app.use('/api/rank-tiers', require('./routes/rankTierRoutes'));
@@ -1201,6 +1203,14 @@ server.listen(PORT, HOST, async () => {
     logger.info(`✅ pattern_assets 内存缓存已加载 (${patternAssetsCache.size} 条)`);
   } catch (cacheError) {
     logger.error('❌ pattern_assets 缓存初始化失败:', cacheError.message);
+  }
+
+  // 初始化活动像素日志监听器（自动记录像素到活动）
+  try {
+    eventPixelLogListener.initialize();
+    logger.info('✅ 活动像素日志监听器已启动 - 像素将自动记录到活动');
+  } catch (eventListenerError) {
+    logger.error('❌ 活动像素日志监听器启动失败:', eventListenerError.message);
   }
 
   // Background warmup: load all pixels into Redis GEO for GEOSEARCH-based BBOX queries

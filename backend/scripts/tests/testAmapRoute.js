@@ -5,7 +5,7 @@
 
 const express = require('express');
 const router = express.Router();
-const amapWebService = require('../services/amapWebService');
+const amapWebService = require('../../src/services/amapWebService');
 
 /**
  * 测试高德API与MapLibre GL兼容性

@@ -177,7 +177,7 @@ BASE_URL=http://192.168.0.3:3001  # ❌ 硬编码
 ### 新增文件
 - ✅ `backend/src/config/urlConfig.js` - URL配置核心
 - ✅ `backend/.env.production.example` - 生产环境模板
-- ✅ `backend/docs/URL_CONFIG_GUIDE.md` - 使用文档
+- ✅ `docs/backend/operations/URL_CONFIG_GUIDE.md` - 使用文档
 - ✅ `backend/scripts/test-url-config.js` - 测试脚本
 
 ## 🧪 测试验证
@@ -271,7 +271,7 @@ cp .env.production.example .env.production
 
 ## 🔗 相关文档
 
-- [URL配置使用指南](backend/docs/URL_CONFIG_GUIDE.md)
+- [URL配置使用指南](docs/backend/operations/URL_CONFIG_GUIDE.md)
 - [生产环境配置模板](backend/.env.production.example)
 - [URL配置测试脚本](backend/scripts/test-url-config.js)
 

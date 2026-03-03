@@ -375,7 +375,7 @@ k6 run k6-websocket.js
 
 ### ✅ 技术文档（7个）
 
-1. **PERFORMANCE_OPTIMIZATION_REPORT.md** - 完整技术报告
+1. **docs/performance/PERFORMANCE_OPTIMIZATION_REPORT.md** - 完整技术报告
    - 架构设计
    - 实现细节
    - 性能指标
@@ -462,7 +462,7 @@ k6 run k6-websocket.js
 
 | 文件 | 字数 | 状态 | 描述 |
 |------|------|------|------|
-| `PERFORMANCE_OPTIMIZATION_REPORT.md` | ~8000 | ✅ 已创建 | 完整技术报告 |
+| `docs/performance/PERFORMANCE_OPTIMIZATION_REPORT.md` | ~8000 | ✅ 已创建 | 完整技术报告 |
 | `QUICK_START_GUIDE.md` | ~3000 | ✅ 已创建 | 快速上手指南 |
 | `OPTIMIZATION_COMPLETE.md` | ~2500 | ✅ 已创建 | 完成总结 |
 | `ARCHITECTURE_COMPARISON.md` | ~4500 | ✅ 已创建 | 架构对比 |

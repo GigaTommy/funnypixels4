@@ -1215,7 +1215,7 @@ GET /api/map/batch-data?lat={}&lng={}&includes=region,players,tasks,treasures
 
 ### 技术架构文档
 - [项目结构说明](../../docs/architecture/PROJECT_STRUCTURE.md)
-- [API文档](../../backend/docs/API_DOCUMENTATION_v2.md)
+- [API文档](../../docs/backend/architecture/API_DOCUMENTATION_v2.md)
 - [性能优化报告](../../FINAL_PERFORMANCE_REPORT.md)
 
 ---

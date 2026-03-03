@@ -7,17 +7,51 @@ const {
   getAllTasksCompletedNotification
 } = require('../utils/notificationI18n');
 
-// 任务模板：每日从中随机选取5个
+// 任务模板：每日从中随机选取5个（支持6种语言）
 const TASK_TEMPLATES = [
-  { type: 'draw_pixels', title: '像素画家', titleEn: 'Pixel Painter', description: '绘制像素', descriptionEn: 'Draw pixels', target: 50, reward: 10 },
-  { type: 'draw_pixels', title: '勤奋画家', titleEn: 'Diligent Painter', description: '绘制更多像素', descriptionEn: 'Draw more pixels', target: 100, reward: 15 },
-  { type: 'draw_pixels', title: '像素大师', titleEn: 'Pixel Master', description: '大量绘制像素', descriptionEn: 'Draw lots of pixels', target: 200, reward: 25 },
-  { type: 'draw_sessions', title: '开始创作', titleEn: 'Start Creating', description: '完成绘画会话', descriptionEn: 'Complete drawing sessions', target: 1, reward: 10 },
-  { type: 'draw_sessions', title: '多次创作', titleEn: 'Multiple Sessions', description: '完成多次绘画', descriptionEn: 'Complete multiple sessions', target: 3, reward: 20 },
-  { type: 'checkin', title: '联盟签到', titleEn: 'Alliance Check-in', description: '在联盟签到', descriptionEn: 'Check in to alliance', target: 1, reward: 10 },
-  { type: 'social_interact', title: '社交达人', titleEn: 'Social Star', description: '点赞或评论动态', descriptionEn: 'Like or comment on feed', target: 3, reward: 15 },
-  { type: 'explore_map', title: '探索地图', titleEn: 'Map Explorer', description: '在地图上活动', descriptionEn: 'Be active on the map', target: 1, reward: 10 },
+  { type: 'draw_pixels', title: '像素画家', titleEn: 'Pixel Painter', titleEs: 'Pintor de Píxeles', titleJa: 'ピクセルペインター', titleKo: '픽셀 화가', titlePt: 'Pintor de Pixels', description: '绘制像素', descriptionEn: 'Draw pixels', descriptionEs: 'Dibuja píxeles', descriptionJa: 'ピクセルを描画', descriptionKo: '픽셀 그리기', descriptionPt: 'Desenhe pixels', target: 50, reward: 10 },
+  { type: 'draw_pixels', title: '勤奋画家', titleEn: 'Diligent Painter', titleEs: 'Pintor Diligente', titleJa: '勤勉なペインター', titleKo: '부지런한 화가', titlePt: 'Pintor Diligente', description: '绘制更多像素', descriptionEn: 'Draw more pixels', descriptionEs: 'Dibuja más píxeles', descriptionJa: 'より多くのピクセルを描画', descriptionKo: '더 많은 픽셀 그리기', descriptionPt: 'Desenhe mais pixels', target: 100, reward: 15 },
+  { type: 'draw_pixels', title: '像素大师', titleEn: 'Pixel Master', titleEs: 'Maestro de Píxeles', titleJa: 'ピクセルマスター', titleKo: '픽셀 마스터', titlePt: 'Mestre de Pixels', description: '大量绘制像素', descriptionEn: 'Draw lots of pixels', descriptionEs: 'Dibuja muchos píxeles', descriptionJa: '大量のピクセルを描画', descriptionKo: '많은 픽셀 그리기', descriptionPt: 'Desenhe muitos pixels', target: 200, reward: 25 },
+  { type: 'draw_sessions', title: '开始创作', titleEn: 'Start Creating', titleEs: 'Comenzar a Crear', titleJa: '創作を始める', titleKo: '창작 시작', titlePt: 'Começar a Criar', description: '完成绘画会话', descriptionEn: 'Complete drawing sessions', descriptionEs: 'Completa sesiones de dibujo', descriptionJa: '描画セッションを完了', descriptionKo: '그리기 세션 완료', descriptionPt: 'Complete sessões de desenho', target: 1, reward: 10 },
+  { type: 'draw_sessions', title: '多次创作', titleEn: 'Multiple Sessions', titleEs: 'Múltiples Sesiones', titleJa: '複数のセッション', titleKo: '여러 세션', titlePt: 'Múltiplas Sessões', description: '完成多次绘画', descriptionEn: 'Complete multiple sessions', descriptionEs: 'Completa múltiples sesiones', descriptionJa: '複数の描画を完了', descriptionKo: '여러 번 그리기', descriptionPt: 'Complete múltiplas sessões', target: 3, reward: 20 },
+  { type: 'collect_treasures', title: '寻宝探险', titleEn: 'Treasure Hunter', titleEs: 'Cazador de Tesoros', titleJa: 'トレジャーハンター', titleKo: '보물 사냥꾼', titlePt: 'Caçador de Tesouros', description: '收集宝箱', descriptionEn: 'Collect treasure chests', descriptionEs: 'Recoge cofres del tesoro', descriptionJa: '宝箱を回収', descriptionKo: '보물 상자 수집', descriptionPt: 'Colete baús de tesouro', target: 1, reward: 10 },
+  { type: 'collect_treasures', title: '寻宝达人', titleEn: 'Treasure Master', titleEs: 'Maestro de Tesoros', titleJa: 'トレジャーマスター', titleKo: '보물 달인', titlePt: 'Mestre de Tesouros', description: '收集多个宝箱', descriptionEn: 'Collect multiple chests', descriptionEs: 'Recoge múltiples cofres', descriptionJa: '複数の宝箱を回収', descriptionKo: '여러 상자 수집', descriptionPt: 'Colete múltiplos baús', target: 3, reward: 20 },
+  { type: 'use_drift_bottle', title: '瓶中信使', titleEn: 'Bottle Messenger', titleEs: 'Mensajero de Botella', titleJa: 'ボトルメッセンジャー', titleKo: '병 메신저', titlePt: 'Mensageiro da Garrafa', description: '扔出或捡起漂流瓶', descriptionEn: 'Throw or pick up drift bottles', descriptionEs: 'Lanza o recoge botellas a la deriva', descriptionJa: '漂流瓶を投げるまたは拾う', descriptionKo: '표류병 던지기 또는 줍기', descriptionPt: 'Jogue ou pegue garrafas à deriva', target: 1, reward: 10 },
+  { type: 'social_interact', title: '社交达人', titleEn: 'Social Star', titleEs: 'Estrella Social', titleJa: 'ソーシャルスター', titleKo: '소셜 스타', titlePt: 'Estrela Social', description: '点赞或评论动态', descriptionEn: 'Like or comment on feed', descriptionEs: 'Dale me gusta o comenta en el feed', descriptionJa: 'フィードにいいねまたはコメント', descriptionKo: '피드에 좋아요 또는 댓글', descriptionPt: 'Curta ou comente no feed', target: 3, reward: 15 },
+  { type: 'explore_map', title: '探索地图', titleEn: 'Map Explorer', titleEs: 'Explorador del Mapa', titleJa: 'マップ探索', titleKo: '지도 탐험', titlePt: 'Explorador de Mapa', description: '在地图上活动', descriptionEn: 'Be active on the map', descriptionEs: 'Sé activo en el mapa', descriptionJa: 'マップで活動', descriptionKo: '지도에서 활동', descriptionPt: 'Seja ativo no mapa', target: 1, reward: 10 },
 ];
+
+/**
+ * 根据用户语言获取本地化文本
+ * @param {Object} task - 任务对象（包含所有语言的title和description）
+ * @param {string} lang - 语言代码（zh-Hans, en, es, ja, ko, pt-BR）
+ * @returns {Object} - 包含本地化的title和description
+ */
+function getLocalizedTask(task, lang) {
+  // 语言映射
+  const langMap = {
+    'zh-Hans': { titleKey: 'title', descKey: 'description' },
+    'zh-CN': { titleKey: 'title', descKey: 'description' },
+    'zh': { titleKey: 'title', descKey: 'description' },
+    'en': { titleKey: 'titleEn', descKey: 'descriptionEn' },
+    'en-US': { titleKey: 'titleEn', descKey: 'descriptionEn' },
+    'es': { titleKey: 'titleEs', descKey: 'descriptionEs' },
+    'es-ES': { titleKey: 'titleEs', descKey: 'descriptionEs' },
+    'ja': { titleKey: 'titleJa', descKey: 'descriptionJa' },
+    'ja-JP': { titleKey: 'titleJa', descKey: 'descriptionJa' },
+    'ko': { titleKey: 'titleKo', descKey: 'descriptionKo' },
+    'ko-KR': { titleKey: 'titleKo', descKey: 'descriptionKo' },
+    'pt-BR': { titleKey: 'titlePt', descKey: 'descriptionPt' },
+    'pt': { titleKey: 'titlePt', descKey: 'descriptionPt' }
+  };
+
+  const keys = langMap[lang] || langMap['en']; // 默认英语
+
+  return {
+    title: task[keys.titleKey] || task.title || task.titleEn,
+    description: task[keys.descKey] || task.description || task.descriptionEn
+  };
+}
 
 class DailyTaskController {
   /**
@@ -28,6 +62,9 @@ class DailyTaskController {
     try {
       const userId = req.user.id;
       const today = new Date().toISOString().split('T')[0];
+
+      // 获取用户语言偏好（从 Accept-Language header 或用户设置）
+      const userLang = req.headers['accept-language']?.split(',')[0]?.trim() || 'en';
 
       // 检查是否已生成今日任务
       let tasks = await db('user_daily_tasks')
@@ -50,26 +87,52 @@ class DailyTaskController {
       res.json({
         success: true,
         data: {
-          tasks: tasks.map(t => ({
-            id: t.id,
-            type: t.type,
-            title: t.title,
-            description: t.description,
-            target: t.target,
-            current: t.current,
-            is_completed: t.is_completed,
-            is_claimed: t.is_claimed,
-            reward_points: t.reward_points,
-            progress: Math.min(t.current / t.target, 1.0),
-            // Map task fields
-            task_category: t.task_category || 'basic',
-            difficulty: t.difficulty || 'normal',
-            location_lat: t.location_lat,
-            location_lng: t.location_lng,
-            location_radius: t.location_radius,
-            location_name: t.location_name,
-            metadata: t.metadata
-          })),
+          tasks: tasks.map(t => {
+            let localized = { title: t.title, description: t.description };
+
+            // 如果是基础每日任务，从 TASK_TEMPLATES 获取多语言
+            if (t.task_category === 'basic' || !t.task_category) {
+              const template = TASK_TEMPLATES.find(tpl => tpl.type === t.type && tpl.target === t.target);
+              if (template) {
+                localized = getLocalizedTask(template, userLang);
+              }
+            }
+            // 如果是地图任务，从 mapTaskGenerationService 获取多语言
+            else if (t.task_category === 'map') {
+              try {
+                const mapTemplates = mapTaskGenerationService.getTaskTemplates();
+                if (mapTemplates[t.type]) {
+                  const template = mapTemplates[t.type].find(tpl => tpl.target === t.target);
+                  if (template) {
+                    localized = mapTaskGenerationService.getLocalizedTask(template, userLang);
+                  }
+                }
+              } catch (err) {
+                logger.error('Failed to localize map task:', err);
+              }
+            }
+
+            return {
+              id: t.id,
+              type: t.type,
+              title: localized.title,
+              description: localized.description,
+              target: t.target,
+              current: t.current,
+              is_completed: t.is_completed,
+              is_claimed: t.is_claimed,
+              reward_points: t.reward_points,
+              progress: Math.min(t.current / t.target, 1.0),
+              // Map task fields
+              task_category: t.task_category || 'basic',
+              difficulty: t.difficulty || 'normal',
+              location_lat: t.location_lat,
+              location_lng: t.location_lng,
+              location_radius: t.location_radius,
+              location_name: t.location_name,
+              metadata: t.metadata
+            };
+          }),
           completed_count: completedCount,
           total_count: tasks.length,
           all_completed: allCompleted,

@@ -222,25 +222,117 @@ class ProfileViewModel: ObservableObject {
         }
     }
 
-    /// 加载所有数据（带缓存检查 + 并行请求）
+    /// 加载所有数据（稳定版 - 顺序执行 + 独立错误处理）
+    ///
+    /// 优化点：
+    /// - ✅ 单次isLoading切换（避免UI闪烁）
+    /// - ✅ 独立错误处理（一个失败不影响其他）
+    /// - ✅ 智能缓存（60秒内不重复请求）
+    /// - ✅ 稳定可靠（顺序执行，避免并发问题）
+    ///
     /// force=true 时忽略缓存强制刷新（用于 pull-to-refresh）
     func loadAllData(force: Bool = false) async {
         // 缓存检查：60秒内不重复请求
         if !force, let lastLoad = lastLoadTime,
            Date().timeIntervalSince(lastLoad) < cacheValidDuration,
            userProfile != nil {
+            Logger.debug("📦 Using cached profile data (age: \(Int(Date().timeIntervalSince(lastLoad)))s)")
             return
         }
 
-        // 并行加载所有数据
-        async let profile: () = loadUserProfile()
-        async let stats: () = loadUserStats()
-        async let highlights: () = loadAchievementHighlights()
-        async let achievementStats: () = loadAchievementStats()
-        async let unread: () = loadUnreadCount()
+        guard let userId = authManager.currentUser?.id else {
+            errorMessage = "未登录"
+            return
+        }
 
-        _ = await (profile, stats, highlights, achievementStats, unread)
-        lastLoadTime = Date()
+        isLoading = true
+        errorMessage = nil
+        let startTime = Date()
+
+        defer {
+            isLoading = false
+            let elapsed = Date().timeIntervalSince(startTime)
+            Logger.info("⏱️ Profile data loaded in \(String(format: "%.2f", elapsed))s")
+        }
+
+        // 1️⃣ 加载用户资料（核心数据）
+        do {
+            let response = try await profileService.getUserProfile(userId: userId)
+            if response.success {
+                let user = response.user
+                userProfile = UserProfile(
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    phone: user.phone,
+                    avatarUrl: user.avatar_url ?? user.avatar,
+                    avatar: user.avatar,
+                    motto: user.motto,
+                    displayName: user.display_name,
+                    points: user.points,
+                    totalPixels: user.total_pixels,
+                    flagPatternId: user.alliance?.flag_pattern_id,
+                    rankTier: user.rankTier
+                )
+                followersCount = response.followers_count ?? 0
+                followingCount = response.following_count ?? 0
+                editDisplayName = user.display_name ?? user.username
+                editMotto = user.motto ?? ""
+                lastLoadTime = Date()
+            }
+        } catch {
+            Logger.error("Failed to load profile: \(error)")
+            errorMessage = "加载用户资料失败"
+        }
+
+        // 2️⃣ 加载统计数据（防御性实现）
+        do {
+            Logger.debug("📊 Loading user stats...")
+            let response = try await profileService.getUserStats()
+            Logger.debug("📊 Stats response received: success=\(response.success)")
+
+            if response.success {
+                let statsData = response.stats
+                userStats = UserStats(
+                    totalPixels: statsData.total_pixels,
+                    drawingTimeMinutes: statsData.drawing_time_minutes,
+                    sessionsCount: statsData.sessions_count,
+                    rank: statsData.rank,
+                    pixelsThisWeek: statsData.pixels_this_week,
+                    pixelsThisMonth: statsData.pixels_this_month
+                )
+                Logger.info("✅ Stats loaded successfully")
+            }
+        } catch let error as NSError {
+            Logger.error("❌ Failed to load stats - Domain: \(error.domain), Code: \(error.code), Description: \(error.localizedDescription)")
+        } catch {
+            Logger.error("❌ Failed to load stats: \(error)")
+        }
+
+        // 3️⃣ 加载成就高亮
+        do {
+            achievementHighlights = try await AchievementService.shared.getUserAchievementHighlights()
+        } catch {
+            Logger.error("Failed to load achievement highlights: \(error)")
+        }
+
+        // 4️⃣ 加载成就统计
+        do {
+            let stats = try await AchievementService.shared.getUserAchievementStats()
+            let completed = stats.completedCount ?? 0
+            let claimed = stats.claimedCount ?? 0
+            hasUnclaimedRewards = completed > claimed
+        } catch {
+            Logger.error("Failed to load achievement stats: \(error)")
+        }
+
+        // 5️⃣ 加载未读消息数
+        do {
+            let unread = try await NotificationService.shared.getUnreadCount()
+            unreadMessageCount = unread.total_unread
+        } catch {
+            Logger.error("Failed to load unread count: \(error)")
+        }
     }
 
     /// 保存用户资料
@@ -262,29 +354,38 @@ class ProfileViewModel: ObservableObject {
             let response = try await profileService.updateProfile(parameters: parameters)
 
             if response.success {
+                // ✅ 更新成功
+                Logger.info("✅ Profile update API succeeded")
+
                 // 清除头像图片缓存，确保新头像能被加载
                 if editAvatarData != nil {
                     ImageCache.removeCachedImages(matching: "avatar")
                 }
 
-                // 更新本地用户信息（fetchUserProfile 已返回最新数据，无需再调 loadUserProfile）
-                let user = try await authManager.fetchUserProfile()
-                userProfile = UserProfile(
-                    id: user.id,
-                    username: user.username,
-                    email: user.email,
-                    phone: nil,
-                    avatarUrl: user.avatarUrl,  // ✅ CDN路径
-                    avatar: user.avatar,         // ✅ 像素数据
-                    motto: nil,
-                    displayName: user.displayName,
-                    points: nil,
-                    totalPixels: nil,
-                    flagPatternId: user.alliance?.flagPatternId,
-                    rankTier: user.rankTier
-                )
-                lastLoadTime = nil  // 下次 loadAllData 时强制刷新完整数据
+                // 尝试刷新用户信息（如果失败也不影响成功状态）
+                do {
+                    let user = try await authManager.fetchUserProfile()
+                    userProfile = UserProfile(
+                        id: user.id,
+                        username: user.username,
+                        email: user.email,
+                        phone: nil,
+                        avatarUrl: user.avatarUrl,  // ✅ CDN路径
+                        avatar: user.avatar,         // ✅ 像素数据
+                        motto: nil,
+                        displayName: user.displayName,
+                        points: nil,
+                        totalPixels: nil,
+                        flagPatternId: user.alliance?.flagPatternId,
+                        rankTier: user.rankTier
+                    )
+                    Logger.info("✅ Profile refreshed successfully")
+                } catch {
+                    // 刷新失败不影响保存成功状态，数据会在下次loadAllData时刷新
+                    Logger.warning("⚠️ Failed to refresh profile after save (non-critical): \(error)")
+                }
 
+                lastLoadTime = nil  // 下次 loadAllData 时强制刷新完整数据
                 isEditing = false
 
                 // ✨ Success feedback

@@ -284,4 +284,4 @@ docker-compose up -d
 
 详细配置和使用说明，请参考：
 - [DOCKER_SETUP.md](./DOCKER_SETUP.md) - 完整的 Docker 配置指南
-- [BACKEND_SETUP.md](./backend/docs/BACKEND_SETUP.md) - 后端服务配置
+- [BACKEND_SETUP.md](./BACKEND_SETUP.md) - 后端服务配置

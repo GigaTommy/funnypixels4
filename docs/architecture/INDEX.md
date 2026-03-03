@@ -23,7 +23,7 @@
 |------|------|----------|------|
 | **[FINAL_COMPLETION_REPORT.md](./FINAL_COMPLETION_REPORT.md)** | ~5000 | 15分钟 | ⭐ 最终完成报告，项目总览 |
 | **[QUICK_START_GUIDE.md](./QUICK_START_GUIDE.md)** | ~3000 | 10分钟 | ⚡ 快速上手指南，代码示例 |
-| **[PERFORMANCE_OPTIMIZATION_REPORT.md](./PERFORMANCE_OPTIMIZATION_REPORT.md)** | ~8000 | 25分钟 | 🔧 完整技术报告，深入原理 |
+| **[PERFORMANCE_OPTIMIZATION_REPORT.md](../performance/PERFORMANCE_OPTIMIZATION_REPORT.md)** | ~8000 | 25分钟 | 🔧 完整技术报告，深入原理 |
 
 ### 参考文档
 
@@ -146,7 +146,7 @@ backend/tests/load/
 docs/
   ├── FINAL_COMPLETION_REPORT.md         (~5000字) ✅ 最终完成报告
   ├── QUICK_START_GUIDE.md               (~3000字) ✅ 快速上手指南
-  ├── PERFORMANCE_OPTIMIZATION_REPORT.md (~8000字) ✅ 完整技术报告
+  ├── ../performance/PERFORMANCE_OPTIMIZATION_REPORT.md (~8000字) ✅ 完整技术报告
   ├── OPTIMIZATION_COMPLETE.md           (~2500字) ✅ 完成总结
   ├── ARCHITECTURE_COMPARISON.md         (~4500字) ✅ 架构对比
   ├── backend/tests/load/README.md       (~3500字) ✅ 测试文档
@@ -272,7 +272,7 @@ k6 run k6-websocket.js
 - 查看 [QUICK_START_GUIDE.md](./QUICK_START_GUIDE.md) 的"常见问题"章节
 
 ### 性能问题
-- 查看 [PERFORMANCE_OPTIMIZATION_REPORT.md](./PERFORMANCE_OPTIMIZATION_REPORT.md) 的"故障排查"章节
+- 查看 [PERFORMANCE_OPTIMIZATION_REPORT.md](../performance/PERFORMANCE_OPTIMIZATION_REPORT.md) 的"故障排查"章节
 
 ### 测试问题
 - 查看 [backend/tests/load/README.md](./backend/tests/load/README.md) 的"故障排查"章节
@@ -293,4 +293,4 @@ k6 run k6-websocket.js
 1. INDEX.md（本文档）- 了解项目全貌
 2. QUICK_START_GUIDE.md - 快速上手
 3. FINAL_COMPLETION_REPORT.md - 详细成果
-4. PERFORMANCE_OPTIMIZATION_REPORT.md - 深入原理
+4. ../performance/PERFORMANCE_OPTIMIZATION_REPORT.md - 深入原理

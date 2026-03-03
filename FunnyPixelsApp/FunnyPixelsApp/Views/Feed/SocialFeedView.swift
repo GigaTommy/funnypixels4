@@ -9,8 +9,8 @@ struct SocialFeedView: View {
         VStack(spacing: 0) {
             // 筛选器
             FeedFilterPicker(filter: $viewModel.filter)
-                .padding(.horizontal)
                 .padding(.vertical, AppSpacing.s)
+                .background(AppColors.background)
 
             if viewModel.isLoading {
                 LoadingView()
@@ -23,7 +23,11 @@ struct SocialFeedView: View {
                             FeedItemCard(
                                 item: item,
                                 onLike: { Task { await viewModel.toggleLike(item: item) } },
-                                onComment: { selectedCommentItem = item }
+                                onComment: { selectedCommentItem = item },
+                                onBookmark: { Task { await viewModel.toggleBookmark(item: item) } },
+                                onVote: { optionIndex in
+                                    Task { await viewModel.votePoll(item: item, optionIndex: optionIndex) }
+                                }
                             )
                             .onAppear {
                                 if viewModel.shouldLoadMore(currentItem: item) {
@@ -55,25 +59,48 @@ struct SocialFeedView: View {
     }
 
     private var feedEmptyView: some View {
-        VStack(spacing: AppSpacing.l) {
+        VStack(spacing: FeedDesign.Spacing.l) {
             Spacer()
-            Image(systemName: "person.2.wave.2")
-                .font(.system(size: 48))
-                .foregroundColor(AppColors.textTertiary)
-            Text(NSLocalizedString("feed.social.empty", comment: "No feed items yet"))
-                .font(AppTypography.body())
-                .foregroundColor(AppColors.textSecondary)
-            Text(NSLocalizedString("feed.social.empty_hint", comment: "Follow players and start drawing"))
-                .font(AppTypography.caption())
-                .foregroundColor(AppColors.textTertiary)
+            Text(emptyTitle)
+                .font(FeedDesign.Typography.body)
+                .foregroundColor(FeedDesign.Colors.textSecondary)
+            Text(emptyMessage)
+                .font(FeedDesign.Typography.caption)
+                .foregroundColor(FeedDesign.Colors.textTertiary)
                 .multilineTextAlignment(.center)
             Spacer()
         }
         .padding()
     }
+
+    private var emptyTitle: String {
+        switch viewModel.filter {
+        case "following":
+            return NSLocalizedString("feed.empty.following.title", comment: "")
+        case "alliance":
+            return NSLocalizedString("feed.empty.alliance.title", comment: "")
+        case "nearby":
+            return NSLocalizedString("feed.empty.nearby.title", comment: "")
+        default:
+            return NSLocalizedString("feed.empty.all.title", comment: "")
+        }
+    }
+
+    private var emptyMessage: String {
+        switch viewModel.filter {
+        case "following":
+            return NSLocalizedString("feed.empty.following.action", comment: "")
+        case "alliance":
+            return NSLocalizedString("feed.empty.alliance.message", comment: "")
+        case "nearby":
+            return NSLocalizedString("feed.empty.nearby.message", comment: "")
+        default:
+            return NSLocalizedString("feed.empty.all.message", comment: "")
+        }
+    }
 }
 
-/// 筛选器
+/// 筛选器 - 二级菜单（无音效，避免与一级菜单音效重复）
 struct FeedFilterPicker: View {
     @Binding var filter: String
 
@@ -81,29 +108,53 @@ struct FeedFilterPicker: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: AppSpacing.m) {
                 FilterChip(
-                    title: NSLocalizedString("feed.filter.all", comment: "All"),
+                    title: NSLocalizedString("feed.filter.all", comment: ""),
                     isSelected: filter == "all"
-                ) { filter = "all" }
+                ) {
+                    filter = "all"
+                }
 
                 FilterChip(
-                    title: NSLocalizedString("feed.filter.following", comment: "Following"),
+                    title: NSLocalizedString("feed.filter.following", comment: ""),
                     isSelected: filter == "following"
-                ) { filter = "following" }
+                ) {
+                    filter = "following"
+                }
 
                 FilterChip(
-                    title: NSLocalizedString("feed.filter.alliance", comment: "Alliance"),
+                    title: NSLocalizedString("feed.filter.alliance", comment: ""),
                     isSelected: filter == "alliance"
-                ) { filter = "alliance" }
+                ) {
+                    filter = "alliance"
+                }
 
                 FilterChip(
-                    title: NSLocalizedString("feed.filter.nearby", comment: "Nearby"),
+                    title: NSLocalizedString("feed.filter.trending", comment: ""),
+                    isSelected: filter == "trending"
+                ) {
+                    filter = "trending"
+                }
+
+                FilterChip(
+                    title: NSLocalizedString("feed.filter.challenges", comment: ""),
+                    isSelected: filter == "challenges"
+                ) {
+                    filter = "challenges"
+                }
+
+                FilterChip(
+                    title: NSLocalizedString("feed.filter.nearby", comment: ""),
                     isSelected: filter == "nearby"
-                ) { filter = "nearby" }
+                ) {
+                    filter = "nearby"
+                }
             }
+            .padding(.horizontal, AppSpacing.l)
         }
     }
 }
 
+/// 筛选器按钮 - 胶囊样式，与排行榜一致
 struct FilterChip: View {
     let title: String
     let isSelected: Bool
@@ -112,19 +163,15 @@ struct FilterChip: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(AppTypography.caption())
-                .fontWeight(isSelected ? .semibold : .regular)
+                .font(.system(size: 15, weight: .semibold))  // ✅ 与CapsuleTabPicker相同字体
                 .foregroundColor(isSelected ? .white : AppColors.textSecondary)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 6)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
                 .background(
                     Capsule()
-                        .fill(isSelected ? AppColors.primary : AppColors.surface)
-                )
-                .overlay(
-                    Capsule()
-                        .stroke(isSelected ? Color.clear : AppColors.border, lineWidth: 1)
+                        .fill(isSelected ? AppColors.primary : Color(.systemGray6))
                 )
         }
+        .buttonStyle(.plain)
     }
 }

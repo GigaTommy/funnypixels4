@@ -96,7 +96,7 @@ struct AllianceTabView: View {
     private var mainContentView: some View {
         VStack(spacing: 0) {
             // Sub-Tab选择器
-            SubTabPicker(items: AllianceSubTab.allCases, selection: $appState.allianceSubTab)
+            CapsuleTabPicker(items: AllianceSubTab.allCases, selection: $appState.allianceSubTab)
 
             // 内容区域
             ScrollView {
@@ -1578,11 +1578,8 @@ struct AllianceDetailPage: View {
                         viewModel.userAlliance = alliance
                     }
                 }
-                
-                // 2. 联盟签到
-                AllianceCheckinSection(allianceId: alliance.id)
 
-                // 3. 贡献排行
+                // 2. 贡献排行
                 AllianceContributionSection(allianceId: alliance.id)
 
                 // 4. Activity Log

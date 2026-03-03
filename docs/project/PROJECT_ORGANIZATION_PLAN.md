@@ -86,7 +86,7 @@ funnypixels3/
 #### B. 子项目文档归档
 | 源位置 | 目标位置 | 说明 |
 |--------|---------|------|
-| `backend/*.md` | `backend/docs/` | 后端重构、安全、JSDoc文档 |
+| `backend/*.md` | `docs/backend/` | 后端重构、安全、JSDoc文档 |
 | `app/FunnyPixels/*.md` | `app/docs/` | iOS开发进度、实现报告 |
 | `app/*.md` | `app/docs/` | iOS设置、调试指南 |
 
@@ -160,7 +160,7 @@ git commit -m "chore: organize project files to follow monorepo standards
 
 - Move 55 build logs to logs/build/
 - Organize 46 MD documents into docs/ subdirectories
-- Create backend/docs/, app/docs/, frontend/docs/ for module-specific docs
+- Create docs/backend/, app/docs/, frontend/docs/ for module-specific docs
 - Move backup files to .temp/backups/
 - Update .gitignore to track docs/ and scripts/
 - Add logs/ and .temp/ to .gitignore
@@ -216,7 +216,7 @@ docs/
   └── reports/          # 分析报告、总结文档
 
 # 模块级文档
-backend/docs/          # 后端API文档、架构说明
+docs/backend/          # 后端API文档、架构说明
 app/docs/              # iOS开发文档、实现细节
 frontend/docs/         # 前端组件文档、状态管理
 ```
@@ -235,7 +235,7 @@ frontend/docs/         # 前端组件文档、状态管理
 - [ ] 根目录不再有 `.log` 文件
 - [ ] 根目录MD文档数量 < 5个（只保留README.md等核心文档）
 - [ ] `docs/` 目录结构清晰，文档分类合理
-- [ ] `backend/docs/`、`app/docs/` 包含模块特定文档
+- [ ] `docs/backend/`、`app/docs/` 包含模块特定文档
 - [ ] `logs/` 和 `.temp/` 被 `.gitignore` 忽略
 - [ ] `git status` 不显示日志和备份文件
 - [ ] 所有重要文档能被git跟踪

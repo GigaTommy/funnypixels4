@@ -358,10 +358,11 @@ public class APIManager: ObservableObject {
     private init() {
         // 配置会话
         let configuration = URLSessionConfiguration.default
-        // ⚡ 启动优化：快速失败策略，避免长时间白屏等待
-        // 网络不佳时，5s 超时可以让用户更快进入离线模式
-        configuration.timeoutIntervalForRequest = 5   // 30s → 5s (减少 83%)
-        configuration.timeoutIntervalForResource = 10  // 60s → 10s (减少 83%)
+        // ⚡ 网络超时设置
+        // - request: 单个请求的超时时间（15秒足够处理头像上传、CDN生成等耗时操作）
+        // - resource: 整个资源下载的超时时间（30秒）
+        configuration.timeoutIntervalForRequest = 15   // 增加到15秒，支持头像上传等耗时操作
+        configuration.timeoutIntervalForResource = 30  // 增加到30秒
 
         // 启用 HTTP 缓存：服务器返回 Cache-Control 头后，URLSession 自动缓存响应
         // 缓存命中时零网络开销，比 ViewModel 层缓存更高效

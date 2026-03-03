@@ -64,7 +64,6 @@ struct MainMapView: View {
     // Deep link navigation state
     @State private var deepLinkEvent: EventService.Event?
     @State private var deepLinkAllianceCode: String?
-    @State private var showDailyCheckin = false
     @State private var showDailyTasksFromMap = false
 
     // Daily reward summary
@@ -236,21 +235,18 @@ struct MainMapView: View {
             handleDeepLink(destination)
             deepLinkHandler.clearDestination()
         }
-        .onReceive(NotificationCenter.default.publisher(for: .openCheckinSheet)) { _ in
-            showDailyCheckin = true
-        }
         .onReceive(NotificationCenter.default.publisher(for: .switchToMapTab)) { _ in
             appState.navigate(to: .map)
         }
         .onReceive(NotificationCenter.default.publisher(for: .navigateToTab)) { notification in
             if let tabIndex = notification.object as? Int {
-                // Convert old tab indices to new Tab enum
+                // Convert old tab indices to new Tab enum (4 tabs: map, feed, alliance, profile)
                 switch tabIndex {
                 case 0: appState.navigate(to: .map)
                 case 1: appState.navigate(to: .feed)
                 case 2: appState.navigate(to: .alliance)
-                case 3: appState.navigateToProfile(subTab: .leaderboard)  // Old leaderboard tab
-                case 4: appState.navigate(to: .profile)
+                case 3: appState.navigate(to: .profile)  // ✅ 修复：索引3现在是个人Tab，默认显示personal
+                case 4: appState.navigateToProfile(subTab: .leaderboard)  // 兼容旧版本：索引4跳转到排行榜子Tab
                 default: break
                 }
             }
@@ -272,11 +268,6 @@ struct MainMapView: View {
             NavigationView {
                 EventDetailView(event: event)
             }
-        }
-        .sheet(isPresented: $showDailyCheckin) {
-            DailyCheckinSheet()
-                .presentationDetents([.medium, .large])
-                .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showRewardSummary) {
             if let summary = pendingRewardSummary {
@@ -330,20 +321,20 @@ struct MainMapView: View {
             }
 
         case .checkin:
-            appState.navigate(to: .map)
-            showDailyCheckin = true
+            // 签到功能已弃用，忽略此deep link
+            break
 
         case .leaderboard:
             appState.navigateToProfile(subTab: .leaderboard)
 
         case .tab(let index):
-            // Convert old tab indices to new Tab enum
+            // Convert old tab indices to new Tab enum (4 tabs: map, feed, alliance, profile)
             switch index {
             case 0: appState.navigate(to: .map)
             case 1: appState.navigate(to: .feed)
             case 2: appState.navigate(to: .alliance)
-            case 3: appState.navigateToProfile(subTab: .leaderboard)  // Old leaderboard tab
-            case 4: appState.navigate(to: .profile)
+            case 3: appState.navigate(to: .profile)  // ✅ 修复：索引3现在是个人Tab，默认显示personal
+            case 4: appState.navigateToProfile(subTab: .leaderboard)  // 兼容旧版本：索引4跳转到排行榜子Tab
             default: break
             }
         }

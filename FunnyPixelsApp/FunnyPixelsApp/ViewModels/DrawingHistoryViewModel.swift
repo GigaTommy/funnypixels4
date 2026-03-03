@@ -52,20 +52,49 @@ class DrawingHistoryViewModel: ObservableObject {
     }
 
     /// 从离线缓存加载数据
+    /// ✅ 增强版：添加数据验证和错误恢复
     private func loadFromOfflineCache() {
-        guard let data = UserDefaults.standard.data(forKey: Self.offlineCacheKey),
-              let cachedSessions = try? JSONDecoder().decode([DrawingSession].self, from: data) else {
+        guard let data = UserDefaults.standard.data(forKey: Self.offlineCacheKey) else {
+            Logger.debug("📦 无离线缓存数据")
             return
         }
 
-        // 检查缓存是否过期
-        let timestamp = UserDefaults.standard.double(forKey: Self.offlineCacheTimestampKey)
-        let cacheAge = Date().timeIntervalSince1970 - timestamp
+        do {
+            let cachedSessions = try JSONDecoder().decode([DrawingSession].self, from: data)
 
-        if cacheAge < Self.offlineCacheMaxAge {
-            sessions = cachedSessions
-            Logger.info("📦 从离线缓存加载了 \(cachedSessions.count) 个会话")
+            // 检查缓存是否过期
+            let timestamp = UserDefaults.standard.double(forKey: Self.offlineCacheTimestampKey)
+            let cacheAge = Date().timeIntervalSince1970 - timestamp
+
+            if cacheAge < Self.offlineCacheMaxAge {
+                // ✅ 数据验证：过滤掉无效会话
+                let validSessions = cachedSessions.filter { session in
+                    !session.id.isEmpty && session.startTime < Date()
+                }
+
+                if !validSessions.isEmpty {
+                    sessions = validSessions
+                    Logger.info("📦 从离线缓存加载了 \(validSessions.count)/\(cachedSessions.count) 个有效会话")
+                } else {
+                    Logger.warning("⚠️ 离线缓存中无有效会话，清除缓存")
+                    clearOfflineCache()
+                }
+            } else {
+                Logger.info("📦 离线缓存已过期（\(Int(cacheAge/3600))小时），清除缓存")
+                clearOfflineCache()
+            }
+        } catch {
+            // ✅ 解码失败：清除损坏的缓存
+            Logger.error("❌ 离线缓存解码失败，缓存可能已损坏: \(error)")
+            Logger.error("❌ 清除损坏的离线缓存以避免崩溃")
+            clearOfflineCache()
         }
+    }
+
+    /// 清除离线缓存
+    private func clearOfflineCache() {
+        UserDefaults.standard.removeObject(forKey: Self.offlineCacheKey)
+        UserDefaults.standard.removeObject(forKey: Self.offlineCacheTimestampKey)
     }
 
     /// 保存到离线缓存

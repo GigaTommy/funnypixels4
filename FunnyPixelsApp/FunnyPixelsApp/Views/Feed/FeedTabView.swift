@@ -10,7 +10,7 @@ struct FeedTabView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                SubTabPicker(items: FeedSubTab.allCases, selection: $appState.feedSubTab)
+                CapsuleTabPicker(items: FeedSubTab.allCases, selection: $appState.feedSubTab)
 
                 ZStack {
                     if subTabVisited.contains(.plaza) {
@@ -31,13 +31,11 @@ struct FeedTabView: View {
                     }
                 }
                 .onChange(of: appState.feedSubTab) { oldValue, newValue in
+                    // 记录已访问的子Tab（用于懒加载）
                     if !subTabVisited.contains(appState.feedSubTab) {
                         subTabVisited.insert(appState.feedSubTab)
                     }
-
-                    // Segment 切换音效 + 触觉反馈
-                    SoundManager.shared.play(.tabSwitch)
-                    HapticManager.shared.impact(style: .light)
+                    // ✅ 音效由 CapsuleTabPicker 负责，此处不重复播放
                 }
             }
             .navigationTitle(NSLocalizedString("feed.title", comment: "Feed Center"))

@@ -400,30 +400,35 @@ class AuthManager: ObservableObject {
         self.isValidatingSession = true
         Logger.info("🔐 Found stored token, validating session...")
 
-        // ✅ 先验证 token，成功后才设置 isAuthenticated = true
+        // ⚡ 优化：使用真正的Task取消机制
         Task {
-            // ✅ 2秒超时（快速失败策略）- 不让用户等太久
-            let timeoutTask = Task {
-                try? await Task.sleep(nanoseconds: 2_000_000_000)  // 2秒
+            // ⚡ 创建可取消的验证任务
+            let validationTask = Task {
+                try await fetchUserProfile()
+            }
+
+            // ⚡ Watchdog：1秒超时（优化：2秒 → 1秒，加快首次启动）
+            let watchdog = Task {
+                try await Task.sleep(nanoseconds: 1_000_000_000)  // 1秒
+                validationTask.cancel()  // ⚡ 真正取消网络请求
                 await MainActor.run {
                     if self.isValidatingSession {
-                        Logger.warning("⚠️ Session validation timed out after 2s, showing login screen")
+                        Logger.warning("⚠️ Session validation timed out after 1s, showing login screen")
                         self.isValidatingSession = false
-                        // ✅ 超时不进入 app，显示登录界面（不清除 token，下次再试）
                     }
                 }
             }
 
             defer {
-                timeoutTask.cancel()
+                watchdog.cancel()
                 Task { @MainActor in
                     self.isValidatingSession = false
                 }
             }
 
             do {
-                // 尝试获取用户信息来验证 token（API 超时 5s，但 watchdog 2s 会截断）
-                let user = try await fetchUserProfile()
+                // ⚡ 等待可取消的验证任务（1秒内完成或被取消）
+                let user = try await validationTask.value
 
                 // ✅ Token 有效，现在才设置认证状态
                 await MainActor.run {
@@ -440,6 +445,11 @@ class AuthManager: ObservableObject {
                         username: user.username
                     )
                 }
+            } catch is CancellationError {
+                // ⚡ 任务被watchdog取消
+                Logger.warning("⚠️ Validation cancelled by 1s watchdog, user sees login screen")
+                // isValidatingSession已在watchdog中设为false，显示登录界面
+                // 不清除token，下次网络好时可自动登录
             } catch {
                 Logger.error("❌ Session validation failed: \(error)")
 

@@ -158,7 +158,7 @@ WHERE color = 'custom_pattern' AND alliance_id IS NULL;
 
 ### 文档更新
 
-3. **backend/docs/FLAG_RENDERING_COMPLETENESS.md**
+3. **docs/backend/architecture/FLAG_RENDERING_COMPLETENESS.md**
    - 第 10-30 行：性能优化结果
    - 第 288-322 行：自动识别机制
    - 第 326-350 行：架构优化总结

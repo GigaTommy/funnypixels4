@@ -129,6 +129,14 @@ class DriftBottle {
       await cacheService.cacheBottleInfo(bottleId, bottle);
       await cacheService.invalidateNearbyBottles(lat, lng);
 
+      // 🆕 更新每日任务进度：使用漂流瓶
+      try {
+        const DailyTaskController = require('../controllers/dailyTaskController');
+        await DailyTaskController.updateTaskProgress(userId, 'use_drift_bottle', 1);
+      } catch (taskErr) {
+        logger.error('更新每日任务进度失败（不影响扔瓶）:', taskErr.message);
+      }
+
       logger.info('漂流瓶v2创建成功', { bottleId, userId, location: locationInfo });
       return this.formatBottle(bottle);
     } catch (error) {
@@ -271,6 +279,14 @@ class DriftBottle {
       }
 
       const updatedBottle = await this.getBottleById(bottleId);
+
+      // 🆕 更新每日任务进度：使用漂流瓶
+      try {
+        const DailyTaskController = require('../controllers/dailyTaskController');
+        await DailyTaskController.updateTaskProgress(userId, 'use_drift_bottle', 1);
+      } catch (taskErr) {
+        logger.error('更新每日任务进度失败（不影响捡瓶）:', taskErr.message);
+      }
 
       logger.info('漂流瓶被打开', {
         bottleId, userId, openCount: newOpenCount, distance, didSink

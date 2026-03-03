@@ -56,8 +56,7 @@ struct ArtworkCard: View {
                         drawingType: session.drawingType,
                         showPixelDots: false
                     )
-                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
-                    .animation(.easeOut(duration: 0.3), value: thumbnailLoader.pixels != nil)
+                    .transition(.opacity)  // ✅ 简化动画，避免scale导致的渲染问题
                 } else if thumbnailLoader.isLoading {
                     // 加载中显示细微指示器
                     ProgressView()

@@ -91,7 +91,7 @@ node scripts/batch-geocode-pixels.js
 
 ## 📚 详细文档
 
-- **完整配置指南**: `backend/docs/GOOGLE_GEOCODING_SETUP.md`
+- **完整配置指南**: `docs/backend/geo/GOOGLE_GEOCODING_SETUP.md`
 - **费用说明**: 每月$200免费 = 40,000次请求
 - **API限制配置**: IP地址 + API范围（安全必备）
 - **故障排查**: 常见问题和解决方案

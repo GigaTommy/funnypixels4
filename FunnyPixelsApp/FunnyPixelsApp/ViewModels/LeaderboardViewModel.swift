@@ -36,6 +36,28 @@ class LeaderboardViewModel: ObservableObject {
     @Published var allianceHasMore = true
     @Published var cityHasMore = true
 
+    // MARK: - Computed Properties
+
+    /// Top 3 entries for podium display
+    var personalTop3: [LeaderboardService.LeaderboardEntry] {
+        Array(personalEntries.prefix(3))
+    }
+
+    /// Entries from rank 4 onwards
+    var personalRest: [LeaderboardService.LeaderboardEntry] {
+        personalEntries.count > 3 ? Array(personalEntries.dropFirst(3)) : []
+    }
+
+    /// Top 3 alliance entries for podium display
+    var allianceTop3: [LeaderboardService.LeaderboardEntry] {
+        Array(allianceEntries.prefix(3))
+    }
+
+    /// Alliance entries from rank 4 onwards
+    var allianceRest: [LeaderboardService.LeaderboardEntry] {
+        allianceEntries.count > 3 ? Array(allianceEntries.dropFirst(3)) : []
+    }
+
     // MARK: - Private Properties
 
     private let leaderboardService = LeaderboardService.shared

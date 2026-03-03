@@ -69,42 +69,98 @@ public final class EnhancedPixelTile: NSObject, Codable {
     }
 
     /// 合并像素（用于增量更新）
+    /// 🚀 性能优化：避免数组→字典→数组的多次转换
     public func merge(_ pixels: [Pixel]) {
-        var pixelMap: [String: Pixel] = Dictionary(
-            uniqueKeysWithValues: self.pixels.map { ($0.id, $0) }
-        )
+        // 快速路径：如果新像素数量很少，直接修改数组
+        if pixels.count <= 10 && self.pixels.count < 100 {
+            // 小规模更新：O(n*m) 但常数小，适合小数组
+            for newPixel in pixels {
+                if let index = self.pixels.firstIndex(where: { $0.id == newPixel.id }) {
+                    self.pixels[index] = newPixel  // 更新现有像素
+                } else {
+                    self.pixels.append(newPixel)  // 添加新像素
+                }
+            }
+        } else {
+            // 大规模更新：使用字典但保持有序
+            var pixelMap: [String: Pixel] = [:]
+            pixelMap.reserveCapacity(self.pixels.count + pixels.count)
 
-        for pixel in pixels {
-            pixelMap[pixel.id] = pixel
+            // 构建字典并记录顺序
+            var orderedIds: [String] = []
+            orderedIds.reserveCapacity(self.pixels.count + pixels.count)
+
+            // 先添加现有像素
+            for pixel in self.pixels {
+                pixelMap[pixel.id] = pixel
+                orderedIds.append(pixel.id)
+            }
+
+            // 合并新像素（保持插入顺序）
+            for pixel in pixels {
+                if pixelMap[pixel.id] == nil {
+                    orderedIds.append(pixel.id)  // 新像素
+                }
+                pixelMap[pixel.id] = pixel
+            }
+
+            // 按顺序重建数组（保持一致性）
+            self.pixels = orderedIds.compactMap { pixelMap[$0] }
         }
 
-        self.pixels = Array(pixelMap.values)
         self.version += 1
         self.lastModified = Date()
     }
 
     /// 应用差异更新
+    /// 🚀 性能优化：使用集合操作减少复杂度
     public func applyDiff(_ diff: PixelDiffUpdate) {
-        var pixelMap: [String: Pixel] = Dictionary(
-            uniqueKeysWithValues: pixels.map { ($0.id, $0) }
-        )
+        // 快速路径：如果变更很少，直接操作数组
+        let totalChanges = diff.added.count + diff.updated.count + diff.removed.count
+        if totalChanges <= 5 && self.pixels.count < 100 {
+            // 删除像素
+            if !diff.removed.isEmpty {
+                let removeSet = Set(diff.removed)
+                self.pixels.removeAll { removeSet.contains($0.id) }
+            }
 
-        // 添加新像素
-        for pixel in diff.added {
-            pixelMap[pixel.id] = pixel
+            // 更新像素
+            for updatedPixel in diff.updated {
+                if let index = self.pixels.firstIndex(where: { $0.id == updatedPixel.id }) {
+                    self.pixels[index] = updatedPixel
+                }
+            }
+
+            // 添加新像素
+            self.pixels.append(contentsOf: diff.added)
+        } else {
+            // 大规模更新：使用字典
+            var pixelMap: [String: Pixel] = [:]
+            pixelMap.reserveCapacity(pixels.count + diff.added.count)
+
+            // 先添加现有像素
+            for pixel in pixels {
+                pixelMap[pixel.id] = pixel
+            }
+
+            // 添加新像素
+            for pixel in diff.added {
+                pixelMap[pixel.id] = pixel
+            }
+
+            // 更新像素
+            for pixel in diff.updated {
+                pixelMap[pixel.id] = pixel
+            }
+
+            // 删除像素
+            for pixelId in diff.removed {
+                pixelMap.removeValue(forKey: pixelId)
+            }
+
+            self.pixels = Array(pixelMap.values)
         }
 
-        // 更新像素
-        for pixel in diff.updated {
-            pixelMap[pixel.id] = pixel
-        }
-
-        // 删除像素
-        for pixelId in diff.removed {
-            pixelMap.removeValue(forKey: pixelId)
-        }
-
-        self.pixels = Array(pixelMap.values)
         self.version = diff.version
         self.lastModified = Date()
     }

@@ -53,7 +53,7 @@ FunnyPixels v2.0 活动系统增强项目已全部完成！历时 6 周的开发
 
 ### 文档交付
 - ✅ **RELEASE_NOTES_v2.0.md** - 双语发布说明（中英文）
-- ✅ **backend/docs/API_DOCUMENTATION_v2.md** - 完整 API 文档
+- ✅ **docs/backend/architecture/API_DOCUMENTATION_v2.md** - 完整 API 文档
 - ✅ **FINAL_IMPLEMENTATION_SUMMARY.md** - 实现总结
 - ✅ **FINAL_PERFORMANCE_REPORT.md** - 性能报告
 - ✅ **OPTIMIZATION_AND_REVIEW_REPORT.md** - 优化审查报告
@@ -182,7 +182,7 @@ pm2 restart funnypixels-backend
 - ✅ [根目录 README.md](README.md) - 项目概览和快速开始
 
 ### 技术文档
-- ✅ [API 文档 v2.0](backend/docs/API_DOCUMENTATION_v2.md) - 所有新增 API 详细文档
+- ✅ [API 文档 v2.0](docs/backend/architecture/API_DOCUMENTATION_v2.md) - 所有新增 API 详细文档
 - ✅ [实现总结](FINAL_IMPLEMENTATION_SUMMARY.md) - 开发实施记录
 - ✅ [性能报告](FINAL_PERFORMANCE_REPORT.md) - 性能基准测试
 - ✅ [优化报告](OPTIMIZATION_AND_REVIEW_REPORT.md) - 代码审查和优化

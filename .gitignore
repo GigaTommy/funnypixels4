@@ -264,7 +264,7 @@ files-to-remove.txt
 # 以下目录/文件应该被Git跟踪（不应被忽略）：
 #   ✓ docs/          - 项目文档（重要）
 #   ✓ scripts/       - 项目脚本（重要）
-#   ✓ backend/docs/  - 后端文档
+#   ✓ docs/backend/  - 后端文档
 #   ✓ app/docs/      - iOS文档
 #   ✓ frontend/docs/ - 前端文档
 #   ✓ README.md      - 项目说明

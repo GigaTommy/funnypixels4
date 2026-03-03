@@ -159,7 +159,7 @@ pool: {
 #### 相关文件
 - ✅ `backend/knexfile.js` (已更新)
 - ✅ `backend/.env.production.example` (已更新)
-- ✅ `backend/docs/DATABASE_POOL_CONFIG.md` (新增文档)
+- ✅ `docs/backend/operations/DATABASE_POOL_CONFIG.md` (新增文档)
 
 ---
 
@@ -222,16 +222,16 @@ GET /api/leaderboard/personal?period=daily&limit=50&cursor=<base64>
 ```
 
 #### 相关文档
-- ✅ `backend/docs/CURSOR_PAGINATION_GUIDE.md` (详细实施指南)
+- ✅ `docs/backend/architecture/CURSOR_PAGINATION_GUIDE.md` (详细实施指南)
 
 ---
 
 ## 📁 新增文件清单
 
 ### 文档类（5个）
-1. ✅ `backend/docs/DATABASE_POOL_CONFIG.md` - 连接池配置指南
-2. ✅ `backend/docs/CURSOR_PAGINATION_GUIDE.md` - Cursor分页实施指南
-3. ✅ `backend/docs/REMAINING_OPTIMIZATIONS.md` - 剩余任务实施指南
+1. ✅ `docs/backend/operations/DATABASE_POOL_CONFIG.md` - 连接池配置指南
+2. ✅ `docs/backend/architecture/CURSOR_PAGINATION_GUIDE.md` - Cursor分页实施指南
+3. ✅ `docs/backend/overview/REMAINING_OPTIMIZATIONS.md` - 剩余任务实施指南
 4. ✅ `PERFORMANCE_OPTIMIZATION_SUMMARY.md` - 本总结报告
 
 ### 代码类（2个）

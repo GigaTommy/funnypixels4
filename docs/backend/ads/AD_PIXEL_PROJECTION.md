@@ -93,7 +93,7 @@ npx knex migrate:latest
 
 ### 4. 像素投影测试工具
 
-**文件**: `backend/src/scripts/testAdPixelProjection.js`
+**文件**: `backend/scripts/tests/testAdPixelProjection.js`
 
 **功能**:
 - ✅ 测试不同尺寸广告的像素投影

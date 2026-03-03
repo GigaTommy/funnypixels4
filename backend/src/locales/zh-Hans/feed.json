@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "load_failed": "加载动态失败",
+    "create_failed": "发布动态失败",
+    "update_failed": "更新动态失败",
+    "delete_failed": "删除动态失败",
+    "not_found": "动态不存在",
+    "permission_denied": "没有权限",
+    "invalid_content": "内容格式不正确",
+    "content_too_long": "内容过长",
+    "too_many_images": "图片数量超过限制",
+    "invalid_image": "图片格式不正确",
+    "hashtag_invalid": "话题标签格式不正确",
+    "poll_invalid": "投票选项不正确",
+    "challenge_not_found": "挑战不存在",
+    "already_voted": "已经投过票",
+    "poll_ended": "投票已结束",
+    "bookmark_exists": "已经收藏过",
+    "bookmark_not_found": "收藏不存在"
+  },
+  "success": {
+    "created": "发布成功",
+    "updated": "更新成功",
+    "deleted": "删除成功",
+    "liked": "点赞成功",
+    "unliked": "取消点赞成功",
+    "bookmarked": "收藏成功",
+    "unbookmarked": "取消收藏成功",
+    "commented": "评论成功",
+    "voted": "投票成功",
+    "reported": "举报已提交"
+  },
+  "types": {
+    "moment": "动态",
+    "showcase": "作品展示",
+    "drawing_complete": "完成绘画",
+    "achievement": "解锁成就",
+    "checkin": "签到",
+    "alliance_join": "加入联盟",
+    "challenge": "挑战",
+    "poll": "投票"
+  },
+  "filters": {
+    "all": "全部",
+    "following": "关注",
+    "alliance": "联盟",
+    "nearby": "附近",
+    "trending": "热门",
+    "challenges": "挑战"
+  },
+  "validation": {
+    "content_required": "请输入内容",
+    "content_too_short": "内容太短",
+    "content_too_long": "内容不能超过{{max}}字",
+    "hashtag_required": "至少添加一个话题",
+    "hashtag_too_many": "话题标签不能超过{{max}}个",
+    "images_required": "请选择图片",
+    "images_too_many": "图片不能超过{{max}}张",
+    "poll_options_required": "至少添加2个选项",
+    "poll_options_too_many": "选项不能超过{{max}}个"
+  }
+}

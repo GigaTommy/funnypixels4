@@ -252,7 +252,7 @@ display_color: custom_pattern (会被 MVT layer 的 COALESCE 处理)
   - 第 274-304 行：addPixelPreview complex 分支
 
 ### Documentation
-- ✅ `backend/docs/FIX_BLACK_PIXEL_FALLBACK.md`（本文档）
+- ✅ `docs/backend/architecture/FIX_BLACK_PIXEL_FALLBACK.md`（本文档）
 
 ---
 

@@ -14,7 +14,7 @@ struct ProfileTabView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 // Sub-Tab 选择器
-                SubTabPicker(items: ProfileSubTab.allCases, selection: $appState.profileSubTab)
+                CapsuleTabPicker(items: ProfileSubTab.allCases, selection: $appState.profileSubTab)
 
                 // Sub-Tab 内容
                 Group {
@@ -168,7 +168,6 @@ struct ProfileTabView: View {
                     flagPatternId: profile.flagPatternId,
                     size: 60 * fontManager.scale
                 )
-                .overlay(Circle().stroke(AppColors.primary.opacity(0.3), lineWidth: 2))
 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {

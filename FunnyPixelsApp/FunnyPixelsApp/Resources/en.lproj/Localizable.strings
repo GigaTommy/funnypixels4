@@ -1569,3 +1569,145 @@
 "message.mark_read" = "Mark as Read";
 "message.delete_count" = "Delete %d messages";
 "message.delete_warning" = "Cannot be recovered after deletion";
+
+/* Feed Module Enhancement - UGC Features */
+
+// Feed Create & Publish
+"feed.create.title" = "Create";
+"feed.create.cancel" = "Cancel";
+"feed.create.publish" = "Publish";
+"feed.create.placeholder" = "What's on your mind?";
+"feed.create.add_photo" = "Photo";
+"feed.create.add_location" = "Location";
+"feed.create.add_hashtag" = "Hashtag";
+"feed.create.add_hashtags" = "Add Hashtags";
+"feed.create.success" = "Published";
+"feed.create.failed" = "Failed to publish";
+"feed.create.location" = "Location";
+"feed.create.select_images" = "Select Images";
+"feed.create.max_images" = "Max %d images";
+"feed.create.location.manual" = "Enter location manually";
+"feed.create.location.placeholder" = "Enter location name";
+"feed.create.location.confirm" = "Confirm";
+"feed.create.location.current" = "Current Location";
+"feed.create.location.unavailable" = "Location unavailable";
+"feed.create.location.selected" = "Selected Location";
+
+// Feed Types
+"feed.type.moment" = "Moment";
+"feed.type.showcase" = "Showcase";
+"feed.type.challenge" = "Challenge";
+"feed.type.poll" = "Poll";
+"feed.type.tutorial" = "Tutorial";
+"feed.type.track_story" = "Track Story";
+
+// Feed Filters
+"feed.filter.trending" = "Trending";
+"feed.filter.challenges" = "Challenges";
+
+// Feed Actions
+"feed.action.like" = "Like";
+"feed.action.unlike" = "Unlike";
+"feed.action.comment" = "Comment";
+"feed.action.share" = "Share";
+"feed.action.bookmark" = "Bookmark";
+"feed.action.unbookmark" = "Unbookmark";
+"feed.action.follow" = "Follow";
+"feed.action.following" = "Following";
+
+// Empty States
+"feed.empty.all.title" = "No posts yet";
+"feed.empty.all.message" = "Start creating and sharing";
+"feed.empty.following.title" = "No posts from people you follow";
+"feed.empty.following.action" = "Discover Creators";
+"feed.empty.alliance.title" = "Join an alliance";
+"feed.empty.alliance.message" = "Connect with fellow artists";
+"feed.empty.alliance.action" = "Browse Alliances";
+"feed.empty.nearby.title" = "No nearby activity";
+"feed.empty.nearby.message" = "Try expanding your search range";
+"feed.empty.bookmarks.title" = "No bookmarks";
+"feed.empty.bookmarks.message" = "Bookmark posts to find them here";
+
+// Time Format Extended
+"feed.time.week" = "%dw";
+"feed.time.month" = "%dmo";
+"feed.time.year" = "%dy";
+
+// Engagement
+"feed.likes.count" = "%d";
+"feed.comments.count" = "%d";
+"feed.participants.count" = "%d participants";
+"feed.views.count" = "%d views";
+
+// Comments
+"feed.comments.title" = "Comments";
+"feed.comments.empty" = "No comments yet";
+"feed.comments.placeholder" = "Write a comment...";
+"feed.comments.send" = "Send";
+"feed.comments.delete" = "Delete";
+"feed.comments.delete_confirm" = "Delete this comment?";
+"feed.comments.sort.latest" = "Latest";
+"feed.comments.sort.oldest" = "Oldest";
+"feed.comments.remaining" = "%d characters left";
+
+// Showcase
+"feed.showcase.title" = "Artwork Showcase";
+"feed.showcase.select_work" = "Select Artwork";
+"feed.showcase.add_story" = "Tell your story";
+"feed.showcase.story_placeholder" = "Share your creation story...";
+"feed.showcase.stats" = "%d pixels · %@ · %@";
+
+// Poll
+"feed.poll.create" = "Create Poll";
+"feed.poll.question" = "Question";
+"feed.poll.option" = "Option %d";
+"feed.poll.add_option" = "Add Option";
+"feed.poll.end_time" = "End Time";
+"feed.poll.vote" = "Vote";
+"feed.poll.voted" = "Voted";
+"feed.poll.ended" = "Poll Ended";
+"feed.poll.votes_count" = "%d votes";
+
+// Challenge
+"feed.challenge.title" = "Challenges";
+"feed.challenge.active" = "Active";
+"feed.challenge.ended" = "Ended";
+"feed.challenge.join" = "Join Challenge";
+"feed.challenge.joined" = "Joined";
+"feed.challenge.participants" = "%d participants";
+"feed.challenge.view_entries" = "View Entries";
+"feed.challenge.time_remaining" = "%@ remaining";
+"feed.challenge.submit_work" = "Submit Work";
+
+// Hashtags
+"feed.hashtag.trending" = "Trending";
+"feed.hashtag.search" = "Search hashtags";
+"feed.hashtag.suggestions" = "Suggestions";
+"feed.hashtag.posts_count" = "%d posts";
+
+// Share
+"feed.share.copy_link" = "Copy Link";
+"feed.share.save_image" = "Save Image";
+"feed.share.copied" = "Link copied";
+
+// Report
+"feed.report.title" = "Report";
+"feed.report.reason" = "Reason";
+"feed.report.spam" = "Spam";
+"feed.report.harassment" = "Harassment";
+"feed.report.inappropriate" = "Inappropriate";
+"feed.report.other" = "Other";
+"feed.report.description" = "Additional details";
+"feed.report.submit" = "Submit Report";
+"feed.report.success" = "Report submitted";
+
+// Errors
+"feed.error.load_failed" = "Failed to load";
+"feed.error.create_failed" = "Failed to publish";
+"feed.error.like_failed" = "Failed to like";
+"feed.error.comment_failed" = "Failed to comment";
+"feed.error.network" = "Network error";
+"feed.error.location_denied" = "Location permission denied";
+"feed.create.error.title" = "Publish Failed";
+"feed.create.error.unknown" = "Unknown error occurred";
+

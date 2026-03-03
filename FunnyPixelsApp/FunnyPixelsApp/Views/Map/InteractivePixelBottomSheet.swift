@@ -161,7 +161,6 @@ struct InteractivePixelBottomSheet: View {
         }
         .frame(width: 50, height: 50)
         .clipShape(Circle())
-        .overlay(Circle().stroke(Color.gray.opacity(0.2), lineWidth: 1))
     }
     
     private var actionButtons: some View {

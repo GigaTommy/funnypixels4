@@ -25,7 +25,7 @@ mkdir -p docs/optimization
 mkdir -p docs/configuration
 mkdir -p docs/monitoring
 mkdir -p docs/guides
-mkdir -p backend/docs
+mkdir -p docs/backend
 mkdir -p app/docs
 mkdir -p frontend/docs
 echo "  ✓ 目录结构创建完成"
@@ -146,7 +146,7 @@ for file in backend/CONTROLLER_REFACTORING_GUIDE.md backend/REFACTORING_SUMMARY.
             backend/PROJECT_COMPLETION_SUMMARY.md backend/IOS_LEADERBOARD_FIXES_SUMMARY.md; do
     if [ -f "$file" ]; then
         filename=$(basename "$file")
-        mv "$file" backend/docs/ 2>/dev/null && BACKEND_COUNT=$((BACKEND_COUNT + 1))
+        mv "$file" docs/backend/ 2>/dev/null && BACKEND_COUNT=$((BACKEND_COUNT + 1))
     fi
 done
 
@@ -167,7 +167,7 @@ for file in app/iOS_*.md app/TESTING_*.md app/SIMPLE_*.md app/DEBUG_*.md; do
     fi
 done
 
-echo "  ✓ 已移动 $BACKEND_COUNT 个Backend文档到 backend/docs/"
+echo "  ✓ 已移动 $BACKEND_COUNT 个Backend文档到 docs/backend/"
 echo "  ✓ 已移动 $APP_COUNT 个App文档到 app/docs/"
 echo ""
 
@@ -251,7 +251,7 @@ echo "  docs/configuration/     - $(find docs/configuration/ -name "*.md" 2>/dev
 echo "  docs/monitoring/        - $(find docs/monitoring/ -name "*.md" 2>/dev/null | wc -l | xargs) 个文档"
 echo "  docs/development/       - $(find docs/development/ -name "*.md" 2>/dev/null | wc -l | xargs) 个文档"
 echo "  docs/guides/            - $(find docs/guides/ -name "*.md" 2>/dev/null | wc -l | xargs) 个文档"
-echo "  backend/docs/           - $(find backend/docs/ -name "*.md" 2>/dev/null | wc -l | xargs) 个文档"
+echo "  docs/backend/           - $(find docs/backend/ -name "*.md" 2>/dev/null | wc -l | xargs) 个文档"
 echo "  app/docs/               - $(find app/docs/ -name "*.md" 2>/dev/null | wc -l | xargs) 个文档"
 echo ""
 echo "✅ 已更新的引用："

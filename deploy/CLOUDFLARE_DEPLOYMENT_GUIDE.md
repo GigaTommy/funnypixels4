@@ -978,6 +978,6 @@ curl -I https://api.funnypixelsapp.com/api/sprites/icon/1/emoji/🔥.png | grep 
 **部署文档完成！**
 
 如需帮助，请参考:
-- 项目文档: `backend/scripts/PRODUCTION_DEPLOYMENT_GUIDE.md`
+- 项目文档: `docs/backend/scripts/PRODUCTION_DEPLOYMENT_GUIDE.md`
 - Cloudflare 文档: https://developers.cloudflare.com/
 - 技术支持: 提交 GitHub Issue

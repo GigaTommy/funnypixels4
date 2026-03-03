@@ -285,7 +285,7 @@ docker system prune -a
 
 - [INSTALL_DOCKER.md](./INSTALL_DOCKER.md) - Docker 安装和启动指南
 - [DOCKER_SETUP.md](./DOCKER_SETUP.md) - 完整配置文档
-- [BACKEND_SETUP.md](./backend/docs/BACKEND_SETUP.md) - 后端配置
+- [BACKEND_SETUP.md](../deployment/BACKEND_SETUP.md) - 后端配置
 - [README.md](./README.md) - 项目总览
 
 ## 🆘 获取帮助

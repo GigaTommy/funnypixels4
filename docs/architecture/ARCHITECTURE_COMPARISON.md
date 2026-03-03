@@ -115,7 +115,7 @@
 ### 文档
 
 5. **完整文档**
-   - ✅ PERFORMANCE_OPTIMIZATION_REPORT.md
+   - ✅ docs/performance/PERFORMANCE_OPTIMIZATION_REPORT.md
    - ✅ QUICK_START_GUIDE.md
    - ✅ OPTIMIZATION_COMPLETE.md
    - ✅ ARCHITECTURE_COMPARISON.md（本文档）
@@ -342,7 +342,7 @@ await enqueueTileComposition(pixel.lat, pixel.lng, pixel.id);
 
 **影响**: 无，GeoJSON在10k像素内性能足够
 
-**补齐方案**: 参考PERFORMANCE_OPTIMIZATION_REPORT.md - 阶段2
+**补齐方案**: 参考 docs/performance/PERFORMANCE_OPTIMIZATION_REPORT.md - 阶段2
 
 ---
 

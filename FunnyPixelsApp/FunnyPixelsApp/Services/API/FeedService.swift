@@ -22,16 +22,28 @@ class FeedService {
 
     struct FeedItem: Codable, Identifiable {
         let id: String
-        let type: String  // drawing_complete, achievement, checkin, alliance_join
+        let type: String  // drawing_complete, achievement, checkin, alliance_join, moment, showcase, poll
         let content: FeedContent
         let drawing_session_id: String?
         var like_count: Int
         let comment_count: Int
         var is_liked: Bool
+        var is_bookmarked: Bool
+        var poll_data: PollData?
+        var my_vote_option_index: Int?
         let created_at: String
         let user: FeedUser
 
+        struct PollData: Codable {
+            let question: String
+            let options: [String]
+            var votes: [Int]
+            let end_time: String?
+        }
+
         struct FeedContent: Codable {
+            let text: String?              // moment内容
+            let story: String?             // showcase故事
             let pixel_count: Int?
             let city: String?
             let duration_seconds: Int?
@@ -214,6 +226,150 @@ class FeedService {
         }
 
         return try await apiManager.performRequest(request)
+    }
+
+    /// 收藏动态
+    func bookmarkFeedItem(id: String) async throws -> SimpleResponse {
+        let urlString = "\(APIEndpoint.baseURL)/feed/\(id)/bookmark"
+        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let token = AuthManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        return try await apiManager.performRequest(request)
+    }
+
+    /// 取消收藏
+    func unbookmarkFeedItem(id: String) async throws -> SimpleResponse {
+        let urlString = "\(APIEndpoint.baseURL)/feed/\(id)/bookmark"
+        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        if let token = AuthManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        return try await apiManager.performRequest(request)
+    }
+
+    /// 对投票进行投票
+    func votePoll(id: String, optionIndex: Int) async throws -> VoteResponse {
+        let urlString = "\(APIEndpoint.baseURL)/feed/\(id)/vote"
+        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let token = AuthManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        let body = ["option_index": optionIndex]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        return try await apiManager.performRequest(request)
+    }
+
+    struct VoteResponse: Codable {
+        let success: Bool
+        let message: String?
+        let data: VoteData?
+
+        struct VoteData: Codable {
+            let votes: [Int]
+        }
+    }
+
+    /// 举报动态
+    func reportFeedItem(id: String, reason: String, description: String?) async throws -> SimpleResponse {
+        let urlString = "\(APIEndpoint.baseURL)/feed/\(id)/report"
+        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let token = AuthManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        var body: [String: Any] = ["reason": reason]
+        if let description = description {
+            body["description"] = description
+        }
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        return try await apiManager.performRequest(request)
+    }
+
+    /// 创建心情动态
+    func createMoment(content: String, hashtags: [String]?, location: LocationInfo?, media: [MediaInfo]?) async throws -> CreateMomentResponse {
+        let urlString = "\(APIEndpoint.baseURL)/feed/create"
+        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let token = AuthManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        let body: [String: Any] = [
+            "content": content,
+            "hashtags": hashtags ?? [],
+            "location": location?.toDictionary() as Any,
+            "media": media?.map { $0.toDictionary() } ?? []
+        ]
+
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        return try await apiManager.performRequest(request)
+    }
+
+    struct LocationInfo {
+        let name: String?
+        let lat: Double
+        let lng: Double
+
+        func toDictionary() -> [String: Any] {
+            return [
+                "name": name ?? "",
+                "lat": lat,
+                "lng": lng
+            ]
+        }
+    }
+
+    struct MediaInfo {
+        let type: String  // "image" or "video"
+        let url: String
+        let thumbnail: String?
+
+        func toDictionary() -> [String: Any] {
+            var dict: [String: Any] = [
+                "type": type,
+                "url": url
+            ]
+            if let thumbnail = thumbnail {
+                dict["thumbnail"] = thumbnail
+            }
+            return dict
+        }
+    }
+
+    struct CreateMomentResponse: Codable {
+        let success: Bool
+        let data: CreatedMoment?
+        let message: String?
+
+        struct CreatedMoment: Codable {
+            let id: String
+            let created_at: String
+        }
     }
 }
 

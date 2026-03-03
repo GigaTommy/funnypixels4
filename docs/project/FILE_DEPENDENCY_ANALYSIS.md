@@ -49,12 +49,12 @@
 
 | 源文件 | 引用的文档 | 当前路径 | 风险等级 |
 |--------|-----------|---------|---------|
-| `BUGFIX_SUMMARY.md` | `backend/docs/URL_CONFIG_GUIDE.md` | 已存在 | 🟢 安全 |
-| `GPS_DRAWING_TEST_GUIDE.md` | `backend/docs/URL_CONFIG_GUIDE.md` | 已存在 | 🟢 安全 |
+| `BUGFIX_SUMMARY.md` | `docs/backend/operations/URL_CONFIG_GUIDE.md` | 已存在 | 🟢 安全 |
+| `GPS_DRAWING_TEST_GUIDE.md` | `docs/backend/operations/URL_CONFIG_GUIDE.md` | 已存在 | 🟢 安全 |
 | `README.md` | `docs/PERFORMANCE_OPTIMIZATION_PLAN.md` | 需检查 | 🟡 中 |
 
 **影响分析**：
-- `backend/docs/` 已存在，引用路径稳定
+- `docs/backend/` 已存在，引用路径稳定
 - `README.md` 引用了 `docs/PERFORMANCE_OPTIMIZATION_PLAN.md`，需要确认该文件是否存在
 
 #### 4. iOS App内部文档引用
@@ -167,7 +167,7 @@ mv ACHIEVEMENT_PHASE1_COMPLETED.md docs/reports/
 #### Step 1: 创建目录结构
 ```bash
 mkdir -p docs/{troubleshooting,optimization,configuration,monitoring,guides}
-mkdir -p backend/docs
+mkdir -p docs/backend
 mkdir -p app/docs
 ```
 
@@ -233,14 +233,14 @@ mv app/*.md app/docs/ 2>/dev/null
 ##### 组5: Backend文档
 ```bash
 # 移动backend文档
-mv backend/CONTROLLER_REFACTORING_GUIDE.md backend/docs/
-mv backend/REFACTORING_SUMMARY.md backend/docs/
-mv backend/JSDOC_GUIDE.md backend/docs/
-mv backend/SECURITY_*.md backend/docs/
-mv backend/PROJECT_COMPLETION_SUMMARY.md backend/docs/
-mv backend/IOS_LEADERBOARD_FIXES_SUMMARY.md backend/docs/
+mv backend/CONTROLLER_REFACTORING_GUIDE.md docs/backend/
+mv backend/REFACTORING_SUMMARY.md docs/backend/
+mv backend/JSDOC_GUIDE.md docs/backend/
+mv backend/SECURITY_*.md docs/backend/
+mv backend/PROJECT_COMPLETION_SUMMARY.md docs/backend/
+mv backend/IOS_LEADERBOARD_FIXES_SUMMARY.md docs/backend/
 
-# 无需更新引用（backend/docs/ 已被外部引用，不会变化）
+# 无需更新引用（docs/backend/ 已被外部引用，不会变化）
 ```
 
 ---

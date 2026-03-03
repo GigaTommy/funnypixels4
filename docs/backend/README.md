@@ -96,7 +96,7 @@ npm run pixels-history:archive list
 - `GET /region/stats` - 获取区域活跃度统计
 - `GET /stats/overview` - 获取统计概览
 
-详细文档请参考：[像素历史系统文档](docs/PIXELS_HISTORY_SYSTEM.md)
+详细文档请参考：[像素历史系统文档](pixels-history/PIXELS_HISTORY_SYSTEM.md)
 
 ### 测试
 ```bash

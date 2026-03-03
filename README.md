@@ -181,7 +181,7 @@ v2.0 版本带来全新的活动系统体验，基于用户反馈全面升级，
 ### 📚 文档资源
 
 - **[v2.0 发布说明](RELEASE_NOTES_v2.0.md)** - 完整的功能介绍和用户指南（双语）
-- **[API 文档 v2.0](backend/docs/API_DOCUMENTATION_v2.md)** - 所有新增 API 端点详细文档
+- **[API 文档 v2.0](docs/backend/architecture/API_DOCUMENTATION_v2.md)** - 所有新增 API 端点详细文档
 - **[实现总结](FINAL_IMPLEMENTATION_SUMMARY.md)** - 完整的开发实施记录
 - **[性能优化报告](FINAL_PERFORMANCE_REPORT.md)** - 性能基准测试结果
 - **[构建问题说明](FunnyPixelsApp/BUILD_KNOWN_ISSUES.md)** - iOS 构建已知问题和解决方案
@@ -1053,7 +1053,7 @@ npm run start                 # 启动生产版本
 
 ### 🆕 v2.0 版本文档
 - **[v2.0 发布说明](RELEASE_NOTES_v2.0.md)** - 完整的功能介绍和用户指南（中英双语）
-- **[API 文档 v2.0](backend/docs/API_DOCUMENTATION_v2.md)** - 所有新增 API 端点详细文档
+- **[API 文档 v2.0](docs/backend/architecture/API_DOCUMENTATION_v2.md)** - 所有新增 API 端点详细文档
 - **[实现总结](FINAL_IMPLEMENTATION_SUMMARY.md)** - 完整的开发实施记录
 - **[性能优化报告](FINAL_PERFORMANCE_REPORT.md)** - 性能基准测试结果
 - **[优化和审查报告](OPTIMIZATION_AND_REVIEW_REPORT.md)** - 代码质量审查和优化建议

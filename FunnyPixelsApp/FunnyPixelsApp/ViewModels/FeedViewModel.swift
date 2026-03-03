@@ -16,6 +16,11 @@ class FeedViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let pageSize = 20
 
+    // 🚀 性能优化：位置缓存（5分钟有效期）
+    private var cachedLocation: CLLocationCoordinate2D?
+    private var locationCacheTime: Date?
+    private let locationCacheValidDuration: TimeInterval = 300  // 5分钟
+
     init() {
         $filter
             .dropFirst()
@@ -23,6 +28,25 @@ class FeedViewModel: ObservableObject {
                 Task { await self?.loadFeed(refresh: true) }
             }
             .store(in: &cancellables)
+    }
+
+    // 🚀 性能优化：获取缓存的位置（5分钟内复用）
+    private func getCachedLocationIfNeeded() -> CLLocationCoordinate2D? {
+        // 检查缓存是否有效
+        if let cached = cachedLocation,
+           let cacheTime = locationCacheTime,
+           Date().timeIntervalSince(cacheTime) < locationCacheValidDuration {
+            return cached
+        }
+
+        // 缓存过期或不存在，获取新位置
+        if let location = LocationManager.shared.currentLocation {
+            cachedLocation = location.coordinate
+            locationCacheTime = Date()
+            return location.coordinate
+        }
+
+        return nil
     }
 
     func loadFeed(refresh: Bool = false) async {
@@ -35,13 +59,13 @@ class FeedViewModel: ObservableObject {
         defer { isLoading = false }
 
         do {
-            // ✨ 获取位置参数（nearby筛选需要）
+            // ✨ 获取位置参数（nearby筛选需要）- 🚀 使用缓存（5分钟内复用）
             var lat: Double? = nil
             var lng: Double? = nil
             if filter == "nearby" {
-                if let location = LocationManager.shared.currentLocation {
-                    lat = location.coordinate.latitude
-                    lng = location.coordinate.longitude
+                if let location = getCachedLocationIfNeeded() {
+                    lat = location.latitude
+                    lng = location.longitude
                 } else {
                     errorMessage = NSLocalizedString("feed.nearby.location_required", comment: "Location permission required for nearby feed")
                     return
@@ -73,12 +97,12 @@ class FeedViewModel: ObservableObject {
         defer { isLoadingMore = false }
 
         do {
-            // ✨ 获取位置参数（nearby筛选需要）
+            // ✨ 获取位置参数（nearby筛选需要）- 🚀 使用缓存（5分钟内复用）
             var lat: Double? = nil
             var lng: Double? = nil
-            if filter == "nearby", let location = LocationManager.shared.currentLocation {
-                lat = location.coordinate.latitude
-                lng = location.coordinate.longitude
+            if filter == "nearby", let location = getCachedLocationIfNeeded() {
+                lat = location.latitude
+                lng = location.longitude
             }
 
             let response = try await feedService.getFeed(
@@ -123,6 +147,51 @@ class FeedViewModel: ObservableObject {
                 items[index] = reverted
             }
             Logger.error("Failed to toggle like: \(error)")
+        }
+    }
+
+    func toggleBookmark(item: FeedService.FeedItem) async {
+        // 乐观更新：立即更新本地状态
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            var updated = items[index]
+            updated.is_bookmarked = !item.is_bookmarked
+            items[index] = updated
+        }
+
+        do {
+            if item.is_bookmarked {
+                _ = try await feedService.unbookmarkFeedItem(id: item.id)
+            } else {
+                _ = try await feedService.bookmarkFeedItem(id: item.id)
+            }
+        } catch {
+            // 回滚：恢复原始状态
+            if let index = items.firstIndex(where: { $0.id == item.id }) {
+                var reverted = items[index]
+                reverted.is_bookmarked = item.is_bookmarked
+                items[index] = reverted
+            }
+            Logger.error("Failed to toggle bookmark: \(error)")
+        }
+    }
+
+    func votePoll(item: FeedService.FeedItem, optionIndex: Int) async {
+        guard let index = items.firstIndex(where: { $0.id == item.id }) else { return }
+
+        do {
+            let response = try await feedService.votePoll(id: item.id, optionIndex: optionIndex)
+            if response.success, let voteData = response.data {
+                // 更新投票结果
+                var updated = items[index]
+                if var pollData = updated.poll_data {
+                    pollData.votes = voteData.votes
+                    updated.poll_data = pollData
+                    updated.my_vote_option_index = optionIndex
+                    items[index] = updated
+                }
+            }
+        } catch {
+            Logger.error("Failed to vote poll: \(error)")
         }
     }
 

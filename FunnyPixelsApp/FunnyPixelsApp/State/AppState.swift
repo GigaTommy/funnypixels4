@@ -12,7 +12,6 @@ class AppState: ObservableObject {
     // MARK: - Sub-Tab Selection
     @Published var feedSubTab: FeedSubTab = .plaza
     @Published var allianceSubTab: AllianceSubTab = .myAlliance
-    @Published var profileSubTab: ProfileSubTab = .personal
 
     // MARK: - Badge Counts
     @Published var badgeCounts: [Tab: Int] = [:]
@@ -49,12 +48,6 @@ class AppState: ObservableObject {
     func navigateToAlliance(subTab: AllianceSubTab) {
         selectedTab = .alliance
         allianceSubTab = subTab
-    }
-
-    /// 切换到我的Tab的指定子标签
-    func navigateToProfile(subTab: ProfileSubTab) {
-        selectedTab = .profile
-        profileSubTab = subTab
     }
 
     /// 切换到地图Tab并飞往指定坐标
@@ -141,20 +134,6 @@ enum AllianceSubTab: String, CaseIterable, CustomStringConvertible {
         switch self {
         case .myAlliance: return NSLocalizedString("alliance.my", comment: "My Alliance")
         case .discover: return NSLocalizedString("alliance.discover", comment: "Discover")
-        }
-    }
-}
-
-enum ProfileSubTab: String, CaseIterable, CustomStringConvertible {
-    case personal
-    case leaderboard
-    case more
-
-    var description: String {
-        switch self {
-        case .personal: return NSLocalizedString("profile.personal", comment: "Personal")
-        case .leaderboard: return NSLocalizedString("profile.leaderboard", comment: "Leaderboard")
-        case .more: return NSLocalizedString("profile.more", comment: "More")
         }
     }
 }

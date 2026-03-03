@@ -40,6 +40,9 @@ struct MapTabContent: View {
     // Drift Bottle Map Markers
     @State private var lastMarkersRefreshLocation: CLLocation?
 
+    // Leaderboard
+    @State private var showLeaderboard = false
+
     private let mapController = MapController.shared
 
     // 检查是否为调试模式
@@ -90,6 +93,13 @@ struct MapTabContent: View {
                 }
             }
             .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
+        }
+        .sheet(isPresented: $showLeaderboard) {
+            NavigationView {
+                LeaderboardTabView()
+            }
+            .presentationDetents([.large])
             .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $drawingState.showSessionSummary) {
@@ -299,10 +309,14 @@ struct MapTabContent: View {
                         isRoaming: $isRoaming,
                         isCentering: $isCentering,
                         isMapDetached: $isMapDetached,
+                        isLeaderboardShowing: $showLeaderboard,
                         isDebugMode: isDebugMode,
                         isRandomTesting: isRandomTesting,
                         testBadgePattern: patternProvider.currentDrawingPattern,
                         isDrawingMode: GPSDrawingService.shared.isGPSDrawingMode,
+                        onLeaderboard: {
+                            showLeaderboard = true
+                        },
                         onRoam: {
                             Task {
                                 if roamingHotspots.isEmpty {

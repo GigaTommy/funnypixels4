@@ -32,11 +32,6 @@ struct SubTabPicker_Previews: PreviewProvider {
                 items: AllianceSubTab.allCases,
                 selection: .constant(.myAlliance)
             )
-
-            SubTabPicker(
-                items: ProfileSubTab.allCases,
-                selection: .constant(.personal)
-            )
         }
         .padding()
     }

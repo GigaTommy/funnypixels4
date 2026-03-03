@@ -12,21 +12,44 @@ struct ProfileTabView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Sub-Tab 选择器
-                CapsuleTabPicker(items: ProfileSubTab.allCases, selection: $appState.profileSubTab)
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: AppSpacing.l) {
+                    if authViewModel.isAuthenticated {
+                        // 1. Profile Hero Section
+                        if let profile = viewModel.userProfile {
+                            profileHeroSection(profile: profile)
+                        }
 
-                // Sub-Tab 内容
-                Group {
-                    switch appState.profileSubTab {
-                    case .personal:
-                        personalTabContent
-                    case .leaderboard:
-                        LeaderboardTabView()
-                    case .more:
-                        moreTabContent
+                        // 2. Social Stats Bar (followers/following/pixels/achievements)
+                        if viewModel.userProfile != nil {
+                            socialStatsBar
+                        }
+
+                        // 3. Rank Tier Progress Card
+                        if let tier = viewModel.userProfile?.rankTier {
+                            NavigationLink(destination: RankTierGuideView()) {
+                                StandardCard(padding: AppSpacing.l) {
+                                    RankTierProgressBar(tier: tier)
+                                }
+                            }
+                            .buttonStyle(.plain)
+                        }
+
+                        // 4. Honors Card
+                        if !viewModel.achievementHighlights.isEmpty {
+                            honorsCard
+                        }
+
+                        // 5. Menu Card (方案A优化排序)
+                        menuCard
+
+                    } else {
+                        guestView
                     }
                 }
+                .padding(.horizontal, AppSpacing.l)
+                .padding(.top, AppSpacing.l)
+                .padding(.bottom, 90)
             }
             .navigationTitle(NSLocalizedString("tab.profile", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
@@ -76,83 +99,6 @@ struct ProfileTabView: View {
         }
     }
 
-    // MARK: - Personal Tab Content
-
-    private var personalTabContent: some View {
-        ScrollView(showsIndicators: false) {
-                VStack(spacing: AppSpacing.l) {
-                    if authViewModel.isAuthenticated {
-                        // 1. Profile Hero Section
-                        if let profile = viewModel.userProfile {
-                            profileHeroSection(profile: profile)
-                        }
-
-                        // 2. Social Stats Bar (followers/following/pixels/achievements)
-                        if viewModel.userProfile != nil {
-                            socialStatsBar
-                        }
-
-                        // 3. Rank Tier Progress Card
-                        if let tier = viewModel.userProfile?.rankTier {
-                            NavigationLink(destination: RankTierGuideView()) {
-                                StandardCard(padding: AppSpacing.l) {
-                                    RankTierProgressBar(tier: tier)
-                                }
-                            }
-                            .buttonStyle(.plain)
-                        }
-
-                        // 4. Honors Card
-                        if !viewModel.achievementHighlights.isEmpty {
-                            honorsCard
-                        }
-
-                        // 5. Menu Card
-                        menuCard
-
-                    } else {
-                        guestView
-                    }
-                }
-                .padding(.horizontal, AppSpacing.l)
-                .padding(.top, AppSpacing.l)
-                .padding(.bottom, 90)
-        }
-    }
-
-    // MARK: - More Tab Content
-
-    private var moreTabContent: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: AppSpacing.l) {
-                if authViewModel.isAuthenticated {
-                    // More settings and options
-                    StandardCard(padding: 0) {
-                        VStack(spacing: 0) {
-                            NavigationLink(destination: SettingsView()) {
-                                StandardListRowContent(title: NSLocalizedString("profile.settings", comment: ""), icon: "gearshape.fill", iconColor: .gray)
-                            }
-                        }
-                    }
-
-                    // Logout Button
-                    StandardButton(
-                        title: NSLocalizedString("profile.logout", comment: ""),
-                        icon: "rectangle.portrait.and.arrow.right",
-                        style: .destructive,
-                        size: .medium
-                    ) {
-                        showLogoutConfirm = true
-                    }
-                } else {
-                    guestView
-                }
-            }
-            .padding(.horizontal, AppSpacing.l)
-            .padding(.top, AppSpacing.l)
-            .padding(.bottom, 90)
-        }
-    }
 
     // MARK: - Profile Hero Section
 
@@ -308,21 +254,12 @@ struct ProfileTabView: View {
         }
     }
 
-    // MARK: - Menu Card
+    // MARK: - Menu Card (方案A优化排序)
 
     private var menuCard: some View {
         StandardCard(padding: 0) {
             VStack(spacing: 0) {
-                NavigationLink(destination: ShopTabView()) {
-                    StandardListRowContent(title: NSLocalizedString("profile.shop", comment: ""), icon: "cart.fill", iconColor: .blue)
-                }
-                Divider().padding(.leading, 56)
-
-                NavigationLink(destination: EventCenterView()) {
-                    StandardListRowContent(title: NSLocalizedString("profile.event_center", comment: ""), icon: "flag.2.crossed.fill", iconColor: .red)
-                }
-                Divider().padding(.leading, 56)
-
+                // 1. 💬 消息中心 (高频+红点)
                 NavigationLink(destination: MessageCenterView()) {
                     StandardListRowContent(title: NSLocalizedString("profile.messages", comment: ""), icon: "envelope.fill", iconColor: .green) {
                         if viewModel.unreadMessageCount > 0 {
@@ -337,21 +274,19 @@ struct ProfileTabView: View {
                 }
                 Divider().padding(.leading, 56)
 
-                NavigationLink(destination: Text(NSLocalizedString("profile.items", comment: ""))) {
-                    StandardListRowContent(title: NSLocalizedString("profile.items", comment: ""), icon: "bag.fill", iconColor: .orange)
-                }
-                Divider().padding(.leading, 56)
-
+                // 2. ✅ 每日任务 (高频+促活)
                 NavigationLink(destination: DailyTaskListView()) {
                     StandardListRowContent(title: NSLocalizedString("profile.daily_tasks", comment: ""), icon: "checklist", iconColor: .teal)
                 }
                 Divider().padding(.leading, 56)
 
-                NavigationLink(destination: RankTierGuideView()) {
-                    StandardListRowContent(title: NSLocalizedString("rank.guide.title", comment: ""), icon: "shield.lefthalf.filled", iconColor: .indigo)
+                // 3. 🎉 活动中心 (中高频+商业)
+                NavigationLink(destination: EventCenterView()) {
+                    StandardListRowContent(title: NSLocalizedString("profile.event_center", comment: ""), icon: "flag.2.crossed.fill", iconColor: .red)
                 }
                 Divider().padding(.leading, 56)
 
+                // 4. 🏆 成就系统 (高频+红点)
                 NavigationLink(destination: AchievementTabView()) {
                     StandardListRowContent(title: NSLocalizedString("profile.achievements", comment: ""), icon: "trophy.fill", iconColor: .purple) {
                         if viewModel.hasUnclaimedRewards {
@@ -363,6 +298,7 @@ struct ProfileTabView: View {
                 }
                 Divider().padding(.leading, 56)
 
+                // 5. 🗺️ 旅行卡收藏 (高频+红点)
                 NavigationLink(destination: JourneyCardListView()) {
                     StandardListRowContent(title: NSLocalizedString("profile.journey_collection", comment: ""), icon: "map.fill", iconColor: .cyan) {
                         if DriftBottleManager.shared.unreadJourneyCards > 0 {
@@ -377,8 +313,62 @@ struct ProfileTabView: View {
                 }
                 Divider().padding(.leading, 56)
 
+                // 6. 🛒 商店 (中频+变现)
+                NavigationLink(destination: ShopTabView()) {
+                    StandardListRowContent(title: NSLocalizedString("profile.shop", comment: ""), icon: "cart.fill", iconColor: .blue)
+                }
+                Divider().padding(.leading, 56)
+
+                // 7. 🎁 邀请好友 (低频+增长)
                 NavigationLink(destination: InviteFriendsView()) {
                     StandardListRowContent(title: NSLocalizedString("profile.invite_friends", comment: ""), icon: "gift.fill", iconColor: .orange)
+                }
+                Divider().padding(.leading, 56)
+
+                // 8. 🛡️ 段位指南 (中频+教育)
+                NavigationLink(destination: RankTierGuideView()) {
+                    StandardListRowContent(title: NSLocalizedString("rank.guide.title", comment: ""), icon: "shield.lefthalf.filled", iconColor: .indigo)
+                }
+                Divider().padding(.leading, 56)
+
+                // 9. 🎒 物品背包 (低频+管理)
+                NavigationLink(destination: Text(NSLocalizedString("profile.items", comment: ""))) {
+                    StandardListRowContent(title: NSLocalizedString("profile.items", comment: ""), icon: "bag.fill", iconColor: .orange)
+                }
+
+                // ─────────────────────── 分隔线 ───────────────────────
+                Divider()
+                    .padding(.vertical, 4)
+
+                // 10. ⚙️ 设置 (低频+系统)
+                NavigationLink(destination: SettingsView()) {
+                    StandardListRowContent(title: NSLocalizedString("profile.settings", comment: ""), icon: "gearshape.fill", iconColor: .gray)
+                }
+                Divider().padding(.leading, 56)
+
+                // 11. 🚪 登出 (极低频+破坏性)
+                Button {
+                    showLogoutConfirm = true
+                } label: {
+                    HStack(spacing: AppSpacing.l) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.red.opacity(0.1))
+                                .frame(width: 36, height: 36)
+
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .font(DesignTokens.Typography.title3.weight(.semibold))
+                                .foregroundColor(.red)
+                        }
+
+                        Text(NSLocalizedString("profile.logout", comment: ""))
+                            .font(AppTypography.body())
+                            .foregroundColor(.red)
+
+                        Spacer()
+                    }
+                    .padding(AppSpacing.l)
+                    .contentShape(Rectangle())
                 }
             }
         }

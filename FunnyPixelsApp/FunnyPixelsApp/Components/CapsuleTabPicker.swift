@@ -83,11 +83,6 @@ struct CapsuleTabPicker_Previews: PreviewProvider {
                 items: AllianceSubTab.allCases,
                 selection: .constant(.myAlliance)
             )
-
-            CapsuleTabPicker(
-                items: ProfileSubTab.allCases,
-                selection: .constant(.personal)
-            )
         }
         .padding()
         .background(AppColors.background)

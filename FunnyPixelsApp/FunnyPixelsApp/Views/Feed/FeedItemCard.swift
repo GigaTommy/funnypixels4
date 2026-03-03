@@ -14,35 +14,39 @@ struct FeedItemCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: FeedDesign.Spacing.m) {
-            // 头部：头像 + 名称 + 时间 + 缩略图（如果有）
-            HStack(alignment: .top, spacing: FeedDesign.Spacing.s) {
-                // 左侧：用户信息（可点击跳转）
-                NavigationLink(destination: UserProfileView(userId: item.user.id)) {
-                    HStack(spacing: FeedDesign.Spacing.s) {
-                        AvatarView(
-                            avatarUrl: item.user.avatar_url,
-                            avatar: item.user.avatar,
-                            displayName: item.user.displayName,
-                            size: 40
-                        )
+            // 左右布局：左侧用户信息+内容，右侧缩略图
+            HStack(alignment: .top, spacing: FeedDesign.Spacing.m) {
+                // 左侧：用户信息 + 内容描述
+                VStack(alignment: .leading, spacing: FeedDesign.Spacing.s) {
+                    // 用户信息（可点击跳转）
+                    NavigationLink(destination: UserProfileView(userId: item.user.id)) {
+                        HStack(spacing: FeedDesign.Spacing.s) {
+                            AvatarView(
+                                avatarUrl: item.user.avatar_url,
+                                avatar: item.user.avatar,
+                                displayName: item.user.displayName,
+                                size: 40
+                            )
 
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(item.user.displayName)
-                                .font(FeedDesign.Typography.body)
-                                .foregroundColor(FeedDesign.Colors.text)
-                                .lineLimit(1)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(item.user.displayName)
+                                    .font(FeedDesign.Typography.body)
+                                    .foregroundColor(FeedDesign.Colors.text)
+                                    .lineLimit(1)
 
-                            Text(item.timeAgo)
-                                .font(FeedDesign.Typography.caption)
-                                .foregroundColor(FeedDesign.Colors.textSecondary)
+                                Text(item.timeAgo)
+                                    .font(FeedDesign.Typography.caption)
+                                    .foregroundColor(FeedDesign.Colors.textSecondary)
+                            }
                         }
                     }
+                    .buttonStyle(PlainButtonStyle())
+
+                    // 内容描述（紧跟用户信息）
+                    feedContentView
                 }
-                .buttonStyle(PlainButtonStyle())
 
-                Spacer()
-
-                // 右侧：缩略图（与头像平齐）
+                // 右侧：缩略图（固定在右侧）
                 if let sessionId = item.drawing_session_id, !sessionId.isEmpty,
                    (item.type == "drawing_complete" || item.type == "showcase") {
                     SessionThumbnailView(sessionId: sessionId)
@@ -53,9 +57,6 @@ struct FeedItemCard: View {
                         }
                 }
             }
-
-            // 内容描述
-            feedContentView
 
             // 底部操作栏
             HStack(spacing: FeedDesign.Spacing.xl) {

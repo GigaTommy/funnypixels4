@@ -11,25 +11,45 @@ struct MapToolbarView: View {
     @Binding var isRoaming: Bool
     @Binding var isCentering: Bool
     @Binding var isMapDetached: Bool
-    
+    @Binding var isLeaderboardShowing: Bool
+
     // Debug & Test State
     var isDebugMode: Bool
     var isRandomTesting: Bool
     var testBadgePattern: DrawingPattern?
-    
+
     // View State
     var isDrawingMode: Bool = false
-    
+
     // Actions
+    var onLeaderboard: (() -> Void)? = nil
     var onRoam: () -> Void
     var onLongPressRoam: (() -> Void)? = nil
     var onCenter: () -> Void
     var onTest: () -> Void
     var onLongPressTest: (() -> Void)? = nil
-    
+
     var body: some View {
         VStack(spacing: 0) {
-            // 1. Location Button (Top)
+            // 0. Leaderboard Button (Top) - Always visible when authenticated
+            if authViewModel.isAuthenticated && !isDrawingMode, let leaderboardAction = onLeaderboard {
+                Button(action: {
+                    hapticFeedback()
+                    leaderboardAction()
+                }) {
+                    Image(systemName: isLeaderboardShowing ? "trophy.fill" : "trophy")
+                        .font(DesignTokens.Typography.title3)
+                        .foregroundColor(.blue)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
+                }
+
+                Divider()
+                    .frame(width: 24)
+                    .background(Color.secondary.opacity(0.2))
+            }
+
+            // 1. Location Button
             Button(action: {
                 hapticFeedback()
                 onCenter()
@@ -133,6 +153,7 @@ struct MapToolbarView: View {
             isRoaming: .constant(false),
             isCentering: .constant(false),
             isMapDetached: .constant(true),
+            isLeaderboardShowing: .constant(false),
             isDebugMode: true,
             isRandomTesting: false,
             testBadgePattern: nil,

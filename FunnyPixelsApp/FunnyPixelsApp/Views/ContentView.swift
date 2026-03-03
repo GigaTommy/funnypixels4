@@ -245,14 +245,14 @@ struct MainMapView: View {
                 case 0: appState.navigate(to: .map)
                 case 1: appState.navigate(to: .feed)
                 case 2: appState.navigate(to: .alliance)
-                case 3: appState.navigate(to: .profile)  // ✅ 修复：索引3现在是个人Tab，默认显示personal
-                case 4: appState.navigateToProfile(subTab: .leaderboard)  // 兼容旧版本：索引4跳转到排行榜子Tab
+                case 3: appState.navigate(to: .profile)
+                case 4: appState.navigate(to: .profile)  // ✅ 兼容旧版本：索引4原为排行榜
                 default: break
                 }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .navigateToDailyTasks)) { _ in
-            appState.navigateToProfile(subTab: .personal)
+            appState.navigate(to: .profile)
             showDailyTasksFromMap = true
         }
         .onReceive(NotificationCenter.default.publisher(for: .openEventDetail)) { notification in
@@ -325,7 +325,9 @@ struct MainMapView: View {
             break
 
         case .leaderboard:
-            appState.navigateToProfile(subTab: .leaderboard)
+            // TODO: 排行榜已从Profile Tab移除，暂时重定向到Profile Tab
+            // 未来可能需要独立的排行榜页面或提升到主Tab
+            appState.navigate(to: .profile)
 
         case .tab(let index):
             // Convert old tab indices to new Tab enum (4 tabs: map, feed, alliance, profile)
@@ -333,8 +335,8 @@ struct MainMapView: View {
             case 0: appState.navigate(to: .map)
             case 1: appState.navigate(to: .feed)
             case 2: appState.navigate(to: .alliance)
-            case 3: appState.navigate(to: .profile)  // ✅ 修复：索引3现在是个人Tab，默认显示personal
-            case 4: appState.navigateToProfile(subTab: .leaderboard)  // 兼容旧版本：索引4跳转到排行榜子Tab
+            case 3: appState.navigate(to: .profile)
+            case 4: appState.navigate(to: .profile)  // ✅ 兼容旧版本：索引4原为排行榜，现重定向到Profile Tab
             default: break
             }
         }

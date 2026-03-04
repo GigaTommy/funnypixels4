@@ -18,7 +18,7 @@ struct SocialFeedView: View {
                 feedEmptyView
             } else {
                 ScrollView {
-                    LazyVStack(spacing: AppSpacing.m) {
+                    LazyVStack(spacing: AppSpacing.l) {
                         ForEach(viewModel.items) { item in
                             FeedItemCard(
                                 item: item,

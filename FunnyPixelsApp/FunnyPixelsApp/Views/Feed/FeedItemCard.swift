@@ -30,12 +30,12 @@ struct FeedItemCard: View {
 
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(item.user.displayName)
-                                    .font(FeedDesign.Typography.body)
+                                    .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(FeedDesign.Colors.text)
                                     .lineLimit(1)
 
                                 Text(item.timeAgo)
-                                    .font(FeedDesign.Typography.caption)
+                                    .font(.system(size: 12))
                                     .foregroundColor(FeedDesign.Colors.textSecondary)
                             }
                         }
@@ -46,11 +46,11 @@ struct FeedItemCard: View {
                     feedContentView
                 }
 
-                // 右侧：缩略图（固定在右侧）
+                // 右侧：缩略图（64x64）
                 if let sessionId = item.drawing_session_id, !sessionId.isEmpty,
                    (item.type == "drawing_complete" || item.type == "showcase") {
                     SessionThumbnailView(sessionId: sessionId)
-                        .frame(width: 80, height: 80)
+                        .frame(width: 64, height: 64)
                         .cornerRadius(8)
                         .onTapGesture {
                             showSessionDetail = true
@@ -108,11 +108,17 @@ struct FeedItemCard: View {
             }
         }
         .padding(FeedDesign.Spacing.m)
-        .background(FeedDesign.Colors.background)
-        .overlay(
-            Rectangle()
-                .stroke(FeedDesign.Colors.line, lineWidth: FeedDesign.Layout.borderWidth)
-        )
+        .background(AppColors.surface)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+        .contentShape(RoundedRectangle(cornerRadius: 12))
+        .onTapGesture {
+            // 统一点击行为：打开作品详情（如果有）
+            if item.drawing_session_id != nil && !item.drawing_session_id!.isEmpty,
+               (item.type == "drawing_complete" || item.type == "showcase") {
+                showSessionDetail = true
+            }
+        }
         .contextMenu {
             Button {
                 showReportAlert = true
@@ -180,38 +186,41 @@ struct FeedItemCard: View {
     }
 
     private var drawingContent: some View {
-        VStack(alignment: .leading, spacing: FeedDesign.Spacing.xs) {
-            Text(String(format: NSLocalizedString("feed.drawing.description", comment: ""), item.content.pixel_count ?? 0))
-                .font(FeedDesign.Typography.body)
-                .foregroundColor(FeedDesign.Colors.text)
-
-            // 元数据：像素数 · 位置 · 时长
-            HStack(spacing: 4) {
+        // 元数据：像素数 · 位置 · 时长（删除描述文字，避免与统计数字重复）
+        HStack(spacing: 4) {
                 if let pixelCount = item.content.pixel_count, pixelCount > 0 {
+                    Image(systemName: "chart.bar.fill")
+                        .font(.system(size: 11))
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
                     Text("\(pixelCount)")
-                        .font(FeedDesign.Typography.caption)
+                        .font(.system(size: 12))
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
 
                 if let city = item.content.city, !city.isEmpty {
                     Text("·")
-                        .font(FeedDesign.Typography.caption)
+                        .font(.system(size: 12))
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                    Image(systemName: "location.fill")
+                        .font(.system(size: 11))
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                     Text(city)
-                        .font(FeedDesign.Typography.caption)
+                        .font(.system(size: 12))
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
 
                 if let duration = item.content.duration_seconds, duration > 0 {
                     Text("·")
-                        .font(FeedDesign.Typography.caption)
+                        .font(.system(size: 12))
+                        .foregroundColor(FeedDesign.Colors.textTertiary)
+                    Image(systemName: "clock.fill")
+                        .font(.system(size: 11))
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                     Text(FeedFormatters.formatDuration(duration))
-                        .font(FeedDesign.Typography.caption)
+                        .font(.system(size: 12))
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
             }
-        }
     }
 
     private var achievementContent: some View {

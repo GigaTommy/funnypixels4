@@ -164,8 +164,8 @@ struct FeedItemCard: View {
     @ViewBuilder
     private var feedContentView: some View {
         switch item.type {
-        case "drawing_complete":
-            drawingContent
+        case "drawing_complete", "showcase":
+            artworkContent
         case "achievement":
             achievementContent
         case "checkin":
@@ -174,8 +174,6 @@ struct FeedItemCard: View {
             allianceContent
         case "moment":
             momentContent
-        case "showcase":
-            showcaseContent
         case "poll":
             pollContent
         default:
@@ -185,9 +183,18 @@ struct FeedItemCard: View {
         }
     }
 
-    private var drawingContent: some View {
-        // 元数据：像素数 · 位置 · 时长（删除描述文字，避免与统计数字重复）
-        HStack(spacing: 4) {
+    private var artworkContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // 创作故事（showcase独有，优先显示）
+            if let story = item.content.story, !story.isEmpty {
+                Text(story)
+                    .font(.body)
+                    .foregroundColor(FeedDesign.Colors.text)
+                    .lineLimit(3)
+            }
+
+            // 统计信息（统一格式）
+            HStack(spacing: 4) {
                 if let pixelCount = item.content.pixel_count, pixelCount > 0 {
                     Image(systemName: "chart.bar.fill")
                         .font(.system(size: 11))
@@ -221,6 +228,7 @@ struct FeedItemCard: View {
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
             }
+        }
     }
 
     private var achievementContent: some View {
@@ -247,45 +255,6 @@ struct FeedItemCard: View {
                 Text(text)
                     .font(FeedDesign.Typography.body)
                     .foregroundColor(FeedDesign.Colors.text)
-            }
-        }
-    }
-
-    private var showcaseContent: some View {
-        VStack(alignment: .leading, spacing: FeedDesign.Spacing.s) {
-            // 作品统计
-            HStack(spacing: 4) {
-                if let pixelCount = item.content.pixel_count {
-                    Text("\(pixelCount)")
-                        .font(FeedDesign.Typography.caption)
-                        .foregroundColor(FeedDesign.Colors.textSecondary)
-                }
-
-                if let city = item.content.city, !city.isEmpty {
-                    Text("·")
-                        .font(FeedDesign.Typography.caption)
-                        .foregroundColor(FeedDesign.Colors.textTertiary)
-                    Text(city)
-                        .font(FeedDesign.Typography.caption)
-                        .foregroundColor(FeedDesign.Colors.textSecondary)
-                }
-
-                if let duration = item.content.duration_seconds {
-                    Text("·")
-                        .font(FeedDesign.Typography.caption)
-                        .foregroundColor(FeedDesign.Colors.textTertiary)
-                    Text(FeedFormatters.formatDuration(duration))
-                        .font(FeedDesign.Typography.caption)
-                        .foregroundColor(FeedDesign.Colors.textSecondary)
-                }
-            }
-
-            // 创作故事
-            if let story = item.content.story, !story.isEmpty {
-                Text(story)
-                    .font(FeedDesign.Typography.body)
-                    .foregroundColor(FeedDesign.Colors.text)
-                    .lineLimit(5)
             }
         }
     }

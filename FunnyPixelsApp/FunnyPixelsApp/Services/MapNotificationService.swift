@@ -53,7 +53,7 @@ class MapNotificationService: ObservableObject {
 
         // Notify server (fire and forget)
         do {
-            let _: EmptyResponse = try await APIManager.shared.post(
+            let _: SuccessResponse = try await APIManager.shared.post(
                 "/map-notifications/\(notification.id)/dismiss"
             )
         } catch {
@@ -84,9 +84,4 @@ class MapNotificationService: ObservableObject {
         refreshTimer?.invalidate()
         refreshTimer = nil
     }
-}
-
-/// Empty response for dismiss endpoint
-struct EmptyResponse: Codable {
-    let success: Bool
 }

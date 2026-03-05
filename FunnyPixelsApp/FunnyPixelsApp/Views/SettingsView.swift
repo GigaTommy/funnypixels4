@@ -101,7 +101,7 @@ struct PrivacySettingsView: View {
             if let error = errorMessage {
                 Section {
                     Text(error)
-                        .foregroundColor(AppColors.tertiary)
+                        .foregroundColor(AppColors.error)
                 }
             }
         }

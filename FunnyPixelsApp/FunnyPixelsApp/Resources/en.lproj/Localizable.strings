@@ -74,6 +74,7 @@
 "tab.map" = "Map";
 "tab.history" = "History";
 "tab.feed" = "Feed";
+"tab.activity" = "Activity";
 "tab.alliance" = "Alliance";
 "tab.leaderboard" = "Rank";
 "tab.profile" = "Me";
@@ -175,6 +176,36 @@
 "feed.comments.title" = "Comments";
 "feed.comments.empty" = "No comments yet";
 "feed.comments.placeholder" = "Write a comment...";
+
+/* World State Feed */
+"feed.world_state.filter.all" = "All";
+"feed.world_state.filter.milestones" = "Milestones";
+"feed.world_state.filter.territories" = "Territories";
+"feed.world_state.filter.events" = "Events";
+"feed.world_state.filter.official" = "Official";
+"feed.world_state.empty.all.title" = "No World Events";
+"feed.world_state.empty.all.message" = "The world is sleeping, go create to wake it up";
+"feed.world_state.empty.milestones.title" = "No Milestones";
+"feed.world_state.empty.milestones.message" = "No players have reached new milestones yet";
+"feed.world_state.empty.territories.title" = "No Territory Changes";
+"feed.world_state.empty.territories.message" = "Map territories are currently calm";
+"feed.world_state.empty.events.title" = "No Event Updates";
+"feed.world_state.empty.events.message" = "Events are coming soon, stay tuned";
+"feed.world_state.empty.official.title" = "No Announcements";
+"feed.world_state.empty.official.message" = "System is running smoothly, all is well";
+
+/* World State Event Card */
+"world_state.territory.captured_by_prefix" = "Captured by";
+"world_state.territory.captured_by_suffix" = "";
+"world_state.artwork.completed" = "completed an artwork";
+"world_state.artwork.pixels" = "pixels";
+"world_state.announcement.official" = "Official";
+
+/* World State Toast Messages */
+"world_state.toast.location_unavailable" = "Location unavailable";
+"world_state.toast.opening_alliance" = "Opening alliance details";
+"world_state.toast.opening_event" = "Opening event details";
+"world_state.toast.announcement_coming_soon" = "Announcement details coming soon";
 
 /* Dashboard */
 "dashboard.heatmap.title" = "Activity Calendar";
@@ -671,6 +702,13 @@
 "reward.target.leader" = "Alliance Leader Only";
 "reward.flag" = "Exclusive Flag";
 "common.pixels" = "Pixels";
+
+/* Activity Tab */
+"activity.tab.events" = "Events";
+"activity.tab.tasks" = "Tasks";
+
+/* Profile Menu */
+"profile.alliance" = "My Alliance";
 
 /* Event Center */
 "profile.event_center" = "Event Center";
@@ -1711,3 +1749,28 @@
 "feed.create.error.title" = "Publish Failed";
 "feed.create.error.unknown" = "Unknown error occurred";
 
+
+// SessionSummaryView - Buttons
+"summary.button.share_to_feed" = "Share to Feed";
+"summary.button.more" = "More";
+
+// ShareToFeedSheet
+"share.to_feed.title" = "Share Artwork";
+"share.quick.title" = "Quick Share";
+"share.quick.description" = "Share directly to feed";
+"share.edit.title" = "Edit & Share";
+"share.edit.description" = "Add your story before sharing";
+
+// ShareToFeedEditView
+"share.edit.navigation_title" = "Share Artwork";
+"share.edit.artwork_preview" = "Artwork Preview";
+"share.edit.story_label" = "Your Story";
+"share.edit.story_placeholder" = "Share your creation story... (optional)";
+"share.edit.stats_label" = "Artwork Stats";
+"share.edit.pixels" = "Pixels";
+"share.edit.duration" = "Duration";
+"share.edit.publish_button" = "Publish";
+
+// Feedback
+"share.success.toast" = "Shared successfully!";
+"share.error.generic" = "Failed to share, please try again";

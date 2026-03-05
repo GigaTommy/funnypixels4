@@ -274,15 +274,9 @@ struct ProfileTabView: View {
                 }
                 Divider().padding(.leading, 56)
 
-                // 2. ✅ 每日任务 (高频+促活)
-                NavigationLink(destination: DailyTaskListView()) {
-                    StandardListRowContent(title: NSLocalizedString("profile.daily_tasks", comment: ""), icon: "checklist", iconColor: .teal)
-                }
-                Divider().padding(.leading, 56)
-
-                // 3. 🎉 活动中心 (中高频+商业)
-                NavigationLink(destination: EventCenterView()) {
-                    StandardListRowContent(title: NSLocalizedString("profile.event_center", comment: ""), icon: "flag.2.crossed.fill", iconColor: .red)
+                // 2. 🛡️ 我的联盟 (中高频+社交)
+                NavigationLink(destination: AllianceTabView().environmentObject(authViewModel).environmentObject(appState)) {
+                    StandardListRowContent(title: NSLocalizedString("profile.alliance", comment: ""), icon: "shield.fill", iconColor: .blue)
                 }
                 Divider().padding(.leading, 56)
 

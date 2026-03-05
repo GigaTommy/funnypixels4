@@ -68,6 +68,7 @@
 "tab.map" = "지도";
 "tab.history" = "기록";
 "tab.feed" = "피드";
+"tab.activity" = "활동";
 "tab.alliance" = "연맹";
 "tab.leaderboard" = "순위";
 "tab.profile" = "내 정보";
@@ -159,6 +160,36 @@
 "feed.comments.title" = "댓글";
 "feed.comments.empty" = "아직 댓글이 없습니다";
 "feed.comments.placeholder" = "댓글을 작성하세요...";
+
+/* World State Feed */
+"feed.world_state.filter.all" = "전체";
+"feed.world_state.filter.milestones" = "마일스톤";
+"feed.world_state.filter.territories" = "영토";
+"feed.world_state.filter.events" = "이벤트";
+"feed.world_state.filter.official" = "공식";
+"feed.world_state.empty.all.title" = "세계 이벤트 없음";
+"feed.world_state.empty.all.message" = "세계가 잠들어 있습니다. 만들어서 깨워보세요";
+"feed.world_state.empty.milestones.title" = "마일스톤 없음";
+"feed.world_state.empty.milestones.message" = "아직 새로운 마일스톤에 도달한 플레이어가 없습니다";
+"feed.world_state.empty.territories.title" = "영토 변경 없음";
+"feed.world_state.empty.territories.message" = "지도 영토가 현재 조용합니다";
+"feed.world_state.empty.events.title" = "이벤트 업데이트 없음";
+"feed.world_state.empty.events.message" = "이벤트가 곧 공개됩니다";
+"feed.world_state.empty.official.title" = "공지 없음";
+"feed.world_state.empty.official.message" = "시스템이 정상적으로 작동 중입니다";
+
+/* World State Event Card */
+"world_state.territory.captured_by_prefix" = "";
+"world_state.territory.captured_by_suffix" = "가 점령";
+"world_state.artwork.completed" = "님이 작품 완성";
+"world_state.artwork.pixels" = "픽셀";
+"world_state.announcement.official" = "공식";
+
+/* World State Toast Messages */
+"world_state.toast.location_unavailable" = "위치를 사용할 수 없습니다";
+"world_state.toast.opening_alliance" = "동맹 세부정보 열기";
+"world_state.toast.opening_event" = "이벤트 세부정보 열기";
+"world_state.toast.announcement_coming_soon" = "공지 세부정보 곧 공개";
 
 /* Dashboard */
 "dashboard.heatmap.title" = "활동 캘린더";
@@ -631,6 +662,13 @@
 "reward.target.leader" = "연맹 리더만";
 "reward.flag" = "한정 깃발";
 "common.pixels" = "픽셀";
+/* Activity Tab */
+"activity.tab.events" = "이벤트";
+"activity.tab.tasks" = "과제";
+
+/* Profile Menu */
+"profile.alliance" = "내 동맹";
+
 /* Event Center */
 "profile.event_center" = "이벤트 센터";
 "event.center.title" = "이벤트 센터";
@@ -1257,3 +1295,28 @@
 "message.mark_read" = "읽음으로 표시";
 "message.delete_count" = "%d개 메시지 삭제";
 "message.delete_warning" = "삭제 후 복구할 수 없습니다";
+
+// SessionSummaryView - 버튼
+"summary.button.share_to_feed" = "피드에 공유";
+"summary.button.more" = "더보기";
+
+// ShareToFeedSheet
+"share.to_feed.title" = "작품 공유";
+"share.quick.title" = "빠른 공유";
+"share.quick.description" = "피드에 바로 공유";
+"share.edit.title" = "편집 후 공유";
+"share.edit.description" = "스토리를 추가한 후 공유";
+
+// ShareToFeedEditView
+"share.edit.navigation_title" = "작품 공유";
+"share.edit.artwork_preview" = "작품 미리보기";
+"share.edit.story_label" = "스토리";
+"share.edit.story_placeholder" = "창작 스토리를 공유하세요... (선택사항)";
+"share.edit.stats_label" = "작품 통계";
+"share.edit.pixels" = "픽셀";
+"share.edit.duration" = "시간";
+"share.edit.publish_button" = "게시";
+
+// 피드백
+"share.success.toast" = "공유되었습니다!";
+"share.error.generic" = "공유 실패, 다시 시도해주세요";

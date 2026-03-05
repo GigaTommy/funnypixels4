@@ -78,6 +78,7 @@
 "tab.map" = "Mapa";
 "tab.history" = "Historico";
 "tab.feed" = "Feed";
+"tab.activity" = "Atividade";
 "tab.alliance" = "Alianca";
 "tab.leaderboard" = "Ranking";
 "tab.profile" = "Eu";
@@ -176,6 +177,36 @@
 "feed.comments.title" = "Comentários";
 "feed.comments.empty" = "Sem comentários ainda";
 "feed.comments.placeholder" = "Escreva um comentário...";
+
+/* World State Feed */
+"feed.world_state.filter.all" = "Tudo";
+"feed.world_state.filter.milestones" = "Marcos";
+"feed.world_state.filter.territories" = "Territórios";
+"feed.world_state.filter.events" = "Eventos";
+"feed.world_state.filter.official" = "Oficial";
+"feed.world_state.empty.all.title" = "Sem eventos mundiais";
+"feed.world_state.empty.all.message" = "O mundo está dormindo, vá criar para acordá-lo";
+"feed.world_state.empty.milestones.title" = "Sem marcos";
+"feed.world_state.empty.milestones.message" = "Nenhum jogador atingiu novos marcos ainda";
+"feed.world_state.empty.territories.title" = "Sem mudanças territoriais";
+"feed.world_state.empty.territories.message" = "Os territórios do mapa estão calmos";
+"feed.world_state.empty.events.title" = "Sem atualizações de eventos";
+"feed.world_state.empty.events.message" = "Eventos em breve, fique atento";
+"feed.world_state.empty.official.title" = "Sem anúncios";
+"feed.world_state.empty.official.message" = "Sistema funcionando normalmente";
+
+/* World State Event Card */
+"world_state.territory.captured_by_prefix" = "Capturado por";
+"world_state.territory.captured_by_suffix" = "";
+"world_state.artwork.completed" = "completou uma obra";
+"world_state.artwork.pixels" = "pixels";
+"world_state.announcement.official" = "Oficial";
+
+/* World State Toast Messages */
+"world_state.toast.location_unavailable" = "Localização indisponível";
+"world_state.toast.opening_alliance" = "Abrindo detalhes da aliança";
+"world_state.toast.opening_event" = "Abrindo detalhes do evento";
+"world_state.toast.announcement_coming_soon" = "Detalhes do anúncio em breve";
 
 /* Dashboard */
 "dashboard.heatmap.title" = "Calendário de atividade";
@@ -669,6 +700,13 @@
 "reward.target.leader" = "Apenas o Lider da Alianca";
 "reward.flag" = "Bandeira Exclusiva";
 "common.pixels" = "Pixels";
+
+/* Activity Tab */
+"activity.tab.events" = "Eventos";
+"activity.tab.tasks" = "Tarefas";
+
+/* Profile Menu */
+"profile.alliance" = "Minha Alianca";
 
 /* Event Center */
 "profile.event_center" = "Central de Eventos";
@@ -1341,3 +1379,28 @@
 "message.mark_read" = "Marcar como lido";
 "message.delete_count" = "Excluir %d mensagens";
 "message.delete_warning" = "Não pode ser recuperado após exclusão";
+
+// SessionSummaryView - Botões
+"summary.button.share_to_feed" = "Compartilhar no Feed";
+"summary.button.more" = "Mais";
+
+// ShareToFeedSheet
+"share.to_feed.title" = "Compartilhar Obra";
+"share.quick.title" = "Compartilhar Rápido";
+"share.quick.description" = "Compartilhar diretamente no feed";
+"share.edit.title" = "Editar e Compartilhar";
+"share.edit.description" = "Adicionar sua história antes de compartilhar";
+
+// ShareToFeedEditView
+"share.edit.navigation_title" = "Compartilhar Obra";
+"share.edit.artwork_preview" = "Pré-visualização";
+"share.edit.story_label" = "Sua História";
+"share.edit.story_placeholder" = "Compartilhe a história da sua criação... (opcional)";
+"share.edit.stats_label" = "Estatísticas";
+"share.edit.pixels" = "Pixels";
+"share.edit.duration" = "Duração";
+"share.edit.publish_button" = "Publicar";
+
+// Feedback
+"share.success.toast" = "Compartilhado com sucesso!";
+"share.error.generic" = "Falha ao compartilhar, tente novamente";

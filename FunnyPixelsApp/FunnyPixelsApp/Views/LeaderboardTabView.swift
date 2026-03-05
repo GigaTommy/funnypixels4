@@ -355,7 +355,7 @@ struct LeaderboardEntryRow: View {
                         Text("\(abs(change))")
                             .font(AppTypography.caption())
                     }
-                    .foregroundColor(change > 0 ? AppColors.secondary : AppColors.tertiary)
+                    .foregroundColor(change > 0 ? AppColors.secondary : AppColors.error)
                 } else if entry.previousRank == nil && entry.rank > 0 {
                     Text("NEW")
                         .font(.system(size: 9, weight: .bold))

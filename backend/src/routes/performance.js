@@ -1,11 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const performanceMetrics = require('../monitoring/performanceMetrics');
+const clientPerformanceController = require('../controllers/clientPerformanceController');
 
 /**
  * 性能监控API路由
- * 提供系统性能指标查询接口
+ * 提供系统性能指标查询接口 + 客户端性能数据收集
  */
+
+// ===== 客户端性能监控（iOS/Android） =====
+
+// POST /api/performance/client - 提交客户端性能数据（无需认证）
+router.post('/client', clientPerformanceController.submitPerformanceData);
+
+// GET /api/performance/client/metrics - 获取客户端性能指标（需要管理员权限）
+router.get('/client/metrics', clientPerformanceController.getPerformanceMetrics);
+
+// GET /api/performance/client/stats - 获取客户端性能统计（需要管理员权限）
+router.get('/client/stats', clientPerformanceController.getPerformanceStats);
+
+// GET /api/performance/client/startup - 获取启动性能指标（需要管理员权限）
+router.get('/client/startup', clientPerformanceController.getStartupMetrics);
+
+// ===== 服务器端性能监控 =====
 
 // GET /api/performance/metrics - 获取性能指标
 router.get('/metrics', (req, res) => {

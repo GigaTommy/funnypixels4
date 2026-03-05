@@ -1,34 +1,7 @@
 
 import SwiftUI
 
-// MARK: - App Colors
-
-/// Semantic Color Palette
-public enum AppColors {
-    
-    // Brand Colors
-    public static let primary = Color(hex: "1A73E8") ?? .blue
-    public static let secondary = Color(hex: "34A853") ?? .green
-    public static let tertiary = Color(hex: "EA4335") ?? .red
-    public static let warning = Color(hex: "FBBC05") ?? .orange
-    
-    // Surface & Background
-    public static let background = Color(hex: "F8F9FA") ?? Color(.systemGroupedBackground)
-    public static let surface = Color.white
-    public static let surfaceSecondary = Color(hex: "F1F3F4") ?? Color(.secondarySystemBackground)
-    
-    // Text
-    public static let textPrimary = Color(hex: "202124") ?? .primary
-    public static let textSecondary = Color(hex: "5F6368") ?? .secondary
-    public static let textTertiary = Color(hex: "9AA0A6") ?? .gray
-    
-    // Interactive
-    public static let interactive = primary
-    public static let interactivePressed = primary.opacity(0.8)
-    
-    // Borders
-    public static let border = Color(hex: "DADCE0") ?? Color.gray.opacity(0.2)
-}
+// NOTE: AppColors, AppSpacing, AppRadius are defined in UnifiedDesignSystem.swift
 
 // MARK: - App Typography
 
@@ -73,29 +46,6 @@ public enum AppTypography {
     public static func mono(_ size: CGFloat = 13) -> Font {
         .system(size: size, weight: .medium, design: .monospaced)
     }
-}
-
-// MARK: - App Spacing
-
-/// Standardized Spacing
-public enum AppSpacing {
-    public static let xs: CGFloat = 4
-    public static let s: CGFloat = 8
-    public static let m: CGFloat = 12
-    public static let l: CGFloat = 16
-    public static let xl: CGFloat = 24
-    public static let xxl: CGFloat = 32
-}
-
-// MARK: - App Radius
-
-/// Corner Radii
-public enum AppRadius {
-    public static let s: CGFloat = 4
-    public static let m: CGFloat = 8
-    public static let l: CGFloat = 12
-    public static let xl: CGFloat = 16
-    public static let xxl: CGFloat = 28 // For cards
 }
 
 // MARK: - App Shadows

@@ -86,22 +86,6 @@ class DrawingSessionController {
         endCountry
       });
 
-      // 自动生成社交动态
-      try {
-        const FeedController = require('./feedController');
-        const pixelCount = updatedSession.pixel_count || updatedSession.pixelCount || 0;
-        if (pixelCount > 0) {
-          await FeedController.createFeedItem(userId, 'drawing_complete', {
-            pixel_count: pixelCount,
-            city: updatedSession.end_city || updatedSession.start_city,
-            duration_seconds: updatedSession.duration_seconds,
-            map_snapshot_url: updatedSession.map_snapshot_url
-          }, sessionId);
-        }
-      } catch (feedErr) {
-        logger.error('生成绘画动态失败（不影响主流程）:', feedErr.message);
-      }
-
       // 每日任务进度更新
       try {
         const DailyTaskController = require('./dailyTaskController');

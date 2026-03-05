@@ -1,0 +1,90 @@
+{
+  "errors": {
+    "load_failed": "フィードの読み込みに失敗しました",
+    "create_failed": "投稿の作成に失敗しました",
+    "update_failed": "投稿の更新に失敗しました",
+    "delete_failed": "投稿の削除に失敗しました",
+    "not_found": "投稿が見つかりません",
+    "permission_denied": "権限がありません",
+    "invalid_content": "無効なコンテンツ形式",
+    "content_too_long": "コンテンツが長すぎます",
+    "too_many_images": "画像が多すぎます",
+    "invalid_image": "無効な画像形式",
+    "hashtag_invalid": "無効なハッシュタグ形式",
+    "poll_invalid": "無効な投票オプション",
+    "challenge_not_found": "チャレンジが見つかりません",
+    "already_voted": "すでに投票済みです",
+    "poll_ended": "投票は終了しました",
+    "bookmark_exists": "すでにブックマーク済みです",
+    "bookmark_not_found": "ブックマークが見つかりません"
+  },
+  "success": {
+    "created": "投稿しました",
+    "updated": "更新しました",
+    "deleted": "削除しました",
+    "liked": "いいねしました",
+    "unliked": "いいねを取り消しました",
+    "bookmarked": "ブックマークしました",
+    "unbookmarked": "ブックマークを解除しました",
+    "commented": "コメントしました",
+    "voted": "投票しました",
+    "reported": "報告を送信しました"
+  },
+  "types": {
+    "moment": "モーメント",
+    "showcase": "作品展示",
+    "drawing_complete": "描画完了",
+    "achievement": "実績解除",
+    "checkin": "チェックイン",
+    "alliance_join": "アライアンス参加",
+    "challenge": "チャレンジ",
+    "poll": "投票"
+  },
+  "filters": {
+    "all": "すべて",
+    "following": "フォロー中",
+    "alliance": "アライアンス",
+    "nearby": "近く",
+    "trending": "トレンド",
+    "challenges": "チャレンジ"
+  },
+  "validation": {
+    "content_required": "コンテンツを入力してください",
+    "content_too_short": "コンテンツが短すぎます",
+    "content_too_long": "コンテンツは{{max}}文字を超えることはできません",
+    "hashtag_required": "少なくとも1つのハッシュタグが必要です",
+    "hashtag_too_many": "ハッシュタグは{{max}}個を超えることはできません",
+    "images_required": "画像を選択してください",
+    "images_too_many": "画像は{{max}}枚を超えることはできません",
+    "poll_options_required": "少なくとも2つのオプションが必要です",
+    "poll_options_too_many": "オプションは{{max}}個を超えることはできません"
+  },
+  "world_state": {
+    "milestone": {
+      "title": "{{userName}} さんがマイルストーンを達成！",
+      "description": "{{milestoneValue}} ピクセルを描画",
+      "button": "プロフィールを表示"
+    },
+    "artwork": {
+      "title": "{{userName}} さんが作品を完成",
+      "description": "{{pixelCount}} ピクセルを {{duration}} 分で描画",
+      "button": "作品を表示"
+    },
+    "territory": {
+      "title": "{{territoryName}}",
+      "prefix": "",
+      "suffix": "が占領",
+      "button_alliance": "アライアンスを表示",
+      "button_map": "地図へ"
+    },
+    "event": {
+      "title": "{{eventTitle}}",
+      "description": "{{participantCount}} 人が参加",
+      "button": "今すぐ参加"
+    },
+    "announcement": {
+      "badge": "公式",
+      "button": "詳細を表示"
+    }
+  }
+}

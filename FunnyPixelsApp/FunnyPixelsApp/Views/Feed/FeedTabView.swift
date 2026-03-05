@@ -14,7 +14,8 @@ struct FeedTabView: View {
 
                 ZStack {
                     if subTabVisited.contains(.plaza) {
-                        SocialFeedView()
+                        WorldStateFeedView()
+                            .environmentObject(appState)
                             .opacity(appState.feedSubTab == .plaza ? 1 : 0)
                             .allowsHitTesting(appState.feedSubTab == .plaza)
                     }
@@ -175,10 +176,12 @@ struct MyRecordsView: View {
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
             ], spacing: 12) {
-                ForEach(Array(viewModel.sessions.enumerated()), id: \.element.id) { index, session in
+                ForEach(viewModel.sessions.indices, id: \.self) { index in
+                    let session = viewModel.sessions[index]
                     NavigationLink(destination: SessionDetailView(sessionId: session.id)) {
                         ArtworkCard(session: session)
                     }
+                    .id(session.id)  // 强制使用session.id作为稳定ID
                     .buttonStyle(PlainButtonStyle())
                     .task {
                         if viewModel.shouldPrefetchMore(currentIndex: index) {
@@ -204,10 +207,12 @@ struct MyRecordsView: View {
     private var galleryListView: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
-                ForEach(Array(viewModel.sessions.enumerated()), id: \.element.id) { index, session in
+                ForEach(viewModel.sessions.indices, id: \.self) { index in
+                    let session = viewModel.sessions[index]
                     NavigationLink(destination: SessionDetailView(sessionId: session.id)) {
                         ArtworkListRow(session: session)
                     }
+                    .id(session.id)  // 强制使用session.id作为稳定ID
                     .buttonStyle(PlainButtonStyle())
                     .task {
                         if viewModel.shouldPrefetchMore(currentIndex: index) {

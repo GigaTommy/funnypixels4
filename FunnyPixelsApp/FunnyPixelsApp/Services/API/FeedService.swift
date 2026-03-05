@@ -371,6 +371,82 @@ class FeedService {
             let created_at: String
         }
     }
+
+    /// 创建作品展示（分享到动态）
+    func createShowcase(sessionId: String, story: String?) async throws -> CreateShowcaseResponse {
+        let urlString = "\(APIEndpoint.baseURL)/feed/create-showcase"
+        guard let url = URL(string: urlString) else {
+            throw NetworkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        if let token = AuthManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        var body: [String: Any] = ["session_id": sessionId]
+        if let story = story, !story.isEmpty {
+            body["story"] = story
+        }
+
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        return try await apiManager.performRequest(request)
+    }
+
+    struct CreateShowcaseResponse: Codable {
+        let success: Bool
+        let message: String?
+        let data: ShowcaseData?
+
+        struct ShowcaseData: Codable {
+            let id: String
+            let created_at: String
+        }
+    }
+
+    struct ErrorResponse: Codable {
+        let message: String?
+    }
+
+    // MARK: - World State Feed
+
+    struct WorldStateFeedResponse: Codable {
+        let success: Bool
+        let data: WorldStateFeedData?
+        let message: String?
+
+        struct WorldStateFeedData: Codable {
+            let events: [WorldStateEvent]
+            let hasMore: Bool
+        }
+    }
+
+    /// 获取世界状态流（系统生成的事件）
+    func getWorldStateFeed(filter: String = "all", limit: Int = 20, offset: Int = 0) async throws -> WorldStateFeedResponse {
+        let baseURLString = "\(APIEndpoint.baseURL)/feed/world-state"
+        guard let url = URL(string: baseURLString) else { throw NetworkError.invalidURL }
+
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "filter", value: filter),
+            URLQueryItem(name: "limit", value: String(limit)),
+            URLQueryItem(name: "offset", value: String(offset))
+        ]
+
+        guard let finalURL = components.url else { throw NetworkError.invalidURL }
+
+        var request = URLRequest(url: finalURL)
+        request.httpMethod = "GET"
+        if let token = AuthManager.shared.getAccessToken() {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        return try await apiManager.performRequest(request)
+    }
 }
 
 extension DateFormatter {

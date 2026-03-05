@@ -58,5 +58,33 @@
     "images_too_many": "图片不能超过{{max}}张",
     "poll_options_required": "至少添加2个选项",
     "poll_options_too_many": "选项不能超过{{max}}个"
+  },
+  "world_state": {
+    "milestone": {
+      "title": "{{userName}} 达成里程碑！",
+      "description": "绘制了 {{milestoneValue}} 个像素",
+      "button": "查看主页"
+    },
+    "artwork": {
+      "title": "{{userName}} 完成了作品",
+      "description": "绘制了 {{pixelCount}} 个像素，耗时 {{duration}} 分钟",
+      "button": "查看作品"
+    },
+    "territory": {
+      "title": "{{territoryName}}",
+      "prefix": "已被",
+      "suffix": "占领",
+      "button_alliance": "查看联盟",
+      "button_map": "前往地图"
+    },
+    "event": {
+      "title": "{{eventTitle}}",
+      "description": "已有 {{participantCount}} 人参与",
+      "button": "立即参与"
+    },
+    "announcement": {
+      "badge": "官方",
+      "button": "查看详情"
+    }
   }
 }

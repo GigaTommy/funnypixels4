@@ -58,5 +58,33 @@
     "images_too_many": "Cannot exceed {{max}} images",
     "poll_options_required": "At least 2 options required",
     "poll_options_too_many": "Cannot exceed {{max}} options"
+  },
+  "world_state": {
+    "milestone": {
+      "title": "{{userName}} reached a milestone!",
+      "description": "Drew {{milestoneValue}} pixels",
+      "button": "View Profile"
+    },
+    "artwork": {
+      "title": "{{userName}} completed an artwork",
+      "description": "Drew {{pixelCount}} pixels in {{duration}} minutes",
+      "button": "View Artwork"
+    },
+    "territory": {
+      "title": "{{territoryName}}",
+      "prefix": "Captured by",
+      "suffix": "",
+      "button_alliance": "View Alliance",
+      "button_map": "Go to Map"
+    },
+    "event": {
+      "title": "{{eventTitle}}",
+      "description": "{{participantCount}} participants joined",
+      "button": "Join Now"
+    },
+    "announcement": {
+      "badge": "Official",
+      "button": "View Details"
+    }
   }
 }

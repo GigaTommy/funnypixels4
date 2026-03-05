@@ -106,7 +106,7 @@ public struct StandardButton: View {
         case .primary: return AppColors.primary
         case .secondary: return AppColors.surface
         case .ghost: return .clear
-        case .destructive: return AppColors.tertiary
+        case .destructive: return AppColors.destructive
         }
     }
     
@@ -128,7 +128,7 @@ public struct StandardButton: View {
     private var shadowColor: Color {
         switch style {
         case .primary: return AppColors.primary.opacity(0.3)
-        case .destructive: return AppColors.tertiary.opacity(0.3)
+        case .destructive: return AppColors.destructive.opacity(0.3)
         default: return .clear
         }
     }

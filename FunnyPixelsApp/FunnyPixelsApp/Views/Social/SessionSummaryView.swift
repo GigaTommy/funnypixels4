@@ -253,27 +253,37 @@ struct SessionSummaryView: View {
                 }
                 
                 // 7️⃣ Bottom Action Buttons
-                HStack(spacing: DesignTokens.Spacing.l) {
-                    FPButton(title: NSLocalizedString("summary.button.close", comment: ""), icon: "xmark", variant: .secondary) {
+                HStack(spacing: DesignTokens.Spacing.m) {
+                    // 关闭按钮
+                    FPButton(
+                        title: NSLocalizedString("summary.button.close", comment: ""),
+                        icon: "xmark",
+                        variant: .secondary
+                    ) {
                         dismiss()
                     }
-                    .frame(maxWidth: 140)
-                    
-                    FPButton(title: NSLocalizedString("summary.button.share", comment: ""), icon: "square.and.arrow.up", variant: .primary) {
-                        // Generate image for sharing
+                    .frame(maxWidth: .infinity)
+
+                    // 分享我的像素按钮
+                    FPButton(
+                        title: NSLocalizedString("summary.button.share", comment: ""),
+                        icon: "square.and.arrow.up",
+                        variant: .primary
+                    ) {
+                        // 生成分享图片
                         let renderer = ImageRenderer(content: shareCard)
                         renderer.scale = 3.0
                         self.shareImage = renderer.uiImage
-                        
+
                         withAnimation(.spring()) {
                             showShareSheet = true
                         }
                     }
-                    .frame(maxWidth: 140)
+                    .frame(maxWidth: .infinity)
                 }
                 .padding(.bottom, DesignTokens.Spacing.xxl)
                 .padding(.horizontal, DesignTokens.Spacing.xl)
-                .opacity(showShareSheet ? 0 : 1) // Hide buttons when sheet is up
+                .opacity(showShareSheet ? 0 : 1)
             }
             
             // Custom Share Sheet Overlay
@@ -412,7 +422,7 @@ struct SessionSummaryView: View {
         withAnimation {
             showToast = true
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             withAnimation {
                 showToast = false

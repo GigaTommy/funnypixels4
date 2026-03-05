@@ -1,7 +1,7 @@
 import Foundation
 
 /// 绘制会话数据模型
-struct DrawingSession: Codable, Identifiable {
+struct DrawingSession: Codable, Identifiable, Equatable {
     let id: String
     let userId: String
     let sessionName: String
@@ -20,13 +20,20 @@ struct DrawingSession: Codable, Identifiable {
     // 🔧 FIX: Add alliance flag information for share view
     let allianceFlagPatternId: String?
     let allianceName: String?
-    
-    struct SessionMetadata: Codable {
+
+    // 性能优化：Equatable实现
+    static func == (lhs: DrawingSession, rhs: DrawingSession) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.startTime == rhs.startTime &&
+        lhs.status == rhs.status
+    }
+
+    struct SessionMetadata: Codable, Equatable {
         let statistics: SessionStatistics?
         let calculatedAt: Date?
     }
     
-    struct SessionStatistics: Codable {
+    struct SessionStatistics: Codable, Equatable {
         let pixelCount: Int
         let uniqueGrids: Int
         let patternsUsed: Int

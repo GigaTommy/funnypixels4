@@ -75,6 +75,7 @@
 "tab.map" = "地图";
 "tab.history" = "历史";
 "tab.feed" = "动态";
+"tab.activity" = "活动";
 "tab.alliance" = "联盟";
 "tab.leaderboard" = "排行";
 "tab.profile" = "我的";
@@ -176,6 +177,36 @@
 "feed.comments.title" = "评论";
 "feed.comments.empty" = "暂无评论";
 "feed.comments.placeholder" = "写一条评论...";
+
+/* World State Feed */
+"feed.world_state.filter.all" = "全部";
+"feed.world_state.filter.milestones" = "里程碑";
+"feed.world_state.filter.territories" = "领地变化";
+"feed.world_state.filter.events" = "活动";
+"feed.world_state.filter.official" = "官方";
+"feed.world_state.empty.all.title" = "暂无世界动态";
+"feed.world_state.empty.all.message" = "世界正在沉睡，快去创作唤醒它吧";
+"feed.world_state.empty.milestones.title" = "暂无里程碑";
+"feed.world_state.empty.milestones.message" = "还没有玩家达成新的里程碑";
+"feed.world_state.empty.territories.title" = "暂无领地变化";
+"feed.world_state.empty.territories.message" = "地图领地暂时风平浪静";
+"feed.world_state.empty.events.title" = "暂无活动动态";
+"feed.world_state.empty.events.message" = "活动即将到来，敬请期待";
+"feed.world_state.empty.official.title" = "暂无官方公告";
+"feed.world_state.empty.official.message" = "系统运行正常，一切安好";
+
+/* World State Event Card */
+"world_state.territory.captured_by_prefix" = "已被";
+"world_state.territory.captured_by_suffix" = "占领";
+"world_state.artwork.completed" = "完成了创作";
+"world_state.artwork.pixels" = "像素";
+"world_state.announcement.official" = "官方";
+
+/* World State Toast Messages */
+"world_state.toast.location_unavailable" = "位置信息不可用";
+"world_state.toast.opening_alliance" = "正在打开联盟详情";
+"world_state.toast.opening_event" = "正在打开活动详情";
+"world_state.toast.announcement_coming_soon" = "公告详情功能即将上线";
 
 /* Dashboard */
 "dashboard.heatmap.title" = "活跃日历";
@@ -751,6 +782,13 @@
 "reward.target.leader" = "仅限盟主";
 "reward.flag" = "专属旗帜";
 "common.pixels" = "像素点";
+
+/* Activity Tab */
+"activity.tab.events" = "赛事";
+"activity.tab.tasks" = "任务";
+
+/* Profile Menu */
+"profile.alliance" = "我的联盟";
 
 /* Event Center */
 "profile.event_center" = "赛事中心";
@@ -1709,3 +1747,28 @@
 "feed.create.error.title" = "发布失败";
 "feed.create.error.unknown" = "未知错误";
 
+
+// SessionSummaryView - 按钮
+"summary.button.share_to_feed" = "分享到动态";
+"summary.button.more" = "更多";
+
+// ShareToFeedSheet
+"share.to_feed.title" = "分享作品";
+"share.quick.title" = "快速分享";
+"share.quick.description" = "直接分享到动态广场";
+"share.edit.title" = "编辑分享";
+"share.edit.description" = "添加创作故事后分享";
+
+// ShareToFeedEditView
+"share.edit.navigation_title" = "分享作品";
+"share.edit.artwork_preview" = "作品预览";
+"share.edit.story_label" = "创作故事";
+"share.edit.story_placeholder" = "分享你的创作灵感和故事...（可选）";
+"share.edit.stats_label" = "作品统计";
+"share.edit.pixels" = "像素";
+"share.edit.duration" = "时长";
+"share.edit.publish_button" = "发布";
+
+// 反馈提示
+"share.success.toast" = "分享成功！";
+"share.error.generic" = "分享失败，请重试";

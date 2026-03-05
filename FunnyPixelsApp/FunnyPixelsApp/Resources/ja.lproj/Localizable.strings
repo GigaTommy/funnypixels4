@@ -75,6 +75,7 @@
 "tab.map" = "マップ";
 "tab.history" = "履歴";
 "tab.feed" = "フィード";
+"tab.activity" = "アクティビティ";
 "tab.alliance" = "アライアンス";
 "tab.leaderboard" = "ランキング";
 "tab.profile" = "マイページ";
@@ -173,6 +174,36 @@
 "feed.comments.title" = "コメント";
 "feed.comments.empty" = "コメントはまだありません";
 "feed.comments.placeholder" = "コメントを書く...";
+
+/* World State Feed */
+"feed.world_state.filter.all" = "すべて";
+"feed.world_state.filter.milestones" = "マイルストーン";
+"feed.world_state.filter.territories" = "領土";
+"feed.world_state.filter.events" = "イベント";
+"feed.world_state.filter.official" = "公式";
+"feed.world_state.empty.all.title" = "世界イベントなし";
+"feed.world_state.empty.all.message" = "世界は眠っています、作成して目覚めさせましょう";
+"feed.world_state.empty.milestones.title" = "マイルストーンなし";
+"feed.world_state.empty.milestones.message" = "まだ新しいマイルストーンに到達したプレイヤーはいません";
+"feed.world_state.empty.territories.title" = "領土変更なし";
+"feed.world_state.empty.territories.message" = "マップの領土は現在静かです";
+"feed.world_state.empty.events.title" = "イベント更新なし";
+"feed.world_state.empty.events.message" = "イベントは近日公開予定です";
+"feed.world_state.empty.official.title" = "お知らせなし";
+"feed.world_state.empty.official.message" = "システムは正常に稼働しています";
+
+/* World State Event Card */
+"world_state.territory.captured_by_prefix" = "";
+"world_state.territory.captured_by_suffix" = "が占領";
+"world_state.artwork.completed" = "さんが作品を完成";
+"world_state.artwork.pixels" = "ピクセル";
+"world_state.announcement.official" = "公式";
+
+/* World State Toast Messages */
+"world_state.toast.location_unavailable" = "位置情報が利用できません";
+"world_state.toast.opening_alliance" = "アライアンスの詳細を開いています";
+"world_state.toast.opening_event" = "イベントの詳細を開いています";
+"world_state.toast.announcement_coming_soon" = "お知らせの詳細は近日公開";
 
 /* Dashboard */
 "dashboard.heatmap.title" = "アクティビティカレンダー";
@@ -660,6 +691,13 @@
 "reward.target.leader" = "アライアンスリーダーのみ";
 "reward.flag" = "限定フラッグ";
 "common.pixels" = "ピクセル";
+
+/* Activity Tab */
+"activity.tab.events" = "イベント";
+"activity.tab.tasks" = "タスク";
+
+/* Profile Menu */
+"profile.alliance" = "マイアライアンス";
 
 /* Event Center */
 "profile.event_center" = "イベントセンター";
@@ -1491,3 +1529,28 @@
 "message.mark_read" = "既読にする";
 "message.delete_count" = "%d件のメッセージを削除";
 "message.delete_warning" = "削除後は復元できません";
+
+// SessionSummaryView - ボタン
+"summary.button.share_to_feed" = "フィードに共有";
+"summary.button.more" = "その他";
+
+// ShareToFeedSheet
+"share.to_feed.title" = "作品を共有";
+"share.quick.title" = "クイック共有";
+"share.quick.description" = "フィードに直接共有";
+"share.edit.title" = "編集して共有";
+"share.edit.description" = "ストーリーを追加してから共有";
+
+// ShareToFeedEditView
+"share.edit.navigation_title" = "作品を共有";
+"share.edit.artwork_preview" = "作品プレビュー";
+"share.edit.story_label" = "あなたのストーリー";
+"share.edit.story_placeholder" = "創作のストーリーを共有しましょう...（任意）";
+"share.edit.stats_label" = "作品統計";
+"share.edit.pixels" = "ピクセル";
+"share.edit.duration" = "時間";
+"share.edit.publish_button" = "公開";
+
+// フィードバック
+"share.success.toast" = "共有に成功しました！";
+"share.error.generic" = "共有に失敗しました。もう一度お試しください";

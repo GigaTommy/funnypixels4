@@ -1,0 +1,90 @@
+{
+  "errors": {
+    "load_failed": "피드 로드 실패",
+    "create_failed": "게시물 생성 실패",
+    "update_failed": "게시물 업데이트 실패",
+    "delete_failed": "게시물 삭제 실패",
+    "not_found": "게시물을 찾을 수 없음",
+    "permission_denied": "권한이 없음",
+    "invalid_content": "잘못된 콘텐츠 형식",
+    "content_too_long": "콘텐츠가 너무 깁니다",
+    "too_many_images": "이미지가 너무 많음",
+    "invalid_image": "잘못된 이미지 형식",
+    "hashtag_invalid": "잘못된 해시태그 형식",
+    "poll_invalid": "잘못된 투표 옵션",
+    "challenge_not_found": "챌린지를 찾을 수 없음",
+    "already_voted": "이미 투표했습니다",
+    "poll_ended": "투표가 종료되었습니다",
+    "bookmark_exists": "이미 북마크되었습니다",
+    "bookmark_not_found": "북마크를 찾을 수 없음"
+  },
+  "success": {
+    "created": "게시 완료",
+    "updated": "업데이트 완료",
+    "deleted": "삭제 완료",
+    "liked": "좋아요",
+    "unliked": "좋아요 취소",
+    "bookmarked": "북마크함",
+    "unbookmarked": "북마크 해제",
+    "commented": "댓글 작성",
+    "voted": "투표함",
+    "reported": "신고 제출됨"
+  },
+  "types": {
+    "moment": "모먼트",
+    "showcase": "작품 전시",
+    "drawing_complete": "그리기 완료",
+    "achievement": "업적 달성",
+    "checkin": "체크인",
+    "alliance_join": "동맹 가입",
+    "challenge": "챌린지",
+    "poll": "투표"
+  },
+  "filters": {
+    "all": "전체",
+    "following": "팔로잉",
+    "alliance": "동맹",
+    "nearby": "근처",
+    "trending": "인기",
+    "challenges": "챌린지"
+  },
+  "validation": {
+    "content_required": "콘텐츠를 입력하세요",
+    "content_too_short": "콘텐츠가 너무 짧습니다",
+    "content_too_long": "콘텐츠는 {{max}}자를 초과할 수 없습니다",
+    "hashtag_required": "최소 하나의 해시태그가 필요합니다",
+    "hashtag_too_many": "해시태그는 {{max}}개를 초과할 수 없습니다",
+    "images_required": "이미지를 선택하세요",
+    "images_too_many": "이미지는 {{max}}장을 초과할 수 없습니다",
+    "poll_options_required": "최소 2개의 옵션이 필요합니다",
+    "poll_options_too_many": "옵션은 {{max}}개를 초과할 수 없습니다"
+  },
+  "world_state": {
+    "milestone": {
+      "title": "{{userName}} 님이 이정표 달성!",
+      "description": "{{milestoneValue}} 픽셀 그림",
+      "button": "프로필 보기"
+    },
+    "artwork": {
+      "title": "{{userName}} 님이 작품 완성",
+      "description": "{{pixelCount}} 픽셀을 {{duration}} 분 동안 그림",
+      "button": "작품 보기"
+    },
+    "territory": {
+      "title": "{{territoryName}}",
+      "prefix": "",
+      "suffix": "가 점령",
+      "button_alliance": "동맹 보기",
+      "button_map": "지도로 이동"
+    },
+    "event": {
+      "title": "{{eventTitle}}",
+      "description": "{{participantCount}} 명 참여",
+      "button": "지금 참여"
+    },
+    "announcement": {
+      "badge": "공식",
+      "button": "자세히 보기"
+    }
+  }
+}

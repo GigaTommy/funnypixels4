@@ -1,5 +1,6 @@
 const { db } = require('../config/database');
 const logger = require('../utils/logger');
+const { i18next } = require('../config/i18n');
 
 class FeedController {
   /**
@@ -938,6 +939,345 @@ class FeedController {
     } catch (error) {
       logger.error('创建动态条目失败:', error);
       return null;
+    }
+  }
+
+  /**
+   * 获取世界状态流（系统生成事件）
+   * GET /api/feed/world-state?filter=all|milestones|territories|events|official&offset=0&limit=20
+   */
+  static async getWorldStateFeed(req, res) {
+    try {
+      const currentUserId = req.user.id;
+      const { offset = 0, limit = 20, filter = 'all' } = req.query;
+      const parsedLimit = Math.min(parseInt(limit) || 20, 50);
+      const parsedOffset = parseInt(offset) || 0;
+      const language = req.language || 'zh-Hans';
+
+      const events = [];
+
+      // 根据筛选器生成不同类型的事件
+      const eventGenerators = {
+        all: async () => {
+          // 混合生成所有类型的事件，确保领地变化占40%
+          const milestones = await FeedController._generateMilestoneEvents(currentUserId, Math.ceil(parsedLimit * 0.15), language);
+          const artworks = await FeedController._generateArtworkEvents(currentUserId, Math.ceil(parsedLimit * 0.15), language);
+          const territories = await FeedController._generateTerritoryEvents(currentUserId, Math.ceil(parsedLimit * 0.40), language);
+          const eventProgress = await FeedController._generateEventProgressEvents(currentUserId, Math.ceil(parsedLimit * 0.15), language);
+          const official = await FeedController._generateOfficialEvents(currentUserId, Math.ceil(parsedLimit * 0.15), language);
+
+          return [...milestones, ...artworks, ...territories, ...eventProgress, ...official];
+        },
+        milestones: async () => await FeedController._generateMilestoneEvents(currentUserId, parsedLimit, language),
+        territories: async () => await FeedController._generateTerritoryEvents(currentUserId, parsedLimit, language),
+        events: async () => await FeedController._generateEventProgressEvents(currentUserId, parsedLimit, language),
+        official: async () => await FeedController._generateOfficialEvents(currentUserId, parsedLimit, language)
+      };
+
+      const generator = eventGenerators[filter] || eventGenerators.all;
+      const allEvents = await generator();
+
+      // 按优先级和时间排序
+      allEvents.sort((a, b) => {
+        if (a.priority !== b.priority) {
+          return a.priority - b.priority; // 优先级小的排前面
+        }
+        return new Date(b.created_at) - new Date(a.created_at); // 时间新的排前面
+      });
+
+      // 分页
+      const paginatedEvents = allEvents.slice(parsedOffset, parsedOffset + parsedLimit);
+
+      res.json({
+        success: true,
+        data: {
+          events: paginatedEvents,
+          hasMore: parsedOffset + parsedLimit < allEvents.length
+        }
+      });
+    } catch (error) {
+      logger.error('获取世界状态流失败:', error);
+      res.status(500).json({ success: false, message: '获取世界状态流失败', error: error.message });
+    }
+  }
+
+  // 生成里程碑事件（用户达成像素里程碑）
+  static async _generateMilestoneEvents(userId, limit, language = 'zh-Hans') {
+    try {
+      const milestones = [100, 1000, 5000, 10000, 50000, 100000];
+      const events = [];
+
+      // 查询最近达成里程碑的用户
+      const users = await db('users')
+        .whereIn('total_pixels', milestones)
+        .orWhere(function() {
+          milestones.forEach(m => {
+            this.orWhere('total_pixels', '>=', m);
+          });
+        })
+        .select('id', 'username', 'display_name', 'avatar_url', 'avatar', 'total_pixels', 'updated_at')
+        .orderBy('updated_at', 'desc')
+        .limit(limit);
+
+      for (const user of users) {
+        const milestone = milestones.reverse().find(m => user.total_pixels >= m);
+        if (milestone) {
+          const userName = user.display_name || user.username;
+          events.push({
+            id: `milestone_${user.id}_${milestone}`,
+            event_type: 'milestone_reached',
+            title: i18next.t('feed:world_state.milestone.title', { userName, lng: language }),
+            description: i18next.t('feed:world_state.milestone.description', { milestoneValue: milestone.toLocaleString(language), lng: language }),
+            metadata: {
+              user_id: user.id,
+              user_name: userName,
+              avatar_url: user.avatar_url,
+              avatar: user.avatar,
+              milestone_value: milestone,
+              pixel_count: user.total_pixels
+            },
+            action_buttons: [
+              {
+                label: i18next.t('feed:world_state.milestone.button', { lng: language }),
+                action_type: 'view_profile',
+                target_id: user.id
+              }
+            ],
+            created_at: user.updated_at,
+            priority: 4
+          });
+        }
+      }
+
+      return events;
+    } catch (error) {
+      logger.error('生成里程碑事件失败:', error);
+      return [];
+    }
+  }
+
+  // 生成优秀作品事件（高质量绘画完成）
+  static async _generateArtworkEvents(userId, limit, language = 'zh-Hans') {
+    try {
+      const events = [];
+
+      // 查询高质量作品（metadata中pixel_count > 100 且 duration_seconds > 300秒）
+      const sessions = await db('drawing_sessions')
+        .whereNotNull('end_time')
+        .whereNotNull('metadata')
+        .whereRaw("(metadata->>'pixel_count')::int > ?", [100])
+        .whereRaw("(metadata->>'duration_seconds')::int > ?", [300])
+        .select('id', 'user_id', 'metadata', 'start_city', 'end_time', 'start_lat', 'start_lng')
+        .orderBy('end_time', 'desc')
+        .limit(limit);
+
+      for (const session of sessions) {
+        const user = await db('users')
+          .where('id', session.user_id)
+          .select('username', 'display_name', 'avatar_url', 'avatar')
+          .first();
+
+        if (user && session.metadata) {
+          const pixelCount = session.metadata.pixel_count || 0;
+          const durationSeconds = session.metadata.duration_seconds || 0;
+          const duration = Math.floor(durationSeconds / 60);
+          const userName = user.display_name || user.username;
+
+          events.push({
+            id: `artwork_${session.id}`,
+            event_type: 'artwork_completed',
+            title: i18next.t('feed:world_state.artwork.title', { userName, lng: language }),
+            description: i18next.t('feed:world_state.artwork.description', { pixelCount, duration, lng: language }),
+            metadata: {
+              user_id: session.user_id,
+              user_name: userName,
+              avatar_url: user.avatar_url,
+              avatar: user.avatar,
+              session_id: session.id.toString(),
+              pixel_count: pixelCount,
+              location: session.start_city ? {
+                name: session.start_city,
+                lat: session.start_lat,
+                lng: session.start_lng
+              } : null
+            },
+            action_buttons: [
+              {
+                label: i18next.t('feed:world_state.artwork.button', { lng: language }),
+                action_type: 'view_session',
+                target_id: session.id.toString()
+              }
+            ],
+            created_at: session.end_time,
+            priority: 5
+          });
+        }
+      }
+
+      return events;
+    } catch (error) {
+      logger.error('生成作品事件失败:', error);
+      return [];
+    }
+  }
+
+  // 生成领地变化事件（地图区域控制权变化） - 40%权重
+  static async _generateTerritoryEvents(userId, limit, language = 'zh-Hans') {
+    try {
+      const events = [];
+
+      // 查询最近的领地变化记录（假设有 territory_control_history 表）
+      // 如果表不存在，返回空数组
+      const hasTable = await db.schema.hasTable('territory_control_history');
+      if (!hasTable) {
+        logger.info('territory_control_history 表不存在');
+        return events;
+      }
+
+      const territories = await db('territory_control_history')
+        .select('id', 'territory_name', 'alliance_id', 'changed_at')
+        .orderBy('changed_at', 'desc')
+        .limit(limit);
+
+      for (const territory of territories) {
+        const alliance = await db('alliances')
+          .where('id', territory.alliance_id)
+          .select('name', 'flag_pattern_id')
+          .first();
+
+        if (alliance) {
+          events.push({
+            id: `territory_${territory.id}`,
+            event_type: 'territory_changed',
+            title: territory.territory_name,
+            description: `${i18next.t('feed:world_state.territory.prefix', { lng: language })} ${alliance.name} ${i18next.t('feed:world_state.territory.suffix', { lng: language })}`.trim(),
+            metadata: {
+              territory_name: territory.territory_name,
+              alliance_name: alliance.name,
+              alliance_id: territory.alliance_id?.toString(),
+              alliance_pattern_id: alliance.flag_pattern_id
+            },
+            action_buttons: [
+              {
+                label: i18next.t('feed:world_state.territory.button_map', { lng: language }),
+                action_type: 'navigate_map',
+                target_id: null
+              },
+              {
+                label: i18next.t('feed:world_state.territory.button_alliance', { lng: language }),
+                action_type: 'view_alliance',
+                target_id: territory.alliance_id.toString()
+              }
+            ],
+            created_at: territory.changed_at,
+            priority: 3
+          });
+        }
+      }
+
+      return events;
+    } catch (error) {
+      logger.error('生成领地事件失败:', error);
+      return [];
+    }
+  }
+
+  // 生成活动进度事件（热门活动的实时动态）
+  static async _generateEventProgressEvents(userId, limit, language = 'zh-Hans') {
+    try {
+      const events = [];
+
+      // 查询进行中的活动
+      const activeEvents = await db('events')
+        .where('status', 'active')
+        .where('end_time', '>', db.fn.now())
+        .select('id', 'title', 'description', 'created_at')
+        .orderBy('created_at', 'desc')
+        .limit(limit);
+
+      for (const event of activeEvents) {
+        // 尝试从event_participations表统计参与者数量
+        let participantCount = 0;
+        try {
+          const countResult = await db('event_participations')
+            .where('event_id', event.id)
+            .count('* as count')
+            .first();
+          participantCount = parseInt(countResult?.count || 0);
+        } catch (err) {
+          // event_participations表可能不存在，使用默认值
+          logger.debug('无法查询活动参与者数量:', err.message);
+        }
+
+        events.push({
+          id: `event_progress_${event.id}`,
+          event_type: 'event_progress',
+          title: event.title,
+          description: i18next.t('feed:world_state.event.description', { participantCount, lng: language }),
+          metadata: {
+            event_id: event.id,
+            event_title: event.title,
+            participant_count: participantCount
+          },
+          action_buttons: [
+            {
+              label: i18next.t('feed:world_state.event.button', { lng: language }),
+              action_type: 'view_event',
+              target_id: event.id.toString()
+            }
+          ],
+          created_at: event.created_at,
+          priority: 2
+        });
+      }
+
+      return events;
+    } catch (error) {
+      logger.error('生成活动事件失败:', error);
+      return [];
+    }
+  }
+
+  // 生成官方公告事件
+  static async _generateOfficialEvents(userId, limit, language = 'zh-Hans') {
+    try {
+      const events = [];
+
+      // 查询最近的官方公告（仅global类型，不含system维护/功能上线通知）
+      // system类型公告应通过消息中心推送，不在广场展示
+      const announcements = await db('announcements')
+        .where('is_active', true)
+        .where('type', 'global')
+        .select('id', 'title', 'content', 'created_at')
+        .orderBy('created_at', 'desc')
+        .limit(limit);
+
+      for (const announcement of announcements) {
+        events.push({
+          id: `official_${announcement.id}`,
+          event_type: 'official_announcement',
+          title: announcement.title,
+          description: announcement.content.substring(0, 100) + (announcement.content.length > 100 ? '...' : ''),
+          metadata: {
+            announcement_id: announcement.id,
+            announcement_type: 'official'
+          },
+          action_buttons: [
+            {
+              label: i18next.t('feed:world_state.announcement.button', { lng: language }),
+              action_type: 'view_announcement',
+              target_id: announcement.id.toString()
+            }
+          ],
+          created_at: announcement.created_at,
+          priority: 1
+        });
+      }
+
+      return events;
+    } catch (error) {
+      logger.error('生成官方事件失败:', error);
+      return [];
     }
   }
 }

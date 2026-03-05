@@ -12,6 +12,9 @@ router.use(apiLimiter);
 // 获取动态流
 router.get('/', FeedController.getFeed);
 
+// 获取世界状态流（系统生成事件）
+router.get('/world-state', FeedController.getWorldStateFeed);
+
 // 创建心情动态
 router.post('/create', FeedController.createMoment);
 

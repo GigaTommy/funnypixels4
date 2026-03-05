@@ -389,6 +389,7 @@ class AuthManager: ObservableObject {
 
     /// 处理从 Keychain 读取的认证数据
     /// ✅ iOS 最佳实践：先验证 token，成功后才进入 app
+    /// ⚡ 性能优化：集成网络状态检测，快速失败以避免白屏
     @MainActor
     private func processStoredAuthData(accessToken: String?, storedUserId: String?, isGuest: Bool) {
         guard let accessToken = accessToken, !accessToken.isEmpty else {
@@ -400,20 +401,38 @@ class AuthManager: ObservableObject {
         self.isValidatingSession = true
         Logger.info("🔐 Found stored token, validating session...")
 
+        // ⚡ 优化：检测网络状态
+        let networkMonitor = NetworkMonitor.shared
+
         // ⚡ 优化：使用真正的Task取消机制
         Task {
+            // ⚡ 离线状态快速失败（200ms内显示登录页）
+            guard networkMonitor.isConnected else {
+                Logger.warning("🌐 No network connection, skipping validation")
+                // 延迟200ms以避免闪烁
+                try? await Task.sleep(nanoseconds: 200_000_000)
+                await MainActor.run {
+                    self.isValidatingSession = false
+                }
+                return
+            }
+
             // ⚡ 创建可取消的验证任务
             let validationTask = Task {
                 try await fetchUserProfile()
             }
 
-            // ⚡ Watchdog：1秒超时（优化：2秒 → 1秒，加快首次启动）
+            // ⚡ Watchdog：动态超时（根据网络类型调整）
+            // - WiFi/Ethernet: 500ms
+            // - Cellular: 800ms
+            let timeout = networkMonitor.getValidationTimeout()
             let watchdog = Task {
-                try await Task.sleep(nanoseconds: 1_000_000_000)  // 1秒
+                try await Task.sleep(nanoseconds: timeout)
                 validationTask.cancel()  // ⚡ 真正取消网络请求
                 await MainActor.run {
                     if self.isValidatingSession {
-                        Logger.warning("⚠️ Session validation timed out after 1s, showing login screen")
+                        let timeoutMs = Int(timeout / 1_000_000)
+                        Logger.warning("⚠️ Session validation timed out after \(timeoutMs)ms (\(networkMonitor.connectionType.displayName)), showing login screen")
                         self.isValidatingSession = false
                     }
                 }

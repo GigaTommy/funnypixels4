@@ -119,6 +119,9 @@ enum APIEndpoint: EndpointProtocol {
     case updatePrivacySettings
     case getPublicPrivacySettings(String)
 
+    // 性能监控
+    case clientPerformance
+
     var url: URL {
         let baseURLString = APIEndpoint.baseURL
 
@@ -287,13 +290,17 @@ enum APIEndpoint: EndpointProtocol {
             return URL(string: "\(baseURLString)/privacy/settings")!
         case .getPublicPrivacySettings(let userId):
             return URL(string: "\(baseURLString)/privacy/user/\(userId)/settings")!
+
+        // 性能监控
+        case .clientPerformance:
+            return URL(string: "\(baseURLString)/performance/client")!
         }
     }
 
     var method: HTTPMethod {
         switch self {
         // POST 请求
-        case .login, .accountLogin, .register, .createPixel, .drawPixel, .purchaseItem, .useItem, .changePassword, .createAlliance, .joinAlliance, .kickMember, .updateMemberRole, .transferLeadership, .generateInviteLink, .joinByInviteLink, .likeLeaderboard, .reportPixel, .sendVerificationCode, .verifyCode, .applyToAlliance, .processApplication, .refreshToken, .followUser, .likePixel, .appleLogin, .googleLogin:
+        case .login, .accountLogin, .register, .createPixel, .drawPixel, .purchaseItem, .useItem, .changePassword, .createAlliance, .joinAlliance, .kickMember, .updateMemberRole, .transferLeadership, .generateInviteLink, .joinByInviteLink, .likeLeaderboard, .reportPixel, .sendVerificationCode, .verifyCode, .applyToAlliance, .processApplication, .refreshToken, .followUser, .likePixel, .appleLogin, .googleLogin, .clientPerformance:
             return .post
 
         // GET 请求
@@ -358,11 +365,12 @@ public class APIManager: ObservableObject {
     private init() {
         // 配置会话
         let configuration = URLSessionConfiguration.default
-        // ⚡ 网络超时设置
-        // - request: 单个请求的超时时间（15秒足够处理头像上传、CDN生成等耗时操作）
-        // - resource: 整个资源下载的超时时间（30秒）
-        configuration.timeoutIntervalForRequest = 15   // 增加到15秒，支持头像上传等耗时操作
-        configuration.timeoutIntervalForResource = 30  // 增加到30秒
+        // ⚡ 网络超时设置（优化：缩短超时以改善启动体验）
+        // - request: 单个请求的超时时间（5秒，快速失败以避免白屏）
+        // - resource: 整个资源下载的超时时间（30秒，保留用于大文件上传）
+        // 注意：对于特定的耗时操作（如头像上传），应在请求时单独设置更长的超时
+        configuration.timeoutIntervalForRequest = 5.0   // ✅ 从15秒优化到5秒
+        configuration.timeoutIntervalForResource = 30.0  // 保持30秒用于大文件
 
         // 启用 HTTP 缓存：服务器返回 Cache-Control 头后，URLSession 自动缓存响应
         // 缓存命中时零网络开销，比 ViewModel 层缓存更高效
@@ -847,9 +855,9 @@ public class APIManager: ObservableObject {
     ) async throws -> String {
         let response: SuccessResponse = try await request(endpoint: endpoint, parameters: parameters, headers: headers)
         guard response.success else {
-            throw APIError.serverError(response.message)
+            throw APIError.serverError(response.message ?? "Unknown error")
         }
-        return response.message
+        return response.message ?? "Success"
     }
 
     /// 请求操作结果响应的API

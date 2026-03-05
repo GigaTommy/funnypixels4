@@ -11,7 +11,8 @@ class AppState: ObservableObject {
 
     // MARK: - Sub-Tab Selection
     @Published var feedSubTab: FeedSubTab = .plaza
-    @Published var allianceSubTab: AllianceSubTab = .myAlliance
+    @Published var activitySubTab: ActivitySubTab = .events
+    @Published var allianceSubTab: AllianceSubTab = .myAlliance  // Kept for backward compatibility
 
     // MARK: - Badge Counts
     @Published var badgeCounts: [Tab: Int] = [:]
@@ -44,9 +45,17 @@ class AppState: ObservableObject {
         }
     }
 
-    /// 切换到联盟Tab的指定子标签
+    /// 切换到活动Tab的指定子标签
+    func navigateToActivity(subTab: ActivitySubTab = .events) {
+        selectedTab = .activity
+        activitySubTab = subTab
+    }
+
+    /// 切换到联盟Tab的指定子标签 (DEPRECATED - kept for backward compatibility)
+    @available(*, deprecated, message: "Alliance is now in Profile menu. Use navigateToActivity for events.")
     func navigateToAlliance(subTab: AllianceSubTab) {
-        selectedTab = .alliance
+        // Redirect to profile tab where alliance menu item now lives
+        selectedTab = .profile
         allianceSubTab = subTab
     }
 
@@ -76,17 +85,17 @@ class AppState: ObservableObject {
 
 // MARK: - Tab Enumeration
 
-enum Tab: String, CaseIterable {
+enum Tab: String, CaseIterable, Hashable {
     case map
     case feed
-    case alliance
+    case activity
     case profile
 
     var title: String {
         switch self {
         case .map: return NSLocalizedString("tab.map", comment: "Map")
         case .feed: return NSLocalizedString("tab.feed", comment: "Feed")
-        case .alliance: return NSLocalizedString("tab.alliance", comment: "Alliance")
+        case .activity: return NSLocalizedString("tab.activity", comment: "Activity")
         case .profile: return NSLocalizedString("tab.profile", comment: "Me")
         }
     }
@@ -95,7 +104,7 @@ enum Tab: String, CaseIterable {
         switch self {
         case .map: return "TabIconMap"
         case .feed: return "TabIconFeed"
-        case .alliance: return "TabIconAlliance"
+        case .activity: return "TabIconActivity"
         case .profile: return "TabIconProfile"
         }
     }
@@ -104,7 +113,7 @@ enum Tab: String, CaseIterable {
         switch self {
         case .map: return 0
         case .feed: return 1
-        case .alliance: return 2
+        case .activity: return 2
         case .profile: return 3
         }
     }
@@ -122,6 +131,18 @@ enum FeedSubTab: String, CaseIterable, CustomStringConvertible {
         case .plaza: return NSLocalizedString("feed.plaza", comment: "Plaza")
         case .tracks: return NSLocalizedString("feed.tracks", comment: "Tracks")
         case .data: return NSLocalizedString("feed.data", comment: "Data")
+        }
+    }
+}
+
+enum ActivitySubTab: String, CaseIterable, CustomStringConvertible {
+    case events
+    case tasks
+
+    var description: String {
+        switch self {
+        case .events: return NSLocalizedString("activity.tab.events", comment: "Events")
+        case .tasks: return NSLocalizedString("activity.tab.tasks", comment: "Tasks")
         }
     }
 }

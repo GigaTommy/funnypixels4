@@ -1,0 +1,90 @@
+{
+  "errors": {
+    "load_failed": "Error al cargar el feed",
+    "create_failed": "Error al crear la publicación",
+    "update_failed": "Error al actualizar la publicación",
+    "delete_failed": "Error al eliminar la publicación",
+    "not_found": "Publicación no encontrada",
+    "permission_denied": "Permiso denegado",
+    "invalid_content": "Formato de contenido inválido",
+    "content_too_long": "El contenido es demasiado largo",
+    "too_many_images": "Demasiadas imágenes",
+    "invalid_image": "Formato de imagen inválido",
+    "hashtag_invalid": "Formato de hashtag inválido",
+    "poll_invalid": "Opciones de encuesta inválidas",
+    "challenge_not_found": "Desafío no encontrado",
+    "already_voted": "Ya votado",
+    "poll_ended": "La encuesta ha terminado",
+    "bookmark_exists": "Ya está en marcadores",
+    "bookmark_not_found": "Marcador no encontrado"
+  },
+  "success": {
+    "created": "Publicado con éxito",
+    "updated": "Actualizado con éxito",
+    "deleted": "Eliminado con éxito",
+    "liked": "Me gusta",
+    "unliked": "Ya no me gusta",
+    "bookmarked": "Guardado en marcadores",
+    "unbookmarked": "Eliminado de marcadores",
+    "commented": "Comentado",
+    "voted": "Votado",
+    "reported": "Reporte enviado"
+  },
+  "types": {
+    "moment": "Momento",
+    "showcase": "Exhibición",
+    "drawing_complete": "Dibujo completado",
+    "achievement": "Logro desbloqueado",
+    "checkin": "Check-in",
+    "alliance_join": "Unirse a alianza",
+    "challenge": "Desafío",
+    "poll": "Encuesta"
+  },
+  "filters": {
+    "all": "Todo",
+    "following": "Siguiendo",
+    "alliance": "Alianza",
+    "nearby": "Cerca",
+    "trending": "Tendencias",
+    "challenges": "Desafíos"
+  },
+  "validation": {
+    "content_required": "Se requiere contenido",
+    "content_too_short": "El contenido es demasiado corto",
+    "content_too_long": "El contenido no puede exceder {{max}} caracteres",
+    "hashtag_required": "Se requiere al menos un hashtag",
+    "hashtag_too_many": "No puede exceder {{max}} hashtags",
+    "images_required": "Por favor seleccione imágenes",
+    "images_too_many": "No puede exceder {{max}} imágenes",
+    "poll_options_required": "Se requieren al menos 2 opciones",
+    "poll_options_too_many": "No puede exceder {{max}} opciones"
+  },
+  "world_state": {
+    "milestone": {
+      "title": "¡{{userName}} alcanzó un hito!",
+      "description": "Dibujó {{milestoneValue}} píxeles",
+      "button": "Ver perfil"
+    },
+    "artwork": {
+      "title": "{{userName}} completó una obra",
+      "description": "Dibujó {{pixelCount}} píxeles en {{duration}} minutos",
+      "button": "Ver obra"
+    },
+    "territory": {
+      "title": "{{territoryName}}",
+      "prefix": "Capturado por",
+      "suffix": "",
+      "button_alliance": "Ver alianza",
+      "button_map": "Ir al mapa"
+    },
+    "event": {
+      "title": "{{eventTitle}}",
+      "description": "{{participantCount}} participantes se unieron",
+      "button": "Unirse ahora"
+    },
+    "announcement": {
+      "badge": "Oficial",
+      "button": "Ver detalles"
+    }
+  }
+}

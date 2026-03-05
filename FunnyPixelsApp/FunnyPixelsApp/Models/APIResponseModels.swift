@@ -102,9 +102,9 @@ struct ValidationErrorResponse: Codable {
 /// 简单成功响应
 struct SuccessResponse: Codable {
     let success: Bool
-    let message: String
+    let message: String?
 
-    init(message: String) {
+    init(message: String? = nil) {
         self.success = true
         self.message = message
     }

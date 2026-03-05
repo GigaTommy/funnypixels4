@@ -25,6 +25,12 @@ class Announcement {
         .insert(announcementData)
         .returning('*');
 
+      // Refresh global broadcast timestamp so lazy fan-out picks up the new announcement
+      try {
+        const { redisUtils } = require('../config/redis');
+        await redisUtils.set('inbox:last_broadcast_at', Date.now().toString());
+      } catch (_) { /* ignore Redis errors */ }
+
       return new Announcement(announcement);
     } catch (error) {
       throw error;

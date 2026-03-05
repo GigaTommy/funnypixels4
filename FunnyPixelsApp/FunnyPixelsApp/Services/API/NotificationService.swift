@@ -58,6 +58,7 @@ extension NotificationService {
     public struct UnreadCount: Codable {
         public let system_unread: Int
         public let notification_unread: Int
+        public let announcement_unread: Int?
         public let total_unread: Int
     }
     

@@ -26,6 +26,26 @@ class SystemMessage {
                 })
                 .returning('*');
 
+            // Dual-write to user_inbox for directed messages only
+            if (message.receiver_id) {
+                try {
+                    const UserInbox = require('./UserInbox');
+                    await UserInbox.insert({
+                        user_id: message.receiver_id,
+                        source_table: 'system_messages',
+                        source_id: message.id,
+                        sender_id: message.sender_id,
+                        title: message.title,
+                        content: message.content,
+                        attachments: message.attachments,
+                        type: message.type,
+                        created_at: message.created_at
+                    });
+                } catch (inboxErr) {
+                    console.error('Inbox dual-write failed (system_message):', inboxErr);
+                }
+            }
+
             return new SystemMessage(message);
         } catch (error) {
             throw error;

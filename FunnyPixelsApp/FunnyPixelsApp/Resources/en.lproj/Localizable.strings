@@ -1487,6 +1487,7 @@
 "message.go_to_view" = "Go to view";
 "message.attachment_reward" = "Attachment Reward";
 "message.claim_reward" = "Claim Reward";
+"message.official_announcement" = "Official Announcement";
 
 /* Territory Battle */
 "territory.someone_invaded" = "Someone invaded your territory!";

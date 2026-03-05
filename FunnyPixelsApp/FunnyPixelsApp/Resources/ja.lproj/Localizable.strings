@@ -1423,6 +1423,7 @@
 "message.go_to_view" = "表示に移動";
 "message.attachment_reward" = "添付報酬";
 "message.claim_reward" = "報酬を受け取る";
+"message.official_announcement" = "公式アナウンス";
 
 /* テリトリーバトル - Territory Battle */
 "territory.someone_invaded" = "誰かがあなたの領土に侵入しました！";

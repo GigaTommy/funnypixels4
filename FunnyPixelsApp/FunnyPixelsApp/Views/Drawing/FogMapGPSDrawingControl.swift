@@ -4,11 +4,14 @@ import CoreLocation
 /// 迷雾地图风格GPS绘制控制面板 (Redesigned V3: Command Dock)
 /// 替代底部菜单栏的总控台，提供全面的驾驶舱体验
 struct FogMapGPSDrawingControl: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     @ObservedObject var patternProvider = AllianceDrawingPatternProvider.shared
     @ObservedObject var drawingState = DrawingStateManager.shared
     @ObservedObject var gpsService = GPSDrawingService.shared
     @ObservedObject var pixelService = PixelDrawService.shared
-    
+
     // 获取用户信息和统计数据
     @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject private var profileViewModel = ProfileViewModel()
@@ -60,7 +63,7 @@ struct FogMapGPSDrawingControl: View {
             HStack(alignment: .bottom, spacing: 16) {
                 // 1. 本次绘制 (Session) - 核心视觉焦点
                 Text("\(gpsService.drawnPixelsCount)")
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .responsiveFont(.title2, weight: .bold)
                     .monospacedDigit()
                     .foregroundStyle(.primary)
                     .scaleEffect(pixelCountScale)
@@ -79,28 +82,28 @@ struct FogMapGPSDrawingControl: View {
                         if pixelService.isFrozen {
                             // ❄️ 冻结状态：显示倒计时
                             Image(systemName: "snowflake")
-                                .font(.system(size: 10))
+                                .responsiveFont(.caption2)
                                 .foregroundStyle(.orange)
                                 .symbolEffect(.pulse.byLayer) // 呼吸效果
                             
                             Text(pixelService.freezeTimeLeft > 0 ? "\(pixelService.freezeTimeLeft)s" : NSLocalizedString("common.loading", comment: "Wait..."))
-                                .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                .responsiveFont(.footnote, weight: .medium)
                                 .foregroundStyle(.orange)
                         } else {
                             // 💧 正常/恢复状态
                             Image(systemName: "drop.fill")
-                                .font(.system(size: 10))
+                                .responsiveFont(.caption2)
                                 .foregroundStyle(pixelService.totalPoints > 10 ? Color.blue : Color.red)
                             
                             Text(formatCompactNumber(pixelService.totalPoints))
-                                .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                .responsiveFont(.footnote, weight: .medium)
                                 .foregroundStyle(pixelService.totalPoints > 0 ? Color.gray : Color.red)
                                 .frame(minWidth: 35, alignment: .leading) // 固定最小宽度防止挤压
                             
                             // 增长指示器 (当处于恢复状态且未满时显示)
                             if pixelService.naturalPoints < pixelService.maxNaturalPoints {
                                 Image(systemName: "arrow.up.circle.fill")
-                                    .font(.system(size: 8))
+                                    .responsiveFont(.caption2)
                                     .foregroundStyle(.green)
                             }
                         }
@@ -113,16 +116,16 @@ struct FogMapGPSDrawingControl: View {
                     // 生涯总计
                     HStack(spacing: 3) {
                         Image(systemName: "trophy.fill")
-                            .font(.system(size: 10))
+                            .responsiveFont(.caption2)
                             .foregroundStyle(.yellow)
                         
                         if let stats = profileViewModel.userStats {
                             Text(formatCompactNumber(stats.totalPixels))
-                                .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                .responsiveFont(.footnote, weight: .medium)
                                 .foregroundStyle(.secondary)
                         } else {
                             Text("-")
-                                .font(.system(size: 13, weight: .medium, design: .monospaced))
+                                .responsiveFont(.footnote, weight: .medium)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -146,7 +149,7 @@ struct FogMapGPSDrawingControl: View {
                         .shadow(color: .red.opacity(0.3), radius: 5, x: 0, y: 2)
                     
                     Image(systemName: gpsService.isGPSDrawingMode ? "stop.fill" : "play.fill") // Toggle Icon
-                        .font(.system(size: 12, weight: .bold)) // Smaller icon for 28pt button
+                        .responsiveFont(.caption, weight: .bold) // Smaller icon for 28pt button
                         .foregroundStyle(.white)
                 }
                 .frame(width: 28, height: 28)

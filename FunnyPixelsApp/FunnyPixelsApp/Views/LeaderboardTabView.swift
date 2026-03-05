@@ -79,7 +79,7 @@ struct LeaderboardTabView: View {
                         }
                     } label: {
                         Text(label)
-                            .font(.system(size: 15, weight: .semibold))
+                            .responsiveFont(.subheadline, weight: .semibold)
                             .foregroundColor(viewModel.selectedSubTab == tag ? .white : AppColors.textSecondary)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
@@ -109,7 +109,7 @@ struct LeaderboardTabView: View {
                 } label: {
                     VStack(spacing: 6) {
                         Text(period.displayName)
-                            .font(.system(size: 13, weight: .medium))
+                            .responsiveFont(.caption, weight: .medium)
                             .foregroundColor(viewModel.selectedPeriod == period ? AppColors.primary : AppColors.textTertiary)
 
                         if viewModel.selectedPeriod == period {
@@ -185,7 +185,7 @@ struct LeaderboardTabView: View {
                 if viewModel.friendsEntries.isEmpty {
                     VStack(spacing: AppSpacing.l) {
                         Image(systemName: "person.2.slash")
-                            .font(.system(size: 48))
+                            .font(.system(size: 48 * fontManager.scale))
                             .foregroundColor(AppColors.textTertiary)
                         Text(NSLocalizedString("leaderboard.friends.empty", comment: "No friends yet"))
                             .font(AppTypography.body())
@@ -277,7 +277,7 @@ struct LeaderboardTabView: View {
     private func leaderboardEmptyState(icon: String, message: String, hint: String) -> some View {
         VStack(spacing: AppSpacing.l) {
             Image(systemName: icon)
-                .font(.system(size: 48))
+                .font(.system(size: 48 * fontManager.scale))
                 .foregroundColor(AppColors.textTertiary)
             Text(message)
                 .font(AppTypography.body())
@@ -351,14 +351,14 @@ struct LeaderboardEntryRow: View {
                 if let change = entry.rankChange, change != 0 {
                     HStack(spacing: 2) {
                         Image(systemName: change > 0 ? "arrow.up" : "arrow.down")
-                            .font(.system(size: 10, weight: .bold))
+                            .responsiveFont(.caption2, weight: .bold)
                         Text("\(abs(change))")
                             .font(AppTypography.caption())
                     }
                     .foregroundColor(change > 0 ? AppColors.secondary : AppColors.error)
                 } else if entry.previousRank == nil && entry.rank > 0 {
                     Text("NEW")
-                        .font(.system(size: 9, weight: .bold))
+                        .responsiveFont(.caption2, weight: .bold)
                         .foregroundColor(AppColors.primary)
                 }
             }
@@ -458,7 +458,7 @@ struct FriendsLeaderboardEntryRow: View {
                     // 互关标识
                     if entry.isMutual == true {
                         Image(systemName: "arrow.left.arrow.right")
-                            .font(.system(size: 10, weight: .semibold))
+                            .responsiveFont(.caption2, weight: .semibold)
                             .foregroundColor(AppColors.primary)
                     }
                 }

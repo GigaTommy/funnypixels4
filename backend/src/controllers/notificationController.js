@@ -228,6 +228,24 @@ class NotificationController {
 
       const [inserted] = await knex('notifications').insert(notification).returning('*');
 
+      // Dual-write to user_inbox
+      let inboxRow = null;
+      try {
+        const UserInbox = require('../models/UserInbox');
+        inboxRow = await UserInbox.insert({
+          user_id: userId,
+          source_table: 'notifications',
+          source_id: String(inserted.id),
+          title: inserted.title,
+          content: inserted.message,
+          attachments: inserted.data,
+          type: inserted.type,
+          created_at: inserted.created_at
+        });
+      } catch (inboxErr) {
+        console.error('Inbox dual-write failed (notification):', inboxErr);
+      }
+
       // ✨ WebSocket实时推送通知
       try {
         const { getSocketManager, hasSocketManager } = require('../services/socketManagerInstance');
@@ -235,9 +253,9 @@ class NotificationController {
         if (hasSocketManager()) {
           const socketManager = getSocketManager();
 
-          // 推送新通知事件到用户
+          // 推送新通知事件到用户 — use inbox ID when available
           socketManager.sendToUser(userId, 'new_notification', {
-            id: String(inserted.id),
+            id: inboxRow ? String(inboxRow.id) : String(inserted.id),
             type: inserted.type,
             title: inserted.title,
             content: inserted.message,  // message -> content (iOS期望)

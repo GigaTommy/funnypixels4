@@ -21,7 +21,7 @@ enum MessageCategory: String, CaseIterable {
         switch self {
         case .all: return nil
         case .interaction: return ["like", "comment", "follow"]
-        case .system: return ["achievement", "reward", "territory_battle", "system"]
+        case .system: return ["achievement", "reward", "territory_battle", "system", "announcement"]
         }
     }
 }
@@ -267,6 +267,7 @@ struct MessageRow: View {
         case "reward": return "gift.fill"
         case "activity": return "flag.checkered"
         case "territory_battle": return "shield.slash.fill"
+        case "announcement": return "megaphone.fill"
         default: return "bell.fill"
         }
     }
@@ -276,6 +277,7 @@ struct MessageRow: View {
         case "reward": return .orange
         case "activity": return .blue
         case "territory_battle": return .red
+        case "announcement": return .purple
         default: return .gray
         }
     }
@@ -302,10 +304,22 @@ struct MessageDetailView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
+                    // 公告类型显示官方公告标签
+                    if message.type == "announcement" {
+                        Text(NSLocalizedString("message.official_announcement", comment: ""))
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
+                            .background(Color.purple)
+                            .cornerRadius(6)
+                    }
+
                     Text(message.title)
                         .font(.title2)
                         .fontWeight(.bold)
-                    
+
                     Text(message.content)
                         .font(.body)
                         .lineSpacing(6)
@@ -689,7 +703,7 @@ class MessageCenterViewModel: ObservableObject {
         }
     }
 
-    /// 批量删除
+    /// 批量删除（后端 inbox 软删除，支持所有类型包括公告）
     func batchDelete() async {
         guard !selectedMessageIds.isEmpty else { return }
 

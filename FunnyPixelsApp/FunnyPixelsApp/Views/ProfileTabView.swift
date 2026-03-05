@@ -81,7 +81,7 @@ struct ProfileTabView: View {
             .overlay(alignment: .top) {
                 if let error = viewModel.errorMessage {
                     Text(error)
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
@@ -147,7 +147,7 @@ struct ProfileTabView: View {
                 Spacer()
 
                 Image(systemName: "chevron.right")
-                    .font(.caption)
+                    .responsiveFont(.caption)
                     .foregroundColor(AppColors.textTertiary)
             }
         }
@@ -201,10 +201,10 @@ struct ProfileTabView: View {
     private func profileStatItem(value: String, label: String) -> some View {
         VStack(spacing: 2) {
             Text(value)
-                .font(.system(size: 16, weight: .bold))
+                .responsiveFont(.callout, weight: .bold)
                 .foregroundColor(AppColors.textPrimary)
             Text(label)
-                .font(.system(size: 10))
+                .responsiveFont(.caption2)
                 .foregroundColor(AppColors.textTertiary)
         }
         .frame(maxWidth: .infinity)
@@ -231,7 +231,7 @@ struct ProfileTabView: View {
                     Spacer()
                     NavigationLink(destination: AchievementTabView()) {
                         Text(NSLocalizedString("profile.view_all", comment: ""))
-                            .font(.caption)
+                            .responsiveFont(.caption)
                             .foregroundColor(AppColors.textSecondary)
                             .padding(.vertical, 4)
                     }
@@ -264,7 +264,7 @@ struct ProfileTabView: View {
                     StandardListRowContent(title: NSLocalizedString("profile.messages", comment: ""), icon: "envelope.fill", iconColor: .green) {
                         if viewModel.unreadMessageCount > 0 {
                             Text("\(viewModel.unreadMessageCount)")
-                                .font(.caption2)
+                                .responsiveFont(.caption2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .padding(5)
@@ -297,7 +297,7 @@ struct ProfileTabView: View {
                     StandardListRowContent(title: NSLocalizedString("profile.journey_collection", comment: ""), icon: "map.fill", iconColor: .cyan) {
                         if DriftBottleManager.shared.unreadJourneyCards > 0 {
                             Text("\(DriftBottleManager.shared.unreadJourneyCards)")
-                                .font(.caption2)
+                                .responsiveFont(.caption2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .padding(5)

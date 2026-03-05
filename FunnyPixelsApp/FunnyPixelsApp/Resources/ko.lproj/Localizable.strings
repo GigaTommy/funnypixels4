@@ -1189,6 +1189,7 @@
 "message.go_to_view" = "보기로 이동";
 "message.attachment_reward" = "첨부 보상";
 "message.claim_reward" = "보상 받기";
+"message.official_announcement" = "공식 공지";
 
 /* 영토 전투 - Territory Battle */
 "territory.someone_invaded" = "누군가 당신의 영토를 침공했습니다!";

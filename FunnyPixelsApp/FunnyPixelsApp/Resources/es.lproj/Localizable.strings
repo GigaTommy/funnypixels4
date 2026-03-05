@@ -1230,6 +1230,7 @@
 "message.go_to_view" = "Ir a ver";
 "message.attachment_reward" = "Recompensa Adjunta";
 "message.claim_reward" = "Reclamar Recompensa";
+"message.official_announcement" = "Anuncio Oficial";
 
 /* Batalla territorial - Territory Battle */
 "territory.someone_invaded" = "¡Alguien invadió tu territorio!";

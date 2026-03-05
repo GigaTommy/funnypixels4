@@ -1485,6 +1485,7 @@
 "message.go_to_view" = "前往查看";
 "message.attachment_reward" = "附件奖励";
 "message.claim_reward" = "领取奖励";
+"message.official_announcement" = "官方公告";
 
 /* 领地战斗 - Territory Battle */
 "territory.someone_invaded" = "有人踩了你的地盘！";

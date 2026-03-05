@@ -31,7 +31,7 @@ struct FogMapGPSDrawingControl: View {
                         .stroke(Color.green.opacity(0.5), lineWidth: 2)
                         .scaleEffect(isPulsing ? 1.3 : 1.0)
                         .opacity(isPulsing ? 0 : 1)
-                        .frame(width: 44, height: 44)
+                        .frame(width: 48, height: 48)
                         .animation(.easeOut(duration: 1.5).repeatForever(autoreverses: false), value: isPulsing)
                         .onAppear { isPulsing = true }
                 }
@@ -43,7 +43,7 @@ struct FogMapGPSDrawingControl: View {
                         avatar: user.avatar,
                         displayName: user.displayOrUsername,
                         flagPatternId: user.alliance?.flagPatternId,
-                        size: 36
+                        size: 40
                     )
                     .overlay(Circle().stroke(Color.white.opacity(0.2), lineWidth: 1))
                     .shadow(color: .black.opacity(0.3), radius: 3)
@@ -55,7 +55,7 @@ struct FogMapGPSDrawingControl: View {
                     .offset(x: 2, y: 2)
                     .scaleEffect(isPulsing ? 1.1 : 1.0)
             }
-            .frame(width: 48, height: 44)
+            .frame(width: 52, height: 48)
             .padding(.leading, 24)
             
             // MARK: Section B - Telemetry (The Data)
@@ -148,25 +148,23 @@ struct FogMapGPSDrawingControl: View {
                         .fill(LinearGradient(colors: [.red, .pink], startPoint: .topLeading, endPoint: .bottomTrailing))
                         .shadow(color: .red.opacity(0.3), radius: 5, x: 0, y: 2)
                     
-                    Image(systemName: gpsService.isGPSDrawingMode ? "stop.fill" : "play.fill") // Toggle Icon
-                        .responsiveFont(.caption, weight: .bold) // Smaller icon for 28pt button
+                    Image(systemName: gpsService.isGPSDrawingMode ? "stop.fill" : "play.fill")
+                        .responsiveFont(.footnote, weight: .bold)
                         .foregroundStyle(.white)
                 }
-                .frame(width: 28, height: 28)
+                .frame(width: 32, height: 32)
             }
             .buttonStyle(ScaleButtonStyle())
-            .padding(.trailing, 24) 
+            .padding(.trailing, 24)
         }
-        .frame(height: 64) // Ultra-Compact Dock Height
+        .frame(height: 49) // 与系统 TabBar 内容区高度一致
+        .padding(.bottom, safeAreaBottomInset) // 填充底部安全区域，视觉总高度与 TabBar 一致
         .background(
             Rectangle()
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    LinearGradient(colors: [Color.black.opacity(0.05), Color.clear], startPoint: .bottom, endPoint: .top)
-                )
+                .fill(Color(UIColor.systemBackground))
         )
-        // 顶部边框线
-        .overlay(Rectangle().frame(height: 0.5).foregroundColor(Color.white.opacity(0.2)), alignment: .top)
+        // 顶部分隔线 - 与系统 TabBar 风格一致
+        .overlay(Rectangle().frame(height: 0.5).foregroundColor(Color(UIColor.separator).opacity(0.3)), alignment: .top)
         // 加载生涯数据
         .onAppear {
             Logger.debug("🔍 GPS Panel onAppear - Loading user stats")
@@ -185,6 +183,14 @@ struct FogMapGPSDrawingControl: View {
         SmallAllianceFlagBadge(pattern: patternProvider.currentDrawingPattern, size: 20, borderSize: 1.2)
     }
     
+    // MARK: - Layout
+
+    /// 底部安全区域高度，用于与系统 TabBar 视觉高度保持一致
+    private var safeAreaBottomInset: CGFloat {
+        (UIApplication.shared.connectedScenes.first as? UIWindowScene)?
+            .keyWindow?.safeAreaInsets.bottom ?? 0
+    }
+
     // MARK: - Helpers
 
     private func formatCompactNumber(_ number: Int) -> String {

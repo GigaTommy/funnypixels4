@@ -51,9 +51,11 @@ private struct GPSCompactLeadingView: View {
                 .fill(Color(hex: context.attributes.allianceColorHex) ?? .green)
                 .frame(width: 10, height: 10)
 
-            Image(systemName: "paintbrush.pointed.fill")
-                .font(.system(size: 12, weight: .bold))
-                .foregroundColor(.green)
+            Image("AppIconImage")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14, height: 14)
+                .clipShape(RoundedRectangle(cornerRadius: 3))
         }
     }
 }
@@ -108,9 +110,11 @@ private struct GPSExpandedLeadingView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Image(systemName: "paintbrush.pointed.fill")
-                .font(.title2)
-                .foregroundColor(.green)
+            Image("AppIconImage")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 32, height: 32)
+                .clipShape(RoundedRectangle(cornerRadius: 7))
 
             Text(NSLocalizedString("live_activity.gps.title", comment: "GPS Drawing"))
                 .font(.caption2)
@@ -286,8 +290,11 @@ private struct GPSDrawingLockScreenView: View {
             // 顶部：状态 + 用时
             HStack {
                 HStack(spacing: 6) {
-                    Image(systemName: "paintbrush.pointed.fill")
-                        .foregroundColor(.green)
+                    Image("AppIconImage")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
 
                     Text(NSLocalizedString("live_activity.gps.title", comment: "GPS Drawing"))
                         .font(.headline)

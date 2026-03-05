@@ -176,12 +176,15 @@ struct EventLiveActivityBanner: View {
 
                 Spacer()
 
-                // 前三名
+                // 前三名（使用SF Symbols代替emoji）
                 HStack(spacing: 16) {
                     ForEach(Array(data.state.rankings.prefix(3).enumerated()), id: \.element.id) { index, ranking in
                         VStack(spacing: 4) {
-                            Text(rankEmoji(index + 1))
-                                .font(.system(size: 16))
+                            // ✅ 使用SF Symbols圆圈数字 + 颜色区分
+                            Image(systemName: rankIcon(index + 1))
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(rankIconColor(index + 1))
+
                             Text(String(format: "%.0f%%", ranking.score * 100))
                                 .font(.system(size: 14, weight: .bold, design: .rounded))
                                 .foregroundColor(ranking.color)
@@ -221,12 +224,24 @@ struct EventLiveActivityBanner: View {
         }
     }
 
-    private func rankEmoji(_ rank: Int) -> String {
+    /// ✅ 临时方案：使用SF Symbols数字圆圈代替emoji
+    /// TODO: Phase 2将替换为像素化奖牌图标
+    private func rankIcon(_ rank: Int) -> String {
         switch rank {
-        case 1: return "🥇"
-        case 2: return "🥈"
-        case 3: return "🥉"
-        default: return "\(rank)"
+        case 1: return "1.circle.fill"  // 金牌 → 数字1
+        case 2: return "2.circle.fill"  // 银牌 → 数字2
+        case 3: return "3.circle.fill"  // 铜牌 → 数字3
+        default: return "\(rank).circle"
+        }
+    }
+
+    /// 排名颜色（保持金银铜视觉识别）
+    private func rankIconColor(_ rank: Int) -> Color {
+        switch rank {
+        case 1: return .yellow       // 金色
+        case 2: return .gray         // 银色
+        case 3: return Color.orange  // 铜色
+        default: return .secondary
         }
     }
 

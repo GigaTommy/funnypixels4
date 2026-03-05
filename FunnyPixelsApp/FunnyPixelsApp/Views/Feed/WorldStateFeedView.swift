@@ -24,34 +24,43 @@ struct WorldStateFeedView: View {
     ]
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                // Filter picker
-                filterBar
-                
-                // Events list
-                eventsList
-            }
-            .navigationDestination(for: String.self) { destination in
-                destinationView(for: destination)
-            }
-            .task {
-                if viewModel.events.isEmpty {
-                    await viewModel.loadFeed(refresh: true)
-                }
-            }
-            .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button("OK") {
-                    viewModel.errorMessage = nil
-                }
-            } message: {
-                if let error = viewModel.errorMessage {
-                    Text(error)
-                }
+        VStack(spacing: 0) {
+            // Filter picker
+            filterBar
+
+            // Events list
+            eventsList
+        }
+        .navigationDestination(isPresented: Binding(
+            get: { selectedUserId != nil },
+            set: { if !$0 { selectedUserId = nil } }
+        )) {
+            if let userId = selectedUserId {
+                UserProfileView(userId: userId)
             }
         }
-        // NavigationLinks for programmatic navigation
-        .background(navigationLinks)
+        .navigationDestination(isPresented: Binding(
+            get: { selectedSessionId != nil },
+            set: { if !$0 { selectedSessionId = nil } }
+        )) {
+            if let sessionId = selectedSessionId {
+                SessionDetailView(sessionId: sessionId)
+            }
+        }
+        .task {
+            if viewModel.events.isEmpty {
+                await viewModel.loadFeed(refresh: true)
+            }
+        }
+        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button("OK") {
+                viewModel.errorMessage = nil
+            }
+        } message: {
+            if let error = viewModel.errorMessage {
+                Text(error)
+            }
+        }
         .overlay(toastOverlay)
     }
     
@@ -145,37 +154,6 @@ struct WorldStateFeedView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    // MARK: - Navigation Links (Hidden)
-    
-    private var navigationLinks: some View {
-        ZStack {
-            // User Profile Navigation
-            NavigationLink(
-                destination: selectedUserId.map { UserProfileView(userId: $0) },
-                tag: "profile",
-                selection: Binding(
-                    get: { selectedUserId != nil ? "profile" : nil },
-                    set: { if $0 == nil { selectedUserId = nil } }
-                )
-            ) { EmptyView() }
-            .hidden()
-            
-            // Session Detail Navigation
-            NavigationLink(
-                destination: selectedSessionId.map { SessionDetailView(sessionId: $0) },
-                tag: "session",
-                selection: Binding(
-                    get: { selectedSessionId != nil ? "session" : nil },
-                    set: { if $0 == nil { selectedSessionId = nil } }
-                )
-            ) { EmptyView() }
-            .hidden()
-            
-            // Alliance Navigation (如果存在AllianceDetailView)
-            // NavigationLink for alliance would go here
-        }
-    }
-    
     // MARK: - Toast Overlay
     
     private var toastOverlay: some View {
@@ -215,12 +193,7 @@ struct WorldStateFeedView: View {
     private var emptyStateMessage: String {
         "feed.world_state.empty.\(selectedFilter).message"
     }
-    
-    @ViewBuilder
-    private func destinationView(for destination: String) -> some View {
-        EmptyView()
-    }
-    
+
     private func handleAction(button: EventActionButton, event: WorldStateEvent) {
         // 添加haptic feedback
         let impact = UIImpactFeedbackGenerator(style: .light)

@@ -3,6 +3,7 @@ import SwiftUI
 
 /// 联盟徽章组件 - 显示会话使用的联盟旗帜
 struct AllianceBadge: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let patternId: String
     let size: CGFloat
 

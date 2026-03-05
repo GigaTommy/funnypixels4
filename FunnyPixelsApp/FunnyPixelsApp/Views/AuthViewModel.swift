@@ -6,6 +6,7 @@ import AuthenticationServices
 /// 认证视图模型
 @MainActor
 class AuthViewModel: ObservableObject {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Published var isAuthenticated = false
     @Published var currentUser: User?
     @Published var isLoading = false

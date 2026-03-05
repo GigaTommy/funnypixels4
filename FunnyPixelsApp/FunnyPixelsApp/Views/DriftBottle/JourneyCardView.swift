@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 完整旅途卡片视图(沉没后展示)
 struct JourneyCardDetailView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let bottleId: String
     @Environment(\.dismiss) private var dismiss
     @State private var detail: JourneyCardDetail?
@@ -59,7 +60,7 @@ struct JourneyCardDetailView: View {
                 .frame(width: 72, height: 72)
 
             Text("\(detail.originCity ?? "?") → \(detail.stations.last?.city ?? "?")")
-                .font(.system(size: 18, weight: .bold))
+                .responsiveFont(.title3, weight: .bold)
                 .foregroundColor(AppColors.textPrimary)
 
             HStack(spacing: 20) {
@@ -73,7 +74,7 @@ struct JourneyCardDetailView: View {
                     Image(systemName: "water.waves")
                         .font(.caption)
                     Text(NSLocalizedString("drift_bottle.journey.sunk", comment: ""))
-                        .font(.system(size: 12, weight: .medium))
+                        .responsiveFont(.caption2, weight: .medium)
                 }
                 .foregroundColor(.blue.opacity(0.7))
                 .padding(.horizontal, 12)
@@ -94,7 +95,7 @@ struct JourneyCardDetailView: View {
     private func routeSection(_ detail: JourneyCardDetail) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(NSLocalizedString("drift_bottle.journey.route", comment: ""))
-                .font(.system(size: 15, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(AppColors.textPrimary)
                 .padding(.bottom, 12)
 
@@ -116,7 +117,7 @@ struct JourneyCardDetailView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         HStack {
                             Text(station.city ?? NSLocalizedString("drift_bottle.unknown", comment: ""))
-                                .font(.system(size: 14, weight: .semibold))
+                                .responsiveFont(.subheadline, weight: .semibold)
                                 .foregroundColor(AppColors.textPrimary)
 
                             if station.stationNumber == 0 {
@@ -131,7 +132,7 @@ struct JourneyCardDetailView: View {
 
                         if station.distanceFromPrev > 0 {
                             Text("+\(String(format: "%.1f", Double(station.distanceFromPrev) / 1000.0)) km")
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(AppColors.textTertiary)
                         }
                     }
@@ -154,7 +155,7 @@ struct JourneyCardDetailView: View {
     private func messagesSection(_ detail: JourneyCardDetail) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(NSLocalizedString("drift_bottle.journey.messages", comment: ""))
-                .font(.system(size: 15, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(AppColors.textPrimary)
 
             ForEach(detail.messages.indices, id: \.self) { index in
@@ -162,12 +163,12 @@ struct JourneyCardDetailView: View {
                 if let text = msg.message, !text.isEmpty {
                     HStack(alignment: .top, spacing: 10) {
                         Image(systemName: msg.stationNumber == 0 ? "house.fill" : "mappin")
-                            .font(.system(size: 13))
+                            .responsiveFont(.caption)
                             .foregroundColor(msg.stationNumber == 0 ? .blue : .green)
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text(text)
-                                .font(.system(size: 14))
+                                .responsiveFont(.subheadline)
                                 .foregroundColor(AppColors.textPrimary)
 
                             HStack {
@@ -175,7 +176,7 @@ struct JourneyCardDetailView: View {
                                     .font(.system(size: 11, weight: .medium))
                                 if let city = msg.city {
                                     Text("· \(city)")
-                                        .font(.system(size: 11))
+                                        .responsiveFont(.caption2)
                                 }
                             }
                             .foregroundColor(AppColors.textTertiary)
@@ -201,10 +202,10 @@ struct JourneyCardDetailView: View {
     private func statBadge(icon: String, value: String, color: Color) -> some View {
         HStack(spacing: 4) {
             Image(systemName: icon)
-                .font(.system(size: 12))
+                .responsiveFont(.caption2)
                 .foregroundColor(color)
             Text(value)
-                .font(.system(size: 13, weight: .medium))
+                .responsiveFont(.caption, weight: .medium)
                 .foregroundColor(AppColors.textPrimary)
         }
     }

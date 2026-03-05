@@ -2,6 +2,7 @@ import SwiftUI
 
 /// Player detail half-sheet shown when tapping a leaderboard entry
 struct PlayerDetailSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let entry: LeaderboardService.LeaderboardEntry
     @State private var isFollowing = false
     @State private var isLoadingFollow = false
@@ -42,7 +43,7 @@ struct PlayerDetailSheet: View {
                 if let allianceName = entry.alliance_name {
                     HStack(spacing: 4) {
                         Image(systemName: "shield.fill")
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.primary)
                         Text(allianceName)
                             .font(AppTypography.caption())
@@ -91,12 +92,12 @@ struct PlayerDetailSheet: View {
                                 .tint(isFollowing ? AppColors.textSecondary : .white)
                         } else {
                             Image(systemName: isFollowing ? "checkmark" : "person.badge.plus")
-                                .font(.system(size: 14))
+                                .responsiveFont(.subheadline)
                         }
                         Text(isFollowing
                              ? NSLocalizedString("social.following_btn", comment: "Following")
                              : NSLocalizedString("social.follow_btn", comment: "Follow"))
-                            .font(.system(size: 15, weight: .semibold))
+                            .responsiveFont(.subheadline, weight: .semibold)
                     }
                     .foregroundColor(isFollowing ? AppColors.textSecondary : .white)
                     .frame(maxWidth: .infinity)
@@ -122,7 +123,7 @@ struct PlayerDetailSheet: View {
     private func statItem(value: String, label: String) -> some View {
         VStack(spacing: 2) {
             Text(value)
-                .font(.system(size: 18, weight: .bold))
+                .responsiveFont(.title3, weight: .bold)
                 .foregroundColor(AppColors.primary)
             Text(label)
                 .font(AppTypography.caption())

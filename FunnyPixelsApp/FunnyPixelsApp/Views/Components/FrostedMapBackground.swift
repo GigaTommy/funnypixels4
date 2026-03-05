@@ -4,6 +4,7 @@ import SwiftUI
 /// A clean, professional background with a frosted glass effect.
 /// Inspired by Google Maps' minimalist aesthetic.
 struct FrostedMapBackground: View, Equatable {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     static func == (lhs: FrostedMapBackground, rhs: FrostedMapBackground) -> Bool {
         return true
     }

@@ -4,6 +4,7 @@ import SwiftUI
 /// Event Preannounce HUD - Displayed in top-left corner of map for upcoming events
 /// Shows countdown, participant count, and quick actions
 struct EventPreannounceHUD: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let event: EventService.Event
     @State private var timeRemaining = ""
     @State private var showDetail = false

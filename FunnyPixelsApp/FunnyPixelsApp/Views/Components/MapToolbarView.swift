@@ -6,6 +6,7 @@ import SwiftUI
 struct MapToolbarView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @ObservedObject var locationManager = LocationManager.shared
+    @ObservedObject private var fontManager = FontSizeManager.shared
     
     // State bindings
     @Binding var isRoaming: Bool

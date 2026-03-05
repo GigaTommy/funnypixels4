@@ -2,6 +2,7 @@ import SwiftUI
 import MapKit
 
 struct InteractivePixelBottomSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let pixel: Pixel
     let onClose: () -> Void
     

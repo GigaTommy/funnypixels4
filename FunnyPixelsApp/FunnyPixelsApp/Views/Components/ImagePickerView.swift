@@ -4,6 +4,7 @@ import PhotosUI
 /// 图片选择器 - 遵循简约设计原则
 struct ImagePickerView: View {
     @Binding var selectedImages: [UIImage]
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let maxImages: Int
 
     @State private var selectedItems: [PhotosPickerItem] = []

@@ -4,6 +4,7 @@ import Combine
 // MARK: - Alliance Activity Log Section
 
 struct AllianceActivityLogSection: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let allianceId: Int
     @StateObject private var viewModel = AllianceActivityLogViewModel()
     @State private var isExpanded = false
@@ -18,17 +19,17 @@ struct AllianceActivityLogSection: View {
             }) {
                 HStack {
                     Image(systemName: "clock.arrow.circlepath")
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(AppColors.primary)
 
                     Text(NSLocalizedString("alliance.activity.title", comment: "Recent Activity"))
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(AppColors.textPrimary)
 
                     Spacer()
 
                     Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                        .font(.system(size: 12, weight: .semibold))
+                        .responsiveFont(.caption2, weight: .semibold)
                         .foregroundColor(AppColors.textTertiary)
                 }
             }
@@ -77,18 +78,18 @@ struct ActivityLogRow: View {
     var body: some View {
         HStack(spacing: AppSpacing.s) {
             Image(systemName: iconForAction(activity.actionType))
-                .font(.system(size: 12))
+                .responsiveFont(.caption2)
                 .foregroundColor(colorForAction(activity.actionType))
                 .frame(width: 24)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(descriptionForActivity(activity))
-                    .font(.system(size: 13))
+                    .responsiveFont(.caption)
                     .foregroundColor(AppColors.textPrimary)
                     .lineLimit(1)
 
                 Text(formatDate(activity.createdAt))
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textTertiary)
             }
 

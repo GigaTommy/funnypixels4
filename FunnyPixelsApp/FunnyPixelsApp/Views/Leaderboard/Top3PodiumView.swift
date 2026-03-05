@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 前三名领奖台展示
 struct Top3PodiumView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let entries: [LeaderboardService.LeaderboardEntry]
 
     private var first: LeaderboardService.LeaderboardEntry? { entries.first(where: { $0.rank == 1 }) }

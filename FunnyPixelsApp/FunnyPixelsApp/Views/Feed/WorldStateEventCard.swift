@@ -2,6 +2,7 @@ import SwiftUI
 
 /// World State Event Card - 人性化设计，根据事件类型调整布局
 struct WorldStateEventCard: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let event: WorldStateEvent
     let onAction: (EventActionButton) -> Void
     
@@ -37,12 +38,12 @@ struct WorldStateEventCard: View {
                             .frame(width: 32, height: 32)
                             .overlay(
                                 Text(String(userName.prefix(1)))
-                                    .font(.system(size: 14, weight: .semibold))
+                                    .responsiveFont(.subheadline, weight: .semibold)
                                     .foregroundColor(.orange)
                             )
                         
                         Text(userName)
-                            .font(.system(size: 15, weight: .medium))
+                            .responsiveFont(.subheadline, weight: .medium)
                             .foregroundColor(Color(hex: "#1A1A1A"))
                     }
                 }
@@ -50,13 +51,13 @@ struct WorldStateEventCard: View {
                 Spacer()
                 
                 Text(relativeTime)
-                    .font(.system(size: 12))
+                    .responsiveFont(.caption2)
                     .foregroundColor(Color(hex: "#999999"))
             }
             
             // 成就内容
             Text(event.description)
-                .font(.system(size: 15))
+                .responsiveFont(.subheadline)
                 .foregroundColor(Color(hex: "#666666"))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -64,7 +65,7 @@ struct WorldStateEventCard: View {
             if let button = event.actionButtons.first {
                 Button(action: { onAction(button) }) {
                     Text(button.label)
-                        .font(.system(size: 13))
+                        .responsiveFont(.caption)
                         .foregroundColor(.orange)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
@@ -92,7 +93,7 @@ struct WorldStateEventCard: View {
                         // 领地名称（大标题）
                         if let territoryName = event.metadata.territoryName {
                             Text(territoryName)
-                                .font(.system(size: 17, weight: .semibold))
+                                .responsiveFont(.body, weight: .semibold)
                                 .foregroundColor(Color(hex: "#1A1A1A"))
                         }
                         
@@ -107,14 +108,14 @@ struct WorldStateEventCard: View {
                                 Text(NSLocalizedString("world_state.territory.captured_by_suffix", comment: ""))
                                     .foregroundColor(Color(hex: "#999999"))
                             }
-                            .font(.system(size: 14))
+                            .responsiveFont(.subheadline)
                         }
                     }
                     
                     Spacer()
                     
                     Text(relativeTime)
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption2)
                         .foregroundColor(Color(hex: "#999999"))
                 }
                 
@@ -125,9 +126,9 @@ struct WorldStateEventCard: View {
                             Button(action: { onAction(button) }) {
                                 HStack(spacing: 4) {
                                     Image(systemName: buttonIcon(for: button.actionType))
-                                        .font(.system(size: 12))
+                                        .responsiveFont(.caption2)
                                     Text(button.label)
-                                        .font(.system(size: 13))
+                                        .responsiveFont(.caption)
                                 }
                                 .foregroundColor(Color(hex: "#007AFF"))
                             }
@@ -149,10 +150,10 @@ struct WorldStateEventCard: View {
                 if let userName = event.metadata.userName {
                     HStack(spacing: 4) {
                         Text(userName)
-                            .font(.system(size: 15, weight: .medium))
+                            .responsiveFont(.subheadline, weight: .medium)
                             .foregroundColor(Color(hex: "#1A1A1A"))
                         Text(NSLocalizedString("world_state.artwork.completed", comment: ""))
-                            .font(.system(size: 15))
+                            .responsiveFont(.subheadline)
                             .foregroundColor(Color(hex: "#666666"))
                     }
                 }
@@ -162,9 +163,9 @@ struct WorldStateEventCard: View {
                     if let pixelCount = event.metadata.pixelCount {
                         HStack(spacing: 4) {
                             Text("\(pixelCount)")
-                                .font(.system(size: 13, weight: .medium))
+                                .responsiveFont(.caption, weight: .medium)
                             Text(NSLocalizedString("world_state.artwork.pixels", comment: ""))
-                                .font(.system(size: 13))
+                                .responsiveFont(.caption)
                         }
                         .foregroundColor(Color(hex: "#666666"))
                     }
@@ -172,23 +173,23 @@ struct WorldStateEventCard: View {
                     if let location = event.metadata.location {
                         HStack(spacing: 2) {
                             Image(systemName: "location.fill")
-                                .font(.system(size: 10))
+                                .responsiveFont(.caption2)
                             Text(location.name)
-                                .font(.system(size: 12))
+                                .responsiveFont(.caption2)
                         }
                         .foregroundColor(Color(hex: "#999999"))
                     }
                 }
                 
                 Text(relativeTime)
-                    .font(.system(size: 12))
+                    .responsiveFont(.caption2)
                     .foregroundColor(Color(hex: "#999999"))
                 
                 // 查看作品按钮
                 if let button = event.actionButtons.first {
                     Button(action: { onAction(button) }) {
                         Text(button.label)
-                            .font(.system(size: 13))
+                            .responsiveFont(.caption)
                             .foregroundColor(Color(hex: "#007AFF"))
                     }
                 }
@@ -224,29 +225,29 @@ struct WorldStateEventCard: View {
                     // 官方标识
                     HStack(spacing: 4) {
                         Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption2)
                             .foregroundColor(Color(hex: "#FF3B30"))
                         Text(NSLocalizedString("world_state.announcement.official", comment: ""))
-                            .font(.system(size: 12, weight: .medium))
+                            .responsiveFont(.caption2, weight: .medium)
                             .foregroundColor(Color(hex: "#FF3B30"))
                     }
                     
                     Spacer()
                     
                     Text(relativeTime)
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption2)
                         .foregroundColor(Color(hex: "#999999"))
                 }
                 
                 // 标题
                 Text(event.title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .responsiveFont(.headline, weight: .semibold)
                     .foregroundColor(Color(hex: "#1A1A1A"))
                     .lineLimit(2)
                 
                 // 内容
                 Text(event.description)
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(Color(hex: "#666666"))
                     .lineLimit(3)
                 
@@ -256,9 +257,9 @@ struct WorldStateEventCard: View {
                         HStack(spacing: 4) {
                             Text(button.label)
                             Image(systemName: "chevron.right")
-                                .font(.system(size: 10))
+                                .responsiveFont(.caption2)
                         }
-                        .font(.system(size: 13))
+                        .responsiveFont(.caption)
                         .foregroundColor(Color(hex: "#007AFF"))
                     }
                 }
@@ -275,12 +276,12 @@ struct WorldStateEventCard: View {
                 VStack(alignment: .leading, spacing: 6) {
                     // 活动标题
                     Text(event.title)
-                        .font(.system(size: 16, weight: .semibold))
+                        .responsiveFont(.headline, weight: .semibold)
                         .foregroundColor(Color(hex: "#1A1A1A"))
                     
                     // 描述
                     Text(event.description)
-                        .font(.system(size: 14))
+                        .responsiveFont(.subheadline)
                         .foregroundColor(Color(hex: "#666666"))
                         .lineLimit(2)
                 }
@@ -288,7 +289,7 @@ struct WorldStateEventCard: View {
                 Spacer()
                 
                 Text(relativeTime)
-                    .font(.system(size: 12))
+                    .responsiveFont(.caption2)
                     .foregroundColor(Color(hex: "#999999"))
             }
             
@@ -297,10 +298,10 @@ struct WorldStateEventCard: View {
                 Button(action: { onAction(button) }) {
                     HStack {
                         Text(button.label)
-                            .font(.system(size: 14, weight: .medium))
+                            .responsiveFont(.subheadline, weight: .medium)
                             .foregroundColor(.white)
                         Image(systemName: "arrow.right")
-                            .font(.system(size: 12, weight: .semibold))
+                            .responsiveFont(.caption2, weight: .semibold)
                             .foregroundColor(.white)
                     }
                     .frame(maxWidth: .infinity)

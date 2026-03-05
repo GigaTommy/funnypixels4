@@ -3,6 +3,7 @@ import SwiftUI
 /// P1-3: Pixel Draw Feedback - Floating "+1" animation
 /// Shows instant visual feedback when user draws pixels in events
 struct PixelDrawFeedback: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let count: Int
     @State private var offset: CGFloat = 0
     @State private var opacity: Double = 1.0

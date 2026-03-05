@@ -4,6 +4,7 @@ import PhotosUI
 
 /// 创建发布动态界面 - 遵循简约设计原则
 struct CreateMomentView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = CreateMomentViewModel()
 
@@ -135,7 +136,7 @@ struct CreateMomentView: View {
     private func locationPreview(_ location: FeedService.LocationInfo) -> some View {
         HStack(spacing: FeedDesign.Spacing.xs) {
             Image(systemName: "location.fill")
-                .font(.system(size: 12))
+                .responsiveFont(.caption2)
                 .foregroundColor(FeedDesign.Colors.textSecondary)
 
             Text(location.name ?? NSLocalizedString("feed.create.location", comment: ""))
@@ -148,7 +149,7 @@ struct CreateMomentView: View {
                 selectedLocation = nil
             } label: {
                 Image(systemName: "xmark.circle")
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(FeedDesign.Colors.textTertiary)
             }
         }
@@ -172,7 +173,7 @@ struct CreateMomentView: View {
                         selectedHashtags.removeAll { $0 == tag }
                     } label: {
                         Image(systemName: "xmark")
-                            .font(.system(size: 10))
+                            .responsiveFont(.caption2)
                             .foregroundColor(FeedDesign.Colors.textTertiary)
                     }
                 }

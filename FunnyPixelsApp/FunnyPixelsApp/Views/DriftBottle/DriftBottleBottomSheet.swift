@@ -7,6 +7,7 @@ struct DriftBottleBottomSheet: View {
     @State private var isSubmitting = false
     @State private var showSuccess = false
     @State private var errorMessage: String?
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     private var quota: BottleQuota? { manager.quota }
     private var availableBottles: Int { quota?.totalAvailable ?? 0 }
@@ -41,7 +42,7 @@ struct DriftBottleBottomSheet: View {
                             .scaledToFit()
                             .frame(width: 24, height: 24)
                         Text(NSLocalizedString("drift_bottle.title", comment: "漂流瓶"))
-                            .font(.system(size: 17, weight: .semibold))
+                            .responsiveFont(.body, weight: .semibold)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -81,11 +82,11 @@ struct DriftBottleBottomSheet: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(String(format: NSLocalizedString("drift_bottle.indicator.count", comment: ""), availableBottles))
-                    .font(.system(size: 20, weight: .bold))
+                    .responsiveFont(.title2, weight: .bold)
                     .foregroundColor(AppColors.textPrimary)
 
                 Text("可用漂流瓶")
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(AppColors.textSecondary)
             }
 
@@ -101,7 +102,7 @@ struct DriftBottleBottomSheet: View {
     private var messageInputSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("漂流瓶留言")
-                .font(.system(size: 15, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(AppColors.textPrimary)
 
             TextEditor(text: $messageText)
@@ -140,7 +141,7 @@ struct DriftBottleBottomSheet: View {
                     Text(NSLocalizedString("drift_bottle.create.throw", comment: "扔出去"))
                 }
             }
-            .font(.system(size: 17, weight: .bold))
+            .responsiveFont(.body, weight: .bold)
             .foregroundColor(.white)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
@@ -155,7 +156,7 @@ struct DriftBottleBottomSheet: View {
     private var quotaDetailsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("配额详情")
-                .font(.system(size: 15, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(AppColors.textPrimary)
 
             if let q = quota {
@@ -184,7 +185,7 @@ struct DriftBottleBottomSheet: View {
                             Image(systemName: "sparkles")
                                 .foregroundColor(.orange)
                             Text(String(format: "再画 %d 像素获得奖励", q.pixelsForNextBottle))
-                                .font(.system(size: 13))
+                                .responsiveFont(.caption)
                                 .foregroundColor(AppColors.textSecondary)
                         }
 
@@ -228,11 +229,11 @@ struct DriftBottleBottomSheet: View {
                     .foregroundColor(.green)
 
                 Text("漂流瓶已扔出！")
-                    .font(.system(size: 20, weight: .bold))
+                    .responsiveFont(.title2, weight: .bold)
                     .foregroundColor(.white)
 
                 Text("它将漂向远方，寻找有缘人...")
-                    .font(.system(size: 15))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(.white.opacity(0.9))
             }
             .padding(32)
@@ -287,18 +288,18 @@ private struct QuotaRow: View {
     var body: some View {
         HStack {
             Image(systemName: icon)
-                .font(.system(size: 16))
+                .responsiveFont(.headline)
                 .foregroundColor(color)
                 .frame(width: 24)
 
             Text(title)
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .foregroundColor(AppColors.textSecondary)
 
             Spacer()
 
             Text(value)
-                .font(.system(size: 15, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(color)
         }
         .padding(.vertical, 4)

@@ -4,6 +4,7 @@ import Combine
 
 /// Nearby player annotation with pulse animation
 struct NearbyPlayerAnnotation: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let player: NearbyPlayer
     @State private var isPulsing = false
 

@@ -4,14 +4,15 @@ import SwiftUI
 /// Pulsing tooltip that points to the FAB button after onboarding
 struct FABTooltip: View {
     @Binding var isVisible: Bool
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 Image(systemName: "hand.tap.fill")
-                    .font(.system(size: 16))
+                    .responsiveFont(.headline)
                 Text(NSLocalizedString("tooltip.fab.start_drawing", comment: "Tap to start drawing!"))
-                    .font(.system(size: 14, weight: .medium))
+                    .responsiveFont(.subheadline, weight: .medium)
             }
             .foregroundColor(.white)
             .padding(.horizontal, 16)
@@ -54,9 +55,9 @@ struct FABFlagSwitchTooltip: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 Image(systemName: "hand.tap.fill")
-                    .font(.system(size: 16))
+                    .responsiveFont(.headline)
                 Text(NSLocalizedString("tooltip.fab.flag_switch", comment: "Long press to switch flag"))
-                    .font(.system(size: 14, weight: .medium))
+                    .responsiveFont(.subheadline, weight: .medium)
             }
             .foregroundColor(.white)
             .padding(.horizontal, 16)

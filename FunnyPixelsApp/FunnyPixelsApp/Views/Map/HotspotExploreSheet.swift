@@ -4,6 +4,7 @@ import CoreLocation
 
 /// Sheet showing popular hotspot cities for deliberate exploration
 struct HotspotExploreSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) private var dismiss
     @State private var hotspots: [HotspotService.Hotspot] = []
     @State private var isLoading = true
@@ -92,32 +93,32 @@ private struct HotspotCityRow: View {
                             .fill(Color.gray.opacity(0.3))
                             .frame(width: 32, height: 32)
                         Image(systemName: "mappin")
-                            .font(.system(size: 14))
+                            .responsiveFont(.subheadline)
                             .foregroundColor(.gray)
                     }
                 }
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(hotspot.name)
-                        .font(.system(size: 15, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(.primary)
 
                     HStack(spacing: 8) {
                         if let province = hotspot.province {
                             Text(province)
-                                .font(.system(size: 12))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(.secondary)
                         }
 
                         if hotspot.pixelCount > 0 {
                             Label("\(hotspot.pixelCount)", systemImage: "square.fill")
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(.blue.opacity(0.8))
                         }
 
                         if let users = hotspot.uniqueUsers, users > 0 {
                             Label("\(users)", systemImage: "person.fill")
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(.green.opacity(0.8))
                         }
                     }

@@ -4,6 +4,7 @@ import SwiftUI
 struct OnboardingView: View {
     @Binding var isPresented: Bool
     @State private var currentPage = 0
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     struct OnboardingPage {
         let image: String

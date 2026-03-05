@@ -2,12 +2,13 @@
 import SwiftUI
 
 struct RankBadge: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let rank: Int
     
     var body: some View {
         if rank <= 3 {
              Image(systemName: iconName)
-                .font(.system(size: 20, weight: .bold))
+                .responsiveFont(.title2, weight: .bold)
                 .foregroundColor(iconColor)
                 .frame(width: 30)
                 .shadow(color: iconColor.opacity(0.3), radius: 2, x: 0, y: 1)

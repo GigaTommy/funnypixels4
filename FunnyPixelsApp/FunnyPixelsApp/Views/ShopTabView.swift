@@ -19,6 +19,7 @@ struct ShopTabView: View {
     @State private var showToast = false
     @State private var toastMessage = ""
     @State private var showInsufficientPointsAlert = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     // Bomb location picker states
     @State private var showBombLocationPicker = false

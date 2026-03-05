@@ -4,6 +4,7 @@ import Photos
 
 /// 会话详情界面
 struct SessionDetailView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let sessionId: String
     
     @StateObject private var viewModel = SessionDetailViewModel()

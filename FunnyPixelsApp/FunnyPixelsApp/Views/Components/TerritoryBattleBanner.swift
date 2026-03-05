@@ -5,6 +5,7 @@ import SwiftUI
 struct TerritoryBattleBanner: View {
     @ObservedObject private var manager = TerritoryBannerManager.shared
     @State private var dragOffset: CGFloat = 0
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         if manager.currentBanner != nil {
@@ -48,11 +49,11 @@ struct TerritoryBattleBanner: View {
     private var bannerContent: some View {
         HStack(spacing: 10) {
             Image(systemName: "shield.slash.fill")
-                .font(.system(size: 14, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(.red)
 
             Text(NSLocalizedString("territory.someone_invaded", comment: ""))
-                .font(.system(size: 13, weight: .semibold))
+                .responsiveFont(.caption, weight: .semibold)
                 .lineLimit(1)
 
             Spacer()
@@ -67,7 +68,7 @@ struct TerritoryBattleBanner: View {
             }
 
             Image(systemName: "chevron.right")
-                .font(.system(size: 12, weight: .semibold))
+                .responsiveFont(.caption2, weight: .semibold)
                 .foregroundColor(.secondary)
         }
         .padding(.horizontal, 16)

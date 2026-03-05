@@ -4,6 +4,7 @@ import Combine
 
 /// 会话详情地图视图 - 仅显示地图部分，用于动态流预览
 struct SessionDetailMapView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let sessionId: String
     @StateObject private var viewModel = SessionMapViewModel()
     @Environment(\.dismiss) private var dismiss

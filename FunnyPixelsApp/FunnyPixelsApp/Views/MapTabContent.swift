@@ -13,6 +13,7 @@ struct MapTabContent: View {
     @ObservedObject private var territoryBannerManager = TerritoryBannerManager.shared
     @ObservedObject private var driftBottleManager = DriftBottleManager.shared
     @ObservedObject private var gpsDrawingService = GPSDrawingService.shared
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     // Map interaction states
     @State private var isRoaming = false

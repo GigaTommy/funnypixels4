@@ -4,6 +4,7 @@ import SwiftUI
 /// 赛事活动跑马灯通知
 /// 显示用户所在城市的活动，自动轮播
 struct EventMarqueeNotification: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let events: [EventService.Event]
 
     @State private var currentIndex = 0
@@ -47,7 +48,7 @@ struct EventMarqueeNotification: View {
                             .frame(width: 32, height: 32)
 
                         Image(systemName: eventIcon)
-                            .font(.system(size: 14, weight: .semibold))
+                            .responsiveFont(.subheadline, weight: .semibold)
                             .foregroundColor(statusColor)
                             .rotationEffect(.degrees(currentIndex % 2 == 0 ? 0 : 5))
                             .animation(.easeInOut(duration: 0.3), value: currentIndex)
@@ -57,7 +58,7 @@ struct EventMarqueeNotification: View {
                         // 活动标题（跑马灯滚动）
                         GeometryReader { geo in
                             Text(currentEvent.title)
-                                .font(.system(size: 13, weight: .bold))
+                                .responsiveFont(.footnote)
                                 .foregroundColor(.primary)
                                 .lineLimit(1)
                                 .offset(x: shouldScroll ? scrollOffset : 0)
@@ -76,7 +77,7 @@ struct EventMarqueeNotification: View {
                         HStack(spacing: 6) {
                             // 状态标签
                             Text(statusText)
-                                .font(.system(size: 9, weight: .bold))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 2)
@@ -89,9 +90,9 @@ struct EventMarqueeNotification: View {
                             if let areaName = currentEvent.config?.area?.name {
                                 HStack(spacing: 2) {
                                     Image(systemName: "location.fill")
-                                        .font(.system(size: 8))
+                                        .responsiveFont(.caption2)
                                     Text(areaName)
-                                        .font(.system(size: 9))
+                                        .responsiveFont(.caption2)
                                 }
                                 .foregroundColor(.secondary)
                             }
@@ -124,7 +125,7 @@ struct EventMarqueeNotification: View {
                 }
             }) {
                 Image(systemName: "chevron.left.2")
-                    .font(.system(size: 10, weight: .semibold))
+                    .responsiveFont(.caption2)
                     .foregroundColor(.gray)
                     .frame(width: 28, height: 28)
             }
@@ -175,13 +176,13 @@ struct EventMarqueeNotification: View {
                             .frame(width: 36, height: 36)
 
                         Image(systemName: eventIcon)
-                            .font(.system(size: 16, weight: .semibold))
+                            .responsiveFont(.headline, weight: .semibold)
                             .foregroundColor(statusColor)
                     }
 
                     // 展开指示器
                     Image(systemName: "chevron.right.2")
-                        .font(.system(size: 10, weight: .semibold))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.gray)
                 }
                 .padding(6)

@@ -5,6 +5,7 @@ import Combine
 struct MapLayerControl: View {
     @StateObject private var layerSettings = MapLayerSettings.shared
     @State private var isExpanded = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         VStack(alignment: .trailing, spacing: 0) {
@@ -20,7 +21,7 @@ struct MapLayerControl: View {
                 }
             }) {
                 Image(systemName: isExpanded ? "xmark.circle.fill" : "square.stack.3d.up.fill")
-                    .font(.system(size: 20, weight: .semibold))
+                    .responsiveFont(.title2, weight: .semibold)
                     .foregroundColor(.white)
                     .frame(width: 44, height: 44)
                     .background(Color.blue)
@@ -35,7 +36,7 @@ struct MapLayerControl: View {
             // Header
             HStack {
                 Image(systemName: "square.stack.3d.up.fill")
-                    .font(.system(size: 16, weight: .semibold))
+                    .responsiveFont(.headline, weight: .semibold)
                     .foregroundColor(.blue)
 
                 Text(NSLocalizedString("map.layer.title", comment: ""))
@@ -47,7 +48,7 @@ struct MapLayerControl: View {
                     layerSettings.resetToDefault()
                 }) {
                     Text(NSLocalizedString("map.layer.reset", comment: ""))
-                        .font(.system(size: 13, weight: .medium))
+                        .responsiveFont(.caption, weight: .medium)
                         .foregroundColor(.blue)
                 }
             }
@@ -150,7 +151,7 @@ struct MapLayerControl: View {
                     .frame(width: 40, height: 40)
 
                 Image(systemName: icon)
-                    .font(.system(size: 16, weight: .semibold))
+                    .responsiveFont(.headline, weight: .semibold)
                     .foregroundColor(color)
 
                 if isLocked {
@@ -165,18 +166,18 @@ struct MapLayerControl: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 4) {
                     Text(title)
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(.primary)
 
                     if isLocked {
                         Image(systemName: "lock.fill")
-                            .font(.system(size: 10))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.secondary)
                     }
                 }
 
                 Text(subtitle)
-                    .font(.system(size: 11))
+                    .responsiveFont(.caption2)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
             }

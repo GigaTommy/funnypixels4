@@ -3,6 +3,7 @@ import SwiftUI
 
 /// 成就分享卡片视图（用于生成分享图片）
 struct AchievementShareView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let achievement: AchievementService.UserAchievement
     let userProfile: ProfileViewModel.UserProfile?
     
@@ -32,10 +33,10 @@ struct AchievementShareView: View {
                 // Logo / Branding
                 HStack {
                     Image(systemName: "paintpalette.fill")
-                        .font(.system(size: 20))
+                        .responsiveFont(.headline)
                         .foregroundColor(.white)
                     Text("FunnyPixels")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .responsiveFont(.headline)
                         .foregroundColor(.white)
                     Spacer()
                 }
@@ -72,7 +73,7 @@ struct AchievementShareView: View {
                             .frame(width: 180, height: 180)
                     } else {
                         Image(systemName: "trophy.fill")
-                            .font(.system(size: 80))
+                            .responsiveFont(.largeTitle)
                             .foregroundColor(rarityColor)
                     }
                 }
@@ -86,7 +87,7 @@ struct AchievementShareView: View {
                         .foregroundColor(.white.opacity(0.7))
                     
                     Text(NSLocalizedString(achievement.name, comment: ""))
-                        .font(.system(size: 32, weight: .heavy))
+                        .responsiveFont(.title2)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                     

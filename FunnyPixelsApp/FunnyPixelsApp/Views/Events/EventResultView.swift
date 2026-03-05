@@ -2,6 +2,7 @@ import SwiftUI
 
 /// Event Result View - Shows final rankings and rewards for ended events
 struct EventResultView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let eventId: String
 
     @State private var result: EventService.EventResult?

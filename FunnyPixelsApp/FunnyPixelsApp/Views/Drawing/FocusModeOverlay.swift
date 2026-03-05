@@ -17,6 +17,7 @@ struct FocusModeOverlay: View {
     @ObservedObject private var pixelDrawService = PixelDrawService.shared
     @ObservedObject private var locationManager = LocationManager.shared
     @ObservedObject private var interactionMonitor = UserInteractionMonitor.shared
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     @State private var showGuidance = false
     @State private var currentHeading: Double = 0
@@ -84,7 +85,7 @@ struct FocusModeOverlay: View {
 
                 // 退出提示
                 Text(NSLocalizedString("focus_mode.tap_to_exit", value: "轻触退出专注模式", comment: "Tap to exit focus mode"))
-                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .responsiveFont(.footnote)
                     .foregroundColor(.white.opacity(0.5))
                     .padding(.bottom, 60)
             }
@@ -121,19 +122,19 @@ struct FocusModeOverlay: View {
         HStack(spacing: 16) {
             // 图标
             Image(systemName: icon)
-                .font(.system(size: 24))
+                .responsiveFont(.title3)
                 .foregroundColor(.white.opacity(0.7))
                 .frame(width: 40)
 
             // 数值和单位
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 Text(value)
-                    .font(.system(size: 42, weight: .medium, design: .rounded))
+                    .responsiveFont(.largeTitle)
                     .monospacedDigit()  // 防止数字跳动
                     .foregroundColor(.white)
 
                 Text(unit)
-                    .font(.system(size: 18, weight: .regular, design: .rounded))
+                    .responsiveFont(.headline)
                     .foregroundColor(.white.opacity(0.6))
             }
 
@@ -141,7 +142,7 @@ struct FocusModeOverlay: View {
 
             // 标签
             Text(label)
-                .font(.system(size: 14, weight: .regular, design: .rounded))
+                .responsiveFont(.footnote)
                 .foregroundColor(.white.opacity(0.5))
                 .frame(width: 60, alignment: .trailing)
         }
@@ -157,15 +158,15 @@ struct FocusModeOverlay: View {
     private var guidanceToast: some View {
         VStack(spacing: 12) {
             Image(systemName: "bolt.slash.fill")
-                .font(.system(size: 32))
+                .responsiveFont(.title2)
                 .foregroundColor(.orange)
 
             Text(NSLocalizedString("focus_mode.title", value: "专注模式已启用", comment: "Focus mode enabled title"))
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .responsiveFont(.callout)
                 .foregroundColor(.white)
 
             Text(NSLocalizedString("focus_mode.description", value: "防止误触，显示核心数据", comment: "Focus mode description"))
-                .font(.system(size: 13, weight: .regular, design: .rounded))
+                .responsiveFont(.footnote)
                 .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
         }

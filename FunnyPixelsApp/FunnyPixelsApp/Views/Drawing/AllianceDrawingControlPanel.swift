@@ -5,6 +5,7 @@ import SwiftUI
 struct AllianceDrawingControlPanel: View {
     @ObservedObject var patternProvider: AllianceDrawingPatternProvider
     @ObservedObject var drawingState: DrawingStateManager
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         VStack(spacing: 8) {
@@ -35,14 +36,14 @@ struct AllianceDrawingControlPanel: View {
         }) {
             HStack(spacing: 6) {
                 Image(systemName: drawingState.isGPSDrawingActive ? "location.fill" : "location")
-                    .font(.system(size: 18))
+                    .responsiveFont(.headline)
                     .foregroundStyle(drawingState.isGPSDrawingActive ? .white : .secondary)
                     .frame(width: 32, height: 32)
 
                 Text(drawingState.isGPSDrawingActive
                      ? NSLocalizedString("drawing.gps.stop", comment: "Stop GPS drawing")
                      : NSLocalizedString("drawing.gps.start", comment: "Start GPS drawing"))
-                    .font(.system(size: 15))
+                    .responsiveFont(.subheadline)
                     .fontWeight(.medium)
                     .foregroundStyle(drawingState.isGPSDrawingActive ? .white : .secondary)
             }
@@ -132,10 +133,10 @@ struct AlliancePatternCard: View {
         case .emoji:
             if let emoji = pattern.emoji {
                 Text(emoji)
-                    .font(.system(size: 50))
+                    .responsiveFont(.largeTitle)
             } else {
                 Text("❓")
-                    .font(.system(size: 50))
+                    .responsiveFont(.largeTitle)
             }
 
         case .complex:
@@ -290,10 +291,10 @@ struct CompactAlliancePatternCard: View {
         case .emoji:
             if let emoji = pattern.emoji {
                 Text(emoji)
-                    .font(.system(size: 32))
+                    .responsiveFont(.title2)
             } else {
                 Text("❓")
-                    .font(.system(size: 32))
+                    .responsiveFont(.title2)
             }
 
         case .complex:

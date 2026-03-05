@@ -4,6 +4,7 @@ import AuthenticationServices
 /// Auth View — Fluid droplet-style login with Google as default.
 struct AuthView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) private var dismiss
     @State private var showingAgreement = false
     @State private var showingPrivacy = false
@@ -73,11 +74,11 @@ struct AuthView: View {
                 .shadow(color: AppColors.primary.opacity(0.15), radius: 12, x: 0, y: 6)
 
             Text("auth.title")
-                .font(.system(size: 28, weight: .bold, design: .rounded))
+                .responsiveFont(.title2)
                 .foregroundColor(AppColors.textPrimary)
 
             Text("auth.slogan")
-                .font(.system(size: 15, weight: .regular, design: .rounded))
+                .responsiveFont(.subheadline)
                 .foregroundColor(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, AppSpacing.xl)
@@ -99,7 +100,7 @@ struct AuthView: View {
                         .scaledToFit()
                         .frame(width: 22, height: 22)
                     Text(NSLocalizedString("auth.google.sign_in", comment: ""))
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
+                        .responsiveFont(.body)
                         .foregroundColor(.white)
                 }
                 .frame(maxWidth: .infinity)
@@ -125,10 +126,10 @@ struct AuthView: View {
             } label: {
                 HStack(spacing: AppSpacing.m) {
                     Image(systemName: "apple.logo")
-                        .font(.system(size: 20, weight: .medium))
+                        .responsiveFont(.headline)
                         .foregroundColor(AppColors.textPrimary)
                     Text(NSLocalizedString("auth.apple.sign_in", comment: ""))
-                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                        .responsiveFont(.callout)
                         .foregroundColor(AppColors.textPrimary)
                 }
                 .frame(maxWidth: .infinity)
@@ -155,7 +156,7 @@ struct AuthView: View {
                 .fill(AppColors.border)
                 .frame(height: 1)
             Text(NSLocalizedString("auth.or_continue_with", comment: ""))
-                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .responsiveFont(.caption)
                 .foregroundColor(AppColors.textTertiary)
                 .layoutPriority(1)
             Capsule()
@@ -174,7 +175,7 @@ struct AuthView: View {
                 Text(authViewModel.isLoginMode
                      ? NSLocalizedString("auth.login.tab", comment: "")
                      : NSLocalizedString("auth.join.tab", comment: ""))
-                    .font(.system(size: 18, weight: .semibold, design: .rounded))
+                    .responsiveFont(.headline)
                     .foregroundColor(AppColors.textPrimary)
 
                 Spacer()
@@ -185,7 +186,7 @@ struct AuthView: View {
                     }
                 } label: {
                     Text(authViewModel.toggleButtonText)
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .responsiveFont(.footnote)
                         .foregroundColor(AppColors.primary)
                 }
             }
@@ -205,9 +206,9 @@ struct AuthView: View {
             if let error = authViewModel.errorMessage {
                 HStack(spacing: 6) {
                     Image(systemName: "exclamationmark.circle.fill")
-                        .font(.system(size: 13))
+                        .responsiveFont(.caption)
                     Text(error)
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .responsiveFont(.footnote)
                 }
                 .foregroundColor(AppColors.error)
                 .transition(.move(edge: .top).combined(with: .opacity))
@@ -229,7 +230,7 @@ struct AuthView: View {
                             .tint(.white)
                     } else {
                         Text(NSLocalizedString(authViewModel.isLoginMode ? "auth.button.login" : "auth.button.signup", comment: ""))
-                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .responsiveFont(.callout)
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -264,28 +265,28 @@ struct AuthView: View {
             } label: {
                 Image(systemName: hasAgreedToTerms ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(hasAgreedToTerms ? AppColors.primary : AppColors.textTertiary)
-                    .font(.system(size: 20))
+                    .responsiveFont(.headline)
                     .symbolEffect(.bounce, value: hasAgreedToTerms)
             }
 
             HStack(spacing: 4) {
                 Text(LocalizedStringKey("auth.terms.prefix"))
-                    .font(.system(size: 12, weight: .regular, design: .rounded))
+                    .responsiveFont(.caption)
                     .foregroundColor(AppColors.textSecondary)
 
                 Button { showingAgreement = true } label: {
                     Text(LocalizedStringKey("auth.terms.link"))
-                        .font(.system(size: 12, weight: .semibold, design: .rounded))
+                        .responsiveFont(.caption)
                         .foregroundColor(AppColors.primary)
                 }
 
                 Text(LocalizedStringKey("auth.and"))
-                    .font(.system(size: 12, weight: .regular, design: .rounded))
+                    .responsiveFont(.caption)
                     .foregroundColor(AppColors.textSecondary)
 
                 Button { showingPrivacy = true } label: {
                     Text(LocalizedStringKey("auth.privacy.link"))
-                        .font(.system(size: 12, weight: .semibold, design: .rounded))
+                        .responsiveFont(.caption)
                         .foregroundColor(AppColors.primary)
                 }
             }
@@ -373,12 +374,12 @@ private struct FluidInput: View {
     var body: some View {
         HStack(spacing: AppSpacing.m) {
             Image(systemName: icon)
-                .font(.system(size: 15, weight: .medium))
+                .responsiveFont(.subheadline, weight: .medium)
                 .foregroundColor(AppColors.textTertiary)
                 .frame(width: 20)
 
             TextField(placeholder, text: $text)
-                .font(.system(size: 16, design: .rounded))
+                .responsiveFont(.callout)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
                 .keyboardType(keyboardType)
@@ -403,7 +404,7 @@ private struct FluidSecureInput: View {
     var body: some View {
         HStack(spacing: AppSpacing.m) {
             Image(systemName: icon)
-                .font(.system(size: 15, weight: .medium))
+                .responsiveFont(.subheadline, weight: .medium)
                 .foregroundColor(AppColors.textTertiary)
                 .frame(width: 20)
 
@@ -412,13 +413,13 @@ private struct FluidSecureInput: View {
             // destroys the focused field, preventing keyboard dismissal jank.
             ZStack {
                 TextField(placeholder, text: $text)
-                    .font(.system(size: 16, design: .rounded))
+                    .responsiveFont(.callout)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
                     .opacity(showPassword ? 1 : 0)
 
                 SecureField(placeholder, text: $text)
-                    .font(.system(size: 16, design: .rounded))
+                    .responsiveFont(.callout)
                     .opacity(showPassword ? 0 : 1)
             }
 
@@ -426,7 +427,7 @@ private struct FluidSecureInput: View {
                 showPassword.toggle()
             } label: {
                 Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(AppColors.textTertiary)
             }
         }

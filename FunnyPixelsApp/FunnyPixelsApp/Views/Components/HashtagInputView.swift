@@ -6,6 +6,7 @@ struct HashtagInputView: View {
     @State private var input = ""
     @State private var suggestions: [HashtagService.HashtagSuggestion] = []
     @State private var showSuggestions = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @FocusState private var isFocused: Bool
 
     let maxHashtags: Int
@@ -126,7 +127,7 @@ struct HashtagInputView: View {
                 removeHashtag(tag)
             } label: {
                 Image(systemName: FeedDesign.Icon.close)
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(FeedDesign.Colors.textTertiary)
             }
         }

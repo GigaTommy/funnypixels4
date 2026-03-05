@@ -4,6 +4,7 @@ import Combine
 /// View for sharing invite code and viewing referral stats
 struct InviteFriendsView: View {
     @StateObject private var viewModel = InviteFriendsViewModel()
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) var dismiss
 
     var body: some View {

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct EventDetailView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let event: EventService.Event
     @State private var userStatus: EventService.UserEventStatus?
     @State private var isLoading = false

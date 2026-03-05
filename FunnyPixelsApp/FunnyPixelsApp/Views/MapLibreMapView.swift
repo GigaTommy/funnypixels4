@@ -239,6 +239,7 @@ public struct MapLibreMapView: View {
 
 // 选中高亮视图 (Pulsing Selection)
 struct SelectionHighlightView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let point: CGPoint
     let color: Color?
     

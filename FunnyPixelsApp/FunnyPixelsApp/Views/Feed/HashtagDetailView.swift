@@ -3,6 +3,7 @@ import Combine
 
 /// 话题详情页 - 显示某个话题下的所有动态
 struct HashtagDetailView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let hashtag: String
 
     @StateObject private var viewModel = HashtagDetailViewModel()

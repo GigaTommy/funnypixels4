@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ShopWalletIcon: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     var size: CGFloat = 24
     var color: Color = Color(red: 1.0, green: 0.84, blue: 0.0) // Gold
     

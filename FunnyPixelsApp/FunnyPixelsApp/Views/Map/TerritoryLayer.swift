@@ -5,6 +5,7 @@ import CoreLocation
 // MARK: - Territory Data Models
 
 struct TerritoryCell: Codable, Identifiable {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     var id: String { "\(lat),\(lng)" }
     let lat: Double
     let lng: Double
@@ -93,10 +94,10 @@ struct TerritoryDetailCard: View {
         VStack(spacing: 12) {
             HStack {
                 Image(systemName: "flag.2.crossed.fill")
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(.purple)
                 Text(NSLocalizedString("territory.detail_title", comment: "Territory Control"))
-                    .font(.system(size: 15, weight: .semibold))
+                    .responsiveFont(.subheadline, weight: .semibold)
                     .foregroundColor(AppColors.textPrimary)
                 Spacer()
                 Button { onDismiss?() } label: {
@@ -109,7 +110,7 @@ struct TerritoryDetailCard: View {
             // Total pixels
             HStack {
                 Text(NSLocalizedString("territory.total_pixels", comment: "Total Pixels"))
-                    .font(.system(size: 12))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textSecondary)
                 Spacer()
                 Text("\(detail.totalPixels)")
@@ -127,14 +128,14 @@ struct TerritoryDetailCard: View {
                         .frame(width: 10, height: 10)
 
                     Text(alliance.allianceName)
-                        .font(.system(size: 13, weight: .medium))
+                        .responsiveFont(.caption, weight: .medium)
                         .foregroundColor(AppColors.textPrimary)
                         .lineLimit(1)
 
                     Spacer()
 
                     Text("\(alliance.pixelCount) px")
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textSecondary)
 
                     Text("\(alliance.percentage)%")

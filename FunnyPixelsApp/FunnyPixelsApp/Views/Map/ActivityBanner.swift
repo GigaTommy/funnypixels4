@@ -7,6 +7,7 @@ struct ActivityBanner: View {
     @State private var currentIndex = 0
     @State private var rotationTimer: Timer?
     @State private var showBanner = true
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     let onNavigate: (MapNotification.Location) -> Void
 
@@ -39,7 +40,7 @@ struct ActivityBanner: View {
                 HStack(spacing: 12) {
                     // Icon
                     Image(systemName: notification.type.iconName)
-                        .font(.system(size: 16, weight: .semibold))
+                        .responsiveFont(.headline, weight: .semibold)
                         .foregroundColor(.white)
                         .frame(width: 24, height: 24)
 
@@ -47,18 +48,18 @@ struct ActivityBanner: View {
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(spacing: 6) {
                             Text(notification.title)
-                                .font(.system(size: 14, weight: .semibold))
+                                .responsiveFont(.subheadline, weight: .semibold)
                                 .foregroundColor(.white)
 
                             if let timeString = notification.formattedTime {
                                 Text("剩余 \(timeString)")
-                                    .font(.system(size: 12, weight: .medium))
+                                    .responsiveFont(.caption2, weight: .medium)
                                     .foregroundColor(.white.opacity(0.9))
                             }
                         }
 
                         Text(notification.message)
-                            .font(.system(size: 13))
+                            .responsiveFont(.caption)
                             .foregroundColor(.white.opacity(0.95))
                             .lineLimit(1)
                     }
@@ -74,7 +75,7 @@ struct ActivityBanner: View {
                                 }
                             }) {
                                 Text("查看")
-                                    .font(.system(size: 13, weight: .medium))
+                                    .responsiveFont(.caption, weight: .medium)
                                     .foregroundColor(.white)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
@@ -87,7 +88,7 @@ struct ActivityBanner: View {
                             dismissCurrentNotification()
                         }) {
                             Image(systemName: "xmark")
-                                .font(.system(size: 12, weight: .semibold))
+                                .responsiveFont(.caption2, weight: .semibold)
                                 .foregroundColor(.white.opacity(0.8))
                                 .frame(width: 24, height: 24)
                         }

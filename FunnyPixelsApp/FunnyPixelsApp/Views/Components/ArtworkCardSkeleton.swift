@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ArtworkCardSkeleton: View {
     @State private var isAnimating = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

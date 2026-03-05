@@ -3,6 +3,7 @@ import SwiftUI
 
 /// 紧凑型成就徽章视图（用于个人主页展示）
 struct AchievementBadgeView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let achievement: AchievementService.UserAchievement
     
     var body: some View {

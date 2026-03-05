@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AllianceApplicationsView: View {
     @ObservedObject var viewModel: AllianceViewModel
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let allianceId: Int
     @State private var reviewMessage: String = ""
     @State private var showingReviewSheet = false
@@ -35,7 +36,7 @@ struct AllianceApplicationsView: View {
             if let error = viewModel.applicationsError, viewModel.applications.isEmpty {
                 VStack(spacing: 16) {
                     Image(systemName: "exclamationmark.triangle")
-                        .font(.system(size: 40))
+                        .responsiveFont(.largeTitle)
                         .foregroundColor(.secondary)
                     Text(error)
                         .font(.subheadline)
@@ -151,23 +152,23 @@ struct ApplicationRow: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(application.username)
-                        .font(.system(size: 16, weight: .semibold))
+                        .responsiveFont(.headline, weight: .semibold)
 
                     HStack(spacing: 8) {
                         if let totalPixels = application.totalPixels {
                             Label("\(totalPixels)", systemImage: "square.grid.3x3.fill")
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(.secondary)
                         }
                         if let currentPixels = application.currentPixels {
                             Label("\(currentPixels)", systemImage: "square.grid.2x2.fill")
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(.secondary)
                         }
                     }
 
                     Text(formatDate(application.createdAt))
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                 }
 
@@ -177,7 +178,7 @@ struct ApplicationRow: View {
                     HStack(spacing: 8) {
                         Button(action: onReject) {
                             Text(NSLocalizedString("common.reject", comment: "Reject"))
-                                .font(.system(size: 13, weight: .bold))
+                                .responsiveFont(.footnote)
                                 .foregroundColor(.red)
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 6)
@@ -187,7 +188,7 @@ struct ApplicationRow: View {
 
                         Button(action: onApprove) {
                             Text(NSLocalizedString("common.approve", comment: "Approve"))
-                                .font(.system(size: 13, weight: .bold))
+                                .responsiveFont(.footnote)
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 6)
@@ -197,7 +198,7 @@ struct ApplicationRow: View {
                     }
                 } else {
                     Text(statusDisplayName(application.status))
-                        .font(.system(size: 13, weight: .bold))
+                        .responsiveFont(.footnote)
                         .foregroundColor(statusColor(application.status))
                         .padding(.horizontal, 8)
                         .padding(.vertical, 3)

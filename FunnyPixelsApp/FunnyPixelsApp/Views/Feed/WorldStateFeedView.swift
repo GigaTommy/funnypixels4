@@ -4,6 +4,7 @@ struct WorldStateFeedView: View {
     @StateObject private var viewModel = WorldStateFeedViewModel()
     @EnvironmentObject var appState: AppState
     @State private var selectedFilter = "all"
+    @ObservedObject private var fontManager = FontSizeManager.shared
     
     // Navigation states
     @State private var selectedUserId: String?
@@ -160,7 +161,7 @@ struct WorldStateFeedView: View {
         VStack {
             if showToast {
                 Text(toastMessage)
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(.white)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)

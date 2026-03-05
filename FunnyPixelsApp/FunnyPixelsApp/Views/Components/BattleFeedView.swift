@@ -5,6 +5,7 @@ import CoreLocation
 /// 领土动态 - 半屏 Feed 列表
 struct BattleFeedView: View {
     @StateObject private var viewModel = BattleFeedViewModel()
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -95,10 +96,10 @@ struct BattleCardView: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(battle.attacker_name ?? "未知用户")
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
 
                     Text(battle.timeAgo)
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                 }
 
@@ -108,7 +109,7 @@ struct BattleCardView: View {
                 HStack(spacing: 4) {
                     colorSwatch(battle.old_color)
                     Image(systemName: "arrow.right")
-                        .font(.system(size: 10))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                     colorSwatch(battle.new_color)
                 }
@@ -118,10 +119,10 @@ struct BattleCardView: View {
             if let region = battle.region_name, !region.isEmpty {
                 HStack(spacing: 4) {
                     Image(systemName: "mappin")
-                        .font(.system(size: 10))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                     Text(region)
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                         .lineLimit(1)
                 }
@@ -134,9 +135,9 @@ struct BattleCardView: View {
                 Button(action: onReclaim) {
                     HStack(spacing: 4) {
                         Image(systemName: "flag.fill")
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                         Text(NSLocalizedString("battle.reclaim", comment: ""))
-                            .font(.system(size: 13, weight: .semibold))
+                            .responsiveFont(.caption, weight: .semibold)
                     }
                     .foregroundColor(.white)
                     .padding(.horizontal, 16)

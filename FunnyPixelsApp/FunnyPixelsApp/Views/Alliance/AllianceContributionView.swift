@@ -4,6 +4,7 @@ import Combine
 // MARK: - Alliance Contribution Ranking Section
 
 struct AllianceContributionSection: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let allianceId: Int
     @StateObject private var viewModel = AllianceContributionViewModel()
 
@@ -12,11 +13,11 @@ struct AllianceContributionSection: View {
             // Header
             HStack {
                 Image(systemName: "trophy.fill")
-                    .font(.system(size: 14, weight: .semibold))
+                    .responsiveFont(.subheadline, weight: .semibold)
                     .foregroundColor(.orange)
 
                 Text(NSLocalizedString("alliance.contribution.title", comment: "Contribution Ranking"))
-                    .font(.system(size: 14, weight: .semibold))
+                    .responsiveFont(.subheadline, weight: .semibold)
                     .foregroundColor(AppColors.textPrimary)
 
                 Spacer()
@@ -26,9 +27,9 @@ struct AllianceContributionSection: View {
                 } label: {
                     HStack(spacing: 2) {
                         Text(NSLocalizedString("alliance.contribution.view_all", comment: "View All"))
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                         Image(systemName: "chevron.right")
-                            .font(.system(size: 9))
+                            .responsiveFont(.caption2)
                     }
                     .foregroundColor(.secondary)
                 }
@@ -40,7 +41,7 @@ struct AllianceContributionSection: View {
                     .padding()
             } else if viewModel.contributions.isEmpty {
                 Text(NSLocalizedString("alliance.contribution.empty", comment: "No contributions yet"))
-                    .font(.system(size: 13))
+                    .responsiveFont(.caption)
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -84,25 +85,25 @@ struct ContributionRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 4) {
                     Text(entry.displayName ?? entry.username)
-                        .font(.system(size: 13, weight: entry.isCurrentUser ? .bold : .medium))
+                        .responsiveFont(.footnote)
                         .foregroundColor(entry.isCurrentUser ? AppColors.primary : AppColors.textPrimary)
                         .lineLimit(1)
 
                     if entry.role == "leader" {
                         Image(systemName: "crown.fill")
-                            .font(.system(size: 8))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.orange)
                     }
                 }
 
                 HStack(spacing: 8) {
                     Label("\(entry.totalPixels)", systemImage: "square.grid.3x3.fill")
-                        .font(.system(size: 10))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
 
                     if entry.checkinCount > 0 {
                         Label("\(entry.checkinCount)", systemImage: "calendar.badge.checkmark")
-                            .font(.system(size: 10))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -134,7 +135,7 @@ struct ContributionRow: View {
         let name = entry.displayName ?? entry.username
         let initial = String(name.prefix(1)).uppercased()
         return Text(initial)
-            .font(.system(size: 13, weight: .bold))
+            .responsiveFont(.footnote)
             .foregroundColor(.white)
             .frame(width: 32, height: 32)
             .background(Color.blue.opacity(0.6))
@@ -145,12 +146,12 @@ struct ContributionRow: View {
         Group {
             if rank <= 3 {
                 Image(systemName: "medal.fill")
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(rankColor(rank))
                     .frame(width: 24)
             } else {
                 Text("\(rank)")
-                    .font(.system(size: 12, weight: .bold))
+                    .responsiveFont(.caption)
                     .foregroundColor(.secondary)
                     .frame(width: 24)
             }

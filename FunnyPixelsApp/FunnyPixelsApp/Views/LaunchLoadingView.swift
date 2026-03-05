@@ -14,6 +14,7 @@ struct LaunchLoadingView: View {
     @State private var showContent = false
     @State private var currentTip = ""
     @State private var dotPhase: CGFloat = 0
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var tips: [String] {
         [
@@ -83,7 +84,7 @@ struct LaunchLoadingView: View {
                 if !currentTip.isEmpty {
                     HStack(spacing: 8) {
                         Image(systemName: "lightbulb.fill")
-                            .font(.system(size: 13))
+                            .responsiveFont(.caption)
                             .foregroundColor(AppColors.primary.opacity(0.5))
 
                         Text(currentTip)

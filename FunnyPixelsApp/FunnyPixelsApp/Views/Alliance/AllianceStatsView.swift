@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AllianceStatsView: View {
     @ObservedObject var viewModel: AllianceViewModel
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let allianceId: Int
     @Environment(\.dismiss) private var dismiss
 
@@ -154,7 +155,7 @@ struct AllianceStatsView: View {
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading) {
                     Text("\(real)")
-                        .font(.system(size: 24, weight: .bold))
+                        .responsiveFont(.title2, weight: .bold)
                         .foregroundColor(.primary)
                     Text(NSLocalizedString("alliance.stats.real", comment: "Real"))
                         .font(.caption2)
@@ -165,7 +166,7 @@ struct AllianceStatsView: View {
 
                 VStack(alignment: .trailing) {
                     Text("\(delta)")
-                        .font(.system(size: 16, weight: .medium))
+                        .responsiveFont(.headline, weight: .medium)
                         .foregroundColor(.red)
                     Text(NSLocalizedString("alliance.stats.prop_contribution", comment: "From Items"))
                         .font(.caption2)
@@ -216,16 +217,16 @@ private struct StatItem: View {
                     .fill(color.opacity(0.1))
                     .frame(width: 36, height: 36)
                 Image(systemName: icon)
-                    .font(.system(size: 16))
+                    .responsiveFont(.headline)
                     .foregroundColor(color)
             }
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.system(size: 12))
+                    .responsiveFont(.caption2)
                     .foregroundColor(.secondary)
                 Text(value)
-                    .font(.system(size: 18, weight: .bold))
+                    .responsiveFont(.title3, weight: .bold)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -244,13 +245,13 @@ private struct InfluenceItem: View {
                 Image(systemName: icon)
                     .foregroundColor(color)
                 Text(title)
-                    .font(.system(size: 13))
+                    .responsiveFont(.caption)
                     .foregroundColor(.secondary)
                 Spacer()
             }
 
             Text(value)
-                .font(.system(size: 24, weight: .bold))
+                .responsiveFont(.title2, weight: .bold)
         }
         .padding()
         .frame(maxWidth: .infinity)

@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 联盟选择弹窗
 struct AllianceSelectionSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let alliances: [AllianceService.Alliance]
     let onSelect: (AllianceService.Alliance) -> Void
     @Environment(\.dismiss) private var dismiss
@@ -22,7 +23,7 @@ struct AllianceSelectionSheet: View {
                              if let renderType = alliance.flagRenderType,
                                 (renderType == "emoji" || renderType == "color"),
                                 let char = alliance.flagUnicodeChar {
-                                 Text(char).font(.system(size: 16))
+                                 Text(char).responsiveFont(.headline)
                              } else if let renderType = alliance.flagRenderType,
                                        renderType == "complex",
                                        let payload = alliance.flagPayload {
@@ -36,12 +37,12 @@ struct AllianceSelectionSheet: View {
                                          .frame(width: 24, height: 24)
                                  } else {
                                      Image(systemName: "flag.fill")
-                                         .font(.system(size: 14))
+                                         .responsiveFont(.subheadline)
                                          .foregroundColor(resolveAllianceColor(alliance))
                                  }
                              } else {
                                  Image(systemName: "flag.fill")
-                                     .font(.system(size: 14))
+                                     .responsiveFont(.subheadline)
                                      .foregroundColor(resolveAllianceColor(alliance))
                              }
                          }

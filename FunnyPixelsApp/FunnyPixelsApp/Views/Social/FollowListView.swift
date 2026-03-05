@@ -3,6 +3,7 @@ import Combine
 
 /// 关注/粉丝列表页
 struct FollowListView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let userId: String
     let initialTab: Int // 0=following, 1=followers
 
@@ -67,7 +68,7 @@ struct FollowListView: View {
         .overlay(alignment: .top) {
             if let toast = viewModel.toastMessage {
                 Text(toast)
-                    .font(.system(size: 14, weight: .semibold))
+                    .responsiveFont(.subheadline, weight: .semibold)
                     .foregroundColor(.white)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
@@ -93,7 +94,7 @@ struct FollowListView: View {
             Text(selectedTab == 0
                  ? NSLocalizedString("social.following.empty", comment: "Not following anyone yet")
                  : NSLocalizedString("social.followers.empty", comment: "No followers yet"))
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .foregroundColor(.secondary)
             Spacer()
         }
@@ -121,7 +122,7 @@ struct UserListRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 4) {
                     Text(user.displayOrUsername)
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(AppColors.textPrimary)
                         .lineLimit(1)
 
@@ -134,12 +135,12 @@ struct UserListRow: View {
 
                 if let motto = user.motto, !motto.isEmpty {
                     Text(motto)
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                         .lineLimit(1)
                 } else if let pixels = user.totalPixels, pixels > 0 {
                     Text("\(pixels) px")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                 }
             }
@@ -152,7 +153,7 @@ struct UserListRow: View {
                     Text(user.isFollowing == true
                          ? NSLocalizedString("social.following_btn", comment: "Following")
                          : NSLocalizedString("social.follow_btn", comment: "Follow"))
-                        .font(.system(size: 12, weight: .semibold))
+                        .responsiveFont(.caption2, weight: .semibold)
                         .foregroundColor(user.isFollowing == true ? .secondary : .white)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 6)

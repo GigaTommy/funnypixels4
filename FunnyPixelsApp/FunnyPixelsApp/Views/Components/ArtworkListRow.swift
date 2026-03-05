@@ -3,6 +3,7 @@ import SwiftUI
 
 /// 作品列表行 - 列表视图模式下的单行展示组件
 struct ArtworkListRow: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let session: DrawingSession
     @StateObject private var thumbnailLoader: ArtworkThumbnailLoader
     

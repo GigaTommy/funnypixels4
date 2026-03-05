@@ -3,6 +3,7 @@ import SwiftUI
 /// 数据仪表盘主页
 struct DataDashboardView: View {
     @StateObject private var viewModel = DashboardViewModel()
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         ScrollView {
@@ -58,7 +59,7 @@ struct DataDashboardView: View {
         VStack(spacing: AppSpacing.l) {
             Spacer()
             Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 48))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(.orange)
             Text(NSLocalizedString("dashboard.error.title", comment: "Failed to load"))
                 .font(AppTypography.headline())
@@ -92,7 +93,7 @@ struct DataDashboardView: View {
         VStack(spacing: AppSpacing.l) {
             Spacer()
             Image(systemName: "paintbrush.pointed")
-                .font(.system(size: 48))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(AppColors.textTertiary)
             Text(NSLocalizedString("dashboard.empty.title", comment: "No Data Yet"))
                 .font(AppTypography.headline())
@@ -161,7 +162,7 @@ struct DashboardStatCard: View {
     var body: some View {
         VStack(spacing: AppSpacing.s) {
             Image(systemName: icon)
-                .font(.system(size: 22))
+                .responsiveFont(.title3)
                 .foregroundColor(color)
             Text(value)
                 .font(AppTypography.headline())
@@ -236,7 +237,7 @@ struct HeatmapCalendarView: View {
         // Legend
         HStack(spacing: 4) {
             Text(NSLocalizedString("dashboard.heatmap.less", comment: "Less"))
-                .font(.system(size: 10))
+                .responsiveFont(.caption2)
                 .foregroundColor(AppColors.textTertiary)
             ForEach(0..<5, id: \.self) { level in
                 Rectangle()
@@ -245,7 +246,7 @@ struct HeatmapCalendarView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 2))
             }
             Text(NSLocalizedString("dashboard.heatmap.more", comment: "More"))
-                .font(.system(size: 10))
+                .responsiveFont(.caption2)
                 .foregroundColor(AppColors.textTertiary)
         }
     }
@@ -302,7 +303,7 @@ struct TrendBarChart: View {
                         )
 
                     Text(point.label)
-                        .font(.system(size: 8))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
                         .lineLimit(1)
                 }
@@ -341,7 +342,7 @@ struct CityFootprintList: View {
                             .fontWeight(.semibold)
                             .foregroundColor(AppColors.secondary)
                         Text("\(city.session_count) \(NSLocalizedString("dashboard.cities.sessions", comment: "sessions"))")
-                            .font(.system(size: 10))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                     }
                 }

@@ -4,6 +4,7 @@ import SwiftUI
 struct SocialFeedView: View {
     @StateObject private var viewModel = FeedViewModel()
     @State private var selectedCommentItem: FeedService.FeedItem?
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         VStack(spacing: 0) {
@@ -163,7 +164,7 @@ struct FilterChip: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 15, weight: .semibold))  // ✅ 与CapsuleTabPicker相同字体
+                .responsiveFont(.subheadline, weight: .semibold)  // ✅ 与CapsuleTabPicker相同字体
                 .foregroundColor(isSelected ? .white : AppColors.textSecondary)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)

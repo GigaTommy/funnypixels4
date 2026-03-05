@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HelpFeedbackView: View {
     @State private var selectedTab = 0
+    @ObservedObject private var fontManager = FontSizeManager.shared
     
     var body: some View {
         VStack(spacing: 0) {

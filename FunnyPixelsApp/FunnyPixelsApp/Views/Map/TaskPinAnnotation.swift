@@ -3,6 +3,7 @@ import MapLibre
 
 /// Map task pin annotation with pulse animation and progress ring
 struct TaskPinAnnotation: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let task: DailyTaskService.DailyTask
     @State private var isPulsing = false
 
@@ -52,7 +53,7 @@ struct TaskPinAnnotation: View {
 
                 // Task icon
                 taskIcon
-                    .font(.system(size: 18, weight: .semibold))
+                    .responsiveFont(.title3, weight: .semibold)
                     .foregroundColor(.white)
             }
         }
@@ -153,16 +154,16 @@ struct TaskDetailCard: View {
             // Header
             HStack {
                 Image(systemName: taskIcon)
-                    .font(.system(size: 20, weight: .semibold))
+                    .responsiveFont(.title2, weight: .semibold)
                     .foregroundColor(difficultyColor)
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(task.title)
-                        .font(.system(size: 16, weight: .semibold))
+                        .responsiveFont(.headline, weight: .semibold)
 
                     if let difficulty = task.difficulty {
                         Text(difficultyText(difficulty))
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -180,18 +181,18 @@ struct TaskDetailCard: View {
 
             // Description
             Text(task.description)
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .foregroundColor(.secondary)
 
             // Location info
             if let locationName = task.locationName, let radius = task.locationRadius {
                 HStack(spacing: 6) {
                     Image(systemName: "location.fill")
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.blue)
 
                     Text("\(locationName) " + String(format: NSLocalizedString("task.location.radius_meters", comment: ""), radius))
-                        .font(.system(size: 13))
+                        .responsiveFont(.caption)
                         .foregroundColor(.secondary)
                 }
             }
@@ -200,12 +201,12 @@ struct TaskDetailCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
                     Text(NSLocalizedString("task.progress.label", comment: ""))
-                        .font(.system(size: 13, weight: .medium))
+                        .responsiveFont(.caption, weight: .medium)
 
                     Spacer()
 
                     Text("\(task.current)/\(task.target)")
-                        .font(.system(size: 13, weight: .semibold))
+                        .responsiveFont(.caption, weight: .semibold)
                         .foregroundColor(task.isCompleted ? .green : .primary)
                 }
 
@@ -229,11 +230,11 @@ struct TaskDetailCard: View {
             // Reward
             HStack(spacing: 6) {
                 Image(systemName: "star.fill")
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(.orange)
 
                 Text(String(format: NSLocalizedString("task.reward.points", comment: ""), task.rewardPoints))
-                    .font(.system(size: 13, weight: .medium))
+                    .responsiveFont(.caption, weight: .medium)
             }
 
             // Action buttons
@@ -244,7 +245,7 @@ struct TaskDetailCard: View {
                             Image(systemName: "location.fill")
                             Text(NSLocalizedString("task.action.navigate", comment: ""))
                         }
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
@@ -262,7 +263,7 @@ struct TaskDetailCard: View {
                             Image(systemName: "gift.fill")
                             Text(NSLocalizedString("task.action.claim_reward", comment: ""))
                         }
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)

@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 旗帜选择器 — 替代 AllianceSelectionSheet，支持个人颜色/头像 + 联盟旗帜
 struct FlagSelectionSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let personalColor: String
     let hasPixelAvatar: Bool
     let avatarData: String?
@@ -90,7 +91,7 @@ struct FlagSelectionSheet: View {
                                         if let renderType = alliance.flagRenderType,
                                            (renderType == "emoji" || renderType == "color"),
                                            let char = alliance.flagUnicodeChar {
-                                            Text(char).font(.system(size: 16))
+                                            Text(char).responsiveFont(.headline)
                                         } else if let renderType = alliance.flagRenderType,
                                                   renderType == "complex",
                                                   let payload = alliance.flagPayload {
@@ -103,12 +104,12 @@ struct FlagSelectionSheet: View {
                                                     .frame(width: 24, height: 24)
                                             } else {
                                                 Image(systemName: "flag.fill")
-                                                    .font(.system(size: 14))
+                                                    .responsiveFont(.subheadline)
                                                     .foregroundColor(resolveAllianceColor(alliance))
                                             }
                                         } else {
                                             Image(systemName: "flag.fill")
-                                                .font(.system(size: 14))
+                                                .responsiveFont(.subheadline)
                                                 .foregroundColor(resolveAllianceColor(alliance))
                                         }
                                     }

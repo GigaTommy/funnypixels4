@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 地图上的漂流瓶标记视图
 struct BottleMapMarkerView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let marker: BottleMapMarker
     @State private var isPulsing = false
     @State private var showDetail = false

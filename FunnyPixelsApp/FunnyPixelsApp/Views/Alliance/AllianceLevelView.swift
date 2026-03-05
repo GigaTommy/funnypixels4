@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - Alliance Level Badge
 
 struct AllianceLevelBadge: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let level: Int
     let levelName: String?
 
@@ -97,7 +98,7 @@ struct AllianceLevelProgressBar: View {
             // Labels
             HStack {
                 Text(formatExp(experience))
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(.secondary)
                 Spacer()
                 if isMaxLevel {
@@ -106,7 +107,7 @@ struct AllianceLevelProgressBar: View {
                         .foregroundColor(.orange)
                 } else {
                     Text(formatExp(nextLevelExp))
-                        .font(.system(size: 10))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                 }
             }
@@ -155,13 +156,13 @@ struct AllianceLevelCard: View {
                 AllianceLevelBadge(level: level, levelName: levelName)
 
                 Text(levelName)
-                    .font(.system(size: 13, weight: .semibold))
+                    .responsiveFont(.caption, weight: .semibold)
                     .foregroundColor(AppColors.textPrimary)
 
                 Spacer()
 
                 Text("\(Int(progress * 100))%")
-                    .font(.system(size: 12, weight: .medium))
+                    .responsiveFont(.caption2, weight: .medium)
                     .foregroundColor(.secondary)
             }
 

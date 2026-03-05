@@ -4,6 +4,7 @@ import WebKit
 /// 协议/政策查看器弹窗
 /// 在应用内展示用户协议、隐私政策等HTML内容
 struct PolicyViewerSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let title: String
     let url: String
     @Environment(\.dismiss) private var dismiss

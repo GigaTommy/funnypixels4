@@ -23,6 +23,7 @@ struct JourneyCardListView: View {
     @State private var hasMore = true
     @State private var selectedBottleId: String?
     @State private var filterMode: CardFilter = .all
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     private let api = DriftBottleAPIService.shared
 
@@ -109,15 +110,15 @@ struct JourneyCardListView: View {
     private var emptyView: some View {
         VStack(spacing: 16) {
             Image(systemName: "map.fill")
-                .font(.system(size: 40))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(AppColors.textTertiary)
 
             Text(NSLocalizedString("drift_bottle.journey_list.empty.title", comment: ""))
-                .font(.system(size: 16, weight: .medium))
+                .responsiveFont(.headline, weight: .medium)
                 .foregroundColor(AppColors.textSecondary)
 
             Text(NSLocalizedString("drift_bottle.journey_list.empty.message", comment: ""))
-                .font(.system(size: 13))
+                .responsiveFont(.caption)
                 .foregroundColor(AppColors.textTertiary)
                 .multilineTextAlignment(.center)
         }
@@ -126,11 +127,11 @@ struct JourneyCardListView: View {
     private var filteredEmptyView: some View {
         VStack(spacing: 12) {
             Image(systemName: "line.3.horizontal.decrease.circle")
-                .font(.system(size: 36))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(AppColors.textTertiary)
 
             Text(NSLocalizedString("drift_bottle.filter.empty", comment: ""))
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .foregroundColor(AppColors.textSecondary)
         }
     }
@@ -183,7 +184,7 @@ struct JourneyCardRowView: View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
                     Text("\(card.originCity ?? "?") → ...")
-                        .font(.system(size: 15, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(AppColors.textPrimary)
                         .lineLimit(1)
 
@@ -196,7 +197,7 @@ struct JourneyCardRowView: View {
 
                 HStack(spacing: 6) {
                     Text(card.participantRole == "creator" ? NSLocalizedString("drift_bottle.role.creator", comment: "") : String(format: NSLocalizedString("drift_bottle.station_number", comment: ""), card.stationNumber))
-                        .font(.system(size: 11, weight: .medium))
+                        .responsiveFont(.caption2)
                         .foregroundColor(card.participantRole == "creator" ? .blue : .green)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
@@ -208,7 +209,7 @@ struct JourneyCardRowView: View {
 
                     if card.isSunk == true {
                         Label(NSLocalizedString("drift_bottle.journey.sunk", comment: ""), systemImage: "water.waves")
-                            .font(.system(size: 11, weight: .medium))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.blue)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
@@ -218,12 +219,12 @@ struct JourneyCardRowView: View {
                     }
 
                     Text("\(String(format: "%.1f", card.distanceKm))km")
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
 
                     if let days = card.totalDays {
                         Text(String(format: NSLocalizedString("drift_bottle.days_count", comment: ""), days))
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                     }
                 }
@@ -234,11 +235,11 @@ struct JourneyCardRowView: View {
             if let totalStations = card.totalStations {
                 VStack(spacing: 2) {
                     Text(String(format: NSLocalizedString("drift_bottle.journey.stations", comment: ""), totalStations))
-                        .font(.system(size: 12, weight: .medium))
+                        .responsiveFont(.caption2, weight: .medium)
                         .foregroundColor(AppColors.textSecondary)
                     if let country = card.originCountry, !country.isEmpty {
                         Text(country)
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                             .lineLimit(1)
                     }

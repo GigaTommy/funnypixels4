@@ -4,6 +4,7 @@ import CoreLocation
 
 /// A simple location picker using MapKit (Modern API)
 struct TestLocationPickerView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) var dismiss
 
     @State private var position: MapCameraPosition
@@ -70,7 +71,7 @@ struct TestLocationPickerView: View {
                         
                         Button(action: zoomIn) {
                             Image(systemName: "plus")
-                                .font(.system(size: 20, weight: .semibold))
+                                .responsiveFont(.title2, weight: .semibold)
                                 .foregroundColor(.blue)
                                 .frame(width: 44, height: 44)
                                 .background(Color.white)
@@ -80,7 +81,7 @@ struct TestLocationPickerView: View {
                         
                         Button(action: zoomOut) {
                             Image(systemName: "minus")
-                                .font(.system(size: 20, weight: .semibold))
+                                .responsiveFont(.title2, weight: .semibold)
                                 .foregroundColor(.blue)
                                 .frame(width: 44, height: 44)
                                 .background(Color.white)
@@ -102,14 +103,14 @@ struct TestLocationPickerView: View {
                     VStack(spacing: 4) {
                         // 地址名称
                         Text(locationName)
-                            .font(.system(size: 14, weight: .medium))
+                            .responsiveFont(.subheadline, weight: .medium)
                             .foregroundColor(.primary)
                             .multilineTextAlignment(.center)
                             .lineLimit(2)
 
                         // 坐标
                         Text(String(format: "%.6f, %.6f", currentCenter.latitude, currentCenter.longitude))
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.secondary)
                     }
                     .padding(.horizontal, 12)

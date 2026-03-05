@@ -4,6 +4,7 @@ import CoreLocation
 
 struct RegionInfoBar: View {
     @StateObject private var viewModel = RegionInfoViewModel()
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         if viewModel.isLoading && !viewModel.hasData {
@@ -30,10 +31,10 @@ struct RegionInfoBar: View {
                 if !viewModel.regionName.isEmpty {
                     HStack(spacing: 4) {
                         Image(systemName: "mappin.circle.fill")
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.primary)
                         Text(viewModel.regionName)
-                            .font(.system(size: 12, weight: .medium))
+                            .responsiveFont(.caption2, weight: .medium)
                             .foregroundColor(AppColors.textPrimary)
                             .lineLimit(1)
                     }
@@ -48,7 +49,7 @@ struct RegionInfoBar: View {
                             .fill(Color.green)
                             .frame(width: 5, height: 5)
                         Text("\(viewModel.activePlayers)")
-                            .font(.system(size: 11, weight: .medium))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textSecondary)
                     }
                 }
@@ -57,10 +58,10 @@ struct RegionInfoBar: View {
                 if viewModel.totalPixels > 0 {
                     HStack(spacing: 3) {
                         Image(systemName: "square.grid.3x3.fill")
-                            .font(.system(size: 9))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                         Text(formatPixels(viewModel.totalPixels))
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                     }
                 }
@@ -69,10 +70,10 @@ struct RegionInfoBar: View {
                 if let alliance = viewModel.controllingAlliance {
                     HStack(spacing: 3) {
                         Image(systemName: "flag.fill")
-                            .font(.system(size: 9))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.orange)
                         Text(alliance.name)
-                            .font(.system(size: 11, weight: .medium))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textSecondary)
                             .lineLimit(1)
                     }

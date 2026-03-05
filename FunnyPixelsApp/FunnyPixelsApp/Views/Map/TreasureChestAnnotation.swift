@@ -4,6 +4,7 @@ import Combine
 
 /// Treasure chest annotation with distance-based styling
 struct TreasureChestAnnotation: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let chest: TreasureChest
     @State private var isAnimating = false
 

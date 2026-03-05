@@ -3,6 +3,7 @@ import MapKit
 
 /// 会话回放视图
 struct SessionReplayView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let pixels: [SessionPixel]
     @Environment(\.dismiss) var dismiss
     

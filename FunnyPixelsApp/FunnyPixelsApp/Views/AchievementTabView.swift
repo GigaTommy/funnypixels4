@@ -10,6 +10,7 @@ struct AchievementTabView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showShareSheet = false
     @State private var shareImage: UIImage?
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.displayScale) var displayScale
 
     var body: some View {
@@ -616,7 +617,7 @@ struct AchievementCelebrationOverlay: View {
                     .foregroundColor(.orange)
 
                 Text(message)
-                    .font(.system(size: 18, weight: .bold))
+                    .responsiveFont(.title3, weight: .bold)
                     .foregroundColor(AppColors.textPrimary)
                     .multilineTextAlignment(.center)
             }

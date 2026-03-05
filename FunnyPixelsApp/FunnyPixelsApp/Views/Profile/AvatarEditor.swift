@@ -6,6 +6,7 @@ import PhotosUI
 struct AvatarEditor: View {
     @Binding var isPresented: Bool
     @Binding var avatarData: String?
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let initialAvatarData: String?  // 初始头像数据（用于预览）
     let avatarUrl: String?           // CDN头像URL
     let displayName: String          // 用户名（用于占位符）

@@ -5,6 +5,7 @@ struct DrawingHistoryView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject private var viewModel = DrawingHistoryViewModel()
     @State private var showFilters = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
     
     var body: some View {
         NavigationStack {

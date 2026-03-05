@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 评论弹窗
 struct FeedCommentSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let feedItem: FeedService.FeedItem
     @State private var comments: [FeedService.FeedComment] = []
     @State private var isLoading = true
@@ -152,7 +153,7 @@ struct CommentRow: View {
                     Spacer()
 
                     Text(formatTime(comment.created_at))
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
                 }
 

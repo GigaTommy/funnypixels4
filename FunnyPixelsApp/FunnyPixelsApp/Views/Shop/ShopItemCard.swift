@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 商品卡片
 struct ShopItemCard: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let item: ShopService.StoreItem
     let inventoryCount: Int
     let userPoints: Int
@@ -68,13 +69,13 @@ struct ShopItemCard: View {
             VStack(alignment: .leading, spacing: 2) {
                 // 商品名称
                 Text(item.displayName)
-                    .font(.system(size: 14, weight: .bold))
+                    .responsiveFont(.footnote)
                     .foregroundColor(AppColors.textPrimary)
                     .lineLimit(1)
 
                 // 商品描述
                 Text(item.displayDescription)
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textSecondary)
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
@@ -88,12 +89,12 @@ struct ShopItemCard: View {
             HStack(alignment: .bottom, spacing: 4) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text(String(format: NSLocalizedString("shop.price_points", comment: ""), item.pricePoints))
-                        .font(.system(size: 12, weight: .bold))
+                        .responsiveFont(.caption)
                         .foregroundColor(canAfford ? AppColors.primary : .red)
 
                     if let priceCny = item.priceCny, priceCny > 0 {
                         Text("¥\(String(format: "%.2f", priceCny))")
-                            .font(.system(size: 10))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                     }
                 }
@@ -117,10 +118,10 @@ struct ShopItemCard: View {
                     }) {
                         HStack(spacing: 1) {
                             Image(systemName: "bolt.fill")
-                                .font(.system(size: 10))
+                                .responsiveFont(.caption2)
                                 .symbolEffect(.pulse, options: .repeating, isActive: true) // Constant pulse for active items
                             Text("\(inventoryCount)")
-                                .font(.system(size: 10, weight: .bold))
+                                .responsiveFont(.caption2)
                         }
                         .foregroundColor(AppColors.primary)
                         .padding(.horizontal, 8)
@@ -140,7 +141,7 @@ struct ShopItemCard: View {
 
                 Button(action: onPurchase) {
                     Image(systemName: "plus")
-                        .font(.system(size: 12, weight: .semibold))
+                        .responsiveFont(.caption2, weight: .semibold)
                         .foregroundColor(.white)
                         .frame(width: 28, height: 28)
                         .background(canAfford ? AppColors.primary : Color.gray)

@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 奖励领取庆祝动画
 struct RewardClaimAnimation: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let points: Int
     @Binding var isPresented: Bool
     @State private var scale: CGFloat = 0.5
@@ -39,7 +40,7 @@ struct RewardClaimAnimation: View {
                         .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 2)
 
                     Text(NSLocalizedString("daily_task.points_earned", comment: "Points"))
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(.white)
                 }
                 .scaleEffect(scale)

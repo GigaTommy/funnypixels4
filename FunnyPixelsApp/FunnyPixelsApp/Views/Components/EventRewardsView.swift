@@ -2,6 +2,7 @@ import Combine
 import SwiftUI
 
 struct EventRewardsView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let event: EventService.Event
     @Environment(\.dismiss) var dismiss
     

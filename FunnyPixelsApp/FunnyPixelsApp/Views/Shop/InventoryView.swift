@@ -4,6 +4,7 @@ import CoreLocation
 
 /// 库存视图
 struct InventoryView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: ShopViewModel
 
@@ -149,7 +150,7 @@ struct InventoryItemRow: View {
             HStack(spacing: 4) {
                 // Fix: Prefer storeItem.name (rich metadata) over inventoryItem.displayName (potential fallback ID)
                 Text(storeItem?.name ?? item.displayName)
-                    .font(.system(size: 14, weight: .medium))
+                    .responsiveFont(.subheadline, weight: .medium)
                     .foregroundColor(AppColors.textPrimary)
                     .lineLimit(1)
 
@@ -165,7 +166,7 @@ struct InventoryItemRow: View {
             if item.quantity > 0 && item.itemType != "advertisement" && item.itemType != "custom_flag" {
                 Button(action: onUse) {
                     Text(NSLocalizedString("inventory.use", comment: ""))
-                        .font(.system(size: 12, weight: .medium))
+                        .responsiveFont(.caption2, weight: .medium)
                         .foregroundColor(AppColors.primary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)

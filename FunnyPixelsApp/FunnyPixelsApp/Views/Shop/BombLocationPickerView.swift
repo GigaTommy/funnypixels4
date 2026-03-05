@@ -4,6 +4,7 @@ import CoreLocation
 
 /// 炸弹道具使用 - 地图选点视图
 struct BombLocationPickerView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let item: ShopService.StoreItem?
     @Binding var selectedLocation: CLLocationCoordinate2D?
     @Binding var locationName: String?

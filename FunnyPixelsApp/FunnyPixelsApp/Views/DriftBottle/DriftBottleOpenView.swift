@@ -3,6 +3,7 @@ import CoreLocation
 
 /// 全屏沉浸式开瓶视图 (sheet 模式)
 struct DriftBottleOpenView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let bottle: DriftBottle
     @Environment(\.dismiss) private var dismiss
     @State private var messageText = ""
@@ -82,12 +83,12 @@ struct DriftBottleOpenView: View {
         VStack(spacing: 20) {
             Spacer(minLength: 80)
             Image(systemName: "sailboat.fill")
-                .font(.system(size: 72))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(.blue)
                 .scaleEffect(1.2)
                 .animation(.spring(response: 0.4, dampingFraction: 0.5).repeatForever(autoreverses: true), value: phase)
             Text(NSLocalizedString("drift_bottle.open.opening", comment: ""))
-                .font(.system(size: 18, weight: .medium))
+                .responsiveFont(.headline)
                 .foregroundColor(AppColors.textSecondary)
             Spacer(minLength: 80)
         }
@@ -101,7 +102,7 @@ struct DriftBottleOpenView: View {
 
             VStack(spacing: 8) {
                 Text(String(format: NSLocalizedString("drift_bottle.open.from", comment: ""), bottle.originCity ?? NSLocalizedString("drift_bottle.far_away", comment: "")))
-                    .font(.system(size: 20, weight: .bold))
+                    .responsiveFont(.title2, weight: .bold)
                     .foregroundColor(AppColors.textPrimary)
 
                 HStack(spacing: 16) {
@@ -109,14 +110,14 @@ struct DriftBottleOpenView: View {
                     Label(String(format: NSLocalizedString("drift_bottle.open.days", comment: ""), bottle.daysAfloat), systemImage: "calendar")
                     Label(String(format: NSLocalizedString("drift_bottle.open.station", comment: ""), bottle.openCount + 1, bottle.maxOpeners), systemImage: "mappin.and.ellipse")
                 }
-                .font(.system(size: 13))
+                .responsiveFont(.caption)
                 .foregroundColor(AppColors.textSecondary)
             }
 
             if let messages = bottle.messages, !messages.isEmpty {
                 VStack(alignment: .leading, spacing: 12) {
                     Text(NSLocalizedString("drift_bottle.open.messages_title", comment: ""))
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(AppColors.textTertiary)
 
                     ForEach(messages) { msg in
@@ -129,10 +130,10 @@ struct DriftBottleOpenView: View {
 
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(text)
-                                        .font(.system(size: 14))
+                                        .responsiveFont(.subheadline)
                                         .foregroundColor(AppColors.textPrimary)
                                     Text("\(msg.city ?? "") · \(msg.authorName)")
-                                        .font(.system(size: 11))
+                                        .responsiveFont(.caption2)
                                         .foregroundColor(AppColors.textTertiary)
                                 }
                             }
@@ -149,7 +150,7 @@ struct DriftBottleOpenView: View {
 
             if bottle.openCount + 1 >= bottle.maxOpeners {
                 Label(NSLocalizedString("drift_bottle.open.last_stop", comment: ""), systemImage: "water.waves")
-                    .font(.system(size: 16, weight: .bold))
+                    .responsiveFont(.callout)
                     .foregroundColor(.orange)
                     .padding(.top, 8)
             }
@@ -160,7 +161,7 @@ struct DriftBottleOpenView: View {
                 }
             }) {
                 Text(NSLocalizedString("drift_bottle.open.write_message", comment: ""))
-                    .font(.system(size: 16, weight: .bold))
+                    .responsiveFont(.callout)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
@@ -169,7 +170,7 @@ struct DriftBottleOpenView: View {
 
             Button(action: { submitAndRelease(message: nil) }) {
                 Text(NSLocalizedString("drift_bottle.open.release", comment: ""))
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(AppColors.textTertiary)
             }
         }
@@ -181,7 +182,7 @@ struct DriftBottleOpenView: View {
     private var writingSection: some View {
         VStack(spacing: 20) {
             Text(NSLocalizedString("drift_bottle.open.leave_footprint", comment: ""))
-                .font(.system(size: 18, weight: .bold))
+                .responsiveFont(.title3, weight: .bold)
                 .foregroundColor(AppColors.textPrimary)
 
             TextField(NSLocalizedString("drift_bottle.open.placeholder", comment: ""), text: $messageText, axis: .vertical)
@@ -206,7 +207,7 @@ struct DriftBottleOpenView: View {
                             Label(NSLocalizedString("drift_bottle.open.submit_release", comment: ""), systemImage: "water.waves")
                         }
                     }
-                    .font(.system(size: 16, weight: .bold))
+                    .responsiveFont(.callout)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
@@ -217,7 +218,7 @@ struct DriftBottleOpenView: View {
 
             Button(action: { submitAndRelease(message: nil) }) {
                 Text(NSLocalizedString("drift_bottle.open.release", comment: ""))
-                    .font(.system(size: 14))
+                    .responsiveFont(.subheadline)
                     .foregroundColor(AppColors.textTertiary)
             }
         }
@@ -230,11 +231,11 @@ struct DriftBottleOpenView: View {
         VStack(spacing: 20) {
             Spacer(minLength: 60)
             Image(systemName: "sailboat.fill")
-                .font(.system(size: 54))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(.blue.opacity(0.6))
                 .offset(y: -30)
             Text(NSLocalizedString("drift_bottle.open.released", comment: ""))
-                .font(.system(size: 18, weight: .medium))
+                .responsiveFont(.headline)
                 .foregroundColor(AppColors.textSecondary)
             Spacer(minLength: 60)
         }
@@ -251,13 +252,13 @@ struct DriftBottleOpenView: View {
         VStack(spacing: 20) {
             Spacer(minLength: 40)
             Image(systemName: "water.waves")
-                .font(.system(size: 54))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(.blue)
             Text(NSLocalizedString("drift_bottle.open.sunk_title", comment: ""))
-                .font(.system(size: 20, weight: .bold))
+                .responsiveFont(.title2, weight: .bold)
                 .foregroundColor(AppColors.textPrimary)
             Text(NSLocalizedString("drift_bottle.open.sunk_message", comment: ""))
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .foregroundColor(AppColors.textSecondary)
 
             if let journey = result?.journeyCard {
@@ -266,7 +267,7 @@ struct DriftBottleOpenView: View {
 
             Button(action: { dismiss() }) {
                 Text(NSLocalizedString("drift_bottle.open.ok", comment: ""))
-                    .font(.system(size: 16, weight: .bold))
+                    .responsiveFont(.callout)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
@@ -322,10 +323,10 @@ struct JourneyCardMiniView: View {
                 PixelSnapshotView(snapshot: detail.pixelSnapshot, size: 40)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("\(detail.originCity ?? "?") → \(detail.stations.last?.city ?? "?")")
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(AppColors.textPrimary)
                     Text(String(format: NSLocalizedString("drift_bottle.open.mini_stats", comment: ""), detail.totalStations, String(format: "%.1f", detail.distanceKm), detail.totalDays))
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
                 }
                 Spacer()

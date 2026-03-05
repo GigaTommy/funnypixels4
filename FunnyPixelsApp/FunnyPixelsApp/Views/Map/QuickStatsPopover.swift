@@ -6,6 +6,7 @@ import Combine
 struct QuickStatsPopover: View {
     @StateObject private var viewModel = QuickStatsViewModel()
     @State private var isExpanded = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -35,7 +36,7 @@ struct QuickStatsPopover: View {
             // Today's pixels
             HStack(spacing: 4) {
                 Image(systemName: "square.grid.3x3.fill")
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.primary)
                 Text("\(viewModel.todayPixels)")
                     .font(.system(size: 12, weight: .bold).monospacedDigit())
@@ -50,7 +51,7 @@ struct QuickStatsPopover: View {
             // Daily task progress
             HStack(spacing: 4) {
                 Image(systemName: "checklist")
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(.teal)
                 Text("\(viewModel.taskCompleted)/\(viewModel.taskTotal)")
                     .font(.system(size: 12, weight: .medium).monospacedDigit())
@@ -59,7 +60,7 @@ struct QuickStatsPopover: View {
 
             // Expand chevron
             Image(systemName: "chevron.down")
-                .font(.system(size: 8, weight: .bold))
+                .responsiveFont(.caption2)
                 .foregroundColor(AppColors.textTertiary)
         }
         .padding(.horizontal, 12)
@@ -76,11 +77,11 @@ struct QuickStatsPopover: View {
             // Header
             HStack {
                 Text(NSLocalizedString("quick_stats.today", comment: "Today"))
-                    .font(.system(size: 13, weight: .semibold))
+                    .responsiveFont(.caption, weight: .semibold)
                     .foregroundColor(AppColors.textPrimary)
                 Spacer()
                 Image(systemName: "chevron.up")
-                    .font(.system(size: 8, weight: .bold))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textTertiary)
             }
 
@@ -112,11 +113,11 @@ struct QuickStatsPopover: View {
 
                 HStack(spacing: 8) {
                     Image(systemName: "checklist")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.teal)
 
                     Text(NSLocalizedString("quick_stats.tasks", comment: "Tasks"))
-                        .font(.system(size: 11, weight: .medium))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textSecondary)
 
                     Spacer()
@@ -144,7 +145,7 @@ struct QuickStatsPopover: View {
                     NotificationCenter.default.post(name: .navigateToDailyTasks, object: nil)
                 } label: {
                     Text(NSLocalizedString("quick_stats.view_tasks", comment: "View Tasks"))
-                        .font(.system(size: 11, weight: .medium))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.primary)
                 }
             }
@@ -153,10 +154,10 @@ struct QuickStatsPopover: View {
             if viewModel.loginStreak > 0 {
                 HStack(spacing: 4) {
                     Image(systemName: "flame.fill")
-                        .font(.system(size: 10))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.orange)
                     Text(String(format: NSLocalizedString("profile.streak_days", comment: ""), viewModel.loginStreak))
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textSecondary)
                 }
             }
@@ -173,13 +174,13 @@ struct QuickStatsPopover: View {
     private func statItem(icon: String, color: Color, value: String, label: String) -> some View {
         VStack(spacing: 4) {
             Image(systemName: icon)
-                .font(.system(size: 12))
+                .responsiveFont(.caption2)
                 .foregroundColor(color)
             Text(value)
                 .font(.system(size: 14, weight: .bold).monospacedDigit())
                 .foregroundColor(AppColors.textPrimary)
             Text(label)
-                .font(.system(size: 9))
+                .responsiveFont(.caption2)
                 .foregroundColor(AppColors.textTertiary)
         }
         .frame(maxWidth: .infinity)

@@ -5,6 +5,7 @@ import CoreLocation
 // MARK: - Nearby Player Card (shown when tapping a player on the map)
 
 struct NearbyPlayerCard: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let player: MapSocialService.NearbyPlayer
     var onFollow: (() -> Void)?
     var onDismiss: (() -> Void)?
@@ -23,7 +24,7 @@ struct NearbyPlayerCard: View {
                 VStack(alignment: .leading, spacing: 3) {
                     HStack(spacing: 6) {
                         Text(player.displayName)
-                            .font(.system(size: 15, weight: .semibold))
+                            .responsiveFont(.subheadline, weight: .semibold)
                             .foregroundColor(AppColors.textPrimary)
                             .lineLimit(1)
 
@@ -33,7 +34,7 @@ struct NearbyPlayerCard: View {
                                     .fill(Color.green)
                                     .frame(width: 6, height: 6)
                                 Text(NSLocalizedString("nearby.drawing", comment: "Drawing"))
-                                    .font(.system(size: 10, weight: .medium))
+                                    .responsiveFont(.caption2)
                                     .foregroundColor(.green)
                             }
                             .padding(.horizontal, 6)
@@ -47,10 +48,10 @@ struct NearbyPlayerCard: View {
                         if let alliance = player.allianceName, !alliance.isEmpty {
                             HStack(spacing: 3) {
                                 Image(systemName: "shield.fill")
-                                    .font(.system(size: 9))
+                                    .responsiveFont(.caption2)
                                     .foregroundColor(AppColors.primary)
                                 Text(alliance)
-                                    .font(.system(size: 11))
+                                    .responsiveFont(.caption2)
                                     .foregroundColor(AppColors.textSecondary)
                                     .lineLimit(1)
                             }
@@ -58,10 +59,10 @@ struct NearbyPlayerCard: View {
 
                         HStack(spacing: 3) {
                             Image(systemName: "square.grid.3x3.fill")
-                                .font(.system(size: 9))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(AppColors.textTertiary)
                             Text(formatPixels(player.totalPixels))
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(AppColors.textTertiary)
                         }
                     }
@@ -72,10 +73,10 @@ struct NearbyPlayerCard: View {
                 // Distance
                 VStack(spacing: 2) {
                     Text(formatDistance(player.distance))
-                        .font(.system(size: 13, weight: .bold))
+                        .responsiveFont(.footnote)
                         .foregroundColor(AppColors.primary)
                     Text(NSLocalizedString("nearby.away", comment: "away"))
-                        .font(.system(size: 9))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
                 }
             }
@@ -88,9 +89,9 @@ struct NearbyPlayerCard: View {
                 } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "person.badge.plus")
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption2)
                         Text(NSLocalizedString("nearby.follow", comment: "Follow"))
-                            .font(.system(size: 13, weight: .medium))
+                            .responsiveFont(.caption, weight: .medium)
                     }
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
@@ -103,7 +104,7 @@ struct NearbyPlayerCard: View {
                     onDismiss?()
                 } label: {
                     Text(NSLocalizedString("common.close", comment: "Close"))
-                        .font(.system(size: 13, weight: .medium))
+                        .responsiveFont(.caption, weight: .medium)
                         .foregroundColor(AppColors.textSecondary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)
@@ -169,10 +170,10 @@ struct NearbyPlayersOverlay: View {
                 // Empty state pill
                 HStack(spacing: 6) {
                     Image(systemName: "person.slash")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
                     Text(NSLocalizedString("nearby.empty", comment: "No nearby players"))
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
                 }
                 .padding(.horizontal, 12)
@@ -200,11 +201,11 @@ struct NearbyPlayersOverlay: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(player.displayName)
-                    .font(.system(size: 11, weight: .medium))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textPrimary)
                     .lineLimit(1)
                 Text(formatDistance(player.distance))
-                    .font(.system(size: 9))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textTertiary)
             }
 

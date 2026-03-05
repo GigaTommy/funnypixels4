@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TerritoryWarHUD: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let event: EventService.Event
     @ObservedObject var eventManager = EventManager.shared
     

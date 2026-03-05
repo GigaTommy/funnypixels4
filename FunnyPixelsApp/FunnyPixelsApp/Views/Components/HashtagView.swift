@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 话题标签显示组件（简约设计）
 struct HashtagView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let tags: [String]
     let onTagTap: ((String) -> Void)?
 

@@ -4,6 +4,7 @@ import SwiftUI
 struct DriftBottleFloatingButton: View {
     @ObservedObject var manager = DriftBottleManager.shared
     @State private var pulseIcon = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     private var quota: BottleQuota? { manager.quota }
     private var availableBottles: Int { quota?.totalAvailable ?? 0 }

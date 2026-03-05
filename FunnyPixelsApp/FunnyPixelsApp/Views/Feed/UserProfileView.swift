@@ -3,6 +3,7 @@ import Combine
 
 /// 用户主页 - 遵循简约设计原则
 struct UserProfileView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let userId: String
 
     @StateObject private var viewModel = UserProfileViewModel()

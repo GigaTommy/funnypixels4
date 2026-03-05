@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 地图底部极简遭遇横幅 (44pt 高度)
 struct DriftBottleEncounterBanner: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let bottle: DriftBottle
     let onOpen: () -> Void
     let onDismiss: () -> Void
@@ -16,11 +17,11 @@ struct DriftBottleEncounterBanner: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(String(format: NSLocalizedString("drift_bottle.encounter.from", comment: ""), bottle.originCity ?? NSLocalizedString("drift_bottle.far_away", comment: "")))
-                    .font(.system(size: 13, weight: .medium))
+                    .responsiveFont(.caption, weight: .medium)
                     .foregroundColor(.white)
 
                 Text(String(format: NSLocalizedString("drift_bottle.encounter.stats", comment: ""), String(format: "%.1f", bottle.distanceKm), bottle.openCount + 1, bottle.maxOpeners))
-                    .font(.system(size: 11))
+                    .responsiveFont(.caption2)
                     .foregroundColor(.white.opacity(0.7))
             }
 

@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 交易记录视图
 struct TransactionsView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = TransactionsViewModel()
 
@@ -118,7 +119,7 @@ struct TransactionRow: View {
                     .frame(width: 40, height: 40)
 
                 Image(systemName: typeIcon)
-                    .font(.system(size: 16))
+                    .responsiveFont(.headline)
                     .foregroundColor(typeColor)
             }
 

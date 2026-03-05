@@ -6,6 +6,7 @@ import Combine
 struct RankTierGuideView: View {
     @StateObject private var viewModel = RankTierGuideViewModel()
     @State private var selectedTier: RankTierDetail?
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -53,16 +54,16 @@ struct RankTierGuideView: View {
             VStack(spacing: AppSpacing.m) {
                 HStack {
                     Image(systemName: myTier.icon)
-                        .font(.system(size: 36, weight: .bold))
+                        .responsiveFont(.largeTitle)
                         .foregroundColor(myTier.swiftUIColor)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(NSLocalizedString("rank.guide.current_rank", comment: "Current Rank"))
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
 
                         Text(myTier.name)
-                            .font(.system(size: 20, weight: .bold))
+                            .responsiveFont(.title2, weight: .bold)
                             .foregroundColor(AppColors.textPrimary)
                     }
 
@@ -93,17 +94,17 @@ struct RankTierGuideView: View {
 
                         HStack {
                             Text("\(myTier.currentPixels)")
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(AppColors.textSecondary)
                             Spacer()
                             Text(String(format: NSLocalizedString("rank.pixels_remaining", comment: "%d pixels to next rank"), myTier.gapToNext))
-                                .font(.system(size: 11, weight: .medium))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(myTier.swiftUIColor)
                         }
                     }
                 } else {
                     Text(NSLocalizedString("rank.max_tier_achieved", comment: "Maximum rank achieved!"))
-                        .font(.system(size: 13, weight: .semibold))
+                        .responsiveFont(.caption, weight: .semibold)
                         .foregroundColor(myTier.swiftUIColor)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)
@@ -123,12 +124,12 @@ struct RankTierGuideView: View {
                     Image(systemName: "info.circle.fill")
                         .foregroundColor(AppColors.primary)
                     Text(NSLocalizedString("rank.guide.how_it_works", comment: "How It Works"))
-                        .font(.system(size: 15, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(AppColors.textPrimary)
                 }
 
                 Text(NSLocalizedString("rank.guide.description", comment: "Rank system description"))
-                    .font(.system(size: 13))
+                    .responsiveFont(.caption)
                     .foregroundColor(AppColors.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -154,16 +155,16 @@ struct RankTierGuideView: View {
                 // Header
                 HStack {
                     Image(systemName: tier.icon)
-                        .font(.system(size: 24, weight: .semibold))
+                        .responsiveFont(.title3)
                         .foregroundColor(tier.swiftUIColor)
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(tier.name)
-                            .font(.system(size: 16, weight: .bold))
+                            .responsiveFont(.callout)
                             .foregroundColor(AppColors.textPrimary)
 
                         Text(String(format: NSLocalizedString("rank.min_pixels", comment: "%d pixels"), tier.minPixels))
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                     }
 
@@ -174,13 +175,13 @@ struct RankTierGuideView: View {
                         HStack(spacing: 2) {
                             ForEach(tier.benefits.badges.prefix(3), id: \.self) { badge in
                                 Text(badge)
-                                    .font(.system(size: 16))
+                                    .responsiveFont(.headline)
                             }
                         }
                     }
 
                     Image(systemName: "chevron.right")
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption2)
                         .foregroundColor(AppColors.textTertiary)
                 }
 
@@ -190,18 +191,18 @@ struct RankTierGuideView: View {
                         ForEach(tier.benefits.features.prefix(3)) { feature in
                             HStack(spacing: 6) {
                                 Image(systemName: "checkmark.circle.fill")
-                                    .font(.system(size: 10))
+                                    .responsiveFont(.caption2)
                                     .foregroundColor(tier.swiftUIColor)
 
                                 Text(feature.localizedName)
-                                    .font(.system(size: 12))
+                                    .responsiveFont(.caption2)
                                     .foregroundColor(AppColors.textSecondary)
                             }
                         }
 
                         if tier.benefits.features.count > 3 {
                             Text(String(format: NSLocalizedString("rank.more_benefits", comment: "+%d more"), tier.benefits.features.count - 3))
-                                .font(.system(size: 11))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(tier.swiftUIColor)
                         }
                     }
@@ -216,7 +217,7 @@ struct RankTierGuideView: View {
         VStack(spacing: 16) {
             ProgressView()
             Text(NSLocalizedString("common.loading", comment: "Loading"))
-                .font(.system(size: 13))
+                .responsiveFont(.caption)
                 .foregroundColor(AppColors.textTertiary)
         }
         .frame(maxWidth: .infinity)
@@ -266,16 +267,16 @@ struct TierDetailSheet: View {
                     // Header
                     HStack {
                         Image(systemName: tier.icon)
-                            .font(.system(size: 48, weight: .bold))
+                            .responsiveFont(.largeTitle)
                             .foregroundColor(tier.swiftUIColor)
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text(tier.name)
-                                .font(.system(size: 24, weight: .bold))
+                                .responsiveFont(.title2, weight: .bold)
                                 .foregroundColor(AppColors.textPrimary)
 
                             Text(String(format: NSLocalizedString("rank.min_pixels", comment: ""), tier.minPixels))
-                                .font(.system(size: 14))
+                                .responsiveFont(.subheadline)
                                 .foregroundColor(AppColors.textTertiary)
                         }
 
@@ -289,13 +290,13 @@ struct TierDetailSheet: View {
                     if !tier.benefits.badges.isEmpty {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(NSLocalizedString("rank.exclusive_badges", comment: "Exclusive Badges"))
-                                .font(.system(size: 15, weight: .semibold))
+                                .responsiveFont(.subheadline, weight: .semibold)
                                 .foregroundColor(AppColors.textPrimary)
 
                             HStack(spacing: 8) {
                                 ForEach(tier.benefits.badges, id: \.self) { badge in
                                     Text(badge)
-                                        .font(.system(size: 32))
+                                        .responsiveFont(.title2)
                                         .padding(8)
                                         .background(AppColors.surface)
                                         .clipShape(Circle())
@@ -307,17 +308,17 @@ struct TierDetailSheet: View {
                     // Features
                     VStack(alignment: .leading, spacing: 8) {
                         Text(NSLocalizedString("rank.unlocked_features", comment: "Unlocked Features"))
-                            .font(.system(size: 15, weight: .semibold))
+                            .responsiveFont(.subheadline, weight: .semibold)
                             .foregroundColor(AppColors.textPrimary)
 
                         ForEach(tier.benefits.features) { feature in
                             HStack(spacing: 10) {
                                 Image(systemName: "checkmark.circle.fill")
-                                    .font(.system(size: 16))
+                                    .responsiveFont(.headline)
                                     .foregroundColor(tier.swiftUIColor)
 
                                 Text(feature.localizedName)
-                                    .font(.system(size: 14))
+                                    .responsiveFont(.subheadline)
                                     .foregroundColor(AppColors.textPrimary)
                             }
                             .padding(.vertical, 4)
@@ -327,7 +328,7 @@ struct TierDetailSheet: View {
                     // Limits
                     VStack(alignment: .leading, spacing: 8) {
                         Text(NSLocalizedString("rank.limits", comment: "Limits"))
-                            .font(.system(size: 15, weight: .semibold))
+                            .responsiveFont(.subheadline, weight: .semibold)
                             .foregroundColor(AppColors.textPrimary)
 
                         limitRow(
@@ -364,18 +365,18 @@ struct TierDetailSheet: View {
     private func limitRow(icon: String, title: String, value: String) -> some View {
         HStack {
             Image(systemName: icon)
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .foregroundColor(tier.swiftUIColor)
                 .frame(width: 20)
 
             Text(title)
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .foregroundColor(AppColors.textSecondary)
 
             Spacer()
 
             Text(value)
-                .font(.system(size: 14, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(AppColors.textPrimary)
         }
         .padding(.vertical, 4)

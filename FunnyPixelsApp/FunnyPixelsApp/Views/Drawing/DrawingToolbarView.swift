@@ -3,6 +3,7 @@ import SwiftUI
 /// 颜色选择器
 struct ColorPickerView: View {
     @ObservedObject var drawingState: DrawingStateManager
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) private var dismiss
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 5)

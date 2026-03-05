@@ -4,19 +4,20 @@ import Combine
 /// Compact daily challenge progress bar displayed above the drawing control panel
 struct DailyChallengeBar: View {
     @StateObject private var viewModel = DailyChallengeViewModel()
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         if let challenge = viewModel.challenge {
             HStack(spacing: 10) {
                 // Challenge icon
                 Image(systemName: challengeIcon(challenge.type))
-                    .font(.system(size: 14, weight: .semibold))
+                    .responsiveFont(.subheadline, weight: .semibold)
                     .foregroundColor(challenge.isCompleted == true ? .yellow : .white.opacity(0.8))
 
                 // Title + progress
                 VStack(alignment: .leading, spacing: 3) {
                     Text(challenge.title ?? NSLocalizedString("challenge.title", comment: "Daily Challenge"))
-                        .font(.system(size: 12, weight: .semibold))
+                        .responsiveFont(.caption2, weight: .semibold)
                         .foregroundColor(.white)
                         .lineLimit(1)
 
@@ -50,7 +51,7 @@ struct DailyChallengeBar: View {
                     }
                 } else if challenge.isClaimed == true {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 16))
+                        .responsiveFont(.headline)
                         .foregroundColor(.yellow)
                 } else {
                     Text(challenge.progressText)

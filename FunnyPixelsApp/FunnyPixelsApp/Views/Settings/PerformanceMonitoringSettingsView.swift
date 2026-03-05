@@ -10,6 +10,7 @@ import SwiftUI
 
 /// 性能监控隐私设置视图
 struct PerformanceMonitoringSettingsView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @AppStorage("performance_monitoring_enabled") private var isEnabled = false
     @State private var showingInfo = false
 
@@ -19,10 +20,10 @@ struct PerformanceMonitoringSettingsView: View {
                 Toggle(isOn: $isEnabled) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Share Performance Data")
-                            .font(.system(size: 16, weight: .medium, design: .rounded))
+                            .responsiveFont(.callout)
 
                         Text("Help us improve app stability")
-                            .font(.system(size: 13, design: .rounded))
+                            .responsiveFont(.footnote)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -42,7 +43,7 @@ struct PerformanceMonitoringSettingsView: View {
             } footer: {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("We collect anonymous performance data to:")
-                        .font(.system(size: 13, design: .rounded))
+                        .responsiveFont(.footnote)
                         .foregroundColor(.secondary)
 
                     VStack(alignment: .leading, spacing: 6) {
@@ -50,7 +51,7 @@ struct PerformanceMonitoringSettingsView: View {
                         Label("Reduce crashes and bugs", systemImage: "checkmark.circle.fill")
                         Label("Optimize startup time", systemImage: "checkmark.circle.fill")
                     }
-                    .font(.system(size: 13, design: .rounded))
+                    .responsiveFont(.footnote)
                     .foregroundColor(.secondary)
                 }
                 .padding(.top, 4)
@@ -63,10 +64,10 @@ struct PerformanceMonitoringSettingsView: View {
                     HStack {
                         Image(systemName: "info.circle")
                         Text("What data do we collect?")
-                            .font(.system(size: 15, design: .rounded))
+                            .responsiveFont(.subheadline)
                         Spacer()
                         Image(systemName: "chevron.right")
-                            .font(.system(size: 13))
+                            .responsiveFont(.caption)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -75,10 +76,10 @@ struct PerformanceMonitoringSettingsView: View {
                     HStack {
                         Image(systemName: "doc.text")
                         Text("Privacy Policy")
-                            .font(.system(size: 15, design: .rounded))
+                            .responsiveFont(.subheadline)
                         Spacer()
                         Image(systemName: "arrow.up.right")
-                            .font(.system(size: 13))
+                            .responsiveFont(.caption)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -109,7 +110,7 @@ struct DataCollectionInfoSheet: View {
                     // What we collect
                     VStack(alignment: .leading, spacing: 12) {
                         Label("What We Collect", systemImage: "checkmark.shield.fill")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .responsiveFont(.headline)
                             .foregroundColor(AppColors.primary)
 
                         VStack(alignment: .leading, spacing: 8) {
@@ -125,7 +126,7 @@ struct DataCollectionInfoSheet: View {
                     // What we DON'T collect
                     VStack(alignment: .leading, spacing: 12) {
                         Label("What We DON'T Collect", systemImage: "shield.lefthalf.filled")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .responsiveFont(.headline)
                             .foregroundColor(.green)
 
                         VStack(alignment: .leading, spacing: 8) {
@@ -141,7 +142,7 @@ struct DataCollectionInfoSheet: View {
                     // Privacy guarantees
                     VStack(alignment: .leading, spacing: 12) {
                         Label("Privacy Guarantees", systemImage: "lock.shield.fill")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .responsiveFont(.headline)
                             .foregroundColor(.orange)
 
                         VStack(alignment: .leading, spacing: 8) {
@@ -157,11 +158,11 @@ struct DataCollectionInfoSheet: View {
                     // Apple compliance
                     VStack(alignment: .leading, spacing: 8) {
                         Label("Apple Approved", systemImage: "apple.logo")
-                            .font(.system(size: 16, weight: .medium, design: .rounded))
+                            .responsiveFont(.callout)
                             .foregroundColor(.secondary)
 
                         Text("We use Apple's official MetricKit framework, which is designed with privacy in mind and approved by Apple for App Store apps.")
-                            .font(.system(size: 14, design: .rounded))
+                            .responsiveFont(.footnote)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -175,7 +176,7 @@ struct DataCollectionInfoSheet: View {
                         dismiss()
                     } label: {
                         Text("Done")
-                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .responsiveFont(.callout)
                     }
                 }
             }
@@ -192,16 +193,16 @@ struct PerformanceInfoRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
-                .font(.system(size: 20))
+                .responsiveFont(.headline)
                 .foregroundColor(AppColors.primary)
                 .frame(width: 28)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .responsiveFont(.subheadline)
 
                 Text(description)
-                    .font(.system(size: 13, design: .rounded))
+                    .responsiveFont(.footnote)
                     .foregroundColor(.secondary)
             }
         }

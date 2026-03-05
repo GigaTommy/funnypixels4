@@ -3,6 +3,7 @@ import MapKit
 
 /// 简化的地图视图
 struct SimpleMapView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 39.9042, longitude: 116.4074), // 北京

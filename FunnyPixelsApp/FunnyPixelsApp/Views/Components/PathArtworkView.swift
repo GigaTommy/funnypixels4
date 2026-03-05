@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 路径艺术作品视图 - 纯路径渲染，带时间段渐变色
 struct PathArtworkView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let pixels: [SessionPixel]
     let sessionTime: Date
     let showPixelDots: Bool

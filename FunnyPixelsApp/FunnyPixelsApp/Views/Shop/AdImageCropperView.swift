@@ -3,6 +3,7 @@ import UIKit
 import Combine
 
 struct AdImageCropperView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let image: UIImage
     let targetWidth: Int
     let targetHeight: Int

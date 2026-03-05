@@ -3,6 +3,7 @@ import CoreLocation
 
 /// 创建者遇到自己瓶子的重逢视图
 struct DriftBottleReunionView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let bottle: DriftBottle
     @Environment(\.dismiss) private var dismiss
     @State private var showDetail = false
@@ -27,11 +28,11 @@ struct DriftBottleReunionView: View {
                     .foregroundColor(.blue)
 
                     Text(NSLocalizedString("drift_bottle.reunion.title", comment: ""))
-                        .font(.system(size: 22, weight: .bold))
+                        .responsiveFont(.title2, weight: .bold)
                         .foregroundColor(AppColors.textPrimary)
 
                     Text(NSLocalizedString("drift_bottle.reunion.subtitle", comment: ""))
-                        .font(.system(size: 16))
+                        .responsiveFont(.headline)
                         .foregroundColor(AppColors.textSecondary)
 
                     VStack(spacing: 12) {
@@ -44,20 +45,20 @@ struct DriftBottleReunionView: View {
                         if let messages = bottle.messages?.filter({ $0.stationNumber > 0 && $0.message != nil }), !messages.isEmpty {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(NSLocalizedString("drift_bottle.reunion.others_messages", comment: ""))
-                                    .font(.system(size: 13, weight: .semibold))
+                                    .responsiveFont(.caption, weight: .semibold)
                                     .foregroundColor(AppColors.textTertiary)
 
                                 ForEach(messages) { msg in
                                     HStack(alignment: .top, spacing: 8) {
                                         Image(systemName: "quote.bubble.fill")
-                                            .font(.system(size: 12))
+                                            .responsiveFont(.caption2)
                                             .foregroundColor(AppColors.textTertiary)
                                         VStack(alignment: .leading, spacing: 2) {
                                             Text(msg.message ?? "")
-                                                .font(.system(size: 14))
+                                                .responsiveFont(.subheadline)
                                                 .foregroundColor(AppColors.textPrimary)
                                             Text("— \(msg.city ?? NSLocalizedString("drift_bottle.somewhere", comment: ""))")
-                                                .font(.system(size: 11))
+                                                .responsiveFont(.caption2)
                                                 .foregroundColor(AppColors.textTertiary)
                                         }
                                     }
@@ -86,7 +87,7 @@ struct DriftBottleReunionView: View {
 
                         Button(action: { dismiss() }) {
                             Text(NSLocalizedString("drift_bottle.reunion.let_drift", comment: ""))
-                                .font(.system(size: 14))
+                                .responsiveFont(.subheadline)
                                 .foregroundColor(AppColors.textTertiary)
                         }
                     }
@@ -112,10 +113,10 @@ struct DriftBottleReunionView: View {
     private func statItem(value: String, label: String) -> some View {
         VStack(spacing: 2) {
             Text(value)
-                .font(.system(size: 22, weight: .bold))
+                .responsiveFont(.title2, weight: .bold)
                 .foregroundColor(AppColors.textPrimary)
             Text(label)
-                .font(.system(size: 12))
+                .responsiveFont(.caption2)
                 .foregroundColor(AppColors.textTertiary)
         }
     }

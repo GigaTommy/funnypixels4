@@ -7,6 +7,7 @@ struct EventLiveActivityBanner: View {
     @ObservedObject var liveActivityManager = LiveActivityManager.shared
     @State private var isExpanded = false
     @State private var dragOffset: CGFloat = 0
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         if liveActivityManager.showFallbackBanner, let data = liveActivityManager.fallbackBannerData {
@@ -74,13 +75,13 @@ struct EventLiveActivityBanner: View {
                     .frame(width: 10, height: 10)
 
                 Image(systemName: "flame.fill")
-                    .font(.system(size: 14, weight: .bold))
+                    .responsiveFont(.footnote)
                     .foregroundColor(.orange)
             }
 
             // 中间：赛事名称（可省略）
             Text(data.eventTitle)
-                .font(.system(size: 13, weight: .semibold))
+                .responsiveFont(.caption, weight: .semibold)
                 .foregroundColor(.primary)
                 .lineLimit(1)
 
@@ -89,11 +90,11 @@ struct EventLiveActivityBanner: View {
             // 右侧：排名 + 倒计时
             HStack(spacing: 6) {
                 Text("#\(data.state.userRank)")
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .responsiveFont(.callout)
                     .foregroundColor(rankColor(data.state.userRank))
 
                 Text(formatTime(data.state.secondsRemaining))
-                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .responsiveFont(.caption)
                     .foregroundColor(.secondary)
             }
         }
@@ -124,7 +125,7 @@ struct EventLiveActivityBanner: View {
                         Image(systemName: "clock")
                             .font(.caption)
                         Text(formatTimeDetailed(data.state.secondsRemaining))
-                            .font(.system(size: 14, weight: .medium, design: .monospaced))
+                            .responsiveFont(.footnote)
                     }
                     .foregroundColor(.secondary)
                 } else {
@@ -162,7 +163,7 @@ struct EventLiveActivityBanner: View {
                         .foregroundColor(.secondary)
                     HStack(spacing: 6) {
                         Text("#\(data.state.userRank)")
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .responsiveFont(.title3)
                             .foregroundColor(rankColor(data.state.userRank))
                         Circle()
                             .fill(Color(hex: data.userAllianceColor) ?? .blue)
@@ -182,14 +183,14 @@ struct EventLiveActivityBanner: View {
                         VStack(spacing: 4) {
                             // ✅ 使用SF Symbols圆圈数字 + 颜色区分
                             Image(systemName: rankIcon(index + 1))
-                                .font(.system(size: 18, weight: .bold))
+                                .responsiveFont(.title3, weight: .bold)
                                 .foregroundColor(rankIconColor(index + 1))
 
                             Text(String(format: "%.0f%%", ranking.score * 100))
-                                .font(.system(size: 14, weight: .bold, design: .rounded))
+                                .responsiveFont(.footnote)
                                 .foregroundColor(ranking.color)
                             Text(ranking.name)
-                                .font(.system(size: 9))
+                                .responsiveFont(.caption2)
                                 .foregroundColor(.secondary)
                                 .lineLimit(1)
                         }

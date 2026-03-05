@@ -4,6 +4,7 @@ import SwiftUI
 /// 段位进度条组件
 /// 显示当前段位图标 → 进度条 → 下一段位图标
 struct RankTierProgressBar: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let tier: RankTier
 
     var body: some View {
@@ -12,7 +13,7 @@ struct RankTierProgressBar: View {
                 // 当前段位
                 HStack(spacing: 4) {
                     Image(systemName: tier.icon)
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(tier.swiftUIColor)
                     Text(tier.name)
                         .font(AppTypography.caption())
@@ -42,7 +43,7 @@ struct RankTierProgressBar: View {
                 // 下一段位图标（如果不是最高）
                 if !tier.isMaxTier {
                     Image(systemName: tier.icon)
-                        .font(.system(size: 14, weight: .semibold))
+                        .responsiveFont(.subheadline, weight: .semibold)
                         .foregroundColor(AppColors.textTertiary)
                 }
             }

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DailyRewardSummarySheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let summary: DailyRewardService.RewardSummary
     @Environment(\.dismiss) private var dismiss
     @State private var appeared = false

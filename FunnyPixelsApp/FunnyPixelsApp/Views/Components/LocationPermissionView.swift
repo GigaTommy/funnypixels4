@@ -7,6 +7,7 @@ import CoreLocation
 struct LocationPermissionView: View {
     @Binding var isPresented: Bool
     @ObservedObject private var locationManager = LocationManager.shared
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         ZStack {

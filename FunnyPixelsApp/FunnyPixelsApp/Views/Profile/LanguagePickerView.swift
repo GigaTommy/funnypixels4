@@ -4,6 +4,7 @@ struct LanguagePickerView: View {
     @ObservedObject private var localizationManager = LocalizationManager.shared
     @State private var selectedLanguage: String?
     @State private var showRestartHint = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     private let systemOption = "system"
 

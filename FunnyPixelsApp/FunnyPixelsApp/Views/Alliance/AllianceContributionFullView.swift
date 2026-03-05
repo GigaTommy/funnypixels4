@@ -4,6 +4,7 @@ import Combine
 // MARK: - Full-Page Contribution Ranking View
 
 struct AllianceContributionFullView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let allianceId: Int
     @StateObject private var viewModel = AllianceContributionFullViewModel()
 

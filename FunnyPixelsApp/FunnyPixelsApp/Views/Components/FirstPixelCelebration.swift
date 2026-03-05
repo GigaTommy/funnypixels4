@@ -7,6 +7,7 @@ struct FirstPixelCelebration: View {
     @State private var particles: [ConfettiParticle] = []
     @State private var showText = false
     @State private var textScale: CGFloat = 0.3
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     var body: some View {
         ZStack {
@@ -34,11 +35,11 @@ struct FirstPixelCelebration: View {
                         .foregroundColor(.yellow)
 
                     Text(NSLocalizedString("celebration.first_pixel.title", comment: "First Pixel!"))
-                        .font(.system(size: 28, weight: .bold))
+                        .responsiveFont(.title2, weight: .bold)
                         .foregroundColor(.white)
 
                     Text(NSLocalizedString("celebration.first_pixel.subtitle", comment: "Your journey begins"))
-                        .font(.system(size: 16))
+                        .responsiveFont(.headline)
                         .foregroundColor(.white.opacity(0.8))
                 }
                 .scaleEffect(textScale)

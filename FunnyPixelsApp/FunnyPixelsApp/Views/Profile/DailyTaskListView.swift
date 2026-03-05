@@ -61,14 +61,14 @@ struct DailyTaskListView: View {
             VStack(spacing: 12) {
                 HStack {
                     Image(systemName: "checklist")
-                        .font(.system(size: 16, weight: .semibold))
+                        .responsiveFont(.callout)
                         .foregroundColor(AppColors.primary)
                     Text(NSLocalizedString("daily_task.progress", comment: "Today's Progress"))
-                        .font(.system(size: 15, weight: .semibold))
+                        .responsiveFont(.subheadline)
                         .foregroundColor(AppColors.textPrimary)
                     Spacer()
                     Text("\(viewModel.completedCount)/\(viewModel.totalCount)")
-                        .font(.system(size: 14, weight: .bold))
+                        .responsiveFont(.footnote)
                         .foregroundColor(AppColors.primary)
                 }
 
@@ -124,10 +124,10 @@ struct DailyTaskListView: View {
             // Info
             VStack(alignment: .leading, spacing: 4) {
                 Text(task.title)
-                    .font(.system(size: 14, weight: .medium))
+                    .responsiveFont(.footnote)
                     .foregroundColor(AppColors.textPrimary)
                 Text(task.description)
-                    .font(.system(size: 11))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textTertiary)
 
                 // Progress bar
@@ -145,7 +145,7 @@ struct DailyTaskListView: View {
                 .frame(height: 5)
 
                 Text("\(task.current)/\(task.target)")
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textTertiary)
             }
 
@@ -164,7 +164,7 @@ struct DailyTaskListView: View {
                 .frame(width: 36, height: 36)
 
             Image(systemName: task.taskIcon)
-                .font(.system(size: 15))
+                .responsiveFont(.subheadline)
                 .foregroundColor(
                     task.isCompleted ? taskColorForType(task.type) : AppColors.textTertiary
                 )
@@ -176,7 +176,7 @@ struct DailyTaskListView: View {
         if task.isClaimed {
             // Already claimed
             Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 22))
+                .responsiveFont(.title3)
                 .foregroundColor(.green)
         } else if task.isCompleted {
             // Can claim
@@ -187,9 +187,9 @@ struct DailyTaskListView: View {
             } label: {
                 HStack(spacing: 3) {
                     Image(systemName: "star.fill")
-                        .font(.system(size: 10))
+                        .responsiveFont(.caption2)
                     Text("+\(task.rewardPoints)")
-                        .font(.system(size: 12, weight: .bold))
+                        .responsiveFont(.caption)
                 }
                 .foregroundColor(.white)
                 .padding(.horizontal, 12)
@@ -209,10 +209,10 @@ struct DailyTaskListView: View {
             // Not completed yet
             VStack(spacing: 2) {
                 Image(systemName: "star.fill")
-                    .font(.system(size: 10))
+                    .responsiveFont(.caption2)
                     .foregroundColor(.orange.opacity(0.4))
                 Text("\(task.rewardPoints)")
-                    .font(.system(size: 11, weight: .medium))
+                    .responsiveFont(.caption2)
                     .foregroundColor(AppColors.textTertiary)
             }
         }
@@ -225,24 +225,24 @@ struct DailyTaskListView: View {
             VStack(spacing: 12) {
                 HStack {
                     Image(systemName: "gift.fill")
-                        .font(.system(size: 16))
+                        .responsiveFont(.callout)
                         .foregroundColor(.orange)
                     Text(NSLocalizedString("daily_task.bonus_title", comment: "All Complete Bonus"))
-                        .font(.system(size: 15, weight: .semibold))
+                        .responsiveFont(.subheadline)
                         .foregroundColor(AppColors.textPrimary)
                     Spacer()
                     HStack(spacing: 3) {
                         Image(systemName: "star.fill")
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.orange)
                         Text("+\(viewModel.bonusPoints)")
-                            .font(.system(size: 13, weight: .bold))
+                            .responsiveFont(.footnote)
                             .foregroundColor(.orange)
                     }
                 }
 
                 Text(NSLocalizedString("daily_task.bonus_desc", comment: "Complete all tasks to earn bonus"))
-                    .font(.system(size: 12))
+                    .responsiveFont(.caption)
                     .foregroundColor(AppColors.textSecondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -251,7 +251,7 @@ struct DailyTaskListView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(.green)
                         Text(NSLocalizedString("daily_task.bonus_claimed", comment: "Bonus claimed"))
-                            .font(.system(size: 13, weight: .medium))
+                            .responsiveFont(.footnote)
                             .foregroundColor(.green)
                     }
                     .frame(maxWidth: .infinity)
@@ -266,9 +266,9 @@ struct DailyTaskListView: View {
                     } label: {
                         HStack(spacing: 6) {
                             Image(systemName: "gift.fill")
-                                .font(.system(size: 13))
+                                .responsiveFont(.footnote)
                             Text(NSLocalizedString("daily_task.claim_bonus", comment: "Claim Bonus"))
-                                .font(.system(size: 14, weight: .bold))
+                                .responsiveFont(.footnote)
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -288,10 +288,10 @@ struct DailyTaskListView: View {
                     // Not all completed yet
                     HStack(spacing: 4) {
                         Image(systemName: "lock.fill")
-                            .font(.system(size: 11))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
                         Text(String(format: NSLocalizedString("daily_task.bonus_locked", comment: "Complete all %d tasks"), viewModel.totalCount))
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption)
                             .foregroundColor(AppColors.textTertiary)
                     }
                     .frame(maxWidth: .infinity)
@@ -309,7 +309,7 @@ struct DailyTaskListView: View {
         VStack(spacing: 16) {
             ProgressView()
             Text(NSLocalizedString("common.loading", comment: "Loading"))
-                .font(.system(size: 13))
+                .responsiveFont(.footnote)
                 .foregroundColor(AppColors.textTertiary)
         }
         .frame(maxWidth: .infinity)
@@ -319,10 +319,10 @@ struct DailyTaskListView: View {
     private var emptyView: some View {
         VStack(spacing: 12) {
             Image(systemName: "checklist")
-                .font(.system(size: 40))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(AppColors.textTertiary.opacity(0.5))
             Text(NSLocalizedString("daily_task.empty", comment: "No tasks today"))
-                .font(.system(size: 14))
+                .responsiveFont(.footnote)
                 .foregroundColor(AppColors.textTertiary)
         }
         .frame(maxWidth: .infinity)
@@ -331,7 +331,7 @@ struct DailyTaskListView: View {
 
     private func toastOverlay(_ message: String) -> some View {
         Text(message)
-            .font(.system(size: 14, weight: .semibold))
+            .responsiveFont(.footnote)
             .foregroundColor(.white)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)

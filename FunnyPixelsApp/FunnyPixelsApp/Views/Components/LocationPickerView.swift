@@ -5,6 +5,7 @@ import CoreLocation
 /// 位置选择器（Feed模块） - 遵循简约设计原则
 struct FeedLocationPickerView: View {
     @Binding var selectedLocation: FeedService.LocationInfo?
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     @StateObject private var locationManager = SimpleLocationManager()
     @State private var locationName: String = ""
@@ -82,7 +83,7 @@ struct FeedLocationPickerView: View {
         } label: {
             HStack(spacing: FeedDesign.Spacing.s) {
                 Image(systemName: "location.fill")
-                    .font(.system(size: 16))
+                    .responsiveFont(.headline)
                     .foregroundColor(isUsingCurrentLocation ? FeedDesign.Colors.text : FeedDesign.Colors.textSecondary)
 
                 VStack(alignment: .leading, spacing: 2) {
@@ -109,7 +110,7 @@ struct FeedLocationPickerView: View {
 
                 if isUsingCurrentLocation {
                     Image(systemName: "checkmark")
-                        .font(.system(size: 14))
+                        .responsiveFont(.subheadline)
                         .foregroundColor(FeedDesign.Colors.text)
                 }
             }

@@ -4,6 +4,7 @@ import MapKit
 import CoreLocation
 
 struct PurchaseApprovalView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let item: ShopService.StoreItem
     let userPoints: Int
     let onConfirm: (String, String, String, String?, Date?) -> Void // Title, Desc, Base64Image, LocationJSON?, Time?

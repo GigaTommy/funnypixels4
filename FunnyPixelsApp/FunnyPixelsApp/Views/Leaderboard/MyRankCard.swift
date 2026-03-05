@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 个人排名卡片 - 排行榜顶部固定显示
 struct MyRankCard: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let myRank: LeaderboardService.MyRank
 
     var body: some View {

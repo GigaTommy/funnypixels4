@@ -13,6 +13,7 @@ struct AllianceTabView: View {
     @State private var noticeText = ""
     @State private var showDissolveConfirmation = false
     @State private var showLeaveConfirmation = false
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Namespace private var namespace
 
     var body: some View {
@@ -176,11 +177,11 @@ struct AllianceTabView: View {
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(AppColors.textSecondary)
-                    .font(.system(size: 16, weight: .medium))
+                    .responsiveFont(.headline, weight: .medium)
 
                 TextField(NSLocalizedString("alliance.search.placeholder", comment: ""), text: $viewModel.searchQuery)
                     .textFieldStyle(.plain) // Standard style inside custom container
-                    .font(.system(size: 16))
+                    .responsiveFont(.headline)
                     .onSubmit {
                         Task {
                             await viewModel.searchAlliances()
@@ -194,7 +195,7 @@ struct AllianceTabView: View {
                     }) {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(AppColors.textTertiary)
-                            .font(.system(size: 16))
+                            .responsiveFont(.headline)
                     }
                 }
             }
@@ -261,7 +262,7 @@ struct AllianceTabView: View {
     private var guestAlliancePrompt: some View {
         VStack(spacing: AppSpacing.xl) {
             Image(systemName: "flag.2.crossed.fill")
-                .font(.system(size: 80))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(AppColors.primary.opacity(0.8))
                 .padding(.top, 40)
 
@@ -326,7 +327,7 @@ struct AllianceMenuRow: View {
     private var rowContent: some View {
         HStack(spacing: 16) {
             Image(systemName: icon)
-                .font(.system(size: 18, weight: .semibold)) // Slightly bigger, semibold
+                .responsiveFont(.title3, weight: .semibold) // Slightly bigger, semibold
                 .foregroundColor(AppColors.primary)
                 .frame(width: 24) // Fixed width for alignment
             
@@ -357,7 +358,7 @@ struct AllianceMenuRow: View {
             }
             
             Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .semibold))
+                .responsiveFont(.subheadline, weight: .semibold)
                 .foregroundColor(AppColors.textTertiary.opacity(0.5))
         }
         .padding(16)
@@ -386,7 +387,7 @@ struct AllianceSearchResultCard: View {
                        let unicodeChar = alliance.flagUnicodeChar,
                        (renderType == "emoji" || renderType == "color") {
                         Text(unicodeChar)
-                            .font(.system(size: 20)) // 22 -> 20
+                            .responsiveFont(.headline) // 22 -> 20
                     } else if let renderType = alliance.flagRenderType,
                               renderType == "complex" {
                         if let payload = alliance.flagPayload,
@@ -406,7 +407,7 @@ struct AllianceSearchResultCard: View {
                                          .frame(width: 28, height: 28)
                                  case .failure:
                                      Image(systemName: "flag.fill")
-                                         .font(.system(size: 16))
+                                         .responsiveFont(.headline)
                                          .foregroundColor(allianceColor)
                                  case .empty:
                                      ProgressView().scaleEffect(0.5)
@@ -416,7 +417,7 @@ struct AllianceSearchResultCard: View {
                              }
                         } else {
                             Image(systemName: "flag.fill")
-                                .font(.system(size: 16))
+                                .responsiveFont(.headline)
                                 .foregroundColor(allianceColor)
                         }
                     }
@@ -439,7 +440,7 @@ struct AllianceSearchResultCard: View {
                     onJoin()
                 }) {
                     Text(alliance.approvalRequired ? NSLocalizedString("alliance.btn.apply", comment: "") : NSLocalizedString("alliance.btn.join", comment: ""))
-                        .font(.system(size: 13, weight: .bold)) // Slightly increased
+                        .responsiveFont(.footnote) // Slightly increased
                         .foregroundColor(.white)
                         .padding(.horizontal, 16) // Wider button
                         .padding(.vertical, 8) // Taller button
@@ -531,7 +532,7 @@ struct CreateAllianceView: View {
                                         .frame(width: 44, height: 44)
                                 } else if pattern.renderType == "emoji", let unicode = pattern.unicodeChar {
                                     Text(unicode)
-                                        .font(.system(size: 32))
+                                        .responsiveFont(.title2)
                             } else if pattern.renderType == "complex" {
                                 if let payload = pattern.payload,
                                    let data = Data(base64Encoded: payload.replacingOccurrences(of: "data:image/png;base64,", with: "")),
@@ -1426,7 +1427,7 @@ struct AllianceEditView: View {
                     // 公告编辑
                     VStack(alignment: .leading, spacing: 8) {
                         Text(NSLocalizedString("alliance.form.notice", comment: "Announcement"))
-                            .font(.system(size: 14))
+                            .responsiveFont(.subheadline)
                             .foregroundColor(.secondary)
                         
                         TextEditor(text: $notice)
@@ -1708,7 +1709,7 @@ struct AllianceListRow: View {
             
             // Interactive indicator
             Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .semibold)) // Slightly bolder
+                .responsiveFont(.subheadline, weight: .semibold) // Slightly bolder
                 .foregroundColor(.gray.opacity(0.4))
         }
         .padding(AppSpacing.l)
@@ -1727,7 +1728,7 @@ struct AllianceListRow: View {
                 let unicodeChar = alliance.flagUnicodeChar,
                 (renderType == "emoji" || renderType == "color") {
                  Text(unicodeChar)
-                     .font(.system(size: 24))
+                     .responsiveFont(.title3)
              } else if let renderType = alliance.flagRenderType,
                    renderType == "complex" {
                  if let payload = alliance.flagPayload,
@@ -1747,7 +1748,7 @@ struct AllianceListRow: View {
                                  .frame(width: 36, height: 36)
                          case .failure:
                              Image(systemName: "flag.fill")
-                                 .font(.system(size: 20))
+                                 .responsiveFont(.headline)
                                  .foregroundColor(allianceColor)
                          case .empty:
                              ProgressView().scaleEffect(0.5)
@@ -1757,7 +1758,7 @@ struct AllianceListRow: View {
                      }
                  } else {
                      Image(systemName: "flag.fill")
-                         .font(.system(size: 20))
+                         .responsiveFont(.headline)
                          .foregroundColor(allianceColor)
                  }
          }
@@ -1766,7 +1767,7 @@ struct AllianceListRow: View {
     
     private func roleBadge(role: String) -> some View {
         Text(roleDisplayName(role))
-            .font(.system(size: 9, weight: .bold))
+            .responsiveFont(.caption2)
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .background(roleColor(role).opacity(0.1))
@@ -1856,7 +1857,7 @@ struct AllianceHeaderView: View {
             // 更多编辑箭头 (仅盟主可见)
                 if alliance.userRole == "leader" {
                     Image(systemName: "chevron.right")
-                        .font(.system(size: 14))
+                        .responsiveFont(.subheadline)
                         .foregroundColor(.gray.opacity(0.5))
                 }
             }
@@ -1889,7 +1890,7 @@ struct AllianceHeaderView: View {
                (renderType == "emoji" || renderType == "color"),
                let unicodeChar = alliance.flagUnicodeChar {
                 Text(unicodeChar)
-                    .font(.system(size: 28))
+                    .responsiveFont(.title2)
             } else if let renderType = alliance.flagRenderType,
                   renderType == "complex",
                   let payload = alliance.flagPayload {
@@ -1904,13 +1905,13 @@ struct AllianceHeaderView: View {
                   } else {
                       let _ = Logger.error("Failed to decode flag payload. Type: \(renderType), Payload prefix: \(payload.prefix(50))")
                       Image(systemName: "exclamationmark.triangle")
-                          .font(.system(size: 20))
+                          .responsiveFont(.headline)
                           .foregroundColor(.red)
                   }
             } else {
                 let _ = Logger.debug("Alliance Flag Render Fallback - ID: \(alliance.flagPatternId ?? "nil"), type: \(alliance.flagRenderType ?? "nil"), hasPayload: \(alliance.flagPayload != nil), hasUnicode: \(alliance.flagUnicodeChar != nil)")
                 Image(systemName: "flag.fill")
-                    .font(.system(size: 20))
+                    .responsiveFont(.headline)
                     .foregroundColor(allianceColor(for: alliance))
             }
         }
@@ -1919,7 +1920,7 @@ struct AllianceHeaderView: View {
     private func leaderLabel(name: String) -> some View {
         HStack(spacing: 2) {
             Text(NSLocalizedString("alliance.role.leader", comment: "Leader"))
-                .font(.system(size: 9, weight: .bold))
+                .responsiveFont(.caption2)
                 .foregroundColor(.white)
                 .padding(.horizontal, 4)
                 .padding(.vertical, 1)
@@ -1934,7 +1935,7 @@ struct AllianceHeaderView: View {
     
     private func roleLabel(role: String) -> some View {
         Text(roleDisplayName(role))
-            .font(.system(size: 9, weight: .bold))
+            .responsiveFont(.caption2)
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .background(roleColor(role).opacity(0.1))
@@ -1965,9 +1966,9 @@ struct AllianceHeaderView: View {
         HStack {
            VStack(spacing: 2) {
                Text("\(alliance.memberCount)")
-                   .font(.system(size: 14, weight: .bold))
+                   .responsiveFont(.footnote)
                Text(NSLocalizedString("alliance.members", comment: "Members"))
-                   .font(.system(size: 10))
+                   .responsiveFont(.caption2)
                    .foregroundColor(.secondary)
            }
            .frame(maxWidth: .infinity)
@@ -1978,9 +1979,9 @@ struct AllianceHeaderView: View {
            
            VStack(spacing: 2) {
                Text("\(stats?.totalPixels ?? 0)")
-                   .font(.system(size: 14, weight: .bold))
+                   .responsiveFont(.footnote)
                Text(NSLocalizedString("alliance.total_pixels", comment: "Total Pixels"))
-                   .font(.system(size: 10))
+                   .responsiveFont(.caption2)
                    .foregroundColor(.secondary)
            }
            .frame(maxWidth: .infinity)
@@ -1991,9 +1992,9 @@ struct AllianceHeaderView: View {
            
            VStack(spacing: 2) {
                Text("#\(stats?.rank ?? 0)")
-                   .font(.system(size: 14, weight: .bold))
+                   .responsiveFont(.footnote)
                Text(NSLocalizedString("alliance.rank", comment: "Rank"))
-                   .font(.system(size: 10))
+                   .responsiveFont(.caption2)
                    .foregroundColor(.secondary)
            }
            .frame(maxWidth: .infinity)
@@ -2103,7 +2104,7 @@ struct AllianceManagementView: View {
                             Image(systemName: "arrow.2.squarepath")
                             Text(NSLocalizedString("alliance.action.transfer", comment: ""))
                         }
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(AppColors.primary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, AppSpacing.m)
@@ -2116,7 +2117,7 @@ struct AllianceManagementView: View {
                         viewModel.errorMessage = NSLocalizedString("alliance.error.transfer_required", comment: "")
                     }) {
                         Text(NSLocalizedString("alliance.action.leave", comment: ""))
-                            .font(.system(size: 14, weight: .medium))
+                            .responsiveFont(.subheadline, weight: .medium)
                             .foregroundColor(AppColors.textTertiary)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, AppSpacing.m)

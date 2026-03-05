@@ -8,6 +8,7 @@ struct DriftBottleSideIndicator: View {
     @State private var showSuccess = false
     @State private var pulseIcon = false
     @State private var errorMessage: String?
+    @ObservedObject private var fontManager = FontSizeManager.shared
 
     private var quota: BottleQuota? { manager.quota }
     private var availableBottles: Int { quota?.totalAvailable ?? 0 }
@@ -72,7 +73,7 @@ struct DriftBottleSideIndicator: View {
             Button(action: { manager.showSidePanel = true }) {
                 ZStack(alignment: .topTrailing) {
                     Image(systemName: "sailboat.fill")
-                        .font(.system(size: 26))
+                        .responsiveFont(.title3)
                         .foregroundColor(.cyan)
                         .padding(10)
                         .background(
@@ -86,7 +87,7 @@ struct DriftBottleSideIndicator: View {
                     // 角标
                     if availableBottles > 0 {
                         Text("\(availableBottles)")
-                            .font(.system(size: 11, weight: .bold))
+                            .responsiveFont(.caption2)
                             .foregroundColor(.white)
                             .frame(width: 18, height: 18)
                             .background(Circle().fill(Color.red))
@@ -109,12 +110,12 @@ struct DriftBottleSideIndicator: View {
                 Image(systemName: "sailboat.fill")
                     .foregroundColor(.cyan)
                 Text(String(format: NSLocalizedString("drift_bottle.indicator.count", comment: ""), availableBottles))
-                    .font(.system(size: 17, weight: .semibold))
+                    .responsiveFont(.body, weight: .semibold)
                     .foregroundColor(AppColors.textPrimary)
                 Spacer()
                 Button(action: { closePanel() }) {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 20))
+                        .responsiveFont(.headline)
                         .foregroundColor(AppColors.textTertiary)
                 }
             }
@@ -122,7 +123,7 @@ struct DriftBottleSideIndicator: View {
             // 留言输入框
             TextField(NSLocalizedString("drift_bottle.create.placeholder", comment: ""), text: $messageText)
                 .textFieldStyle(.roundedBorder)
-                .font(.system(size: 14))
+                .responsiveFont(.subheadline)
                 .onChange(of: messageText) {
                     if messageText.count > 50 {
                         messageText = String(messageText.prefix(50))
@@ -148,7 +149,7 @@ struct DriftBottleSideIndicator: View {
                         Text(NSLocalizedString("drift_bottle.create.throw", comment: ""))
                     }
                 }
-                .font(.system(size: 15, weight: .bold))
+                .responsiveFont(.subheadline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 10)
@@ -180,11 +181,11 @@ struct DriftBottleSideIndicator: View {
                 // 每日免费
                 HStack {
                     Text(NSLocalizedString("drift_bottle.quota.daily_free", comment: "每日免费"))
-                        .font(.system(size: 13))
+                        .responsiveFont(.caption)
                         .foregroundColor(AppColors.textSecondary)
                     Spacer()
                     Text("\(q.dailyRemaining)/\(q.dailyFree)")
-                        .font(.system(size: 13, weight: .semibold))
+                        .responsiveFont(.caption, weight: .semibold)
                         .foregroundColor(q.dailyRemaining > 0 ? .green : AppColors.textTertiary)
                 }
 
@@ -192,11 +193,11 @@ struct DriftBottleSideIndicator: View {
                 if q.bonusFromPixels > 0 {
                     HStack {
                         Text(NSLocalizedString("drift_bottle.quota.pixel_bonus", comment: "画像素奖励"))
-                            .font(.system(size: 13))
+                            .responsiveFont(.caption)
                             .foregroundColor(AppColors.textSecondary)
                         Spacer()
                         Text("+\(q.bonusFromPixels)")
-                            .font(.system(size: 13, weight: .semibold))
+                            .responsiveFont(.caption, weight: .semibold)
                             .foregroundColor(.cyan)
                     }
                 }
@@ -205,7 +206,7 @@ struct DriftBottleSideIndicator: View {
                 if q.bonusFromPixels == 0 && q.dailyRemaining >= q.dailyFree {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(String(format: NSLocalizedString("drift_bottle.quota.pixels_needed", comment: "再画 %d 像素获得奖励"), q.pixelsForNextBottle))
-                            .font(.system(size: 12))
+                            .responsiveFont(.caption2)
                             .foregroundColor(AppColors.textTertiary)
 
                         // 进度条
@@ -232,10 +233,10 @@ struct DriftBottleSideIndicator: View {
     private var successOverlay: some View {
         VStack(spacing: 8) {
             Image(systemName: "sailboat.fill")
-                .font(.system(size: 40))
+                .responsiveFont(.largeTitle)
                 .foregroundColor(.white)
             Text(NSLocalizedString("drift_bottle.create.success", comment: ""))
-                .font(.system(size: 15, weight: .bold))
+                .responsiveFont(.subheadline)
                 .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

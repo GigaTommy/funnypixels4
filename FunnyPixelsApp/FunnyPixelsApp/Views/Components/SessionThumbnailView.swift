@@ -3,6 +3,7 @@ import Combine
 
 /// 会话缩略图 - 用于动态流中显示绘制路径预览
 struct SessionThumbnailView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let sessionId: String
     @StateObject private var loader: SessionThumbnailLoader
 

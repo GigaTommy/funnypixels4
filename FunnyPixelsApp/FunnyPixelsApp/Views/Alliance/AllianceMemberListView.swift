@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AllianceMemberListView: View {
     @ObservedObject var viewModel: AllianceViewModel
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let allianceId: Int
     @Environment(\.dismiss) private var dismiss
     @State private var showingTransferAlert = false
@@ -184,7 +185,7 @@ struct MemberRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 8) {
                     Text(member.username)
-                        .font(.system(size: 16, weight: .semibold))
+                        .responsiveFont(.headline, weight: .semibold)
 
                     Text(roleDisplayName(member.role))
                         .font(.system(size: 10, weight: .bold))
@@ -197,15 +198,15 @@ struct MemberRow: View {
 
                 HStack(spacing: 10) {
                     Label("\(member.totalPixels ?? 0)", systemImage: "square.grid.3x3.fill")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
 
                     Label("\(member.currentPixels ?? 0)", systemImage: "square.grid.2x2.fill")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
 
                     Text(formatDate(member.joinedAt))
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(.secondary)
                 }
             }

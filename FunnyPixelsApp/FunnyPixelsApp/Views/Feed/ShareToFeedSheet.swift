@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ShareToFeedSheet: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let stats: SessionStats
     let onQuickShare: () async -> Void
     let onEditShare: () -> Void

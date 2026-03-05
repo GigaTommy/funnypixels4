@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProfileEditView: View {
     @ObservedObject var viewModel: ProfileViewModel
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) var dismiss
     @State private var showAvatarEditor = false
     

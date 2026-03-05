@@ -3,6 +3,7 @@ import SwiftUI
 /// 漂流瓶SVG图标
 /// 自定义绘制的漂流瓶图标，避免使用emoji
 struct BottleSVGIcon: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     var size: CGFloat = 32
     var color: Color = .cyan
     var isInRange: Bool = false  // 是否在拾取范围内

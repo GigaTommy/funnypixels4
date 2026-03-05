@@ -11,6 +11,7 @@ import CoreLocation
 
 /// 指南针视图，显示北方方向
 struct CompassView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     /// 当前方向（度数，0=北，90=东，180=南，270=西）
     let heading: Double
 

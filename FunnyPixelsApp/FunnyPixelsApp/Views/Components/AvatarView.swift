@@ -4,6 +4,7 @@ import SwiftUI
 /// 用户头像视图组件
 /// 支持多种头像类型：URL图片、像素数据、纯色、默认头像
 struct AvatarView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let avatarUrl: String?
     let avatar: String?      // 像素数据
     let avatarColor: String? // 纯色

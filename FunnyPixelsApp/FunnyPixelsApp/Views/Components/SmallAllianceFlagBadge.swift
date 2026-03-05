@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 小巧的联盟旗帜微标，用于显示当前选中的绘制图案
 struct SmallAllianceFlagBadge: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let pattern: DrawingPattern?
     var size: CGFloat = 20
     var borderSize: CGFloat = 1.5

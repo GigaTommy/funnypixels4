@@ -2,6 +2,7 @@ import SwiftUI
 
 /// 通用 5x5 像素格子渲染组件
 struct PixelSnapshotView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let snapshot: PixelSnapshot?
     var size: CGFloat = 60
     var cornerRadius: CGFloat = 8

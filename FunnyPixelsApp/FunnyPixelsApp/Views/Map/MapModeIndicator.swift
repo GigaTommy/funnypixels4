@@ -3,6 +3,7 @@ import SwiftUI
 /// Map mode indicator chip - shows current interaction context
 /// Peace (default), War (active event), Drawing (GPS drawing active)
 struct MapModeIndicator: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let mode: MapMode
     @State private var isPulsing = false
 
@@ -63,7 +64,7 @@ struct MapModeIndicator: View {
             }
 
             Text(mode.label)
-                .font(.system(size: 12, weight: .semibold))
+                .responsiveFont(.caption2, weight: .semibold)
                 .foregroundColor(.white)
                 .lineLimit(1)
         }

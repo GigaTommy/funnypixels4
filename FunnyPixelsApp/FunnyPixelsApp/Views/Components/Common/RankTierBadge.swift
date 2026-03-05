@@ -3,6 +3,7 @@ import SwiftUI
 /// 段位徽章组件
 /// 显示段位图标 + 名称，可用于排行榜、个人主页、动态卡片等
 struct RankTierBadge: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
     let tier: RankTier
     var showName: Bool = true
     var fontSize: CGFloat = 12

@@ -29,6 +29,7 @@ enum MessageCategory: String, CaseIterable {
 /// 消息中心视图
 struct MessageCenterView: View {
     @StateObject private var viewModel = MessageCenterViewModel()
+    @ObservedObject private var fontManager = FontSizeManager.shared
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -51,7 +52,7 @@ struct MessageCenterView: View {
             } else if viewModel.messages.isEmpty {
                 VStack(spacing: 20) {
                     Image(systemName: "envelope.open")
-                        .font(.system(size: 50))
+                        .responsiveFont(.largeTitle)
                         .foregroundColor(.secondary)
                     Text(NSLocalizedString("message.no_messages", comment: ""))
                         .font(.headline)
@@ -133,7 +134,7 @@ struct BatchActionsToolbar: View {
                         Image(systemName: viewModel.isAllSelected ? "checkmark.square.fill" : "square")
                         Text(viewModel.isAllSelected ? "取消全选" : "全选")
                     }
-                    .font(.system(size: 15))
+                    .responsiveFont(.subheadline)
                 }
 
                 Spacer()
@@ -145,7 +146,7 @@ struct BatchActionsToolbar: View {
                     }
                 }) {
                     Label("标记已读", systemImage: "envelope.open")
-                        .font(.system(size: 15))
+                        .responsiveFont(.subheadline)
                 }
                 .disabled(viewModel.selectedMessageIds.isEmpty)
 
@@ -156,7 +157,7 @@ struct BatchActionsToolbar: View {
                     viewModel.showDeleteConfirmation = true
                 }) {
                     Label("删除", systemImage: "trash")
-                        .font(.system(size: 15))
+                        .responsiveFont(.subheadline)
                 }
                 .disabled(viewModel.selectedMessageIds.isEmpty)
             }
@@ -192,7 +193,7 @@ struct CategoryPicker: View {
                 }) {
                     VStack(spacing: 4) {
                         Text(category.displayName)
-                            .font(.system(size: 15, weight: selectedCategory == category ? .semibold : .regular))
+                            .responsiveFont(.subheadline)
                             .foregroundColor(selectedCategory == category ? .blue : .secondary)
 
                         // 下划线指示器
@@ -220,7 +221,7 @@ struct MessageRow: View {
             if isEditMode {
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(isSelected ? .blue : .gray)
-                    .font(.system(size: 22))
+                    .responsiveFont(.title3)
             }
 
             // 类型图标
@@ -460,7 +461,7 @@ struct AchievementAttachmentView: View {
                                 .frame(width: 64, height: 64)
                         case .failure(_), .empty:
                             Image(systemName: "trophy.fill")
-                                .font(.system(size: 40))
+                                .responsiveFont(.largeTitle)
                                 .foregroundColor(.orange)
                                 .frame(width: 64, height: 64)
                         @unknown default:
@@ -469,7 +470,7 @@ struct AchievementAttachmentView: View {
                     }
                 } else {
                     Image(systemName: "trophy.fill")
-                        .font(.system(size: 40))
+                        .responsiveFont(.largeTitle)
                         .foregroundColor(.orange)
                         .frame(width: 64, height: 64)
                 }

@@ -3,6 +3,9 @@ import SwiftUI
 
 /// Toast notification for entering/leaving event zones
 struct EventZoneToast: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     enum ToastType {
         case entered(eventTitle: String)
         case exited(eventTitle: String)
@@ -16,15 +19,15 @@ struct EventZoneToast: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: iconName)
-                .font(.title2)
+                .responsiveFont(.title2)
                 .foregroundColor(iconColor)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.subheadline.weight(.semibold))
+                    .responsiveFont(.subheadline, weight: .semibold)
                     .foregroundColor(.primary)
                 Text(subtitle)
-                    .font(.caption)
+                    .responsiveFont(.caption)
                     .foregroundColor(.secondary)
             }
 

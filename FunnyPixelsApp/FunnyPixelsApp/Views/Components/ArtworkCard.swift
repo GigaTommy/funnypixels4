@@ -3,6 +3,9 @@ import SwiftUI
 
 /// 作品卡片 - 画廊风格的会话展示卡片（带视觉增强）
 struct ArtworkCard: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     let session: DrawingSession
     @StateObject private var thumbnailLoader: ArtworkThumbnailLoader
     
@@ -73,7 +76,7 @@ struct ArtworkCard: View {
             
             // Date Stamp (Top-Left)
             Text(formatDate(session.startTime))
-                .font(DesignTokens.Typography.caption2.weight(.medium))
+                .responsiveFont(.caption2, weight: .medium)
                 .foregroundColor(.white)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
@@ -89,7 +92,7 @@ struct ArtworkCard: View {
     
     private var artworkDescriptionSection: some View {
         Text(artworkDescription)
-            .font(DesignTokens.Typography.subheadline)
+            .responsiveFont(.subheadline)
             .foregroundColor(DesignTokens.Colors.textPrimary)
             .lineLimit(2)
             .padding(.horizontal, 12)
@@ -136,17 +139,17 @@ struct ArtworkCard: View {
     private func metricRow(icon: String, value: String, unit: String?, color: Color) -> some View {
         HStack(spacing: 6) {
             Image(systemName: icon)
-                .font(DesignTokens.Typography.caption)
+                .responsiveFont(.caption)
                 .foregroundColor(color)
-                .frame(width: 14)
-            
+                .frame(width: ResponsiveSize.iconSmall(scale: fontManager.scale))
+
             Text(value)
-                .font(DesignTokens.Typography.footnote.weight(.medium))
+                .responsiveFont(.footnote, weight: .medium)
                 .foregroundColor(DesignTokens.Colors.textPrimary)
-            
+
             if let unit = unit {
                 Text(unit)
-                    .font(DesignTokens.Typography.caption)
+                    .responsiveFont(.caption)
                     .foregroundColor(DesignTokens.Colors.textSecondary)
             }
         }
@@ -168,7 +171,7 @@ struct ArtworkCard: View {
     
     private func tagView(_ tag: ArtworkTag) -> some View {
         Text(tag.displayName)
-            .font(DesignTokens.Typography.tag)
+            .responsiveFont(.caption2, weight: .medium)
             .foregroundColor(tag.color)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)

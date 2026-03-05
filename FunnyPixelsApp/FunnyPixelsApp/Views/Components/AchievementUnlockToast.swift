@@ -4,6 +4,9 @@ import SwiftUI
 /// Achievement unlock toast notification
 /// Displays a celebratory banner when user unlocks a new achievement
 struct AchievementUnlockToast: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     let achievement: AchievementService.Achievement
     @Binding var isPresented: Bool
 
@@ -17,30 +20,29 @@ struct AchievementUnlockToast: View {
             ZStack {
                 Circle()
                     .fill(rarityColor.opacity(0.2))
-                    .frame(width: 50, height: 50)
+                    .frame(width: ResponsiveSize.iconXLarge(scale: fontManager.scale), height: ResponsiveSize.iconXLarge(scale: fontManager.scale))
 
                 Image(systemName: "trophy.fill")
-                    .font(.system(size: 24))
+                    .responsiveFont(.title3)
                     .foregroundColor(rarityColor)
             }
 
             // Achievement info
             VStack(alignment: .leading, spacing: 4) {
                 Text(NSLocalizedString("achievement.unlock.title", comment: "🎉 Achievement Unlocked!"))
-                    .font(.caption)
-                    .fontWeight(.bold)
+                    .responsiveFont(.caption, weight: .bold)
                     .foregroundColor(.secondary)
 
                 Text(NSLocalizedString(achievement.name, comment: ""))
-                    .font(.headline)
+                    .responsiveFont(.headline)
                     .foregroundColor(.primary)
 
                 HStack(spacing: 4) {
                     Image(systemName: "star.fill")
-                        .font(.caption2)
+                        .responsiveFont(.caption2)
                         .foregroundColor(.orange)
                     Text("+\(achievement.rewardPoints) " + NSLocalizedString("common.points", comment: ""))
-                        .font(.caption)
+                        .responsiveFont(.caption)
                         .foregroundColor(.orange)
                 }
             }

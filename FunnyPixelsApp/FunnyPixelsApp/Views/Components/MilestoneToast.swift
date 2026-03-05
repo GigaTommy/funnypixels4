@@ -4,6 +4,9 @@ import SwiftUI
 /// P1-3: Milestone Achievement Toast Notification
 /// Displays when user reaches pixel milestones (10, 50, 100, 500, 1000, 5000)
 struct MilestoneToast: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     let milestone: Int
     @Binding var isPresented: Bool
     @State private var offset: CGFloat = -100
@@ -23,21 +26,21 @@ struct MilestoneToast: View {
                                 endPoint: .bottomTrailing
                             )
                         )
-                        .frame(width: 48, height: 48)
+                        .frame(width: ResponsiveSize.iconXLarge(scale: fontManager.scale), height: ResponsiveSize.iconXLarge(scale: fontManager.scale))
 
                     Image(systemName: "star.fill")
-                        .font(.system(size: 24))
+                        .responsiveFont(.title3)
                         .foregroundColor(.yellow)
                         .rotationEffect(.degrees(rotation))
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(NSLocalizedString("milestone.achieved", comment: "Milestone Achieved!"))
-                        .font(.system(size: 16, weight: .bold))
+                        .responsiveFont(.callout, weight: .bold)
                         .foregroundColor(.white)
 
                     Text(String(format: NSLocalizedString("milestone.pixels_contributed", comment: "You've contributed %d pixels!"), milestone))
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(.white.opacity(0.9))
                 }
 
@@ -50,7 +53,7 @@ struct MilestoneToast: View {
                     }
                 }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .semibold))
+                        .responsiveFont(.caption, weight: .semibold)
                         .foregroundColor(.white.opacity(0.6))
                         .frame(width: 24, height: 24)
                         .background(Color.white.opacity(0.1))

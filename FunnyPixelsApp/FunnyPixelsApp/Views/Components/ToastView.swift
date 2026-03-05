@@ -16,25 +16,29 @@ enum ToastStyle {
     
     var color: Color {
         switch self {
-        case .success: return .green
-        case .error: return .red
-        case .info: return .blue
+        case .success: return UnifiedColors.success
+        case .error: return UnifiedColors.error
+        case .info: return UnifiedColors.primary
         }
     }
 }
 
 // MARK: - Toast View
 struct ToastView: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     let message: String
     let style: ToastStyle
-    
+
     var body: some View {
         HStack(spacing: 8) {
             Image(systemName: style.icon)
+                .responsiveFont(.callout)
                 .foregroundColor(style.color)
-            
+
             Text(message)
-                .font(.subheadline)
+                .responsiveFont(.subheadline)
                 .foregroundColor(.white)
         }
         .padding(.horizontal, 16)

@@ -3,6 +3,9 @@ import SwiftUI
 /// P1-5: Rank Change Toast Notification
 /// Displays when user's rank changes in an event (up or down)
 struct RankChangeToast: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     let oldRank: Int
     let newRank: Int
     @Binding var isPresented: Bool
@@ -35,7 +38,7 @@ struct RankChangeToast: View {
                         .frame(width: 48, height: 48)
 
                     Image(systemName: isRankUp ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
-                        .font(.system(size: 24))
+                        .responsiveFont(.title3)
                         .foregroundColor(isRankUp ? .green : .red)
                 }
 
@@ -43,18 +46,18 @@ struct RankChangeToast: View {
                     Text(isRankUp
                         ? NSLocalizedString("rank.change.up", comment: "Rank Up!")
                         : NSLocalizedString("rank.change.down", comment: "Rank Down"))
-                        .font(.system(size: 16, weight: .bold))
+                        .responsiveFont(.callout, weight: .bold)
                         .foregroundColor(.white)
 
                     Text(String(format: NSLocalizedString("rank.change.from_to", comment: "#%d → #%d"), oldRank, newRank))
-                        .font(.system(size: 14, weight: .medium))
+                        .responsiveFont(.subheadline, weight: .medium)
                         .foregroundColor(.white.opacity(0.9))
 
                     // Change magnitude
                     if abs(rankChange) > 1 {
                         Text("\(isRankUp ? "+" : "")\(rankChange) " +
                              NSLocalizedString("rank.change.positions", comment: "positions"))
-                            .font(.system(size: 12, weight: .medium))
+                            .responsiveFont(.caption, weight: .medium)
                             .foregroundColor(.white.opacity(0.7))
                     }
                 }
@@ -68,7 +71,7 @@ struct RankChangeToast: View {
                     }
                 }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .semibold))
+                        .responsiveFont(.caption, weight: .semibold)
                         .foregroundColor(.white.opacity(0.6))
                         .frame(width: 24, height: 24)
                         .background(Color.white.opacity(0.1))

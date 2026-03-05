@@ -2,6 +2,9 @@ import SwiftUI
 
 /// 动态卡片 - 遵循简约设计原则
 struct FeedItemCard: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     let item: FeedService.FeedItem
     let onLike: () -> Void
     let onComment: () -> Void
@@ -30,12 +33,12 @@ struct FeedItemCard: View {
 
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(item.user.displayName)
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .responsiveFont(.subheadline, weight: .semibold)
                                     .foregroundColor(FeedDesign.Colors.text)
                                     .lineLimit(1)
 
                                 Text(item.timeAgo)
-                                    .font(.system(size: 12))
+                                    .responsiveFont(.caption)
                                     .foregroundColor(FeedDesign.Colors.textSecondary)
                             }
                         }
@@ -66,11 +69,11 @@ struct FeedItemCard: View {
                 } label: {
                     HStack(spacing: 4) {
                         Image(systemName: item.is_liked ? "heart.fill" : "heart")
-                            .font(.system(size: 16))
+                            .responsiveFont(.callout)
                             .foregroundColor(item.is_liked ? FeedDesign.Colors.like : FeedDesign.Colors.textTertiary)
                         if item.like_count > 0 {
                             Text("\(item.like_count)")
-                                .font(FeedDesign.Typography.caption)
+                                .responsiveFont(.caption)
                                 .foregroundColor(FeedDesign.Colors.textSecondary)
                         }
                     }
@@ -80,11 +83,11 @@ struct FeedItemCard: View {
                 Button(action: onComment) {
                     HStack(spacing: 4) {
                         Image(systemName: "bubble.right")
-                            .font(.system(size: 16))
+                            .responsiveFont(.callout)
                             .foregroundColor(FeedDesign.Colors.textTertiary)
                         if item.comment_count > 0 {
                             Text("\(item.comment_count)")
-                                .font(FeedDesign.Typography.caption)
+                                .responsiveFont(.caption)
                                 .foregroundColor(FeedDesign.Colors.textSecondary)
                         }
                     }
@@ -95,14 +98,14 @@ struct FeedItemCard: View {
                 // 分享
                 ShareLink(item: shareText) {
                     Image(systemName: "square.and.arrow.up")
-                        .font(.system(size: 16))
+                        .responsiveFont(.callout)
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                 }
 
                 // 收藏
                 Button(action: onBookmark) {
                     Image(systemName: item.is_bookmarked ? "bookmark.fill" : "bookmark")
-                        .font(.system(size: 16))
+                        .responsiveFont(.callout)
                         .foregroundColor(item.is_bookmarked ? FeedDesign.Colors.text : FeedDesign.Colors.textTertiary)
                 }
             }
@@ -178,7 +181,7 @@ struct FeedItemCard: View {
             pollContent
         default:
             Text(item.type)
-                .font(FeedDesign.Typography.body)
+                .responsiveFont(.body)
                 .foregroundColor(FeedDesign.Colors.textSecondary)
         }
     }
@@ -197,34 +200,34 @@ struct FeedItemCard: View {
             HStack(spacing: 4) {
                 if let pixelCount = item.content.pixel_count, pixelCount > 0 {
                     Image(systemName: "chart.bar.fill")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                     Text("\(pixelCount)")
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption)
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
 
                 if let city = item.content.city, !city.isEmpty {
                     Text("·")
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption)
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                     Image(systemName: "location.fill")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                     Text(city)
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption)
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
 
                 if let duration = item.content.duration_seconds, duration > 0 {
                     Text("·")
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption)
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                     Image(systemName: "clock.fill")
-                        .font(.system(size: 11))
+                        .responsiveFont(.caption2)
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                     Text(FeedFormatters.formatDuration(duration))
-                        .font(.system(size: 12))
+                        .responsiveFont(.caption)
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
             }
@@ -253,7 +256,7 @@ struct FeedItemCard: View {
         VStack(alignment: .leading, spacing: FeedDesign.Spacing.xs) {
             if let text = item.content.text, !text.isEmpty {
                 Text(text)
-                    .font(FeedDesign.Typography.body)
+                    .responsiveFont(.body)
                     .foregroundColor(FeedDesign.Colors.text)
             }
         }
@@ -264,7 +267,7 @@ struct FeedItemCard: View {
             if let pollData = item.poll_data {
                 // 投票问题
                 Text(pollData.question)
-                    .font(FeedDesign.Typography.body)
+                    .responsiveFont(.body)
                     .foregroundColor(FeedDesign.Colors.text)
 
                 // 投票选项
@@ -278,7 +281,7 @@ struct FeedItemCard: View {
                 let totalVotes = pollData.votes.reduce(0, +)
                 if totalVotes > 0 {
                     Text(String(format: NSLocalizedString("feed.poll.votes_count", comment: ""), totalVotes))
-                        .font(FeedDesign.Typography.caption)
+                        .responsiveFont(.caption)
                         .foregroundColor(FeedDesign.Colors.textTertiary)
                 }
             }
@@ -300,14 +303,14 @@ struct FeedItemCard: View {
         } label: {
             HStack(spacing: FeedDesign.Spacing.s) {
                 Text(option)
-                    .font(FeedDesign.Typography.body)
+                    .responsiveFont(.body)
                     .foregroundColor(FeedDesign.Colors.text)
 
                 Spacer()
 
                 if hasVoted {
                     Text(String(format: "%.0f%%", percentage * 100))
-                        .font(FeedDesign.Typography.caption)
+                        .responsiveFont(.caption)
                         .foregroundColor(FeedDesign.Colors.textSecondary)
                 }
             }

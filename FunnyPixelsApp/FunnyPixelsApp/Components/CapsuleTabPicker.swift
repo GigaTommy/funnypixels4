@@ -3,6 +3,9 @@ import SwiftUI
 /// 胶囊样式的Tab选择器
 /// 统一UX设计：与排行榜的typeBar风格一致
 struct CapsuleTabPicker<Item: Hashable & CustomStringConvertible>: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     let items: [Item]
     @Binding var selection: Item
 
@@ -20,7 +23,7 @@ struct CapsuleTabPicker<Item: Hashable & CustomStringConvertible>: View {
                         }
                     } label: {
                         Text(item.description)
-                            .font(.system(size: 15, weight: .semibold))
+                            .responsiveFont(.subheadline, weight: .semibold)
                             .foregroundColor(selection == item ? .white : AppColors.textSecondary)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 10)
@@ -49,7 +52,7 @@ struct CapsuleTabPicker<Item: Hashable & CustomStringConvertible>: View {
                             }
                         } label: {
                             Text(item.description)
-                                .font(.system(size: 15, weight: .semibold))
+                                .responsiveFont(.subheadline, weight: .semibold)
                                 .foregroundColor(selection == item ? .white : AppColors.textSecondary)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)

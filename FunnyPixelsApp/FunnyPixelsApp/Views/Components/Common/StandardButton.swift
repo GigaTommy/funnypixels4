@@ -4,19 +4,22 @@ import SwiftUI
 // MARK: - Standard Button
 
 public struct StandardButton: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     public enum Style {
         case primary
         case secondary
         case ghost
         case destructive
     }
-    
+
     public enum Size {
         case small
         case medium
         case large
     }
-    
+
     let title: String
     let icon: String?
     let style: Style
@@ -84,20 +87,24 @@ public struct StandardButton: View {
     }
     
     // MARK: - Style Helpers
-    
+
+    // ✅ 响应式按钮高度：跟随字体缩放
     private var height: CGFloat {
+        let scale = fontManager.scale
         switch size {
-        case .small: return 36
-        case .medium: return 48
-        case .large: return 56
+        case .small: return ResponsiveSize.buttonSmall(scale: scale)
+        case .medium: return ResponsiveSize.buttonMedium(scale: scale)
+        case .large: return ResponsiveSize.buttonLarge(scale: scale)
         }
     }
     
+    // ✅ 响应式字体：根据按钮尺寸和用户设置缩放
     private var font: Font {
+        let scale = fontManager.scale
         switch size {
-        case .small: return .system(size: 14)
-        case .medium: return .system(size: 16)
-        case .large: return .system(size: 18)
+        case .small: return ResponsiveFont.callout(scale: scale, weight: .semibold)    // 16pt base
+        case .medium: return ResponsiveFont.body(scale: scale, weight: .semibold)      // 17pt base
+        case .large: return ResponsiveFont.headline(scale: scale, weight: .semibold)   // 17pt base
         }
     }
     

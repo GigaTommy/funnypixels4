@@ -1325,3 +1325,13 @@
 // Map Heatmap
 "map.heatmap.fetch_error" = "히트맵 데이터를 가져오지 못했습니다";
 "map.heatmap.people_drawing_suffix" = " 명이 그리는 중";
+
+// Live Activity - GPS Drawing
+"live_activity.gps.title" = "GPS 그리기";
+"live_activity.gps.pixels" = "픽셀";
+"live_activity.gps.points" = "포인트";
+"live_activity.gps.cooldown" = "쿨다운";
+"live_activity.gps.cooldown_time" = "쿨다운 %@";
+"live_activity.gps.drawing" = "그리는 중...";
+"live_activity.gps.stopped" = "중지됨";
+"live_activity.gps.active" = "활성";

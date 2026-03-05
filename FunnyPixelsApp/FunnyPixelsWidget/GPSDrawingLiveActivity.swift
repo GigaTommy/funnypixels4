@@ -112,7 +112,7 @@ private struct GPSExpandedLeadingView: View {
                 .font(.title2)
                 .foregroundColor(.green)
 
-            Text("GPS Drawing")
+            Text(NSLocalizedString("live_activity.gps.title", bundle: .main, comment: "GPS Drawing"))
                 .font(.caption2)
                 .foregroundColor(.secondary)
         }
@@ -129,7 +129,7 @@ private struct GPSExpandedTrailingView: View {
                 .font(.system(size: 28, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
 
-            Text(context.attributes.allianceName.isEmpty ? "pixels" : context.attributes.allianceName)
+            Text(context.attributes.allianceName.isEmpty ? NSLocalizedString("live_activity.gps.pixels", bundle: .main, comment: "pixels") : context.attributes.allianceName)
                 .font(.caption)
                 .foregroundColor(Color(hex: context.attributes.allianceColorHex) ?? .white)
                 .lineLimit(1)
@@ -149,7 +149,7 @@ private struct GPSExpandedCenterView: View {
                     Image(systemName: "snowflake")
                         .font(.caption)
                         .foregroundColor(.cyan)
-                    Text("Cooldown")
+                    Text(NSLocalizedString("live_activity.gps.cooldown", bundle: .main, comment: "Cooldown"))
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.cyan)
                 }
@@ -164,7 +164,7 @@ private struct GPSExpandedCenterView: View {
                     Circle()
                         .fill(.green)
                         .frame(width: 6, height: 6)
-                    Text("Drawing...")
+                    Text(NSLocalizedString("live_activity.gps.drawing", bundle: .main, comment: "Drawing..."))
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.white)
                 }
@@ -176,7 +176,7 @@ private struct GPSExpandedCenterView: View {
                 }
                 .foregroundColor(.secondary)
             } else {
-                Text("Stopped")
+                Text(NSLocalizedString("live_activity.gps.stopped", bundle: .main, comment: "Stopped"))
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.secondary)
             }
@@ -289,7 +289,7 @@ private struct GPSDrawingLockScreenView: View {
                     Image(systemName: "paintbrush.pointed.fill")
                         .foregroundColor(.green)
 
-                    Text("GPS Drawing")
+                    Text(NSLocalizedString("live_activity.gps.title", bundle: .main, comment: "GPS Drawing"))
                         .font(.headline)
                         .foregroundColor(.white)
 
@@ -320,7 +320,7 @@ private struct GPSDrawingLockScreenView: View {
                     Text("\(context.state.pixelsDrawn)")
                         .font(.system(size: 32, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
-                    Text("pixels")
+                    Text(NSLocalizedString("live_activity.gps.pixels", bundle: .main, comment: "pixels"))
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
@@ -333,7 +333,7 @@ private struct GPSDrawingLockScreenView: View {
                         Image(systemName: "snowflake")
                             .font(.title2)
                             .foregroundColor(.cyan)
-                        Text("Cooldown \(formatTime(context.state.freezeSecondsLeft))")
+                        Text(String(format: NSLocalizedString("live_activity.gps.cooldown_time", bundle: .main, comment: "Cooldown %@"), formatTime(context.state.freezeSecondsLeft)))
                             .font(.system(size: 11, weight: .medium))
                             .foregroundColor(.cyan)
                     }
@@ -342,7 +342,7 @@ private struct GPSDrawingLockScreenView: View {
                         Image(systemName: "location.fill")
                             .font(.title2)
                             .foregroundColor(.green)
-                        Text("Active")
+                        Text(NSLocalizedString("live_activity.gps.active", bundle: .main, comment: "Active"))
                             .font(.system(size: 11, weight: .medium))
                             .foregroundColor(.green)
                     }
@@ -355,7 +355,7 @@ private struct GPSDrawingLockScreenView: View {
                     Text("\(context.state.remainingPoints)")
                         .font(.system(size: 32, weight: .bold, design: .rounded))
                         .foregroundColor(pointsColor)
-                    Text("points")
+                    Text(NSLocalizedString("live_activity.gps.points", bundle: .main, comment: "points"))
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }

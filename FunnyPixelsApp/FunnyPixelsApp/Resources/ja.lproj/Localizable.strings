@@ -1559,3 +1559,13 @@
 // Map Heatmap
 "map.heatmap.fetch_error" = "ヒートマップデータの取得に失敗しました";
 "map.heatmap.people_drawing_suffix" = " 人が描画中";
+
+// Live Activity - GPS Drawing
+"live_activity.gps.title" = "GPS 描画";
+"live_activity.gps.pixels" = "ピクセル";
+"live_activity.gps.points" = "ポイント";
+"live_activity.gps.cooldown" = "クールダウン";
+"live_activity.gps.cooldown_time" = "クールダウン %@";
+"live_activity.gps.drawing" = "描画中...";
+"live_activity.gps.stopped" = "停止";
+"live_activity.gps.active" = "アクティブ";

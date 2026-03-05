@@ -1809,3 +1809,13 @@
 // Map Heatmap
 "map.heatmap.fetch_error" = "获取热力图数据失败";
 "map.heatmap.people_drawing_suffix" = " 人正在绘制";
+
+// Live Activity - GPS Drawing
+"live_activity.gps.title" = "GPS 绘画";
+"live_activity.gps.pixels" = "像素";
+"live_activity.gps.points" = "点数";
+"live_activity.gps.cooldown" = "冷却中";
+"live_activity.gps.cooldown_time" = "冷却 %@";
+"live_activity.gps.drawing" = "绘制中...";
+"live_activity.gps.stopped" = "已停止";
+"live_activity.gps.active" = "活跃";

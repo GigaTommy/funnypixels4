@@ -13,9 +13,9 @@ struct DrawingModeStatusBar: View {
     @State private var isAppearing = false
 
     init(
-        drawingState: DrawingStateManager = .shared,
-        pixelService: PixelDrawService = .shared,
-        comboTracker: PixelComboTracker = .shared
+        drawingState: DrawingStateManager,
+        pixelService: PixelDrawService,
+        comboTracker: PixelComboTracker
     ) {
         self.drawingState = drawingState
         self.pixelService = pixelService
@@ -184,8 +184,12 @@ struct DrawingModeStatusBar: View {
         VStack {
             Spacer()
 
-            DrawingModeStatusBar()
-                .padding(.bottom, 100)
+            DrawingModeStatusBar(
+                drawingState: .shared,
+                pixelService: .shared,
+                comboTracker: .shared
+            )
+            .padding(.bottom, 100)
         }
     }
 }

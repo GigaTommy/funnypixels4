@@ -202,7 +202,7 @@ class LiveActivityManager: ObservableObject {
     }
 
     /// 更新 GPS Drawing Live Activity 状态（每次绘制成功后调用）
-    func updateGPSDrawingActivity(pixelsDrawn: Int, remainingPoints: Int, isFrozen: Bool, freezeSecondsLeft: Int) {
+    func updateGPSDrawingActivity(pixelsDrawn: Int, remainingPoints: Int, isFrozen: Bool, freezeSecondsLeft: Int, currentSpeed: Double = 0.0) {
         guard isGPSDrawingActivityActive else { return }
 
         if #available(iOS 16.1, *), let activity = currentGPSDrawingActivity {
@@ -214,7 +214,8 @@ class LiveActivityManager: ObservableObject {
                 elapsedSeconds: elapsed,
                 isFrozen: isFrozen,
                 freezeSecondsLeft: freezeSecondsLeft,
-                isActive: true
+                isActive: true,
+                currentSpeed: currentSpeed
             )
 
             Task {
@@ -290,6 +291,9 @@ class LiveActivityManager: ObservableObject {
         if #available(iOS 16.1, *), let activity = currentGPSDrawingActivity {
             var state = activity.content.state
             state.elapsedSeconds = Int(Date().timeIntervalSince(gpsDrawingStartTime ?? Date()))
+
+            // 更新速度（从GPSDrawingService获取最新速度）
+            state.currentSpeed = GPSDrawingService.shared.currentSpeedKmH
 
             // 更新冻结倒计时
             if state.isFrozen && state.freezeSecondsLeft > 0 {

@@ -20,6 +20,7 @@ class GPSDrawingService: NSObject, ObservableObject {
     @Published var isDrawing = false
     @Published var isFocusMode = false  // 专注模式状态（防误触+优化）
     @Published var isInBackground = false  // 是否在后台运行
+    @Published var currentSpeedKmH: Double = 0.0  // 当前GPS速度（km/h），用于Live Activity动态图标
 
     @Published var errorMessage: String?
 
@@ -991,7 +992,16 @@ class GPSDrawingService: NSObject, ObservableObject {
 
         let coordinate = location.coordinate
         currentCoordinate = coordinate
-        Logger.info("🎯 [Real GPS] Received location: \(coordinate.latitude), \(coordinate.longitude), accuracy: \(location.horizontalAccuracy)m")
+
+        // 🆕 提取并转换GPS速度（m/s -> km/h），用于Live Activity动态图标
+        // location.speed在无效时会返回负值，需要过滤
+        if location.speed >= 0 {
+            currentSpeedKmH = location.speed * 3.6  // 1 m/s = 3.6 km/h
+        } else {
+            currentSpeedKmH = 0.0
+        }
+
+        Logger.info("🎯 [Real GPS] Received location: \(coordinate.latitude), \(coordinate.longitude), accuracy: \(location.horizontalAccuracy)m, speed: \(String(format: "%.1f", currentSpeedKmH)) km/h")
 
         // 🆕 GPS绘制模式下，使用导航风格的地图跟随（根据速度动态调整缩放）
         MapController.shared.updateForGPSFollowing(location: location)
@@ -1157,7 +1167,8 @@ class GPSDrawingService: NSObject, ObservableObject {
                     pixelsDrawn: drawnPixelsCount,
                     remainingPoints: remainingPoints,
                     isFrozen: isFrozen,
-                    freezeSecondsLeft: freezeTimeLeft
+                    freezeSecondsLeft: freezeTimeLeft,
+                    currentSpeed: currentSpeedKmH
                 )
 
                 Logger.info("🎨 GPS绘制成功 (\(drawnPixelsCount)): 剩余 \(remainingPoints) 点")
@@ -1322,7 +1333,8 @@ class GPSDrawingService: NSObject, ObservableObject {
                 pixelsDrawn: drawnPixelsCount,
                 remainingPoints: remainingPoints,
                 isFrozen: isFrozen,
-                freezeSecondsLeft: freezeTimeLeft
+                freezeSecondsLeft: freezeTimeLeft,
+                currentSpeed: currentSpeedKmH
             )
         }
 

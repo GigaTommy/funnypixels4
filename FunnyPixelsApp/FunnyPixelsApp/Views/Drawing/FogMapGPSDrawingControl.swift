@@ -59,11 +59,11 @@ struct FogMapGPSDrawingControl: View {
             .padding(.leading, 24)
             
             // MARK: Section B - Telemetry (The Data)
-            // 数据仪表盘：单行显示，减少留白
-            HStack(alignment: .bottom, spacing: 16) {
+            // 数据仪表盘：单行显示，垂直居中
+            HStack(alignment: .center, spacing: 16) {
                 // 1. 本次绘制 (Session) - 核心视觉焦点
                 Text("\(gpsService.drawnPixelsCount)")
-                    .responsiveFont(.title2, weight: .bold)
+                    .responsiveFont(.title1, weight: .bold)
                     .monospacedDigit()
                     .foregroundStyle(.primary)
                     .scaleEffect(pixelCountScale)
@@ -82,28 +82,28 @@ struct FogMapGPSDrawingControl: View {
                         if pixelService.isFrozen {
                             // ❄️ 冻结状态：显示倒计时
                             Image(systemName: "snowflake")
-                                .responsiveFont(.caption2)
+                                .responsiveFont(.caption)
                                 .foregroundStyle(.orange)
                                 .symbolEffect(.pulse.byLayer) // 呼吸效果
-                            
+
                             Text(pixelService.freezeTimeLeft > 0 ? "\(pixelService.freezeTimeLeft)s" : NSLocalizedString("common.loading", comment: "Wait..."))
-                                .responsiveFont(.footnote, weight: .medium)
+                                .responsiveFont(.subheadline, weight: .medium)
                                 .foregroundStyle(.orange)
                         } else {
                             // 💧 正常/恢复状态
                             Image(systemName: "drop.fill")
-                                .responsiveFont(.caption2)
+                                .responsiveFont(.caption)
                                 .foregroundStyle(pixelService.totalPoints > 10 ? Color.blue : Color.red)
-                            
+
                             Text(formatCompactNumber(pixelService.totalPoints))
-                                .responsiveFont(.footnote, weight: .medium)
+                                .responsiveFont(.subheadline, weight: .medium)
                                 .foregroundStyle(pixelService.totalPoints > 0 ? Color.gray : Color.red)
                                 .frame(minWidth: 35, alignment: .leading) // 固定最小宽度防止挤压
-                            
+
                             // 增长指示器 (当处于恢复状态且未满时显示)
                             if pixelService.naturalPoints < pixelService.maxNaturalPoints {
                                 Image(systemName: "arrow.up.circle.fill")
-                                    .responsiveFont(.caption2)
+                                    .responsiveFont(.caption)
                                     .foregroundStyle(.green)
                             }
                         }
@@ -116,22 +116,21 @@ struct FogMapGPSDrawingControl: View {
                     // 生涯总计
                     HStack(spacing: 3) {
                         Image(systemName: "trophy.fill")
-                            .responsiveFont(.caption2)
+                            .responsiveFont(.caption)
                             .foregroundStyle(.yellow)
-                        
+
                         if let stats = profileViewModel.userStats {
                             Text(formatCompactNumber(stats.totalPixels))
-                                .responsiveFont(.footnote, weight: .medium)
+                                .responsiveFont(.subheadline, weight: .medium)
                                 .foregroundStyle(.secondary)
                         } else {
                             Text("-")
-                                .responsiveFont(.footnote, weight: .medium)
+                                .responsiveFont(.subheadline, weight: .medium)
                                 .foregroundStyle(.secondary)
                         }
                     }
                 }
             }
-            .padding(.bottom, 4) // Align with the baseline of the big number
             .frame(maxWidth: .infinity, alignment: .leading) // 确保占据剩余空间
             
             // MARK: Section C - Action (The Trigger)
@@ -149,10 +148,10 @@ struct FogMapGPSDrawingControl: View {
                         .shadow(color: .red.opacity(0.3), radius: 5, x: 0, y: 2)
                     
                     Image(systemName: gpsService.isGPSDrawingMode ? "stop.fill" : "play.fill")
-                        .responsiveFont(.footnote, weight: .bold)
+                        .responsiveFont(.callout, weight: .bold)
                         .foregroundStyle(.white)
                 }
-                .frame(width: 32, height: 32)
+                .frame(width: 36, height: 36)
             }
             .buttonStyle(ScaleButtonStyle())
             .padding(.trailing, 24)

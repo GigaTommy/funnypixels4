@@ -13,7 +13,7 @@ struct CooldownRingView: View {
     @State private var shatterPhase: Bool = false
     @State private var previouslyFrozen: Bool = false
 
-    init(pixelService: PixelDrawService = .shared, diameter: CGFloat = 48, lineWidth: CGFloat = 4) {
+    init(pixelService: PixelDrawService, diameter: CGFloat = 48, lineWidth: CGFloat = 4) {
         self.pixelService = pixelService
         self.diameter = diameter
         self.lineWidth = lineWidth
@@ -207,13 +207,13 @@ private struct IceShardView: View {
 // MARK: - Preview
 
 #Preview("Normal - Full") {
-    CooldownRingView(diameter: 48)
+    CooldownRingView(pixelService: .shared, diameter: 48)
         .padding()
         .background(Color.black.opacity(0.8))
 }
 
 #Preview("Large") {
-    CooldownRingView(diameter: 80, lineWidth: 6)
+    CooldownRingView(pixelService: .shared, diameter: 80, lineWidth: 6)
         .padding()
         .background(Color.black.opacity(0.8))
 }

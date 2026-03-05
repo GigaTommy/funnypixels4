@@ -39,6 +39,35 @@ struct GPSDrawingLiveActivity: Widget {
     }
 }
 
+// MARK: - 速度识别助手 (Speed Recognition Helper)
+
+@available(iOS 16.1, *)
+private struct ActivityIcon {
+    let iconName: String
+    let color: Color
+
+    /// 根据 GPS 速度判断活动类型，返回对应图标和颜色
+    static func forSpeed(_ speedKmH: Double) -> ActivityIcon {
+        switch speedKmH {
+        case 0..<2:
+            // 静止或极慢 (< 2 km/h)
+            return ActivityIcon(iconName: "figure.stand", color: .gray)
+        case 2..<6:
+            // 步行 (2-6 km/h)
+            return ActivityIcon(iconName: "figure.walk", color: .green)
+        case 6..<12:
+            // 跑步 (6-12 km/h)
+            return ActivityIcon(iconName: "figure.run", color: .yellow)
+        case 12..<25:
+            // 骑行 (12-25 km/h)
+            return ActivityIcon(iconName: "figure.outdoor.cycle", color: .orange)
+        default:
+            // 汽车 (>= 25 km/h)
+            return ActivityIcon(iconName: "car.fill", color: .red)
+        }
+    }
+}
+
 // MARK: - 紧凑态视图 (Compact Views)
 
 @available(iOS 16.1, *)
@@ -51,11 +80,31 @@ private struct GPSCompactLeadingView: View {
                 .fill(Color(hex: context.attributes.allianceColorHex) ?? .green)
                 .frame(width: 10, height: 10)
 
-            Image("AppIconImage")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 14, height: 14)
-                .clipShape(RoundedRectangle(cornerRadius: 3))
+            // 动态图标：根据状态和速度显示不同图标
+            if context.state.isActive && !context.state.isFrozen {
+                // 活跃绘制中 - 根据速度显示不同活动图标
+                let icon = ActivityIcon.forSpeed(context.state.currentSpeed)
+                if #available(iOS 17.0, *) {
+                    Image(systemName: icon.iconName)
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(icon.color)
+                        .symbolEffect(.pulse, options: .repeating)
+                } else {
+                    // iOS 16 降级方案 - 使用缩放动画
+                    Image(systemName: icon.iconName)
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(icon.color)
+                        .scaleEffect(context.state.pixelsDrawn % 2 == 0 ? 1.0 : 1.1)
+                        .animation(.easeInOut(duration: 0.5), value: context.state.pixelsDrawn)
+                }
+            } else {
+                // 冻结或停止 - 显示静态 App Logo
+                Image("AppIconImage")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 14, height: 14)
+                    .clipShape(RoundedRectangle(cornerRadius: 3))
+            }
         }
     }
 }
@@ -110,11 +159,28 @@ private struct GPSExpandedLeadingView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Image("AppIconImage")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 32, height: 32)
-                .clipShape(RoundedRectangle(cornerRadius: 7))
+            // 动态图标：根据状态和速度显示
+            if context.state.isActive && !context.state.isFrozen {
+                // 活跃绘制中 - 根据速度显示不同活动图标
+                let icon = ActivityIcon.forSpeed(context.state.currentSpeed)
+                if #available(iOS 17.0, *) {
+                    Image(systemName: icon.iconName)
+                        .font(.system(size: 28))
+                        .foregroundColor(icon.color)
+                        .symbolEffect(.variableColor.iterative.reversing, options: .repeating)
+                } else {
+                    Image(systemName: icon.iconName)
+                        .font(.system(size: 28))
+                        .foregroundColor(icon.color)
+                }
+            } else {
+                // 停止或冻结 - App Logo
+                Image("AppIconImage")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 32, height: 32)
+                    .clipShape(RoundedRectangle(cornerRadius: 7))
+            }
 
             Text(NSLocalizedString("live_activity.gps.title", comment: "GPS Drawing"))
                 .font(.caption2)
@@ -290,11 +356,28 @@ private struct GPSDrawingLockScreenView: View {
             // 顶部：状态 + 用时
             HStack {
                 HStack(spacing: 6) {
-                    Image("AppIconImage")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 20, height: 20)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                    // 动态图标：根据状态和速度显示
+                    if context.state.isActive && !context.state.isFrozen {
+                        // 活跃绘制中 - 根据速度显示不同活动图标
+                        let icon = ActivityIcon.forSpeed(context.state.currentSpeed)
+                        if #available(iOS 17.0, *) {
+                            Image(systemName: icon.iconName)
+                                .font(.system(size: 18))
+                                .foregroundColor(icon.color)
+                                .symbolEffect(.pulse, options: .repeating)
+                        } else {
+                            Image(systemName: icon.iconName)
+                                .font(.system(size: 18))
+                                .foregroundColor(icon.color)
+                        }
+                    } else {
+                        // 停止或冻结 - App Logo
+                        Image("AppIconImage")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20, height: 20)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                    }
 
                     Text(NSLocalizedString("live_activity.gps.title", comment: "GPS Drawing"))
                         .font(.headline)
@@ -404,7 +487,7 @@ private struct GPSDrawingLockScreenView: View {
 // MARK: - Preview
 
 @available(iOS 16.1, *)
-#Preview("GPS Drawing - Active", as: .content, using: GPSDrawingActivityAttributes(
+#Preview("GPS Drawing - Running", as: .content, using: GPSDrawingActivityAttributes(
     allianceName: "PixelKings",
     allianceColorHex: "#4ECDC4"
 )) {
@@ -416,7 +499,26 @@ private struct GPSDrawingLockScreenView: View {
         elapsedSeconds: 754,
         isFrozen: false,
         freezeSecondsLeft: 0,
-        isActive: true
+        isActive: true,
+        currentSpeed: 8.5  // 跑步速度
+    )
+}
+
+@available(iOS 16.1, *)
+#Preview("GPS Drawing - Cycling", as: .content, using: GPSDrawingActivityAttributes(
+    allianceName: "PixelKings",
+    allianceColorHex: "#4ECDC4"
+)) {
+    GPSDrawingLiveActivity()
+} contentStates: {
+    GPSDrawingActivityAttributes.ContentState(
+        pixelsDrawn: 156,
+        remainingPoints: 24,
+        elapsedSeconds: 892,
+        isFrozen: false,
+        freezeSecondsLeft: 0,
+        isActive: true,
+        currentSpeed: 18.2  // 骑行速度
     )
 }
 
@@ -433,6 +535,7 @@ private struct GPSDrawingLockScreenView: View {
         elapsedSeconds: 1234,
         isFrozen: true,
         freezeSecondsLeft: 45,
-        isActive: true
+        isActive: true,
+        currentSpeed: 0.0
     )
 }

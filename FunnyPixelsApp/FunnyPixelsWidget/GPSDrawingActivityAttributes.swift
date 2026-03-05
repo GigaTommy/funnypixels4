@@ -23,6 +23,8 @@ public struct GPSDrawingActivityAttributes: ActivityAttributes {
         public var freezeSecondsLeft: Int
         /// 是否仍在绘制中
         public var isActive: Bool
+        /// 当前移动速度 (km/h)
+        public var currentSpeed: Double
 
         public init(
             pixelsDrawn: Int = 0,
@@ -30,7 +32,8 @@ public struct GPSDrawingActivityAttributes: ActivityAttributes {
             elapsedSeconds: Int = 0,
             isFrozen: Bool = false,
             freezeSecondsLeft: Int = 0,
-            isActive: Bool = true
+            isActive: Bool = true,
+            currentSpeed: Double = 0.0
         ) {
             self.pixelsDrawn = pixelsDrawn
             self.remainingPoints = remainingPoints
@@ -38,6 +41,7 @@ public struct GPSDrawingActivityAttributes: ActivityAttributes {
             self.isFrozen = isFrozen
             self.freezeSecondsLeft = freezeSecondsLeft
             self.isActive = isActive
+            self.currentSpeed = currentSpeed
         }
     }
 

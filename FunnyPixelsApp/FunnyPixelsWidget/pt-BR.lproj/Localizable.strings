@@ -1,0 +1,9 @@
+// Live Activity - GPS Drawing
+"live_activity.gps.title" = "Desenho GPS";
+"live_activity.gps.pixels" = "pixels";
+"live_activity.gps.points" = "pontos";
+"live_activity.gps.cooldown" = "Recarga";
+"live_activity.gps.cooldown_time" = "Recarga %@";
+"live_activity.gps.drawing" = "Desenhando...";
+"live_activity.gps.stopped" = "Parado";
+"live_activity.gps.active" = "Ativo";

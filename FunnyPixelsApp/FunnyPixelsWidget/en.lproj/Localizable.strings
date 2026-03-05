@@ -1,0 +1,9 @@
+// Live Activity - GPS Drawing
+"live_activity.gps.title" = "GPS Drawing";
+"live_activity.gps.pixels" = "pixels";
+"live_activity.gps.points" = "points";
+"live_activity.gps.cooldown" = "Cooldown";
+"live_activity.gps.cooldown_time" = "Cooldown %@";
+"live_activity.gps.drawing" = "Drawing...";
+"live_activity.gps.stopped" = "Stopped";
+"live_activity.gps.active" = "Active";

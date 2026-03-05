@@ -1,0 +1,9 @@
+// Live Activity - GPS Drawing
+"live_activity.gps.title" = "GPS 그리기";
+"live_activity.gps.pixels" = "픽셀";
+"live_activity.gps.points" = "포인트";
+"live_activity.gps.cooldown" = "쿨다운";
+"live_activity.gps.cooldown_time" = "쿨다운 %@";
+"live_activity.gps.drawing" = "그리는 중...";
+"live_activity.gps.stopped" = "중지됨";
+"live_activity.gps.active" = "활성";

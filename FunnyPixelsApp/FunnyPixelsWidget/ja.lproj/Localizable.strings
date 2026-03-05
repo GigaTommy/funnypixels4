@@ -1,0 +1,9 @@
+// Live Activity - GPS Drawing
+"live_activity.gps.title" = "GPS 描画";
+"live_activity.gps.pixels" = "ピクセル";
+"live_activity.gps.points" = "ポイント";
+"live_activity.gps.cooldown" = "クールダウン";
+"live_activity.gps.cooldown_time" = "クールダウン %@";
+"live_activity.gps.drawing" = "描画中...";
+"live_activity.gps.stopped" = "停止";
+"live_activity.gps.active" = "アクティブ";

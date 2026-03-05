@@ -494,6 +494,7 @@ app.use('/api/geocoding', require('./routes/geocodingRoutes'));
 const productionMVTRoutes = require('./routes/productionMVTRoutes'); // PRODUCTION MVT + Sprite服务
 app.use('/api/tiles/pixels', productionMVTRoutes);
 app.use('/api/sprites', productionMVTRoutes);
+app.use('/api/map', require('./routes/mapHeatmapRoutes')); // 热力图数据API
 app.use('/api/map', secureMapAPIRoutes); // 安全地图API代理
 app.use('/api/performance', require('./routes/performance'));
 app.use('/api/drawing-sessions', require('./routes/drawingSessionRoutes'));
@@ -1479,6 +1480,28 @@ server.listen(PORT, HOST, async () => {
       } catch (snapshotError) {
         logger.error('启动排名快照任务失败', {
           message: snapshotError.message
+        });
+      }
+
+      // 启动领地控制变更检测服务（World State Feed数据源）
+      try {
+        const territoryControlService = require('./services/territoryControlService');
+        territoryControlService.start();
+        logger.info('领地控制变更检测服务已启动');
+      } catch (territoryError) {
+        logger.error('启动领地控制变更检测服务失败', {
+          message: territoryError.message
+        });
+      }
+
+      // 启动世界状态Feed数据服务（定期生成区域活跃度和联盟动态事件）
+      try {
+        const worldStateFeedService = require('./services/worldStateFeedService');
+        worldStateFeedService.start();
+        logger.info('世界状态Feed数据服务已启动');
+      } catch (worldStateError) {
+        logger.error('启动世界状态Feed数据服务失败', {
+          message: worldStateError.message
         });
       }
     } // end isPrimaryWorker block 2

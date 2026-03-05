@@ -1,0 +1,23 @@
+{
+  "name": "Earth",
+  "width": 16,
+  "height": 16,
+  "pixels": [
+    [null,    null,    null,    null,    null,    "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null,    null,    null,    null,    null],
+    [null,    null,    null,    "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null,    null,    null],
+    [null,    null,    "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#2E8B57", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null,    null],
+    [null,    "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#2E8B57", "#2E8B57", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#1E90FF", "#1E90FF", null],
+    [null,    "#1E90FF", "#228B22", "#228B22", "#2E8B57", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#1E90FF", null],
+    ["#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#228B22", "#2E8B57", "#1E90FF", "#1E90FF"],
+    ["#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#228B22", "#2E8B57", "#2E8B57", "#1E90FF", "#1E90FF"],
+    ["#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#2E8B57", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF"],
+    ["#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF"],
+    ["#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF"],
+    ["#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF"],
+    [null,    "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null],
+    [null,    "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null],
+    [null,    null,    "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#228B22", "#228B22", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null,    null],
+    [null,    null,    null,    "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null,    null,    null],
+    [null,    null,    null,    null,    null,    "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", "#1E90FF", null,    null,    null,    null,    null]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Heart",
+  "width": 8,
+  "height": 8,
+  "pixels": [
+    [null,    "#FF0000", "#FF0000", null,    null,    "#FF0000", "#FF0000", null],
+    ["#FF0000", "#FF4444", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF4444", "#FF0000"],
+    ["#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000"],
+    ["#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000"],
+    [null,    "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", null],
+    [null,    null,    "#FF0000", "#FF0000", "#FF0000", "#FF0000", null,    null],
+    [null,    null,    null,    "#FF0000", "#FF0000", null,    null,    null],
+    [null,    null,    null,    null,    null,    null,    null,    null]
+  ]
+}

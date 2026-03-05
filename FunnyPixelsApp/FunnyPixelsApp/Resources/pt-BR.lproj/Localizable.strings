@@ -1405,3 +1405,7 @@
 // Feedback
 "share.success.toast" = "Compartilhado com sucesso!";
 "share.error.generic" = "Falha ao compartilhar, tente novamente";
+
+// Map Heatmap
+"map.heatmap.fetch_error" = "Falha ao obter dados do mapa de calor";
+"map.heatmap.people_drawing_suffix" = " pessoas desenhando";

@@ -1,0 +1,19 @@
+{
+  "name": "Pixel Cat",
+  "width": 12,
+  "height": 12,
+  "pixels": [
+    [null,    null,    "#FF8C00", null,    null,    null,    null,    null,    null,    "#FF8C00", null,    null],
+    [null,    "#FF8C00", "#FFA500", "#FF8C00", null,    null,    null,    null,    "#FF8C00", "#FFA500", "#FF8C00", null],
+    [null,    "#FF8C00", "#FFA500", "#FFA500", "#FF8C00", "#FF8C00", "#FF8C00", "#FF8C00", "#FFA500", "#FFA500", "#FF8C00", null],
+    [null,    "#FF8C00", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FF8C00", null],
+    [null,    "#FF8C00", "#228B22", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#228B22", "#FF8C00", null],
+    [null,    "#FF8C00", "#FFA500", "#FFA500", "#FFA500", "#333333", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FF8C00", null],
+    [null,    "#FF8C00", "#FFA500", "#FFA500", "#333333", "#FFA500", "#333333", "#FFA500", "#FFA500", "#FFA500", "#FF8C00", null],
+    [null,    null,    "#FF8C00", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FF8C00", null,    null],
+    [null,    null,    null,    "#FF8C00", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FF8C00", null,    null,    null],
+    [null,    null,    "#FF8C00", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FFA500", "#FF8C00", null,    null],
+    [null,    null,    "#FF8C00", "#FFA500", null,    null,    null,    null,    "#FFA500", "#FF8C00", null,    null],
+    [null,    null,    "#FF8C00", "#FF8C00", null,    null,    null,    null,    "#FF8C00", "#FF8C00", null,    null]
+  ]
+}

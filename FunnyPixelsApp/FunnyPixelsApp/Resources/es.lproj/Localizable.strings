@@ -1362,3 +1362,7 @@
 // Retroalimentación
 "share.success.toast" = "¡Compartido exitosamente!";
 "share.error.generic" = "Error al compartir, inténtalo de nuevo";
+
+// Map Heatmap
+"map.heatmap.fetch_error" = "Error al obtener datos del mapa de calor";
+"map.heatmap.people_drawing_suffix" = " personas dibujando";

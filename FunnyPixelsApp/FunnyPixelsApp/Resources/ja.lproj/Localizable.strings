@@ -1555,3 +1555,7 @@
 // フィードバック
 "share.success.toast" = "共有に成功しました！";
 "share.error.generic" = "共有に失敗しました。もう一度お試しください";
+
+// Map Heatmap
+"map.heatmap.fetch_error" = "ヒートマップデータの取得に失敗しました";
+"map.heatmap.people_drawing_suffix" = " 人が描画中";

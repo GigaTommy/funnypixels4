@@ -304,6 +304,26 @@
 "onboarding.next" = "下一步";
 "onboarding.start" = "开始探索";
 
+/* Onboarding V2 - 交互式引导 */
+"onboarding_v2.skip" = "跳过";
+"onboarding_v2.continue" = "继续";
+"onboarding_v2.step1.title" = "点击放置你的第一个像素";
+"onboarding_v2.step1.subtitle" = "地图就是你的画布。\n点击任意位置开始！";
+"onboarding_v2.step2.title" = "选一个你喜欢的颜色";
+"onboarding_v2.step2.subtitle" = "为你的像素选择颜色。";
+"onboarding_v2.step3.title" = "放置你的像素！";
+"onboarding_v2.step3.subtitle" = "准备好了吗？放到地图上！";
+"onboarding_v2.step3.button" = "放置！";
+"onboarding_v2.step4.title" = "看看其他人画了什么";
+"onboarding_v2.step4.subtitle" = "探索地图，发现来自世界各地的像素艺术。";
+"onboarding_v2.step5.title" = "加入联盟";
+"onboarding_v2.step5.subtitle" = "与其他人组队一起创作，\n在地图上征服领地。";
+"onboarding_v2.step5.button" = "出发！";
+"onboarding_v2.step5.skip" = "以后再说";
+"onboarding_v2.step5.benefit1" = "与队友一起绘制";
+"onboarding_v2.step5.benefit2" = "在地图上飘扬联盟旗帜";
+"onboarding_v2.step5.benefit3" = "参与排行榜竞争";
+
 /* Drawing */
 "drawing.color.current" = "当前颜色";
 "drawing.color.presets" = "预设颜色";
@@ -1773,3 +1793,19 @@
 // 反馈提示
 "share.success.toast" = "分享成功！";
 "share.error.generic" = "分享失败，请重试";
+
+// MARK: - 绘制反馈与状态栏
+// PixelDrawFeedback - 连击和上下文文本
+"drawing.feedback.combo_milestone" = "连击 x%d!";
+"drawing.feedback.area_change" = "区域占比 +%.2f%%";
+"drawing.feedback.consecutive_draw" = "连续绘制 x%d";
+
+// CooldownRingView
+"cooldown.recovering" = "...";
+
+// DrawingModeStatusBar
+"drawing.status.combo_count" = "x%d";
+
+// Map Heatmap
+"map.heatmap.fetch_error" = "获取热力图数据失败";
+"map.heatmap.people_drawing_suffix" = " 人正在绘制";

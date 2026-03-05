@@ -464,6 +464,7 @@ struct MapLibreMapWrapper: UIViewRepresentable {
         weak var mapView: MLNMapView?
         var interactionManager: MapLibreInteractionManager?
         private var subscribedTileIds: Set<String> = []
+        private var heatmapLayerManager: MapHeatmapLayerManager?
 
         init(onPixelTapped: @escaping (Pixel) -> Void, onMapPanned: ((Bool) -> Void)?) {
             self.onPixelTapped = onPixelTapped
@@ -532,6 +533,9 @@ struct MapLibreMapWrapper: UIViewRepresentable {
 
                 // 🍾 设置漂流瓶标记图层
                 self.setupBottleMarkersLayer(style: style)
+
+                // 🔥 设置热力图图层（由 MapLayerSettings.showHeatmap 控制可见性）
+                self.heatmapLayerManager = MapHeatmapLayerManager(mapView: mapView)
             }
         }
         
@@ -753,6 +757,9 @@ struct MapLibreMapWrapper: UIViewRepresentable {
                 generator.impactOccurred(intensity: 0.5)
             }
             #endif
+
+            // 🔥 通知热力图图层视口变化（2秒防抖后刷新数据）
+            heatmapLayerManager?.onViewportChanged()
 
             // 🔧 扫描可视区域的 complex 像素，动态加载缺失的 sprite（如用户头像）
             if zoom >= 12 {

@@ -1238,6 +1238,26 @@ class FeedController {
     }
   }
 
+  /**
+   * 获取全局活动摘要
+   * GET /api/feed/activity-summary
+   * 返回世界活跃度指标，用于iOS端"世界活跃"指示器
+   */
+  static async getActivitySummary(req, res) {
+    try {
+      const worldStateFeedService = require('../services/worldStateFeedService');
+      const summary = await worldStateFeedService.getActivitySummary();
+
+      res.json({
+        success: true,
+        data: summary
+      });
+    } catch (error) {
+      logger.error('获取活动摘要失败:', error);
+      res.status(500).json({ success: false, message: '获取活动摘要失败', error: error.message });
+    }
+  }
+
   // 生成官方公告事件
   static async _generateOfficialEvents(userId, limit, language = 'zh-Hans') {
     try {

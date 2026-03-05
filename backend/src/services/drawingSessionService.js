@@ -333,15 +333,34 @@ class DrawingSessionService {
 
       logger.info(`会话 ${sessionId} 统计信息:`, statistics);
 
-      // 更新会话的统计信息（使用正确的键名 statistics）
+      // 构建地理位置信息（用于World State Feed的artwork事件）
+      const locationInfo = firstPixel ? {
+        city: firstPixel.city || null,
+        province: firstPixel.province || null,
+        country: firstPixel.country || null
+      } : null;
+
+      // 更新会话的统计信息
+      // 同时写入 statistics 嵌套对象（iOS端使用）和顶层 pixel_count/duration_seconds/location（World State Feed使用）
       await this.db('drawing_sessions')
         .where({ id: sessionId })
         .update({
           ...sessionUpdate,
           metadata: this.db.raw(`
             COALESCE(metadata, '{}'::jsonb) ||
-            jsonb_build_object('statistics', ?::jsonb, 'calculated_at', to_jsonb(NOW()))
-          `, [JSON.stringify(statistics)]),
+            jsonb_build_object(
+              'statistics', ?::jsonb,
+              'calculated_at', to_jsonb(NOW()),
+              'pixel_count', to_jsonb(?::int),
+              'duration_seconds', to_jsonb(?::int),
+              'location', ?::jsonb
+            )
+          `, [
+            JSON.stringify(statistics),
+            parseInt(stats.pixel_count) || 0,
+            duration,
+            JSON.stringify(locationInfo)
+          ]),
           updated_at: new Date()
         });
 

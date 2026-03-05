@@ -15,6 +15,9 @@ router.get('/', FeedController.getFeed);
 // 获取世界状态流（系统生成事件）
 router.get('/world-state', FeedController.getWorldStateFeed);
 
+// 获取全局活动摘要（世界活跃度指标）
+router.get('/activity-summary', FeedController.getActivitySummary);
+
 // 创建心情动态
 router.post('/create', FeedController.createMoment);
 

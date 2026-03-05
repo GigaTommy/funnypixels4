@@ -1068,6 +1068,26 @@
 "onboarding.next" = "Next";
 "onboarding.start" = "Start";
 
+/* Onboarding V2 - Interactive */
+"onboarding_v2.skip" = "Skip";
+"onboarding_v2.continue" = "Continue";
+"onboarding_v2.step1.title" = "Tap to Place Your First Pixel";
+"onboarding_v2.step1.subtitle" = "The map is your canvas.\nTap anywhere to get started!";
+"onboarding_v2.step2.title" = "Pick a Color You Like";
+"onboarding_v2.step2.subtitle" = "Choose a color for your pixel.";
+"onboarding_v2.step3.title" = "Place Your Pixel!";
+"onboarding_v2.step3.subtitle" = "Ready? Drop it on the map!";
+"onboarding_v2.step3.button" = "Place it!";
+"onboarding_v2.step4.title" = "See What Others Have Drawn";
+"onboarding_v2.step4.subtitle" = "Explore the map to discover pixel art created by people all around the world.";
+"onboarding_v2.step5.title" = "Join an Alliance";
+"onboarding_v2.step5.subtitle" = "Team up with others to create together\nand conquer territories on the map.";
+"onboarding_v2.step5.button" = "Let's Go!";
+"onboarding_v2.step5.skip" = "Maybe later";
+"onboarding_v2.step5.benefit1" = "Draw with teammates";
+"onboarding_v2.step5.benefit2" = "Fly your alliance flag on the map";
+"onboarding_v2.step5.benefit3" = "Compete on leaderboards";
+
 /* Drawing */
 "drawing.color.current" = "Current Color";
 "drawing.color.presets" = "Preset Colors";
@@ -1775,3 +1795,19 @@
 // Feedback
 "share.success.toast" = "Shared successfully!";
 "share.error.generic" = "Failed to share, please try again";
+
+// MARK: - Drawing Feedback & Status Bar
+// PixelDrawFeedback - combo and contextual text
+"drawing.feedback.combo_milestone" = "Combo x%d!";
+"drawing.feedback.area_change" = "Area +%.2f%%";
+"drawing.feedback.consecutive_draw" = "Streak x%d";
+
+// CooldownRingView
+"cooldown.recovering" = "...";
+
+// DrawingModeStatusBar
+"drawing.status.combo_count" = "x%d";
+
+// Map Heatmap
+"map.heatmap.fetch_error" = "Failed to fetch heatmap data";
+"map.heatmap.people_drawing_suffix" = " people drawing";

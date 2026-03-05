@@ -91,8 +91,8 @@ struct MainMapView: View {
     @State private var newAchievement: AchievementService.Achievement?
     @State private var showAchievementToast = false
 
-    // Onboarding State
-    @AppStorage("hasSeenOnboarding_v1") private var hasSeenOnboarding = false
+    // Onboarding State (v2: interactive overlay on top of map)
+    @AppStorage("hasSeenOnboarding_v2") private var hasSeenOnboarding = false
     @State private var showOnboarding = false
     @State private var showLocationPreEducation = false
 
@@ -154,15 +154,24 @@ struct MainMapView: View {
             }
             .animation(.spring(response: 0.5, dampingFraction: 0.7), value: eventManager.zoneNotification != nil)
         }
-        .fullScreenCover(isPresented: $showOnboarding, onDismiss: {
-            hasSeenOnboarding = true
-            if locationManager.authorizationStatus == .notDetermined {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    showLocationPreEducation = true
+        .overlay {
+            // Interactive onboarding overlay (v2) - map visible underneath
+            if showOnboarding {
+                OnboardingOverlayView(isPresented: $showOnboarding)
+                    .transition(.opacity)
+                    .zIndex(500)
+            }
+        }
+        .onChange(of: showOnboarding) {
+            if !showOnboarding {
+                // Onboarding dismissed - persist and show location permission if needed
+                hasSeenOnboarding = true
+                if locationManager.authorizationStatus == .notDetermined {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showLocationPreEducation = true
+                    }
                 }
             }
-        }) {
-            OnboardingView(isPresented: $showOnboarding)
         }
         .fullScreenCover(isPresented: $showLocationPreEducation) {
             LocationPermissionView(isPresented: $showLocationPreEducation)

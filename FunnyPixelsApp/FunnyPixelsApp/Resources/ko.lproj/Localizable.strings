@@ -1321,3 +1321,7 @@
 // 피드백
 "share.success.toast" = "공유되었습니다!";
 "share.error.generic" = "공유 실패, 다시 시도해주세요";
+
+// Map Heatmap
+"map.heatmap.fetch_error" = "히트맵 데이터를 가져오지 못했습니다";
+"map.heatmap.people_drawing_suffix" = " 명이 그리는 중";

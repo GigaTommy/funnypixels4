@@ -1,0 +1,15 @@
+{
+  "name": "Smiley",
+  "width": 8,
+  "height": 8,
+  "pixels": [
+    [null,    null,    "#FFD700", "#FFD700", "#FFD700", "#FFD700", null,    null],
+    [null,    "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", null],
+    ["#FFD700", "#FFD700", "#333333", "#FFD700", "#FFD700", "#333333", "#FFD700", "#FFD700"],
+    ["#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700"],
+    ["#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#FFD700"],
+    ["#FFD700", "#333333", "#FFD700", "#FFD700", "#FFD700", "#FFD700", "#333333", "#FFD700"],
+    [null,    "#FFD700", "#333333", "#333333", "#333333", "#333333", "#FFD700", null],
+    [null,    null,    "#FFD700", "#FFD700", "#FFD700", "#FFD700", null,    null]
+  ]
+}

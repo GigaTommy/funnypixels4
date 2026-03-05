@@ -1,0 +1,15 @@
+{
+  "name": "Star",
+  "width": 8,
+  "height": 8,
+  "pixels": [
+    [null,    null,    null,    "#FFD700", null,    null,    null,    null],
+    [null,    null,    "#FFD700", "#FFEA00", "#FFD700", null,    null,    null],
+    [null,    null,    "#FFD700", "#FFEA00", "#FFD700", null,    null,    null],
+    ["#FFD700", "#FFD700", "#FFD700", "#FFEA00", "#FFD700", "#FFD700", "#FFD700", null],
+    [null,    "#FFD700", "#FFEA00", "#FFEA00", "#FFEA00", "#FFD700", null,    null],
+    [null,    null,    "#FFD700", "#FFEA00", "#FFD700", null,    null,    null],
+    [null,    "#FFD700", "#FFD700", null,    "#FFD700", "#FFD700", null,    null],
+    ["#FFD700", null,    null,    null,    null,    null,    "#FFD700", null]
+  ]
+}

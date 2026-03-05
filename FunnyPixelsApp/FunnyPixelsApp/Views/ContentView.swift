@@ -91,9 +91,9 @@ struct MainMapView: View {
     @State private var newAchievement: AchievementService.Achievement?
     @State private var showAchievementToast = false
 
-    // Onboarding State (v2: interactive overlay on top of map)
-    @AppStorage("hasSeenOnboarding_v2") private var hasSeenOnboarding = false
-    @State private var showOnboarding = false
+    // Onboarding State (v3: new contextual onboarding system)
+    @StateObject private var onboardingCoordinator = OnboardingCoordinator.shared
+    @AppStorage("hasSeenOnboarding_v3") private var hasSeenOnboarding = false
     @State private var showLocationPreEducation = false
 
     // Deep link navigation state
@@ -155,16 +155,38 @@ struct MainMapView: View {
             .animation(.spring(response: 0.5, dampingFraction: 0.7), value: eventManager.zoneNotification != nil)
         }
         .overlay {
-            // Interactive onboarding overlay (v2) - map visible underneath
-            if showOnboarding {
-                OnboardingOverlayView(isPresented: $showOnboarding)
+            // New onboarding system (v3) - contextual and non-intrusive
+            ZStack {
+                // Welcome splash (2 seconds, auto-dismiss)
+                if onboardingCoordinator.showWelcome {
+                    WelcomeSplashView(isPresented: $onboardingCoordinator.showWelcome)
+                        .transition(.opacity)
+                        .zIndex(600)
+                }
+
+                // Contextual tooltip (appears after welcome)
+                if let tooltipConfig = onboardingCoordinator.currentTooltip {
+                    ContextualTooltipView(
+                        config: tooltipConfig,
+                        onDismiss: {
+                            onboardingCoordinator.dismissTooltip()
+                        }
+                    )
                     .transition(.opacity)
                     .zIndex(500)
+                }
+
+                // First pixel celebration
+                if onboardingCoordinator.showCelebration {
+                    FirstPixelCelebration(isPresented: $onboardingCoordinator.showCelebration)
+                        .transition(.opacity)
+                        .zIndex(550)
+                }
             }
         }
-        .onChange(of: showOnboarding) {
-            if !showOnboarding {
-                // Onboarding dismissed - persist and show location permission if needed
+        .onChange(of: onboardingCoordinator.currentState) { oldState, newState in
+            if newState == .completed {
+                // Onboarding completed - persist and show location permission if needed
                 hasSeenOnboarding = true
                 if locationManager.authorizationStatus == .notDetermined {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -177,8 +199,9 @@ struct MainMapView: View {
             LocationPermissionView(isPresented: $showLocationPreEducation)
         }
         .onAppear {
+            // Start new onboarding flow if first time
             if !hasSeenOnboarding {
-                showOnboarding = true
+                onboardingCoordinator.startOnboarding()
             }
 
             // Only auto-request if already granted (for returning users)

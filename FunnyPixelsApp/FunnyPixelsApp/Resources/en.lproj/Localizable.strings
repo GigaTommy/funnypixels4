@@ -1821,3 +1821,33 @@
 "live_activity.gps.drawing" = "Drawing...";
 "live_activity.gps.stopped" = "Stopped";
 "live_activity.gps.active" = "Active";
+
+// Onboarding - Welcome Splash
+"welcome.tagline" = "Leave your mark on the real world map";
+"welcome.countries" = "Countries";
+"welcome.pixels" = "Pixels";
+
+// Onboarding - Tooltip: First Tap
+"tooltip.first_tap.title" = "Tap to start creating";
+"tooltip.first_tap.message" = "Tap anywhere on the map to place your first pixel";
+"tooltip.got_it" = "Got it";
+
+// Onboarding - Tooltip: Post Draw
+"tooltip.post_draw.title" = "Success!";
+"tooltip.post_draw.message" = "You're using the default color. Join an alliance to unlock more patterns!";
+
+// Onboarding - Celebration
+"celebration.first_pixel.title" = "Congratulations!";
+"celebration.first_pixel.subtitle" = "You're now one of 3 million creators worldwide";
+"celebration.achievement" = "Achievement Unlocked";
+"celebration.first_timer" = "First Timer";
+"celebration.share" = "Share with friends";
+
+// Onboarding - Post Education
+"post_education.pattern_info" = "Your pixel uses the default color";
+"post_education.join_alliance" = "Join an alliance to unlock custom patterns";
+"post_education.join_button" = "Join Alliance";
+"post_education.later" = "Maybe later";
+
+// Common Actions
+"common.retry" = "Retry";

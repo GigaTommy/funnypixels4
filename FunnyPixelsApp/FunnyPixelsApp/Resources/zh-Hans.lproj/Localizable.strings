@@ -1819,3 +1819,33 @@
 "live_activity.gps.drawing" = "绘制中...";
 "live_activity.gps.stopped" = "已停止";
 "live_activity.gps.active" = "活跃";
+
+// Onboarding - Welcome Splash
+"welcome.tagline" = "在真实世界的地图上留下你的印记";
+"welcome.countries" = "国家";
+"welcome.pixels" = "像素";
+
+// Onboarding - Tooltip: First Tap
+"tooltip.first_tap.title" = "点击地图开始创作";
+"tooltip.first_tap.message" = "点击地图任意位置，放置你的第一个像素";
+"tooltip.got_it" = "知道了";
+
+// Onboarding - Tooltip: Post Draw
+"tooltip.post_draw.title" = "绘制成功！";
+"tooltip.post_draw.message" = "你使用的是默认颜色。加入联盟可以使用更多图案！";
+
+// Onboarding - Celebration
+"celebration.first_pixel.title" = "恭喜！";
+"celebration.first_pixel.subtitle" = "你已经是全球300万创作者之一了";
+"celebration.achievement" = "成就解锁";
+"celebration.first_timer" = "初试身手";
+"celebration.share" = "分享给朋友";
+
+// Onboarding - Post Education
+"post_education.pattern_info" = "你的像素使用的是默认颜色";
+"post_education.join_alliance" = "加入联盟解锁自定义图案";
+"post_education.join_button" = "加入联盟";
+"post_education.later" = "稍后再说";
+
+// Common Actions
+"common.retry" = "重试";

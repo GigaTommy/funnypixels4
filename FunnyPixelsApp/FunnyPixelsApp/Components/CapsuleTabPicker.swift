@@ -13,7 +13,7 @@ struct CapsuleTabPicker<Item: Hashable & CustomStringConvertible>: View {
         // ✅ 如果items ≤ 3个，使用HStack均匀分布；如果 > 3个，使用ScrollView
         if items.count <= 3 {
             // 固定3个或更少的tab - 使用HStack均匀分布，无需滚动
-            HStack(spacing: AppSpacing.m) {
+            HStack(spacing: 12) {
                 ForEach(items, id: \.self) { item in
                     Button {
                         HapticManager.shared.impact(style: .light)
@@ -24,25 +24,25 @@ struct CapsuleTabPicker<Item: Hashable & CustomStringConvertible>: View {
                     } label: {
                         Text(item.description)
                             .responsiveFont(.subheadline, weight: .semibold)
-                            .foregroundColor(selection == item ? .white : AppColors.textSecondary)
+                            .foregroundColor(selection == item ? .white : .secondary)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 10)
                             .frame(maxWidth: .infinity)  // ✅ 均匀分布
                             .background(
                                 Capsule()
-                                    .fill(selection == item ? AppColors.primary : Color(.systemGray6))
+                                    .fill(selection == item ? UnifiedColors.primary : Color(.systemGray6))
                             )
                     }
                     .buttonStyle(.plain)
                 }
             }
-            .padding(.horizontal, AppSpacing.l)
-            .padding(.vertical, AppSpacing.s)
-            .background(AppColors.background)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(Color(uiColor: .systemBackground))
         } else {
             // 4个或更多tab - 使用ScrollView
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: AppSpacing.m) {
+                HStack(spacing: 12) {
                     ForEach(items, id: \.self) { item in
                         Button {
                             HapticManager.shared.impact(style: .light)
@@ -53,21 +53,21 @@ struct CapsuleTabPicker<Item: Hashable & CustomStringConvertible>: View {
                         } label: {
                             Text(item.description)
                                 .responsiveFont(.subheadline, weight: .semibold)
-                                .foregroundColor(selection == item ? .white : AppColors.textSecondary)
+                                .foregroundColor(selection == item ? .white : .secondary)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                                 .background(
                                     Capsule()
-                                        .fill(selection == item ? AppColors.primary : Color(.systemGray6))
+                                        .fill(selection == item ? UnifiedColors.primary : Color(.systemGray6))
                                 )
                         }
                         .buttonStyle(.plain)
                     }
                 }
-                .padding(.horizontal, AppSpacing.l)
-                .padding(.vertical, AppSpacing.s)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
             }
-            .background(AppColors.background)
+            .background(Color(uiColor: .systemBackground))
         }
     }
 }
@@ -88,6 +88,6 @@ struct CapsuleTabPicker_Previews: PreviewProvider {
             )
         }
         .padding()
-        .background(AppColors.background)
+        .background(Color(uiColor: .systemBackground))
     }
 }

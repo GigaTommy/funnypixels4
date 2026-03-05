@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: - Onboarding Step Enum
 
 /// Defines the 5 interactive onboarding steps
-enum OnboardingStep: Int, CaseIterable {
+enum LegacyOnboardingStep: Int, CaseIterable {
     case tapPixel = 0      // Step 1: Tap to place your first pixel
     case pickColor = 1     // Step 2: Pick a color
     case placePixel = 2    // Step 3: Place the pixel (triggers celebration)
@@ -21,7 +21,7 @@ enum OnboardingStep: Int, CaseIterable {
 /// Users learn by doing: they place their first pixel within the first minute.
 struct OnboardingOverlayView: View {
     @Binding var isPresented: Bool
-    @State private var currentStep: OnboardingStep = .tapPixel
+    @State private var currentStep: LegacyOnboardingStep = .tapPixel
     @State private var animateSpotlight = false
     @State private var showStepContent = false
     @State private var pulseScale: CGFloat = 1.0
@@ -537,7 +537,7 @@ struct OnboardingOverlayView: View {
         VStack {
             Spacer()
             HStack(spacing: 8) {
-                ForEach(0..<OnboardingStep.totalSteps, id: \.self) { index in
+                ForEach(0..<LegacyOnboardingStep.totalSteps, id: \.self) { index in
                     Circle()
                         .fill(index == currentStep.progressIndex
                               ? Color.white
@@ -556,7 +556,7 @@ struct OnboardingOverlayView: View {
     // MARK: - Actions
 
     private func advanceStep() {
-        guard let nextStepRaw = OnboardingStep(rawValue: currentStep.rawValue + 1) else {
+        guard let nextStepRaw = LegacyOnboardingStep(rawValue: currentStep.rawValue + 1) else {
             completeOnboarding()
             return
         }

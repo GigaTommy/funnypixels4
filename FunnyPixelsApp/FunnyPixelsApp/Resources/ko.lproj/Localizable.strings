@@ -1335,3 +1335,33 @@
 "live_activity.gps.drawing" = "그리는 중...";
 "live_activity.gps.stopped" = "중지됨";
 "live_activity.gps.active" = "활성";
+
+// Onboarding - Welcome Splash
+"welcome.tagline" = "실제 세계 지도에 당신의 흔적을 남기세요";
+"welcome.countries" = "국가";
+"welcome.pixels" = "픽셀";
+
+// Onboarding - Tooltip: First Tap
+"tooltip.first_tap.title" = "탭하여 제작 시작";
+"tooltip.first_tap.message" = "지도의 아무 곳이나 탭하여 첫 번째 픽셀 배치";
+"tooltip.got_it" = "알겠습니다";
+
+// Onboarding - Tooltip: Post Draw
+"tooltip.post_draw.title" = "성공!";
+"tooltip.post_draw.message" = "기본 색상을 사용하고 있습니다. 동맹에 가입하여 더 많은 패턴을 잠금 해제하세요!";
+
+// Onboarding - Celebration
+"celebration.first_pixel.title" = "축하합니다!";
+"celebration.first_pixel.subtitle" = "당신은 이제 전 세계 300만 크리에이터 중 한 명입니다";
+"celebration.achievement" = "업적 달성";
+"celebration.first_timer" = "첫 발걸음";
+"celebration.share" = "친구와 공유";
+
+// Onboarding - Post Education
+"post_education.pattern_info" = "픽셀이 기본 색상을 사용합니다";
+"post_education.join_alliance" = "동맹에 가입하여 사용자 정의 패턴 잠금 해제";
+"post_education.join_button" = "동맹 가입";
+"post_education.later" = "나중에";
+
+// Common Actions
+"common.retry" = "다시 시도";

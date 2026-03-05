@@ -1569,3 +1569,33 @@
 "live_activity.gps.drawing" = "描画中...";
 "live_activity.gps.stopped" = "停止";
 "live_activity.gps.active" = "アクティブ";
+
+// Onboarding - Welcome Splash
+"welcome.tagline" = "実世界の地図にあなたの足跡を残そう";
+"welcome.countries" = "国";
+"welcome.pixels" = "ピクセル";
+
+// Onboarding - Tooltip: First Tap
+"tooltip.first_tap.title" = "タップして作成開始";
+"tooltip.first_tap.message" = "地図上の任意の場所をタップして最初のピクセルを配置";
+"tooltip.got_it" = "了解";
+
+// Onboarding - Tooltip: Post Draw
+"tooltip.post_draw.title" = "成功！";
+"tooltip.post_draw.message" = "デフォルトカラーを使用しています。同盟に参加してより多くのパターンをアンロック！";
+
+// Onboarding - Celebration
+"celebration.first_pixel.title" = "おめでとう！";
+"celebration.first_pixel.subtitle" = "あなたは世界中の300万人のクリエイターの一員です";
+"celebration.achievement" = "実績解除";
+"celebration.first_timer" = "初心者";
+"celebration.share" = "友達と共有";
+
+// Onboarding - Post Education
+"post_education.pattern_info" = "ピクセルはデフォルトカラーを使用しています";
+"post_education.join_alliance" = "同盟に参加してカスタムパターンをアンロック";
+"post_education.join_button" = "同盟に参加";
+"post_education.later" = "後で";
+
+// Common Actions
+"common.retry" = "再試行";

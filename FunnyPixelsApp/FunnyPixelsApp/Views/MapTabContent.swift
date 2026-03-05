@@ -14,6 +14,7 @@ struct MapTabContent: View {
     @ObservedObject private var driftBottleManager = DriftBottleManager.shared
     @ObservedObject private var gpsDrawingService = GPSDrawingService.shared
     @ObservedObject private var fontManager = FontSizeManager.shared
+    @ObservedObject private var onboardingCoordinator = OnboardingCoordinator.shared
 
     // Map interaction states
     @State private var isRoaming = false
@@ -76,6 +77,17 @@ struct MapTabContent: View {
 
             // 🔧 地图交互元素
             mapInteractiveElements
+
+            // 🎓 引导模式点击拦截层
+            if onboardingCoordinator.currentState == .firstTap {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture { location in
+                        // 转换屏幕坐标为地图坐标
+                        handleOnboardingMapTap(at: location)
+                    }
+                    .zIndex(900)
+            }
 
             // 🎯 专注模式覆盖层（最高优先级 - 防误触）
             if GPSDrawingService.shared.isFocusMode {
@@ -561,6 +573,22 @@ struct MapTabContent: View {
     private func coordinateToScreen(_ coordinate: CLLocationCoordinate2D) -> CGPoint {
         // 使用MapController的坐标转换方法
         return mapController.coordinateToScreen(coordinate)
+    }
+
+    /// 处理引导模式下的地图点击
+    /// - Parameter screenPoint: 屏幕点击位置
+    private func handleOnboardingMapTap(at screenPoint: CGPoint) {
+        Logger.info("🎓 Onboarding map tapped at screen point: \(screenPoint)")
+
+        // 使用地图中心坐标作为绘制位置
+        // 这样用户点击地图任意位置都会在地图中心绘制第一个像素
+        guard let centerCoordinate = mapController.getCenterCoordinate() else {
+            Logger.warning("🎓 Failed to get map center coordinate")
+            return
+        }
+
+        // 传递给OnboardingCoordinator处理
+        onboardingCoordinator.handleMapTap(at: centerCoordinate)
     }
 
     /// 启动漂流瓶标记刷新

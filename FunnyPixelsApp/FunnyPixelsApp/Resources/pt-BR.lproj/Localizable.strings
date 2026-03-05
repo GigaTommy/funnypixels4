@@ -1419,3 +1419,33 @@
 "live_activity.gps.drawing" = "Desenhando...";
 "live_activity.gps.stopped" = "Parado";
 "live_activity.gps.active" = "Ativo";
+
+// Onboarding - Welcome Splash
+"welcome.tagline" = "Deixe sua marca no mapa do mundo real";
+"welcome.countries" = "Países";
+"welcome.pixels" = "Pixels";
+
+// Onboarding - Tooltip: First Tap
+"tooltip.first_tap.title" = "Toque para começar a criar";
+"tooltip.first_tap.message" = "Toque em qualquer lugar do mapa para colocar seu primeiro pixel";
+"tooltip.got_it" = "Entendi";
+
+// Onboarding - Tooltip: Post Draw
+"tooltip.post_draw.title" = "Sucesso!";
+"tooltip.post_draw.message" = "Você está usando a cor padrão. Junte-se a uma aliança para desbloquear mais padrões!";
+
+// Onboarding - Celebration
+"celebration.first_pixel.title" = "Parabéns!";
+"celebration.first_pixel.subtitle" = "Agora você é um dos 3 milhões de criadores em todo o mundo";
+"celebration.achievement" = "Conquista desbloqueada";
+"celebration.first_timer" = "Primeira vez";
+"celebration.share" = "Compartilhar com amigos";
+
+// Onboarding - Post Education
+"post_education.pattern_info" = "Seu pixel usa a cor padrão";
+"post_education.join_alliance" = "Junte-se a uma aliança para desbloquear padrões personalizados";
+"post_education.join_button" = "Entrar na aliança";
+"post_education.later" = "Talvez mais tarde";
+
+// Common Actions
+"common.retry" = "Tentar novamente";

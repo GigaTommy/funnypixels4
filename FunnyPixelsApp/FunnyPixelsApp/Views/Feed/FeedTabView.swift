@@ -48,6 +48,9 @@ struct FeedTabView: View {
 
 /// 我的记录 - 迁移原 DrawingHistoryView 的内容
 struct MyRecordsView: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject private var viewModel = DrawingHistoryViewModel()
     @State private var showFilters = false
@@ -84,15 +87,15 @@ struct MyRecordsView: View {
             if viewModel.isOfflineMode {
                 HStack(spacing: 8) {
                     Image(systemName: "wifi.slash")
-                        .font(.caption)
+                        .responsiveFont(.caption)
                     Text(NSLocalizedString("gallery.offline_mode", comment: ""))
-                        .font(.caption)
+                        .responsiveFont(.caption)
                     Spacer()
                     Button(action: {
                         Task { await viewModel.refresh() }
                     }) {
                         Image(systemName: "arrow.clockwise")
-                            .font(.caption)
+                            .responsiveFont(.caption)
                     }
                 }
                 .foregroundColor(.white)
@@ -153,7 +156,7 @@ struct MyRecordsView: View {
                 }
             } label: {
                 Image(systemName: viewModel.viewMode == .grid ? "list.bullet" : "square.grid.2x2")
-                    .font(.system(size: 16, weight: .medium))
+                    .responsiveFont(.callout, weight: .medium)
                     .foregroundColor(AppColors.textSecondary)
                     .frame(width: 32, height: 32)
                     .background(AppColors.surface)
@@ -239,7 +242,7 @@ struct MyRecordsView: View {
                 .foregroundColor(.secondary)
 
             Text(NSLocalizedString("gallery.empty.title", comment: "No Artworks Yet"))
-                .font(.title3)
+                .responsiveFont(.title3)
                 .fontWeight(.semibold)
 
             Text(NSLocalizedString("gallery.empty.message", comment: "Start your first creation"))
@@ -271,17 +274,17 @@ struct MyRecordsView: View {
     private var guestPrompt: some View {
         VStack(spacing: 24) {
             Image(systemName: "photo.stack.fill")
-                .font(.system(size: 80))
+                .font(.system(size: 80 * fontManager.scale))
                 .foregroundColor(.blue.opacity(0.8))
                 .padding(.top, 40)
 
             VStack(spacing: 12) {
                 Text(NSLocalizedString("gallery.guest.title", comment: "Record Your Creativity"))
-                    .font(.title3)
+                    .responsiveFont(.title3)
                     .fontWeight(.bold)
 
                 Text(NSLocalizedString("gallery.guest.message", comment: "Login to view artworks"))
-                    .font(.subheadline)
+                    .responsiveFont(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
@@ -354,11 +357,13 @@ struct MyRecordsView: View {
 
 /// 社交动态占位（Sprint 3 后续任务 #35-#36 实现）
 struct SocialFeedPlaceholderView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     var body: some View {
         VStack(spacing: AppSpacing.l) {
             Spacer()
             Image(systemName: "person.2.wave.2")
-                .font(.system(size: 48))
+                .font(.system(size: 48 * fontManager.scale))
                 .foregroundColor(AppColors.textTertiary)
             Text(NSLocalizedString("feed.social.coming_soon", comment: "Social Feed coming soon"))
                 .font(AppTypography.body())
@@ -375,11 +380,13 @@ struct SocialFeedPlaceholderView: View {
 
 /// 数据仪表盘占位（Sprint 3 任务 #37 实现）
 struct DashboardPlaceholderView: View {
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     var body: some View {
         VStack(spacing: AppSpacing.l) {
             Spacer()
             Image(systemName: "chart.bar.xaxis")
-                .font(.system(size: 48))
+                .font(.system(size: 48 * fontManager.scale))
                 .foregroundColor(AppColors.textTertiary)
             Text(NSLocalizedString("feed.dashboard.coming_soon", comment: "Dashboard coming soon"))
                 .font(AppTypography.body())

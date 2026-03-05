@@ -4,6 +4,9 @@ import AudioToolbox  // 用于播放音效
 
 /// 主内容视图
 public struct ContentView: View {
+    // ✅ 响应式设计：监听字体设置变化
+    @ObservedObject private var fontManager = FontSizeManager.shared
+
     @StateObject private var authViewModel = AuthViewModel()
     @State private var showAuthSheet = false
 
@@ -56,7 +59,7 @@ public struct ContentView: View {
 
                                 // 提示文本
                                 Text(NSLocalizedString("auth.validating", value: "Verifying session...", comment: ""))
-                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .responsiveFont(.caption, weight: .medium)
                                     .foregroundColor(AppColors.textSecondary)
                                     .padding(.top, 8)
 

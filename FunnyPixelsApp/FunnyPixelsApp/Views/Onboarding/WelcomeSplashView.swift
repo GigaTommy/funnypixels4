@@ -9,11 +9,12 @@ struct WelcomeSplashView: View {
 
     var body: some View {
         ZStack {
-            // 渐变背景
+            // 渐变背景 — 与 LaunchLoadingView 保持一致
             LinearGradient(
                 colors: [
-                    Color(hex: "4ECDC4") ?? UnifiedColors.primary,
-                    Color(hex: "44A08D") ?? UnifiedColors.secondary
+                    Color(hex: "EEF4FF") ?? AppColors.background,
+                    AppColors.background,
+                    Color.white
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -22,20 +23,11 @@ struct WelcomeSplashView: View {
 
             VStack(spacing: 32) {
                 // App Logo
-                if let appIcon = UIImage(named: "AppIcon") {
-                    Image(uiImage: appIcon)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 120, height: 120)
-                        .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
-                        .shadow(color: .black.opacity(0.2), radius: 16, x: 0, y: 8)
-                } else {
-                    // Fallback: SF Symbol
-                    Image(systemName: "map.fill")
-                        .font(.system(size: 80))
-                        .foregroundColor(.white)
-                        .frame(width: 120, height: 120)
-                }
+                Image("WelcomeLogo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 140, height: 140)
+                    .shadow(color: AppColors.primary.opacity(0.15), radius: 16, x: 0, y: 8)
 
                 // 核心价值主张
                 Text(NSLocalizedString(
@@ -44,19 +36,19 @@ struct WelcomeSplashView: View {
                     comment: "Welcome tagline"
                 ))
                 .responsiveFont(.title2, weight: .bold)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
 
                 // 社会证明（数据驱动）
                 HStack(spacing: 24) {
                     statPill(
-                        icon: "map.fill",
+                        image: "WelcomePin",
                         value: "60+",
                         label: NSLocalizedString("welcome.countries", value: "国家", comment: "Countries count")
                     )
                     statPill(
-                        icon: "person.3.fill",
+                        image: "WelcomeEarth",
                         value: "300万",
                         label: NSLocalizedString("welcome.pixels", value: "像素", comment: "Pixels count")
                     )
@@ -84,27 +76,27 @@ struct WelcomeSplashView: View {
         }
     }
 
-    private func statPill(icon: String, value: String, label: String) -> some View {
+    private func statPill(image: String, value: String, label: String) -> some View {
         VStack(spacing: 4) {
             HStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.system(size: 16))
+                Image(image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
                 Text(value)
                     .responsiveFont(.headline, weight: .bold)
             }
-            .foregroundColor(.white)
+            .foregroundColor(.black)
 
             Text(label)
                 .responsiveFont(.caption2)
-                .foregroundColor(.white.opacity(0.8))
+                .foregroundColor(.gray)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background(
             Capsule()
-                .fill(.white.opacity(0.2))
-                .background(.ultraThinMaterial)
-                .clipShape(Capsule())
+                .fill(Color.black.opacity(0.05))
         )
     }
 }

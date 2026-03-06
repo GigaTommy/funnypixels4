@@ -34,13 +34,13 @@ class OnboardingCoordinator: ObservableObject {
     // MARK: - Init
 
     init(
-        drawingService: DrawingService = .shared,
-        patternProvider: AllianceDrawingPatternProvider = .shared,
-        pixelService: PixelDrawService = .shared
+        drawingService: DrawingService? = nil,
+        patternProvider: AllianceDrawingPatternProvider? = nil,
+        pixelService: PixelDrawService? = nil
     ) {
-        self.drawingService = drawingService
-        self.patternProvider = patternProvider
-        self.pixelService = pixelService
+        self.drawingService = drawingService ?? .shared
+        self.patternProvider = patternProvider ?? .shared
+        self.pixelService = pixelService ?? .shared
 
         restoreState()
     }
@@ -51,6 +51,8 @@ class OnboardingCoordinator: ObservableObject {
     func startOnboarding() {
         Logger.info("🎓 Starting onboarding flow")
         AnalyticsManager.shared.track("onboarding_started")
+        // 立即标记已看过引导，确保即使用户中断流程也不会重复显示
+        UserDefaults.standard.set(true, forKey: "hasSeenOnboarding_v3")
         transition(to: .welcome)
     }
 

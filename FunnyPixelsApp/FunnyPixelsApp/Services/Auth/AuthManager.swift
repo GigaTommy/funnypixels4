@@ -388,8 +388,8 @@ class AuthManager: ObservableObject {
     }
 
     /// 处理从 Keychain 读取的认证数据
-    /// ✅ iOS 最佳实践：先验证 token，成功后才进入 app
-    /// ⚡ 性能优化：集成网络状态检测，快速失败以避免白屏
+    /// ✅ Optimistic 模式：有 token 就信任，后台静默验证
+    /// 仅在 401/403（token 真正无效）时才登出
     @MainActor
     private func processStoredAuthData(accessToken: String?, storedUserId: String?, isGuest: Bool) {
         guard let accessToken = accessToken, !accessToken.isEmpty else {
@@ -397,102 +397,56 @@ class AuthManager: ObservableObject {
             return
         }
 
-        // ✅ 显示验证中状态（品牌化加载界面）
-        self.isValidatingSession = true
-        Logger.info("🔐 Found stored token, validating session...")
+        // ✅ Optimistic：有 token 立即信任，进入主界面
+        self.isAuthenticated = true
+        self.isGuest = isGuest
+        self.isValidatingSession = false
+        Logger.info("🔐 Found stored token, optimistic auth granted")
 
-        // ⚡ 优化：检测网络状态
+        // 🔄 后台静默验证（不阻塞 UI，无激进超时）
+        Task {
+            await validateSessionInBackground(storedUserId: storedUserId)
+        }
+    }
+
+    /// 后台静默验证会话（供启动和前台恢复共用）
+    func validateSessionInBackground(storedUserId: String? = nil) async {
         let networkMonitor = NetworkMonitor.shared
 
-        // ⚡ 优化：使用真正的Task取消机制
-        Task {
-            // ⚡ 离线状态快速失败（200ms内显示登录页）
-            guard networkMonitor.isConnected else {
-                Logger.warning("🌐 No network connection, skipping validation")
-                // 延迟200ms以避免闪烁
-                try? await Task.sleep(nanoseconds: 200_000_000)
-                await MainActor.run {
-                    self.isValidatingSession = false
-                }
-                return
+        // 离线时跳过验证，保持认证状态
+        guard networkMonitor.isConnected else {
+            Logger.info("🌐 Offline, skipping background validation (staying authenticated)")
+            return
+        }
+
+        do {
+            let user = try await fetchUserProfile()
+
+            await MainActor.run {
+                self.currentUser = user
+                Logger.info("✅ Background session validation succeeded: \(user.username)")
             }
 
-            // ⚡ 创建可取消的验证任务
-            let validationTask = Task {
-                try await fetchUserProfile()
+            // 🚀 Connect Socket.IO（后台连接）
+            Task.detached {
+                await SocketIOManager.shared.connect(
+                    userId: user.id,
+                    username: user.username
+                )
             }
-
-            // ⚡ Watchdog：动态超时（根据网络类型调整）
-            // - WiFi/Ethernet: 500ms
-            // - Cellular: 800ms
-            let timeout = networkMonitor.getValidationTimeout()
-            let watchdog = Task {
-                try await Task.sleep(nanoseconds: timeout)
-                validationTask.cancel()  // ⚡ 真正取消网络请求
-                await MainActor.run {
-                    if self.isValidatingSession {
-                        let timeoutMs = Int(timeout / 1_000_000)
-                        Logger.warning("⚠️ Session validation timed out after \(timeoutMs)ms (\(networkMonitor.connectionType.displayName)), showing login screen")
-                        self.isValidatingSession = false
-                    }
+        } catch {
+            // 401/403 已由 APIManager.refreshToken() 发送 sessionExpired 通知处理
+            // 这里不再重复调用 clearAuthData()，避免双重登出级联
+            if let networkError = error as? NetworkError {
+                switch networkError {
+                case .unauthorized, .forbidden:
+                    Logger.warning("🔓 Token invalid (401/403) - sessionExpired notification will handle logout")
+                default:
+                    // 网络错误：保持认证状态，不影响用户
+                    Logger.warning("⚠️ Background validation failed (network issue), staying authenticated: \(error.localizedDescription)")
                 }
-            }
-
-            defer {
-                watchdog.cancel()
-                Task { @MainActor in
-                    self.isValidatingSession = false
-                }
-            }
-
-            do {
-                // ⚡ 等待可取消的验证任务（1秒内完成或被取消）
-                let user = try await validationTask.value
-
-                // ✅ Token 有效，现在才设置认证状态
-                await MainActor.run {
-                    self.currentUser = user
-                    self.isAuthenticated = true
-                    self.isGuest = isGuest
-                    Logger.info("✅ Session validated successfully for user: \(user.username)")
-                }
-
-                // 🚀 Connect Socket.IO（不阻塞主流程，后台连接）
-                Task.detached {
-                    await SocketIOManager.shared.connect(
-                        userId: user.id,
-                        username: user.username
-                    )
-                }
-            } catch is CancellationError {
-                // ⚡ 任务被watchdog取消
-                Logger.warning("⚠️ Validation cancelled by 1s watchdog, user sees login screen")
-                // isValidatingSession已在watchdog中设为false，显示登录界面
-                // 不清除token，下次网络好时可自动登录
-            } catch {
-                Logger.error("❌ Session validation failed: \(error)")
-
-                // 验证失败，检查错误类型
-                if let networkError = error as? NetworkError {
-                    switch networkError {
-                    case .unauthorized, .forbidden:
-                        // Token 无效/过期 - 清除数据，显示登录界面
-                        Logger.warning("🔓 Token invalid/expired - clearing auth data")
-                        await clearAuthData()
-                        return
-                    default:
-                        break
-                    }
-                } else if (error as NSError).code == 401 {
-                    // 401 认证错误 - 清除数据
-                    Logger.warning("🔓 Token 401 - clearing auth data")
-                    await clearAuthData()
-                    return
-                }
-
-                // 网络问题（非认证错误）：不清除 token，下次启动再试
-                // 用户会看到登录界面，但 token 仍保存，网络恢复后可自动登录
-                Logger.warning("⚠️ Network error during validation, keeping token for next retry")
+            } else {
+                Logger.warning("⚠️ Background validation failed: \(error.localizedDescription)")
             }
         }
     }

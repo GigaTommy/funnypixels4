@@ -45,10 +45,20 @@ class PixelDrawService: ObservableObject {
 
     private var syncTimer: Timer?
     private let apiManager = APIManager.shared
+    private var cancellables = Set<AnyCancellable>()
 
     private init() {
-        // 启动定期同步
-        startPeriodicSync()
+        // 监听认证状态：登录时启动同步，登出时停止
+        AuthManager.shared.$isAuthenticated
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAuthenticated in
+                if isAuthenticated {
+                    self?.startPeriodicSync()
+                } else {
+                    self?.stopPeriodicSync()
+                }
+            }
+            .store(in: &cancellables)
     }
 
     deinit {
@@ -180,7 +190,7 @@ class PixelDrawService: ObservableObject {
     private func startPeriodicSync() {
         // 同时也启动本地计时器
         startLocalTimer()
-        
+
         syncTimer?.invalidate()
         syncTimer = Timer.scheduledTimer(withTimeInterval: syncInterval, repeats: true) { [weak self] _ in
             Task { @MainActor in
@@ -189,6 +199,15 @@ class PixelDrawService: ObservableObject {
         }
 
         Logger.debug("⏰ Started periodic pixel state sync (every \(Int(syncInterval))s) & local simulation")
+    }
+
+    /// 停止定期同步和本地计时器
+    private func stopPeriodicSync() {
+        syncTimer?.invalidate()
+        syncTimer = nil
+        localTimer?.invalidate()
+        localTimer = nil
+        Logger.debug("⏹️ Stopped periodic pixel state sync (user logged out)")
     }
 
     /// 同步状态

@@ -188,7 +188,7 @@ final class KeychainManager {
         // 构建添加查询
         var query = buildQuery(for: key)
         query[kSecValueData as String] = data
-        query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        query[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
 
         // 执行保存
         let status = SecItemAdd(query as CFDictionary, nil)

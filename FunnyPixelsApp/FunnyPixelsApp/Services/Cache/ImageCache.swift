@@ -4,8 +4,8 @@ import SwiftUI
 /// Used by `CachedAsyncImage` to persist downloaded images across view lifecycles.
 struct ImageCache {
     /// 50 MB memory, 200 MB disk
-    /// URLCache and URLSession are thread-safe Sendable types
-    static let urlCache: URLCache = {
+    /// URLCache and URLSession are thread-safe Sendable types — safe to access from any isolation domain
+    nonisolated(unsafe) static let urlCache: URLCache = {
         let cache = URLCache(
             memoryCapacity: 50 * 1024 * 1024,
             diskCapacity: 200 * 1024 * 1024
@@ -13,7 +13,7 @@ struct ImageCache {
         return cache
     }()
 
-    static let session: URLSession = {
+    nonisolated(unsafe) static let session: URLSession = {
         let config = URLSessionConfiguration.default
         config.urlCache = urlCache
         config.requestCachePolicy = .returnCacheDataElseLoad

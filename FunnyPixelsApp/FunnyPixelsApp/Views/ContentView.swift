@@ -94,8 +94,13 @@ public struct ContentView: View {
             }
         }
         .onChange(of: authViewModel.isAuthenticated) { oldValue, newValue in
-            // Handle logout: main → auth
-            if oldValue == true && newValue == false && launchPhase == .main {
+            if newValue == true && launchPhase == .auth {
+                // Login: auth → main
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    launchPhase = .main
+                }
+            } else if oldValue == true && newValue == false && launchPhase == .main {
+                // Logout: main → auth
                 withAnimation(.easeInOut(duration: 0.3)) {
                     launchPhase = .auth
                 }

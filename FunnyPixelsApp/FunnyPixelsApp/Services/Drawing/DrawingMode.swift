@@ -107,31 +107,37 @@ class DrawingStateManager: ObservableObject {
     }
     
     private func restoreSession() {
-        if let savedId = UserDefaults.standard.string(forKey: kBackendSessionId),
-           let savedModeStr = UserDefaults.standard.string(forKey: kCurrentMode),
-           let savedMode = DrawingMode(rawValue: savedModeStr) {
-            
-            self.backendSessionId = savedId
-            self.currentMode = savedMode
-            self.isDrawingMode = true
-            
-            // Restore Session Start Time
-            if let savedStartTime = UserDefaults.standard.object(forKey: kSessionStartTime) as? Date {
-                self.sessionStartTime = savedStartTime
-            }
-            
-            // If GPS mode, ensure GPS service knows it (to hide FAB and show controls)
-            if savedMode == .gps {
-                Task { @MainActor in
-                    GPSDrawingService.shared.isGPSDrawingMode = true
-                }
-            }
-            
-            Logger.info("🔄 Restored session from persistence: \(savedId) in mode \(savedMode.rawValue), start: \(String(describing: sessionStartTime))")
-            
-            // 启动心跳
-            SessionHeartbeatManager.shared.start(sessionId: savedId)
+        guard let savedId = UserDefaults.standard.string(forKey: kBackendSessionId),
+              let savedModeStr = UserDefaults.standard.string(forKey: kCurrentMode),
+              let savedMode = DrawingMode(rawValue: savedModeStr) else {
+            return
         }
+
+        // GPS 模式不支持自动恢复：需要完整初始化（定位、pattern、Live Activity、后端会话验证）
+        // 仅设 boolean flag 会创建"僵尸态"——UI 显示绘制中但管线未启动
+        if savedMode == .gps {
+            Logger.info("🧹 Clearing stale GPS session from persistence: \(savedId)")
+            UserDefaults.standard.removeObject(forKey: kBackendSessionId)
+            UserDefaults.standard.removeObject(forKey: kCurrentMode)
+            UserDefaults.standard.removeObject(forKey: kSessionStartTime)
+            // 异步通知后端结束孤立会话（best effort）
+            Task {
+                _ = try? await DrawingSessionService.shared.endSession(sessionId: savedId, endLocation: nil)
+            }
+            return
+        }
+
+        // 非 GPS 模式：安全恢复（手动绘制不依赖后台管线）
+        self.backendSessionId = savedId
+        self.currentMode = savedMode
+        self.isDrawingMode = true
+
+        if let savedStartTime = UserDefaults.standard.object(forKey: kSessionStartTime) as? Date {
+            self.sessionStartTime = savedStartTime
+        }
+
+        Logger.info("🔄 Restored session from persistence: \(savedId) in mode \(savedMode.rawValue)")
+        SessionHeartbeatManager.shared.start(sessionId: savedId)
     }
     
     private func setupLifecycleObservers() {

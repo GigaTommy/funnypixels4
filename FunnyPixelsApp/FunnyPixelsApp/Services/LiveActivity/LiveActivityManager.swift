@@ -147,6 +147,17 @@ class LiveActivityManager: ObservableObject {
         gpsDrawingStartTime = Date()
 
         if #available(iOS 16.1, *), supportsLiveActivity {
+            // 清理上一次残留的 GPS Drawing Activity（结束后仍在 60 秒展示期内的）
+            let staleActivities = Activity<GPSDrawingActivityAttributes>.activities
+            if !staleActivities.isEmpty {
+                Logger.info("🧹 清理 \(staleActivities.count) 个残留 GPS Drawing Activities")
+                Task {
+                    for activity in staleActivities {
+                        await activity.end(nil, dismissalPolicy: .immediate)
+                    }
+                }
+            }
+
             let attributes = GPSDrawingActivityAttributes(
                 allianceName: allianceName,
                 allianceColorHex: allianceColorHex

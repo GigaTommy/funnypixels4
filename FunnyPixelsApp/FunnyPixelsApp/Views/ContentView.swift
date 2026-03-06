@@ -2,13 +2,21 @@ import SwiftUI
 import CoreLocation
 import AudioToolbox  // 用于播放音效
 
+/// Launch phase state machine
+private enum LaunchPhase {
+    case splash   // Branded splash (LaunchLoadingView)
+    case auth     // AuthView (login/signup)
+    case main     // MainMapView (authenticated)
+}
+
 /// 主内容视图
 public struct ContentView: View {
     // ✅ 响应式设计：监听字体设置变化
     @ObservedObject private var fontManager = FontSizeManager.shared
 
     @StateObject private var authViewModel = AuthViewModel()
-    @State private var showAuthSheet = false
+    @State private var launchPhase: LaunchPhase = .splash
+    @State private var splashTimerDone = false
 
     public init() {
         // ⚡ Performance: Mark app startup
@@ -24,24 +32,19 @@ public struct ContentView: View {
 
     public var body: some View {
         ZStack {
-            // 背景层（保持视觉连续性）
-            Color(hex: "F8F9FA")
+            // 背景层（#EEF4FF 与 LaunchScreen / LaunchLoadingView 保持一致）
+            Color(hex: "EEF4FF")
                 .ignoresSafeArea()
 
             // 内容层（带动画过渡）
-            // ⚡ 性能优化：乐观启动策略
-            // - 不等待验证完成，立即显示登录页
-            // - 验证在后台进行，成功后自动跳转到主界面
-            // - 大幅减少白屏时间（从1-30秒降至0.5-1秒）
             Group {
-                if authViewModel.isAuthenticated {
-                    // ✅ 已认证 - 主界面
-                    MainMapView()
-                        .environmentObject(authViewModel)
-                        .transition(.opacity.combined(with: .scale(scale: 0.95)))
-                        .zIndex(2)
-                } else {
-                    // ✅ 未认证或验证中 - 立即显示登录界面
+                switch launchPhase {
+                case .splash:
+                    LaunchLoadingView()
+                        .transition(.opacity)
+                        .zIndex(3)
+
+                case .auth:
                     ZStack {
                         AuthView()
                             .environmentObject(authViewModel)
@@ -51,13 +54,11 @@ public struct ContentView: View {
                         // ⚡ 验证中显示顶部进度条（非侵入式，不阻塞UI）
                         if authViewModel.isValidatingSession {
                             VStack(spacing: 0) {
-                                // 顶部进度条
                                 ProgressView()
                                     .progressViewStyle(.linear)
                                     .tint(AppColors.primary)
                                     .padding(.horizontal)
 
-                                // 提示文本
                                 Text(NSLocalizedString("auth.validating", value: "Verifying session...", comment: ""))
                                     .responsiveFont(.caption, weight: .medium)
                                     .foregroundColor(AppColors.textSecondary)
@@ -67,12 +68,49 @@ public struct ContentView: View {
                             }
                             .padding(.top, 50)
                             .transition(.move(edge: .top).combined(with: .opacity))
+                            .animation(.easeInOut(duration: 0.3), value: authViewModel.isValidatingSession)
                         }
                     }
+
+                case .main:
+                    MainMapView()
+                        .environmentObject(authViewModel)
+                        .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                        .zIndex(2)
                 }
             }
-            .animation(.easeInOut(duration: 0.3), value: authViewModel.isValidatingSession)
-            .animation(.easeInOut(duration: 0.3), value: authViewModel.isAuthenticated)
+        }
+        .onAppear {
+            // 1.2s minimum splash timer
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                splashTimerDone = true
+                resolvePhase()
+            }
+        }
+        .onChange(of: authViewModel.isValidatingSession) {
+            // Auth validation finished — resolve if timer also done
+            if !authViewModel.isValidatingSession {
+                resolvePhase()
+            }
+        }
+        .onChange(of: authViewModel.isAuthenticated) { oldValue, newValue in
+            // Handle logout: main → auth
+            if oldValue == true && newValue == false && launchPhase == .main {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    launchPhase = .auth
+                }
+            }
+        }
+    }
+
+    /// Transition out of splash once both conditions met
+    private func resolvePhase() {
+        guard launchPhase == .splash,
+              splashTimerDone,
+              !authViewModel.isValidatingSession else { return }
+
+        withAnimation(.easeInOut(duration: 0.3)) {
+            launchPhase = authViewModel.isAuthenticated ? .main : .auth
         }
     }
 }

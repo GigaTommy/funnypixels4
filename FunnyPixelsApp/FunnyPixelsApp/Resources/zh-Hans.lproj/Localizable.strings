@@ -40,6 +40,7 @@
 "auth.google.sign_in" = "使用 Google 登录";
 "auth.apple.sign_in" = "使用 Apple 登录";
 "auth.or_continue_with" = "或使用邮箱登录";
+"auth.validating" = "正在验证会话...";
 
 /* Session */
 "session.validating" = "验证会话中...";

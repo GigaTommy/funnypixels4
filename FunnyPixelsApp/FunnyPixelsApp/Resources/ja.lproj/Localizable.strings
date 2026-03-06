@@ -40,6 +40,7 @@
 "auth.or_continue_with" = "またはメールでログイン";
 "auth.google.sign_in" = "Googleでログイン";
 "auth.apple.sign_in" = "Appleでログイン";
+"auth.validating" = "セッションを確認中...";
 
 /* Session */
 "session.validating" = "セッションを確認中...";

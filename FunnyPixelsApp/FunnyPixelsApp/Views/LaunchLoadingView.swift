@@ -43,19 +43,18 @@ struct LaunchLoadingView: View {
             )
             .ignoresSafeArea()
 
-            // Subtle decorative blob (GPU-optimized)
+            // Subtle decorative blob (static radial gradient, no blur)
             Circle()
                 .fill(
                     RadialGradient(
-                        colors: [AppColors.primary.opacity(0.06), AppColors.primary.opacity(0.0)],
+                        colors: [AppColors.primary.opacity(0.04), AppColors.primary.opacity(0.0)],
                         center: .center,
-                        startRadius: 20,
-                        endRadius: 180
+                        startRadius: 40,
+                        endRadius: 220
                     )
                 )
-                .frame(width: 360, height: 360)
+                .frame(width: 440, height: 440)
                 .offset(x: -60, y: -200)
-                .blur(radius: 40)
 
             VStack(spacing: AppSpacing.xl) {
                 Spacer()
@@ -70,8 +69,9 @@ struct LaunchLoadingView: View {
                     .scaleEffect(logoScale)
                     .opacity(logoOpacity)
 
-                // Loading dots — brand blue
+                // Loading dots — brand blue (Metal-backed to avoid main thread pressure)
                 BrandLoadingDots(phase: dotPhase)
+                    .drawingGroup()
                     .opacity(showContent ? 1 : 0)
 
                 // Slogan

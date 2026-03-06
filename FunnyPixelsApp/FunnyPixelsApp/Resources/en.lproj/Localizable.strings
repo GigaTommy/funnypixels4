@@ -40,6 +40,7 @@
 "auth.google.sign_in" = "Sign in with Google";
 "auth.apple.sign_in" = "Sign in with Apple";
 "auth.or_continue_with" = "or sign in with email";
+"auth.validating" = "Verifying session...";
 
 /* Session */
 "session.validating" = "Verifying session...";

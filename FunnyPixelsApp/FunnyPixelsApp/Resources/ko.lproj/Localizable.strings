@@ -38,6 +38,8 @@
 "auth.or_continue_with" = "또는 이메일로 로그인";
 "auth.google.sign_in" = "Google로 로그인";
 "auth.apple.sign_in" = "Apple로 로그인";
+"auth.validating" = "세션 확인 중...";
+
 /* Session */
 "session.validating" = "세션 확인 중...";
 "session.expired" = "세션이 만료되었습니다. 다시 로그인해 주세요";

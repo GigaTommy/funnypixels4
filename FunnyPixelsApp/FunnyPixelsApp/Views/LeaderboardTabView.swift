@@ -300,7 +300,7 @@ struct LeaderboardEntryRow: View {
             RankBadge(rank: entry.rank)
 
             // Avatar
-            AvatarView(
+            DecoratedAvatarView(
                 avatarUrl: entry.avatar_url,
                 avatar: entry.avatar,
                 avatarColor: entry.avatarColor,
@@ -308,12 +308,9 @@ struct LeaderboardEntryRow: View {
                 flagPatternId: entry.flag_pattern_id ?? entry.flag_pattern,
                 patternType: entry.pattern_type,
                 unicodeChar: entry.unicode_char,
-                size: 44
+                size: 44,
+                equippedCosmetics: entry.equippedCosmetics
             )
-            .onAppear {
-                let patternId = entry.flag_pattern_id ?? entry.flag_pattern
-                Logger.info("📊 LeaderboardEntryRow: Creating AvatarView for \(entry.displayName), flagPatternId=\(patternId ?? "nil"), allianceName=\(entry.alliance_name ?? "nil")")
-            }
 
             // Info
             VStack(alignment: .leading, spacing: 2) {
@@ -432,7 +429,7 @@ struct FriendsLeaderboardEntryRow: View {
             RankBadge(rank: entry.rank)
 
             // Avatar
-            AvatarView(
+            DecoratedAvatarView(
                 avatarUrl: entry.avatar_url,
                 avatar: entry.avatar,
                 avatarColor: entry.avatarColor,
@@ -440,7 +437,8 @@ struct FriendsLeaderboardEntryRow: View {
                 flagPatternId: entry.flag_pattern_id ?? entry.flag_pattern,
                 patternType: entry.pattern_type,
                 unicodeChar: entry.unicode_char,
-                size: 44
+                size: 44,
+                equippedCosmetics: entry.equippedCosmetics
             )
 
             // Info

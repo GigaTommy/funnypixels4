@@ -1,5 +1,18 @@
 import Foundation
 
+/// 用户装备的装饰品
+struct EquippedCosmetics: Codable {
+    let avatarFrame: String?   // "golden" or nil
+    let badge: String?         // "pixel_master" or nil
+    let chatBubble: String?    // "rainbow" or nil (Phase 2)
+
+    enum CodingKeys: String, CodingKey {
+        case avatarFrame = "avatar_frame"
+        case badge
+        case chatBubble = "chat_bubble"
+    }
+}
+
 /// 认证用户模型
 struct AuthUser: Codable, Identifiable {
     let id: String
@@ -17,6 +30,11 @@ struct AuthUser: Codable, Identifiable {
     let preferences: UserPreferences?  // 改为可选
     let alliance: UserAlliance?
     let rankTier: RankTier?
+    let equippedCosmetics: EquippedCosmetics?
+
+    // 🆕 账户删除相关字段
+    let isDeleted: Bool?      // 是否已删除
+    let clickable: Bool?      // 是否可点击（已删除用户不可点击）
 
     struct UserAlliance: Codable {
         let id: String
@@ -62,6 +80,16 @@ struct AuthUser: Codable, Identifiable {
         return displayName ?? username
     }
 
+    /// 计算属性：是否为已删除用户
+    var accountDeleted: Bool {
+        return isDeleted ?? false
+    }
+
+    /// 计算属性：是否可以点击查看详情
+    var isClickable: Bool {
+        return clickable ?? !accountDeleted
+    }
+
     enum CodingKeys: String, CodingKey {
         case id, username, email
         case displayName = "display_name"
@@ -76,6 +104,9 @@ struct AuthUser: Codable, Identifiable {
         case preferences
         case alliance
         case rankTier
+        case equippedCosmetics = "equipped_cosmetics"
+        case isDeleted = "is_deleted"
+        case clickable
     }
 }
 

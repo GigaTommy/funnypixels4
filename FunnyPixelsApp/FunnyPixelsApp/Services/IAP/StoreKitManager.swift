@@ -18,13 +18,17 @@ class StoreKitManager: ObservableObject {
 
     /// 商品ID映射到积分数量
     /// 格式: com.funnypixels.points.{amount}
+    /// 基准汇率: $1 ≈ 100 积分, 大额递增赠送 10-30%
+    /// Tier 1 $0.99 = 100pt | Tier 2 $2.99 = 330pt (+10%)
+    /// Tier 3 $4.99 = 580pt (+16%) | Tier 4 $9.99 = 1200pt (+20%) ⭐推荐
+    /// Tier 5 $29.99 = 3800pt (+27%) | Tier 6 $49.99 = 6500pt (+30%)
     private let productPointsMap: [String: Int] = [
-        "com.funnypixels.points.60": 60,
-        "com.funnypixels.points.300": 300,
-        "com.funnypixels.points.680": 680,
-        "com.funnypixels.points.1280": 1280,
-        "com.funnypixels.points.3280": 3280,
-        "com.funnypixels.points.6480": 6480
+        "com.funnypixels.points.100": 100,
+        "com.funnypixels.points.330": 330,
+        "com.funnypixels.points.580": 580,
+        "com.funnypixels.points.1200": 1200,
+        "com.funnypixels.points.3800": 3800,
+        "com.funnypixels.points.6500": 6500
     ]
 
     /// 所有商品ID

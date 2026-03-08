@@ -877,6 +877,7 @@
 "shop.empty.message" = "ショップにアイテムがありません";
 "shop.item.used" = "%@ 使用済み";
 "shop.price_points" = "%dポイント";
+"shop.best_value" = "お得";
 "shop.category.all" = "すべて";
 "shop.category.consumable" = "消耗品";
 "shop.category.special" = "スペシャル";

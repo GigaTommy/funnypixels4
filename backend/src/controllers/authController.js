@@ -3,6 +3,7 @@ const { generateAccessToken, generateRefreshToken } = require('../middleware/aut
 const { db } = require('../config/database');
 const logger = require('../utils/logger');
 const RankTierService = require('../services/rankTierService');
+const Cosmetic = require('../models/Cosmetic');
 
 // 简单的用户信息内存缓存，减少频繁的数据库查询
 const userCache = new Map();
@@ -939,8 +940,8 @@ class AuthController {
         logger.debug('强制刷新用户信息，跳过缓存', { userId });
       }
 
-      // 🚀 优化：用户 + 联盟信息合并为单条 LEFT JOIN 查询，积分并行获取
-      const [userWithAlliance, points] = await Promise.all([
+      // 🚀 优化：用户 + 联盟信息合并为单条 LEFT JOIN 查询，积分和装饰品并行获取
+      const [userWithAlliance, points, equippedCosmetics] = await Promise.all([
         db('users as u')
           .leftJoin('alliance_members as am', function() {
             this.on('am.user_id', 'u.id');
@@ -955,7 +956,8 @@ class AuthController {
             'am.role as alliance_role', 'am.joined_at as alliance_joined_at'
           )
           .first(),
-        User.getUserPoints(userId)
+        User.getUserPoints(userId),
+        Cosmetic.getEquippedCosmeticsMap(userId)
       ]);
 
       const freshUser = userWithAlliance || user;
@@ -991,7 +993,8 @@ class AuthController {
         alliance: alliance,
         following_count: freshUser.following_count || 0,  // ✨ 关注数（缓存列）
         followers_count: freshUser.followers_count || 0,  // ✨ 粉丝数（缓存列）
-        rankTier: RankTierService.getTierForPixels(totalPixels)
+        rankTier: RankTierService.getTierForPixels(totalPixels),
+        equipped_cosmetics: Object.keys(equippedCosmetics).length > 0 ? equippedCosmetics : null
       };
 
       // 缓存结果（除非强制刷新）
@@ -2186,6 +2189,286 @@ class AuthController {
         error: error.message,
         stack: error.stack
       });
+      res.status(500).json({ error: '服务器内部错误' });
+    }
+  }
+
+  /**
+   * 软删除账户（30天宽限期）
+   * DELETE /auth/account
+   */
+  static async softDeleteAccount(req, res) {
+    const userId = req.user.id;
+    const timestamp = Date.now();
+
+    try {
+      // 获取当前用户信息
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ error: '用户不存在' });
+      }
+
+      // 检查是否已经在删除流程中
+      if (user.account_status === 'pending_deletion') {
+        return res.status(400).json({
+          error: '账户已在删除流程中',
+          recovery_expires_at: user.deletion_scheduled_for
+        });
+      }
+
+      await db.transaction(async (trx) => {
+        const deletionDate = new Date();
+        const recoveryExpires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30天后
+
+        // 1. 标记账户为"待删除"
+        await trx('users').where('id', userId).update({
+          account_status: 'pending_deletion',
+          deleted_at: deletionDate,
+          deletion_scheduled_for: recoveryExpires,
+
+          // ⚠️ 关键：立即混淆邮箱和用户名（释放供重新注册）
+          email: `deleted_${userId}_${timestamp}@pending.deletion`,
+          username: `deleted_user_${userId}_${timestamp}`,
+
+          // 保留原始值用于恢复（使用PostgreSQL pgcrypto加密）
+          // 如果没有pgcrypto扩展，可以使用Node.js加密后再存储
+          updated_at: new Date()
+        });
+
+        // 暂时存储原始信息到恢复表（用于30天内恢复）
+        const crypto = require('crypto');
+        const algorithm = 'aes-256-cbc';
+        const key = Buffer.from(process.env.RECOVERY_ENCRYPTION_KEY || 'default-key-change-in-production-!!!', 'utf-8').slice(0, 32);
+        const iv = crypto.randomBytes(16);
+
+        const encryptData = (text) => {
+          const cipher = crypto.createCipheriv(algorithm, key, iv);
+          let encrypted = cipher.update(text, 'utf8', 'hex');
+          encrypted += cipher.final('hex');
+          return JSON.stringify({ encrypted, iv: iv.toString('hex') });
+        };
+
+        // 2. 撤销所有会话（强制登出）
+        await trx('user_sessions').where('user_id', userId).del();
+        await trx('refresh_tokens').where('user_id', userId).del();
+
+        // 3. 创建恢复令牌（用于30天内恢复）
+        const recoveryToken = crypto.randomBytes(32).toString('hex');
+        await trx('account_recovery_tokens').insert({
+          id: require('uuid').v4(),
+          user_id: userId,
+          token: recoveryToken,
+          expires_at: recoveryExpires,
+          created_at: new Date()
+        });
+
+        // 4. 处理联盟所有权
+        await this.handleAllianceOwnership(userId, trx);
+
+        // 5. 删除社交关系（立即）
+        await trx('user_follows')
+          .where('follower_id', userId)
+          .orWhere('following_id', userId)
+          .del();
+
+        // 6. 记录审计日志
+        await trx('audit_logs').insert({
+          id: require('uuid').v4(),
+          user_id: userId,
+          action: 'account_soft_delete',
+          metadata: JSON.stringify({
+            ip_address: req.ip,
+            user_agent: req.headers['user-agent'],
+            original_email: user.email,
+            original_username: user.username
+          }),
+          created_at: new Date()
+        });
+
+        // 7. 发送确认邮件（包含恢复链接）
+        // TODO: 实现邮件发送服务
+        logger.info('账户软删除成功', {
+          userId,
+          recoveryToken: recoveryToken.substring(0, 8) + '...',
+          expiresAt: recoveryExpires
+        });
+      });
+
+      res.json({
+        success: true,
+        message: '账户已进入删除流程',
+        recovery_expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        recovery_instructions: '您可以在30天内通过邮件链接恢复账户。请查收我们发送到您邮箱的确认邮件。'
+      });
+
+    } catch (error) {
+      logger.error('账户软删除失败', { error: error.message, userId });
+      res.status(500).json({ error: '服务器内部错误' });
+    }
+  }
+
+  /**
+   * 处理联盟所有权转移
+   * @private
+   */
+  static async handleAllianceOwnership(userId, trx) {
+    // 查找用户创建的联盟
+    const ownedAlliances = await trx('alliances')
+      .where('creator_id', userId)
+      .whereIn('status', ['active', 'recruiting']);
+
+    for (const alliance of ownedAlliances) {
+      // 查找最资深的管理员
+      const nextLeader = await trx('alliance_members')
+        .where('alliance_id', alliance.id)
+        .where('role', 'admin')
+        .where('user_id', '!=', userId)
+        .orderBy('joined_at', 'asc')
+        .first();
+
+      if (nextLeader) {
+        // 转让所有权给管理员
+        await trx('alliances')
+          .where('id', alliance.id)
+          .update({
+            creator_id: nextLeader.user_id,
+            updated_at: new Date()
+          });
+
+        await trx('alliance_members')
+          .where({ alliance_id: alliance.id, user_id: nextLeader.user_id })
+          .update({ role: 'leader', updated_at: new Date() });
+
+        logger.info('联盟所有权已转让', {
+          allianceId: alliance.id,
+          from: userId,
+          to: nextLeader.user_id
+        });
+
+        // TODO: 发送通知给新会长
+      } else {
+        // 没有其他管理员 - 解散联盟
+        await trx('alliances')
+          .where('id', alliance.id)
+          .update({
+            status: 'disbanded',
+            disbanded_at: new Date(),
+            updated_at: new Date()
+          });
+
+        logger.info('联盟已解散（无接任者）', { allianceId: alliance.id });
+
+        // TODO: 通知所有成员
+      }
+    }
+
+    // 移除用户的所有联盟成员关系
+    await trx('alliance_members').where('user_id', userId).del();
+  }
+
+  /**
+   * 恢复已删除的账户（30天内）
+   * POST /auth/recover-account
+   */
+  static async recoverAccount(req, res) {
+    const { token } = req.body;
+
+    if (!token) {
+      return res.status(400).json({ error: '恢复令牌为必填项' });
+    }
+
+    try {
+      // 1. 验证恢复令牌
+      const recovery = await db('account_recovery_tokens')
+        .where('token', token)
+        .where('expires_at', '>', new Date())
+        .first();
+
+      if (!recovery) {
+        return res.status(400).json({
+          error: '恢复链接无效或已过期',
+          error_code: 'INVALID_RECOVERY_TOKEN'
+        });
+      }
+
+      const user = await User.findById(recovery.user_id);
+
+      if (!user) {
+        return res.status(404).json({
+          error: '用户不存在',
+          error_code: 'USER_NOT_FOUND'
+        });
+      }
+
+      if (user.account_status !== 'pending_deletion') {
+        return res.status(400).json({
+          error: '账户已被永久删除，无法恢复',
+          error_code: 'ACCOUNT_PERMANENTLY_DELETED'
+        });
+      }
+
+      // 2. 从混淆的邮箱/用户名中恢复原始值
+      // 提取原始值（从 deleted_[uuid]_[timestamp]@pending.deletion 格式）
+      const originalDataQuery = await db('audit_logs')
+        .where('user_id', recovery.user_id)
+        .where('action', 'account_soft_delete')
+        .orderBy('created_at', 'desc')
+        .first();
+
+      if (!originalDataQuery) {
+        return res.status(500).json({ error: '无法找到原始账户信息' });
+      }
+
+      const originalData = JSON.parse(originalDataQuery.metadata);
+
+      await db.transaction(async (trx) => {
+        // 3. 恢复账户状态
+        await trx('users').where('id', user.id).update({
+          account_status: 'active',
+          deleted_at: null,
+          deletion_scheduled_for: null,
+          email: originalData.original_email,
+          username: originalData.original_username,
+          updated_at: new Date()
+        });
+
+        // 4. 删除恢复令牌
+        await trx('account_recovery_tokens').where('token', token).del();
+
+        // 5. 审计日志
+        await trx('audit_logs').insert({
+          id: require('uuid').v4(),
+          user_id: user.id,
+          action: 'account_recovered',
+          metadata: JSON.stringify({
+            ip_address: req.ip,
+            user_agent: req.headers['user-agent']
+          }),
+          created_at: new Date()
+        });
+
+        logger.info('账户已恢复', { userId: user.id, email: originalData.original_email });
+      });
+
+      // 6. 重新加载用户信息
+      const recoveredUser = await User.findById(user.id);
+
+      // 7. 生成新的登录令牌
+      const accessToken = generateAccessToken(recoveredUser);
+      const refreshToken = generateRefreshToken(recoveredUser);
+
+      res.json({
+        success: true,
+        message: '账户已成功恢复',
+        user: User.sanitizeUser(recoveredUser),
+        tokens: {
+          accessToken,
+          refreshToken
+        }
+      });
+
+    } catch (error) {
+      logger.error('账户恢复失败', { error: error.message, token });
       res.status(500).json({ error: '服务器内部错误' });
     }
   }

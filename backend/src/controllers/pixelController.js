@@ -1,5 +1,6 @@
 const { db } = require('../config/database');
 const Pixel = require('../models/Pixel');
+const Cosmetic = require('../models/Cosmetic');
 const logger = require('../utils/logger');
 const { snapToGrid } = require('../../shared/utils/gridUtils');
 
@@ -521,6 +522,15 @@ class PixelController {
       const hideAlliance = privacySettings?.hide_alliance === true;
       const hideAllianceFlag = privacySettings?.hide_alliance_flag === true;
 
+      // 获取用户装备的装饰品
+      let equippedCosmetics = null;
+      if (pixel.user_id && !isAnonymous) {
+        try {
+          const cosmMap = await Cosmetic.getEquippedCosmeticsMap(pixel.user_id);
+          if (Object.keys(cosmMap).length > 0) equippedCosmetics = cosmMap;
+        } catch (e) { /* ignore */ }
+      }
+
       const pixelDetails = {
         grid_id: pixel.grid_id,
         latitude,
@@ -546,6 +556,7 @@ class PixelController {
         alliance_name: (hideAlliance || !allianceInfo) ? null : allianceInfo.name,
         alliance_flag: (hideAlliance || hideAllianceFlag || !allianceInfo) ? null : allianceInfo.flag,
         alliance: hideAlliance ? null : (allianceInfo || null),
+        equipped_cosmetics: isAnonymous ? null : equippedCosmetics,
         likes_count: parseInt(likesCount.count) || 0,
         created_at: pixel.created_at,
         updated_at: pixel.updated_at

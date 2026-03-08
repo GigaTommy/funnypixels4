@@ -9,6 +9,7 @@ const NotificationController = require('./notificationController'); // Keep for 
 const { v4: uuidv4 } = require('uuid'); // Added for new functions
 const { getLevelForExp } = require('../constants/allianceLevels');
 const AllianceActivityController = require('./allianceActivityController');
+const { normalizeUserForDisplay, normalizeUsersForDisplay } = require('../utils/userDisplayHelper');
 
 /**
  * 清除用户联盟缓存（写入路径性能优化关联）
@@ -590,6 +591,7 @@ class AllianceController {
           'u.display_name',
           'u.avatar_url',
           'u.avatar',
+          'u.account_status',
           'am.role',
           'am.joined_at',
           'u.total_pixels',
@@ -597,30 +599,29 @@ class AllianceController {
         )
         .orderBy('am.joined_at', 'asc');
 
+      // Normalize user data for deleted accounts
+      const normalizedMembers = normalizeUsersForDisplay(members, {
+        includeStats: true
+      });
+
       // 处理成员数据
-      const formattedMembers = members.map(member => {
-        // 处理头像URL logic identical to ProfileController
+      const formattedMembers = normalizedMembers.map(member => {
+        // Sanitize: strip any hardcoded localhost prefix
         let avatarUrl = member.avatar_url;
-        const avatarData = member.avatar;
-
-        // Check if avatar column contains a URL (legacy support)
-        if (!avatarUrl && avatarData && (avatarData.startsWith('http') || avatarData.startsWith('/'))) {
-          avatarUrl = avatarData;
-        }
-
-        // Sanitize: strip any hardcoded localhost prefix so clients resolve relative to their API base
         if (avatarUrl) {
           avatarUrl = avatarUrl.replace(/^https?:\/\/localhost(:\d+)?/, '');
         }
 
         return {
           id: member.id,
-          username: member.display_name || member.username, // Prefer display name
+          username: member.display_name,
           avatar_url: avatarUrl,
+          is_deleted: member.is_deleted,
+          clickable: member.clickable,
           role: member.role,
           joined_at: member.joined_at,
-          total_pixels: member.total_pixels,
-          current_pixels: member.current_pixels
+          total_pixels: member.total_pixels || 0,
+          current_pixels: member.current_pixels || 0
         };
       });
 
@@ -773,7 +774,9 @@ class AllianceController {
           'aa.id',
           'aa.user_id',
           'u.username',
+          'u.display_name',
           'u.avatar_url',
+          'u.account_status',
           'u.total_pixels',
           'u.current_pixels',
           'aa.message',
@@ -784,9 +787,35 @@ class AllianceController {
         )
         .orderBy('aa.created_at', 'desc');
 
+      // Normalize user data for deleted accounts
+      const formattedApplications = applications.map(app => {
+        const normalizedUser = normalizeUserForDisplay({
+          id: app.user_id,
+          username: app.username,
+          display_name: app.display_name,
+          avatar_url: app.avatar_url,
+          account_status: app.account_status
+        }, { includeStats: true });
+
+        return {
+          id: app.id,
+          user_id: app.user_id,
+          username: normalizedUser.display_name,
+          avatar_url: normalizedUser.avatar_url,
+          is_deleted: normalizedUser.is_deleted,
+          total_pixels: app.total_pixels || 0,
+          current_pixels: app.current_pixels || 0,
+          message: app.message,
+          status: app.status,
+          created_at: app.created_at,
+          reviewed_at: app.reviewed_at,
+          review_message: app.review_message
+        };
+      });
+
       res.json({
         success: true,
-        applications: applications
+        applications: formattedApplications
       });
     } catch (error) {
       console.error('获取申请列表失败:', error);
@@ -1613,6 +1642,7 @@ class AllianceController {
           'users.display_name',
           'users.avatar_url',
           'users.avatar',
+          'users.account_status',
           'users.total_pixels',
           'alliance_members.role',
           'alliance_members.joined_at'
@@ -1632,18 +1662,25 @@ class AllianceController {
         checkinMap[c.user_id] = parseInt(c.checkin_count);
       });
 
-      const ranked = contributions.map((member, index) => ({
+      // Normalize users for deleted accounts
+      const normalizedContributions = normalizeUsersForDisplay(contributions, {
+        includeStats: true
+      });
+
+      const ranked = normalizedContributions.map((member, index) => ({
         rank: index + 1,
-        user_id: member.user_id,
-        username: member.username,
+        user_id: member.id,
+        username: member.display_name,
         display_name: member.display_name,
         avatar_url: member.avatar_url,
-        avatar: member.avatar,
+        avatar: null, // Exclude raw pixel data for performance
+        is_deleted: member.is_deleted,
+        clickable: member.clickable,
         total_pixels: member.total_pixels || 0,
         role: member.role,
         joined_at: member.joined_at,
-        checkin_count: checkinMap[member.user_id] || 0,
-        is_current_user: member.user_id === userId
+        checkin_count: checkinMap[member.id] || 0,
+        is_current_user: member.id === userId
       }));
 
       res.json({

@@ -14,7 +14,7 @@ exports.seed = async function (knex) {
             category: 'pixels',
             rarity: 'common',
             criteria: JSON.stringify({ type: 'pixels_drawn_count', target: 1 }),
-            rewards: JSON.stringify({ points: 10, title: '像素新手' })
+            rewards: JSON.stringify({ points: 5, title: '像素新手' })
         },
         {
             key: 'pixel_artist_10',
@@ -24,7 +24,7 @@ exports.seed = async function (knex) {
             category: 'pixels',
             rarity: 'common',
             criteria: JSON.stringify({ type: 'pixels_drawn_count', target: 10 }),
-            rewards: JSON.stringify({ points: 50, badge: 'artist' })
+            rewards: JSON.stringify({ points: 20, badge: 'artist' })
         },
         {
             key: 'pixel_master_50',
@@ -34,7 +34,7 @@ exports.seed = async function (knex) {
             category: 'pixels',
             rarity: 'uncommon',
             criteria: JSON.stringify({ type: 'pixels_drawn_count', target: 50 }),
-            rewards: JSON.stringify({ points: 100, special_color: '#4CAF50' })
+            rewards: JSON.stringify({ points: 40, special_color: '#4CAF50' })
         },
         {
             key: 'pixel_expert_100',
@@ -44,7 +44,7 @@ exports.seed = async function (knex) {
             category: 'pixels',
             rarity: 'rare',
             criteria: JSON.stringify({ type: 'pixels_drawn_count', target: 100 }),
-            rewards: JSON.stringify({ points: 200, brush_effect: 'sparkle' })
+            rewards: JSON.stringify({ points: 80, brush_effect: 'sparkle' })
         },
         {
             key: 'pixel_legend_500',
@@ -54,7 +54,7 @@ exports.seed = async function (knex) {
             category: 'pixels',
             rarity: 'epic',
             criteria: JSON.stringify({ type: 'pixels_drawn_count', target: 500 }),
-            rewards: JSON.stringify({ points: 500, special_palette: 'legendary' })
+            rewards: JSON.stringify({ points: 200, special_palette: 'legendary' })
         },
         {
             key: 'pixel_god_1000',
@@ -64,7 +64,7 @@ exports.seed = async function (knex) {
             category: 'pixels',
             rarity: 'legendary',
             criteria: JSON.stringify({ type: 'pixels_drawn_count', target: 1000 }),
-            rewards: JSON.stringify({ points: 1000, title: '像素之神', announcement: true })
+            rewards: JSON.stringify({ points: 400, title: '像素之神', announcement: true })
         },
 
         // ========== GPS会话成就 ==========
@@ -76,7 +76,7 @@ exports.seed = async function (knex) {
             category: 'activity',
             rarity: 'common',
             criteria: JSON.stringify({ type: 'gps_sessions_count', target: 1 }),
-            rewards: JSON.stringify({ points: 20, badge: 'explorer' })
+            rewards: JSON.stringify({ points: 10, badge: 'explorer' })
         },
         {
             key: 'route_master',
@@ -86,7 +86,7 @@ exports.seed = async function (knex) {
             category: 'activity',
             rarity: 'rare',
             criteria: JSON.stringify({ type: 'gps_sessions_count', target: 10 }),
-            rewards: JSON.stringify({ points: 150, special_trail: 'golden' })
+            rewards: JSON.stringify({ points: 60, special_trail: 'golden' })
         },
 
         // ========== 活跃度成就 ==========
@@ -98,7 +98,7 @@ exports.seed = async function (knex) {
             category: 'activity',
             rarity: 'common',
             criteria: JSON.stringify({ type: 'days_active_count', target: 7 }),
-            rewards: JSON.stringify({ points: 50, daily_bonus: 1.1 })
+            rewards: JSON.stringify({ points: 20, daily_bonus: 1.1 })
         },
         {
             key: 'dedicated_user_30',
@@ -108,7 +108,7 @@ exports.seed = async function (knex) {
             category: 'activity',
             rarity: 'rare',
             criteria: JSON.stringify({ type: 'days_active_count', target: 30 }),
-            rewards: JSON.stringify({ points: 300, vip_status: true })
+            rewards: JSON.stringify({ points: 120, vip_status: true })
         },
         {
             key: 'veteran_100',
@@ -118,7 +118,7 @@ exports.seed = async function (knex) {
             category: 'activity',
             rarity: 'epic',
             criteria: JSON.stringify({ type: 'days_active_count', target: 100 }),
-            rewards: JSON.stringify({ points: 1000, title: '资深玩家', special_badge: 'veteran' })
+            rewards: JSON.stringify({ points: 400, title: '资深玩家', special_badge: 'veteran' })
         },
 
         // ========== 联盟成就 (category='social' 因 CHECK 约束不含 alliance) ==========
@@ -130,7 +130,7 @@ exports.seed = async function (knex) {
             category: 'social',
             rarity: 'uncommon',
             criteria: JSON.stringify({ type: 'alliance_contributions', target: 10 }),
-            rewards: JSON.stringify({ points: 80, alliance_badge: 'contributor' })
+            rewards: JSON.stringify({ points: 30, alliance_badge: 'contributor' })
         },
         {
             key: 'alliance_hero',
@@ -140,7 +140,7 @@ exports.seed = async function (knex) {
             category: 'social',
             rarity: 'epic',
             criteria: JSON.stringify({ type: 'alliance_contributions', target: 50 }),
-            rewards: JSON.stringify({ points: 400, title: '联盟英雄', special_flag: true })
+            rewards: JSON.stringify({ points: 160, title: '联盟英雄', special_flag: true })
         },
 
         // ========== 商店成就 (category='special' 因 CHECK 约束不含 shop) ==========
@@ -152,7 +152,7 @@ exports.seed = async function (knex) {
             category: 'special',
             rarity: 'common',
             criteria: JSON.stringify({ type: 'shop_purchases_count', target: 1 }),
-            rewards: JSON.stringify({ points: 15, discount_coupon: '5%' })
+            rewards: JSON.stringify({ points: 5, discount_coupon: '5%' })
         },
         {
             key: 'shopaholic',
@@ -162,7 +162,7 @@ exports.seed = async function (knex) {
             category: 'special',
             rarity: 'rare',
             criteria: JSON.stringify({ type: 'shop_purchases_count', target: 20 }),
-            rewards: JSON.stringify({ points: 250, vip_discount: '10%' })
+            rewards: JSON.stringify({ points: 95, vip_discount: '10%' })
         }
     ];
 

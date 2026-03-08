@@ -196,12 +196,12 @@ struct SessionSummaryView: View {
         let flagPatternId = currentUser?.alliance?.flagPatternId
         Logger.info("📸 SessionSummaryView.userAvatar: Creating AvatarView for user=\(currentUser?.displayOrUsername ?? "nil"), flagPatternId=\(flagPatternId ?? "nil"), allianceName=\(currentUser?.alliance?.name ?? "nil")")
 
-        return AvatarView(
-            avatarUrl: nil,
+        return DecoratedAvatarView(
             avatar: currentUser?.avatar,
             displayName: currentUser?.displayOrUsername ?? "Pixel Artist",
             flagPatternId: flagPatternId,
-            size: 40
+            size: 40,
+            equippedCosmetics: currentUser?.equippedCosmetics
         )
     }
     

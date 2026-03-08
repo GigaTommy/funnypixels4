@@ -1056,6 +1056,7 @@
 "shop.empty.message" = "商店目前没有任何商品上架";
 "shop.item.used" = "已使用 %@";
 "shop.price_points" = "%d 积分";
+"shop.best_value" = "超值";
 "shop.category.all" = "全部";
 "shop.category.consumable" = "消耗品";
 "shop.category.special" = "特殊";

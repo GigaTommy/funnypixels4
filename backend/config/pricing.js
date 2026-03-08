@@ -4,65 +4,86 @@
  */
 
 module.exports = {
-  // 充值档位（人民币 → 积分）
+  // 充值档位 — 与 Apple IAP Tier 对齐
+  // 基准汇率: $1 ≈ 100 积分 (≈ ¥7 ≈ 100 积分)
+  // Apple 标准价格点: $0.99 / $2.99 / $4.99 / $9.99 / $29.99 / $49.99
+  // RMB 等价由 Apple Tier 自动设定: ¥6 / ¥18 / ¥30 / ¥68 / ¥198 / ¥328
   rechargePackages: [
     {
       id: 'trial',
-      amountRMB: 1,
+      amountUSD: 0.99,
+      amountRMB: 6,
+      appleProductId: 'com.funnypixels.points.100',
       points: 100,
       bonus: 0,
       bonusPercent: 0,
       label: '体验包',
+      labelEn: 'Starter',
       icon: '🎁',
       popular: false
     },
     {
       id: 'starter',
-      amountRMB: 6,
-      points: 600,
-      bonus: 100,
-      bonusPercent: 17,
+      amountUSD: 2.99,
+      amountRMB: 18,
+      appleProductId: 'com.funnypixels.points.330',
+      points: 300,
+      bonus: 30,
+      bonusPercent: 10,
       label: '入门包',
+      labelEn: 'Basic',
       icon: '🌟',
       popular: false
     },
     {
       id: 'basic',
-      amountRMB: 12,
-      points: 1200,
-      bonus: 300,
-      bonusPercent: 25,
-      label: '进阶包',
-      icon: '💎',
-      popular: true
-    },
-    {
-      id: 'advanced',
+      amountUSD: 4.99,
       amountRMB: 30,
-      points: 3000,
-      bonus: 1000,
-      bonusPercent: 33,
-      label: '高级包',
-      icon: '👑',
+      appleProductId: 'com.funnypixels.points.580',
+      points: 500,
+      bonus: 80,
+      bonusPercent: 16,
+      label: '进阶包',
+      labelEn: 'Plus',
+      icon: '💎',
       popular: false
     },
     {
-      id: 'premium',
+      id: 'advanced',
+      amountUSD: 9.99,
       amountRMB: 68,
-      points: 6800,
-      bonus: 3200,
-      bonusPercent: 47,
+      appleProductId: 'com.funnypixels.points.1200',
+      points: 1000,
+      bonus: 200,
+      bonusPercent: 20,
+      label: '高级包',
+      labelEn: 'Best Value',
+      icon: '👑',
+      popular: true
+    },
+    {
+      id: 'premium',
+      amountUSD: 29.99,
+      amountRMB: 198,
+      appleProductId: 'com.funnypixels.points.3800',
+      points: 3000,
+      bonus: 800,
+      bonusPercent: 27,
       label: '豪华包',
+      labelEn: 'Premium',
       icon: '💰',
       popular: false
     },
     {
       id: 'ultimate',
-      amountRMB: 128,
-      points: 12800,
-      bonus: 7200,
-      bonusPercent: 56,
+      amountUSD: 49.99,
+      amountRMB: 328,
+      appleProductId: 'com.funnypixels.points.6500',
+      points: 5000,
+      bonus: 1500,
+      bonusPercent: 30,
       label: '至尊包',
+      labelEn: 'Ultimate',
       icon: '🏆',
       popular: false
     }

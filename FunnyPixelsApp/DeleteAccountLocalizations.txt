@@ -1,0 +1,69 @@
+/* Account Deletion Flow - To be added to each Localizable.strings file */
+
+=== ENGLISH (en) ===
+"delete_account_title" = "Delete Account";
+"delete_account_error" = "Deletion Failed";
+"delete_account_step_indicator" = "Step %d / 5";
+"delete_account_step1_title" = "⚠️ Important Warning";
+"delete_account_warning_permanent" = "Permanent Data Deletion";
+"delete_account_warning_permanent_desc" = "Data will be permanently deleted after 30 days and cannot be recovered";
+"delete_account_warning_access" = "Lose Account Access";
+"delete_account_warning_access_desc" = "Immediately lose access to all features";
+"delete_account_warning_pixels" = "All Pixel Records";
+"delete_account_warning_pixels_desc" = "Your artwork will no longer be accessible";
+"delete_account_warning_alliance" = "Alliance Membership";
+"delete_account_warning_alliance_desc" = "You will lose all alliance memberships";
+"delete_account_warning_social" = "Social Connections";
+"delete_account_warning_social_desc" = "All follower/following relationships will be removed";
+"delete_account_warning_footer" = "Please read carefully before continuing";
+"delete_account_step2_title" = "Deletion Consequences";
+"delete_account_consequences_data" = "You will lose the following data:";
+"delete_account_stat_pixels" = "Pixels Drawn";
+"delete_account_stat_sessions" = "Drawing Sessions";
+"delete_account_stat_messages" = "Private Messages";
+"delete_account_recovery_period" = "30-Day Recovery Period";
+"delete_account_recovery_desc" = "Within 30 days after deletion, you can recover your account using the recovery token. Data will be permanently deleted after 30 days.";
+"delete_account_irreversible" = "The following take effect immediately and are irreversible:";
+"delete_account_irreversible_username" = "Username will be released and may be registered by others";
+"delete_account_irreversible_alliance" = "Alliance membership expires immediately";
+"delete_account_irreversible_leaderboard" = "Leaderboard records will be removed";
+"delete_account_step3_title" = "Consider Alternatives?";
+"delete_account_alternatives_title" = "Before deleting your account, have you considered these alternatives?";
+"delete_account_alternative_deactivate" = "Temporarily Deactivate Account";
+"delete_account_alternative_deactivate_desc" = "Hide your profile, can be reactivated anytime";
+"delete_account_alternative_privacy" = "Adjust Privacy Settings";
+"delete_account_alternative_privacy_desc" = "Control who can see your content and profile";
+"delete_account_alternative_unfollow" = "Unfollow/Block Users";
+"delete_account_alternative_unfollow_desc" = "Manage your social circle and avoid unwanted content";
+"delete_account_alternative_notifications" = "Turn Off Notifications";
+"delete_account_alternative_notifications_desc" = "Reduce interruptions while keeping your account data";
+"delete_account_still_delete" = "If you still decide to delete your account";
+"delete_account_still_delete_desc" = "Click 'Next' to continue the deletion process";
+"delete_account_step4_title" = "Final Confirmation";
+"delete_account_checklist_title" = "Before continuing, please confirm you have:";
+"delete_account_checklist_export" = "Exported Important Data";
+"delete_account_checklist_export_desc" = "I have exported or saved the data I need (such as artwork screenshots)";
+"delete_account_checklist_backup" = "Backup Recovery Token";
+"delete_account_checklist_backup_desc" = "I understand I will receive a recovery token after deletion, which must be saved for 30-day recovery";
+"delete_account_checklist_understand" = "Understand Deletion Consequences";
+"delete_account_checklist_understand_desc" = "I fully understand the consequences of deleting my account and confirm I want to proceed";
+"delete_account_checklist_note" = "Please check all items to continue to the next step";
+"delete_account_step5_title" = "Confirm Deletion";
+"delete_account_final_warning" = "Final Warning";
+"delete_account_final_warning_desc" = "This action will take effect immediately, please confirm your decision once more";
+"delete_account_countdown" = "Please wait for countdown to finish";
+"delete_account_type_delete" = "Type DELETE to confirm deletion";
+"delete_account_type_delete_placeholder" = "Type DELETE";
+"delete_account_input_correct" = "Input correct";
+"delete_account_input_incorrect" = "Please type DELETE";
+"delete_account_wait_countdown" = "Wait for countdown to finish";
+"delete_account_enter_delete" = "Type DELETE to confirm";
+"delete_account_success_title" = "Account Deleted";
+"delete_account_success_message" = "You have 30 days to recover your account";
+"recovery_token_label" = "Recovery Token:";
+"recovery_token_warning" = "Please save this token securely";
+"delete_account_confirm" = "Confirm Deletion";
+
+=== Instructions for manual addition ===
+These strings need to be manually added to each of the 6 localization files using Xcode's string catalog or by carefully editing the .strings files in UTF-16 encoding.
+The translated versions are ready but were not added automatically due to encoding issues with the command-line append method.

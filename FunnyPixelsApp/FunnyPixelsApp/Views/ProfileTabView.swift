@@ -107,12 +107,13 @@ struct ProfileTabView: View {
             viewModel.startEditing()
         }) {
             HStack(spacing: AppSpacing.l) {
-                AvatarView(
+                DecoratedAvatarView(
                     avatarUrl: profile.avatarUrl,
                     avatar: profile.avatar,
                     displayName: profile.displayOrUsername,
                     flagPatternId: profile.flagPatternId,
-                    size: 60 * fontManager.scale
+                    size: 60 * fontManager.scale,
+                    equippedCosmetics: profile.equippedCosmetics
                 )
 
                 VStack(alignment: .leading, spacing: 4) {

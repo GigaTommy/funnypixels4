@@ -52,6 +52,7 @@ enum APIEndpoint: EndpointProtocol {
     case updateProfile
     case getUserStats
     case deleteAccount
+    case recoverAccount  // 恢复已删除账户
     case changePassword
     case sendVerificationCode
     case verifyCode
@@ -171,7 +172,9 @@ enum APIEndpoint: EndpointProtocol {
         case .getUserStats:
             return URL(string: "\(baseURLString)/auth/stats")!
         case .deleteAccount:
-            return URL(string: "\(baseURLString)/auth/delete")!
+            return URL(string: "\(baseURLString)/auth/account")!
+        case .recoverAccount:
+            return URL(string: "\(baseURLString)/auth/recover-account")!
         case .changePassword:
             return URL(string: "\(baseURLString)/auth/change-password")!
         case .sendVerificationCode:
@@ -300,7 +303,7 @@ enum APIEndpoint: EndpointProtocol {
     var method: HTTPMethod {
         switch self {
         // POST 请求
-        case .login, .accountLogin, .register, .createPixel, .drawPixel, .purchaseItem, .useItem, .changePassword, .createAlliance, .joinAlliance, .kickMember, .updateMemberRole, .transferLeadership, .generateInviteLink, .joinByInviteLink, .likeLeaderboard, .reportPixel, .sendVerificationCode, .verifyCode, .applyToAlliance, .processApplication, .refreshToken, .followUser, .likePixel, .appleLogin, .googleLogin, .clientPerformance:
+        case .login, .accountLogin, .register, .createPixel, .drawPixel, .purchaseItem, .useItem, .changePassword, .createAlliance, .joinAlliance, .kickMember, .updateMemberRole, .transferLeadership, .generateInviteLink, .joinByInviteLink, .likeLeaderboard, .reportPixel, .sendVerificationCode, .verifyCode, .applyToAlliance, .processApplication, .refreshToken, .followUser, .likePixel, .appleLogin, .googleLogin, .recoverAccount, .clientPerformance:
             return .post
 
         // GET 请求

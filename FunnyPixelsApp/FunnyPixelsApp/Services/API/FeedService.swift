@@ -58,6 +58,7 @@ class FeedService {
             let display_name: String?
             let avatar_url: String?
             let avatar: String?
+            let equipped_cosmetics: EquippedCosmetics?
 
             var displayName: String {
                 display_name ?? username ?? "Unknown"

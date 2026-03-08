@@ -60,14 +60,14 @@ class DailyCheckin {
 
     // Fallback to hardcoded logic if no config
     if (rewardPoints === undefined) {
-      const baseReward = 10;
+      const baseReward = 5;
       let multiplier = 1;
       if (consecutiveDays % 30 === 0) {
-        multiplier = 10;
+        multiplier = 5;
       } else if (consecutiveDays % 7 === 0) {
-        multiplier = 3;
+        multiplier = 2;
       }
-      const bonusReward = Math.floor(consecutiveDays / 7) * 5;
+      const bonusReward = Math.floor(consecutiveDays / 7) * 3;
       rewardPoints = (baseReward + bonusReward) * multiplier;
 
       rewardItems = [];

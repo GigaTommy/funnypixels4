@@ -24,11 +24,12 @@ struct FeedItemCard: View {
                     // 用户信息（可点击跳转）
                     NavigationLink(destination: UserProfileView(userId: item.user.id)) {
                         HStack(spacing: FeedDesign.Spacing.s) {
-                            AvatarView(
+                            DecoratedAvatarView(
                                 avatarUrl: item.user.avatar_url,
                                 avatar: item.user.avatar,
                                 displayName: item.user.displayName,
-                                size: 40
+                                size: 40,
+                                equippedCosmetics: item.user.equipped_cosmetics
                             )
 
                             VStack(alignment: .leading, spacing: 2) {

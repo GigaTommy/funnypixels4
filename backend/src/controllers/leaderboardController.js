@@ -4,6 +4,8 @@ const CacheService = require('../services/cacheService');
 const RegionLeaderboardCacheService = require('../services/regionLeaderboardCacheService');
 
 const RankTierService = require('../services/rankTierService');
+const Cosmetic = require('../models/Cosmetic');
+const { normalizeUserForDisplay, isUserDeleted } = require('../utils/userDisplayHelper');
 
 /**
  * Strip hardcoded localhost URLs from avatar paths so clients
@@ -83,9 +85,10 @@ class LeaderboardController {
       // 计算时间范围
       const { periodStart, periodEnd } = LeaderboardController.getPeriodRange(period);
 
-      // 🔐 Fetch privacy settings
+      // 🔐 Fetch privacy settings and account status
       const query = db('leaderboard_personal')
         .leftJoin('privacy_settings', 'leaderboard_personal.user_id', 'privacy_settings.user_id')
+        .leftJoin('users', 'leaderboard_personal.user_id', 'users.id')
         .leftJoin('alliance_members', function () {
           this.on('leaderboard_personal.user_id', '=', 'alliance_members.user_id')
             .andOn('alliance_members.status', '=', db.raw('?', ['active']));
@@ -105,6 +108,7 @@ class LeaderboardController {
           'leaderboard_personal.period_start',
           'leaderboard_personal.period_end',
           'leaderboard_personal.last_updated',
+          'users.account_status',
           'privacy_settings.hide_nickname',
           'privacy_settings.hide_alliance',
           'privacy_settings.hide_alliance_flag',
@@ -120,11 +124,21 @@ class LeaderboardController {
 
       const results = await query;
 
+      // 批量获取所有用户的装饰品
+      const userIds = results.map(r => r.user_id).filter(Boolean);
+      let cosmeticsMap = {};
+      try {
+        cosmeticsMap = await Cosmetic.getEquippedCosmeticsMapBatch(userIds);
+      } catch (e) { /* ignore */ }
+
       // 字段映射：pixel_count -> total_pixels（适配 iOS 客户端）
-      // 同时应用隐私屏蔽
+      // 同时应用隐私屏蔽和删除用户处理
       const mappedResults = results.map(user => {
         // 判断是否是当前用户
         const isCurrentUser = currentUserId && user.user_id === currentUserId;
+
+        // First check if user is deleted
+        const userDeleted = isUserDeleted(user);
 
         // 隐私屏蔽逻辑
         let displayName = user.display_name || user.username;
@@ -132,8 +146,21 @@ class LeaderboardController {
         let allianceName = user.alliance_name;
         let allianceFlag = user.alliance_flag || user.flag_pattern;
         let flagPatternId = user.flag_pattern_id;
+        let isDeleted = false;
+        let clickable = true;
 
-        if (!isCurrentUser) {
+        // Deleted user takes precedence over privacy settings
+        if (userDeleted) {
+          const normalized = normalizeUserForDisplay(user);
+          displayName = normalized.display_name;
+          avatarUrl = null;
+          allianceName = null;
+          allianceFlag = null;
+          flagPatternId = null;
+          isDeleted = true;
+          clickable = false;
+        } else if (!isCurrentUser) {
+          // Apply privacy settings only if not deleted
           if (user.hide_nickname) {
             displayName = '匿名像素师'; // Anonymous Pixel Artist
             avatarUrl = null;
@@ -150,6 +177,7 @@ class LeaderboardController {
         const pixelCount = parseInt(user.pixel_count) || 0;
         const previousRank = user.previous_rank || null;
         const rankChange = previousRank ? previousRank - user.rank : null;
+        const userCosmetics = (userDeleted || user.hide_nickname) ? null : (cosmeticsMap[user.user_id] || null);
         return {
           ...user,
           display_name: displayName,
@@ -159,6 +187,9 @@ class LeaderboardController {
           alliance_flag: allianceFlag,
           flag_pattern: allianceFlag,
           flag_pattern_id: flagPatternId,
+          is_deleted: isDeleted,
+          clickable: clickable,
+          equipped_cosmetics: userCosmetics && Object.keys(userCosmetics).length > 0 ? userCosmetics : null,
 
           pixel_count: pixelCount,
           total_pixels: pixelCount,
@@ -999,6 +1030,7 @@ class LeaderboardController {
 
       // 从排行榜表查询这些用户的数据
       const entries = await db('leaderboard_personal')
+        .leftJoin('users', 'leaderboard_personal.user_id', 'users.id')
         .leftJoin('privacy_settings', 'leaderboard_personal.user_id', 'privacy_settings.user_id')
         .leftJoin('alliance_members', function () {
           this.on('leaderboard_personal.user_id', '=', 'alliance_members.user_id')
@@ -1019,6 +1051,7 @@ class LeaderboardController {
           'leaderboard_personal.period_start',
           'leaderboard_personal.period_end',
           'leaderboard_personal.last_updated',
+          'users.account_status',
           'privacy_settings.hide_nickname',
           'privacy_settings.hide_alliance',
           'privacy_settings.hide_alliance_flag',
@@ -1040,7 +1073,14 @@ class LeaderboardController {
         .select('follower_id');
       const mutualSet = new Set(mutualFollows.map(f => f.follower_id));
 
-      // 映射结果并添加排名
+      // 批量获取所有用户的装饰品
+      const friendUserIds = entries.map(e => e.user_id).filter(Boolean);
+      let friendCosmeticsMap = {};
+      try {
+        friendCosmeticsMap = await Cosmetic.getEquippedCosmeticsMapBatch(friendUserIds);
+      } catch (e) { /* ignore */ }
+
+      // 映射结果并添加排名，处理删除用户
       let myRankData = null;
       const mappedEntries = entries.map((user, index) => {
         const rank = index + 1;
@@ -1051,13 +1091,32 @@ class LeaderboardController {
           myRankData = { rank, pixelCount };
         }
 
+        // Check if user is deleted
+        const userDeleted = isUserDeleted(user);
+        let displayName = user.display_name || user.username;
+        let avatarUrl = sanitizeAvatarUrl(user.avatar_url);
+        let isDeleted = false;
+        let clickable = true;
+
+        if (userDeleted) {
+          const normalized = normalizeUserForDisplay(user);
+          displayName = normalized.display_name;
+          avatarUrl = null;
+          isDeleted = true;
+          clickable = false;
+        }
+
+        const userCosmetics = userDeleted ? null : (friendCosmeticsMap[user.user_id] || null);
         return {
           rank,
           user_id: user.user_id,
           username: user.username,
-          display_name: user.display_name || user.username,
-          avatar_url: sanitizeAvatarUrl(user.avatar_url),
+          display_name: displayName,
+          avatar_url: avatarUrl,
           avatar: null, // raw pixel data excluded for performance
+          is_deleted: isDeleted,
+          clickable: clickable,
+          equipped_cosmetics: userCosmetics && Object.keys(userCosmetics).length > 0 ? userCosmetics : null,
           total_pixels: pixelCount,
           alliance_id: user.alliance_id || null,
           alliance_name: user.alliance_name,

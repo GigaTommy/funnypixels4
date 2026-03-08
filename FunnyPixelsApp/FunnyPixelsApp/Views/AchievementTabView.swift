@@ -147,7 +147,8 @@ struct AchievementTabView: View {
             points: nil,
             totalPixels: user.totalPixels,
             flagPatternId: user.alliance?.flagPatternId,
-            rankTier: user.rankTier
+            rankTier: user.rankTier,
+            equippedCosmetics: user.equippedCosmetics
         )
         
         let view = AchievementShareView(achievement: achievement, userProfile: profile)

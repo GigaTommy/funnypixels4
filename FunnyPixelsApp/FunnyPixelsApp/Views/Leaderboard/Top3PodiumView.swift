@@ -38,7 +38,7 @@ struct Top3PodiumView: View {
     private func podiumItem(entry: LeaderboardService.LeaderboardEntry, height: CGFloat, color: Color) -> some View {
         VStack(spacing: 4) {
             // 头像
-            AvatarView(
+            DecoratedAvatarView(
                 avatarUrl: entry.avatar_url,
                 avatar: entry.avatar,
                 avatarColor: entry.avatarColor,
@@ -46,7 +46,8 @@ struct Top3PodiumView: View {
                 flagPatternId: entry.flag_pattern_id ?? entry.flag_pattern,
                 patternType: entry.pattern_type,
                 unicodeChar: entry.unicode_char,
-                size: entry.rank == 1 ? 56 : (entry.rank == 2 ? 48 : 44)
+                size: entry.rank == 1 ? 56 : (entry.rank == 2 ? 48 : 44),
+                equippedCosmetics: entry.equippedCosmetics
             )
             .overlay(
                 Circle()

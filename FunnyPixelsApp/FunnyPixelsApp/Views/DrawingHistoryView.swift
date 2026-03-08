@@ -19,10 +19,14 @@ struct DrawingHistoryView: View {
                 } else {
                     // 视图内容（根据模式切换）
                     Group {
-                        if viewModel.viewMode == .grid {
+                        switch viewModel.viewMode {
+                        case .map:
+                            galleryMapView
+                                .transition(.opacity)
+                        case .grid:
                             galleryGridView
                                 .transition(.opacity)
-                        } else {
+                        case .list:
                             galleryListView
                                 .transition(.opacity)
                         }
@@ -58,22 +62,21 @@ struct DrawingHistoryView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
+                    // 筛选按钮
+                    Button(action: { showFilters.toggle() }) {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                    }
+                }
 
-                    HStack(spacing: 12) {
-                        // 视图模式切换
-                        Button(action: {
-                            withAnimation {
-                                viewModel.viewMode = viewModel.viewMode == .grid ? .list : .grid
-                            }
-                        }) {
-                            Image(systemName: viewModel.viewMode == .grid ? "list.bullet" : "square.grid.2x2")
-                        }
-                        
-                        // 筛选按钮
-                        Button(action: { showFilters.toggle() }) {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
+                ToolbarItem(placement: .bottomBar) {
+                    // 视图模式切换 - Segmented Control
+                    Picker("View Mode", selection: $viewModel.viewMode) {
+                        ForEach(DrawingHistoryViewModel.ViewMode.allCases, id: \.self) { mode in
+                            Image(systemName: mode.rawValue)
+                                .tag(mode)
                         }
                     }
+                    .pickerStyle(.segmented)
                 }
             }
             .sheet(isPresented: $showFilters) {
@@ -95,8 +98,20 @@ struct DrawingHistoryView: View {
         }
     }
     
+    // MARK: - Gallery Map View
+
+    private var galleryMapView: some View {
+        FootprintMapView(
+            sessions: viewModel.sessions,
+            onSessionTap: { sessionId in
+                // 地图上的会话点击后导航到详情页
+                // NavigationLink会自动处理
+            }
+        )
+    }
+
     // MARK: - Gallery Grid View
-    
+
     private var galleryGridView: some View {
         ScrollView {
             LazyVGrid(columns: [

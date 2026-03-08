@@ -4,6 +4,8 @@ const UserPixelState = require('../models/UserPixelState');
 const { invalidateUserCache } = require('../middleware/auth');
 const AuthController = require('./authController');
 const RankTierService = require('../services/rankTierService');
+const Cosmetic = require('../models/Cosmetic');
+const { normalizeUserForDisplay, isUserDeleted } = require('../utils/userDisplayHelper');
 
 class ProfileController {
   // 获取用户详细信息
@@ -13,8 +15,21 @@ class ProfileController {
       const currentUserId = req.user.id;
 
       const user = await User.findById(userId);
-      if (!user || user.is_deleted) {
-        return res.status(404).json({ error: '用户不存在' });
+
+      // ❌ 用户真正不存在 - 返回404
+      if (!user) {
+        return res.status(404).json({
+          error: '用户不存在',
+          error_code: 'USER_NOT_FOUND'
+        });
+      }
+
+      // ✅ 用户已删除 - 返回标准化的删除状态（不是404）
+      if (isUserDeleted(user)) {
+        return res.json({
+          success: true,
+          user: normalizeUserForDisplay(user, { includeStats: false })
+        });
       }
 
       // 并行获取所有附加数据（原先为 8 个串行查询，现在并行执行）
@@ -25,7 +40,8 @@ class ProfileController {
         isLiked,
         likesCount,
         userPoints,
-        pixelState
+        pixelState,
+        equippedCosmetics
       ] = await Promise.all([
         // 1. 联盟信息
         db('alliance_members as am')
@@ -52,7 +68,9 @@ class ProfileController {
         // 5. 用户积分
         User.getUserPoints(user.id).catch(() => 0),
         // 6. 像素状态
-        UserPixelState.refreshState(userId).catch(() => null)
+        UserPixelState.refreshState(userId).catch(() => null),
+        // 7. 已装备装饰品
+        Cosmetic.getEquippedCosmeticsMap(userId).catch(() => ({}))
       ]);
 
       // 处理联盟数据
@@ -102,7 +120,8 @@ class ProfileController {
           following_count: parseInt(user.following_count || 0),  // ✨ 使用缓存列
           likes_count: parseInt(likesCount?.count || 0),
           profile_settings: profileSettings,
-          rankTier: RankTierService.getTierForPixels(user.total_pixels)
+          rankTier: RankTierService.getTierForPixels(user.total_pixels),
+          equipped_cosmetics: Object.keys(equippedCosmetics).length > 0 ? equippedCosmetics : null
         }
       });
 

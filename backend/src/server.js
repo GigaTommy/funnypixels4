@@ -1223,6 +1223,17 @@ server.listen(PORT, HOST, async () => {
     logger.error('❌ 活动像素日志监听器启动失败:', eventListenerError.message);
   }
 
+  // 注册定时任务（仅主worker执行）
+  if (isPrimaryWorker) {
+    try {
+      const { registerScheduledTasks } = require('./tasks/scheduledTasks');
+      registerScheduledTasks();
+      logger.info('✅ 定时任务已注册（账户删除维护）');
+    } catch (scheduledTaskError) {
+      logger.error('❌ 定时任务注册失败:', scheduledTaskError.message);
+    }
+  }
+
   // Background warmup: load all pixels into Redis GEO for GEOSEARCH-based BBOX queries
   if (isPrimaryWorker && redis) {
     (async () => {

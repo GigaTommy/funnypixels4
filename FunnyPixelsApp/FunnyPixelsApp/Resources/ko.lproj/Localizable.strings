@@ -792,6 +792,7 @@
 "shop.empty.message" = "상점에 아이템이 없습니다";
 "shop.item.used" = "%@ 사용함";
 "shop.price_points" = "%d 포인트";
+"shop.best_value" = "최고 가치";
 "shop.category.all" = "전체";
 "shop.category.consumable" = "소모품";
 "shop.category.special" = "특별";

@@ -590,6 +590,23 @@ struct AppleIAPPackageButton: View {
     let isLoading: Bool
     let action: () -> Void
 
+    /// $9.99 tier (1200 points) is marked as best value
+    private var isBestValue: Bool {
+        product.pointsAmount == 1200
+    }
+
+    /// Bonus percentage based on tier
+    private var bonusText: String? {
+        switch product.pointsAmount {
+        case 330:  return "+10%"
+        case 580:  return "+16%"
+        case 1200: return "+20%"
+        case 3800: return "+27%"
+        case 6500: return "+30%"
+        default:   return nil
+        }
+    }
+
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
@@ -603,6 +620,12 @@ struct AppleIAPPackageButton: View {
                     .font(AppTypography.headline())
                     .foregroundColor(AppColors.textPrimary)
 
+                if let bonus = bonusText {
+                    Text(bonus)
+                        .font(AppTypography.caption())
+                        .foregroundColor(AppColors.success)
+                }
+
                 Text(product.displayPrice)
                     .font(AppTypography.subheadline())
                     .foregroundColor(AppColors.primary)
@@ -614,8 +637,20 @@ struct AppleIAPPackageButton: View {
             .modifier(AppShadows.small())
             .overlay(
                 RoundedRectangle(cornerRadius: AppRadius.m)
-                    .stroke(AppColors.primary.opacity(0.1), lineWidth: 1)
+                    .stroke(isBestValue ? AppColors.primary : AppColors.primary.opacity(0.1), lineWidth: isBestValue ? 2 : 1)
             )
+            .overlay(alignment: .topTrailing) {
+                if isBestValue {
+                    Text(NSLocalizedString("shop.best_value", comment: "Best Value"))
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(AppColors.primary)
+                        .cornerRadius(4)
+                        .offset(x: -4, y: -8)
+                }
+            }
         }
         .disabled(isLoading)
         .opacity(isLoading ? 0.5 : 1.0)

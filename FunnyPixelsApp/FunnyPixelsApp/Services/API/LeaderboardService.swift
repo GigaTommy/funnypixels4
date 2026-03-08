@@ -99,6 +99,7 @@ class LeaderboardService {
         let previousRank: Int?     // 上次排名
         let rankChange: Int?       // 排名变化 (正数=上升, 负数=下降)
         let isMutual: Bool?        // 是否互相关注（好友榜用）
+        let equippedCosmetics: EquippedCosmetics?  // 已装备装饰品
 
         // 用于Identifiable - 确保唯一性
         var id: String {
@@ -129,6 +130,7 @@ class LeaderboardService {
             case previousRank = "previous_rank"
             case rankChange = "rank_change"
             case isMutual = "is_mutual"
+            case equippedCosmetics = "equipped_cosmetics"
         }
 
         // 自定义init以处理后端返回user_id的情况
@@ -178,6 +180,7 @@ class LeaderboardService {
             previousRank = try? container.decodeIfPresent(Int.self, forKey: .previousRank)
             rankChange = try? container.decodeIfPresent(Int.self, forKey: .rankChange)
             isMutual = try? container.decodeIfPresent(Bool.self, forKey: .isMutual)
+            equippedCosmetics = try? container.decodeIfPresent(EquippedCosmetics.self, forKey: .equippedCosmetics)
 
             // 处理id字段，可能是id或user_id
             if let idValue = try? container.decodeIfPresent(String.self, forKey: .id), !idValue.isEmpty {
@@ -219,6 +222,7 @@ class LeaderboardService {
             try container.encodeIfPresent(previousRank, forKey: .previousRank)
             try container.encodeIfPresent(rankChange, forKey: .rankChange)
             try container.encodeIfPresent(isMutual, forKey: .isMutual)
+            try container.encodeIfPresent(equippedCosmetics, forKey: .equippedCosmetics)
         }
     }
 

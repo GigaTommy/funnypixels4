@@ -956,6 +956,7 @@
 "shop.empty.message" = "No items available in the shop";
 "shop.item.used" = "Used %@";
 "shop.price_points" = "%d Points";
+"shop.best_value" = "Best Value";
 "shop.category.all" = "All";
 "shop.category.consumable" = "Consumable";
 "shop.category.special" = "Special";

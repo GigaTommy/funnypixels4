@@ -1,6 +1,8 @@
 const { db } = require('../config/database');
 const logger = require('../utils/logger');
 const { i18next } = require('../config/i18n');
+const Cosmetic = require('../models/Cosmetic');
+const { normalizeUserForDisplay } = require('../utils/userDisplayHelper');
 
 class FeedController {
   /**
@@ -35,6 +37,7 @@ class FeedController {
           'users.display_name',
           'users.avatar_url',
           'users.avatar',
+          'users.account_status',
           db.raw('CASE WHEN my_like.id IS NOT NULL THEN true ELSE false END as is_liked'),
           db.raw('CASE WHEN my_bookmark.id IS NOT NULL THEN true ELSE false END as is_bookmarked'),
           'my_vote.option_index as my_vote_option_index'
@@ -118,26 +121,47 @@ class FeedController {
 
       const items = await query;
 
-      const mappedItems = items.map(item => ({
-        id: item.id,
-        type: item.type,
-        content: item.content,
-        drawing_session_id: item.drawing_session_id,
-        like_count: item.like_count,
-        comment_count: item.comment_count,
-        is_liked: !!item.is_liked,
-        is_bookmarked: !!item.is_bookmarked,
-        poll_data: item.poll_data,
-        my_vote_option_index: item.my_vote_option_index !== null ? item.my_vote_option_index : null,
-        created_at: item.created_at,
-        user: {
+      // 批量获取装饰品
+      const feedUserIds = [...new Set(items.map(i => i.user_id).filter(Boolean))];
+      let feedCosmeticsMap = {};
+      try {
+        feedCosmeticsMap = await Cosmetic.getEquippedCosmeticsMapBatch(feedUserIds);
+      } catch (e) { /* ignore */ }
+
+      const mappedItems = items.map(item => {
+        // Normalize user data to handle deleted accounts
+        const normalizedUser = normalizeUserForDisplay({
           id: item.user_id,
           username: item.username,
           display_name: item.display_name,
           avatar_url: item.avatar_url,
-          avatar: item.avatar
-        }
-      }));
+          account_status: item.account_status
+        });
+
+        return {
+          id: item.id,
+          type: item.type,
+          content: item.content,
+          drawing_session_id: item.drawing_session_id,
+          like_count: item.like_count,
+          comment_count: item.comment_count,
+          is_liked: !!item.is_liked,
+          is_bookmarked: !!item.is_bookmarked,
+          poll_data: item.poll_data,
+          my_vote_option_index: item.my_vote_option_index !== null ? item.my_vote_option_index : null,
+          created_at: item.created_at,
+          user: {
+            id: normalizedUser.id,
+            username: normalizedUser.display_name,
+            display_name: normalizedUser.display_name,
+            avatar_url: normalizedUser.avatar_url,
+            avatar: null, // Exclude raw pixel data for performance
+            is_deleted: normalizedUser.is_deleted,
+            clickable: normalizedUser.clickable,
+            equipped_cosmetics: normalizedUser.is_deleted ? null : (feedCosmeticsMap[item.user_id] || null)
+          }
+        };
+      });
 
       res.json({
         success: true,
@@ -284,25 +308,39 @@ class FeedController {
           'users.username',
           'users.display_name',
           'users.avatar_url',
-          'users.avatar'
+          'users.avatar',
+          'users.account_status'
         )
         .where('feed_comments.feed_item_id', id)
         .orderBy('feed_comments.created_at', 'asc')
         .limit(Math.min(parseInt(limit) || 20, 50))
         .offset(parseInt(offset) || 0);
 
-      const mappedComments = comments.map(c => ({
-        id: c.id,
-        content: c.content,
-        created_at: c.created_at,
-        user: {
+      const mappedComments = comments.map(c => {
+        // Normalize user data to handle deleted accounts
+        const normalizedUser = normalizeUserForDisplay({
           id: c.user_id,
           username: c.username,
           display_name: c.display_name,
           avatar_url: c.avatar_url,
-          avatar: c.avatar
-        }
-      }));
+          account_status: c.account_status
+        });
+
+        return {
+          id: c.id,
+          content: c.content,
+          created_at: c.created_at,
+          user: {
+            id: normalizedUser.id,
+            username: normalizedUser.display_name,
+            display_name: normalizedUser.display_name,
+            avatar_url: normalizedUser.avatar_url,
+            avatar: null, // Exclude raw pixel data for performance
+            is_deleted: normalizedUser.is_deleted,
+            clickable: normalizedUser.clickable
+          }
+        };
+      });
 
       res.json({
         success: true,

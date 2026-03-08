@@ -258,6 +258,31 @@ class Cosmetic {
     ];
   }
 
+  // 获取用户已装备的装饰品映射 { cosmetic_type: cosmetic_name }
+  static async getEquippedCosmeticsMap(userId) {
+    const rows = await db('cosmetics')
+      .where({ user_id: userId, is_equipped: true, is_active: true })
+      .select('cosmetic_type', 'cosmetic_name');
+    const map = {};
+    for (const r of rows) map[r.cosmetic_type] = r.cosmetic_name;
+    return map;
+  }
+
+  // 批量获取多个用户的已装备装饰品映射
+  static async getEquippedCosmeticsMapBatch(userIds) {
+    if (!userIds || userIds.length === 0) return {};
+    const rows = await db('cosmetics')
+      .whereIn('user_id', userIds)
+      .where({ is_equipped: true, is_active: true })
+      .select('user_id', 'cosmetic_type', 'cosmetic_name');
+    const result = {};
+    for (const r of rows) {
+      if (!result[r.user_id]) result[r.user_id] = {};
+      result[r.user_id][r.cosmetic_type] = r.cosmetic_name;
+    }
+    return result;
+  }
+
   // 检查用户是否拥有特定装饰品
   static async hasCosmetic(userId, cosmeticType, cosmeticName) {
     const cosmetic = await db('cosmetics')

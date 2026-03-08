@@ -19,7 +19,7 @@ struct PlayerDetailSheet: View {
 
             // Avatar + Name
             VStack(spacing: AppSpacing.m) {
-                AvatarView(
+                DecoratedAvatarView(
                     avatarUrl: entry.avatar_url,
                     avatar: entry.avatar,
                     avatarColor: entry.avatarColor,
@@ -27,7 +27,8 @@ struct PlayerDetailSheet: View {
                     flagPatternId: entry.flag_pattern_id ?? entry.flag_pattern,
                     patternType: entry.pattern_type,
                     unicodeChar: entry.unicode_char,
-                    size: 72
+                    size: 72,
+                    equippedCosmetics: entry.equippedCosmetics
                 )
 
                 HStack(spacing: 6) {

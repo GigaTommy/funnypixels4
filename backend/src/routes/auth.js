@@ -43,6 +43,12 @@ router.put('/change-password', authenticateToken, validate(changePasswordSchema)
 // 用户登出（需要认证）
 router.post('/logout', authenticateToken, AuthController.logout);
 
+// 账户删除（需要认证）- 软删除，30天可恢复
+router.delete('/account', authenticateToken, AuthController.softDeleteAccount);
+
+// 账户恢复 - 通过邮件恢复链接中的token
+router.post('/recover-account', AuthController.recoverAccount);
+
 // Apple 登录
 router.post('/apple', AuthController.appleLogin);
 

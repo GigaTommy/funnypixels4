@@ -25,6 +25,7 @@ class DrawingHistoryViewModel: ObservableObject {
 
     // 视图模式
     enum ViewMode: String, CaseIterable {
+        case map = "map"
         case grid = "square.grid.2x2"
         case list = "list.bullet"
     }

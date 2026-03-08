@@ -38,6 +38,7 @@ class ProfileService {
             let display_name: String?
             let alliance: UserAlliance?
             let rankTier: RankTier?
+            let equipped_cosmetics: EquippedCosmetics?
 
             var displayName: String {
                 display_name ?? username

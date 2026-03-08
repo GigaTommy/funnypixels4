@@ -6,6 +6,7 @@ const NotificationSettings = require('../models/NotificationSettings');
 const PrivacySettings = require('../models/PrivacySettings');
 const MessageRequest = require('../models/MessageRequest');
 const DailyLimits = require('../models/DailyLimits');
+const { normalizeUserForDisplay, isUserDeleted } = require('../utils/userDisplayHelper');
 
 class PrivateMessageController {
   // 发送私信
@@ -22,12 +23,12 @@ class PrivateMessageController {
         });
       }
 
-      // 验证接收者存在
+      // 验证接收者存在且未被删除
       const receiver = await User.findById(receiver_id);
-      if (!receiver) {
+      if (!receiver || isUserDeleted(receiver)) {
         return res.status(404).json({
           success: false,
-          message: '接收者不存在'
+          message: '接收者不存在或已删除账户'
         });
       }
 
@@ -196,10 +197,18 @@ class PrivateMessageController {
             conv.other_user_id
           );
 
+          // Normalize other user info for deleted accounts
+          const otherUser = normalizeUserForDisplay({
+            id: conv.other_user_id,
+            username: conv.other_user_name,
+            avatar_url: conv.other_user_avatar
+          });
+
           return {
-            other_user_id: conv.other_user_id,
-            other_user_name: conv.other_user_name,
-            other_user_avatar: conv.other_user_avatar,
+            other_user_id: otherUser.id,
+            other_user_name: otherUser.display_name,
+            other_user_avatar: otherUser.avatar_url,
+            is_deleted: otherUser.is_deleted,
             last_message: {
               id: conv.id,
               content: conv.content,
@@ -259,6 +268,9 @@ class PrivateMessageController {
         });
       }
 
+      // Normalize other user for display (handle deleted accounts)
+      const normalizedOtherUser = normalizeUserForDisplay(otherUser);
+
       // 获取对话消息
       const messages = await PrivateMessage.getConversation(
         userId,
@@ -267,36 +279,53 @@ class PrivateMessageController {
         parseInt(offset)
       );
 
-      // 格式化消息
-      const formattedMessages = messages.map(msg => ({
-        id: msg.id,
-        sender_id: msg.sender_id,
-        receiver_id: msg.receiver_id,
-        content: msg.content,
-        message_type: msg.message_type,
-        is_read: msg.is_read,
-        read_at: msg.read_at,
-        reply_to_message_id: msg.reply_to_message_id,
-        reply_to_content: msg.reply_to_content,
-        created_at: msg.created_at,
-        is_from_me: msg.sender_id === userId,
-        sender: {
+      // 格式化消息 - normalize sender/receiver info
+      const formattedMessages = messages.map(msg => {
+        const sender = normalizeUserForDisplay({
+          id: msg.sender_id,
           username: msg.sender_username,
           avatar_url: msg.sender_avatar
-        },
-        receiver: {
+        });
+        const receiver = normalizeUserForDisplay({
+          id: msg.receiver_id,
           username: msg.receiver_username,
           avatar_url: msg.receiver_avatar
-        }
-      }));
+        });
+
+        return {
+          id: msg.id,
+          sender_id: msg.sender_id,
+          receiver_id: msg.receiver_id,
+          content: msg.content,
+          message_type: msg.message_type,
+          is_read: msg.is_read,
+          read_at: msg.read_at,
+          reply_to_message_id: msg.reply_to_message_id,
+          reply_to_content: msg.reply_to_content,
+          created_at: msg.created_at,
+          is_from_me: msg.sender_id === userId,
+          sender: {
+            username: sender.display_name,
+            avatar_url: sender.avatar_url,
+            is_deleted: sender.is_deleted
+          },
+          receiver: {
+            username: receiver.display_name,
+            avatar_url: receiver.avatar_url,
+            is_deleted: receiver.is_deleted
+          }
+        };
+      });
 
       res.json({
         success: true,
         messages: formattedMessages,
         other_user: {
-          id: otherUser.id,
-          username: otherUser.username,
-          avatar_url: otherUser.avatar_url
+          id: normalizedOtherUser.id,
+          username: normalizedOtherUser.display_name,
+          avatar_url: normalizedOtherUser.avatar_url,
+          is_deleted: normalizedOtherUser.is_deleted,
+          clickable: normalizedOtherUser.clickable
         },
         pagination: {
           limit: parseInt(limit),

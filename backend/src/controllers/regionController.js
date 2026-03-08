@@ -1,6 +1,7 @@
 const Region = require('../models/Region');
 const { db } = require('../config/database');
 const logger = require('../utils/logger');
+const { normalizeUsersForDisplay } = require('../utils/userDisplayHelper');
 
 class RegionController {
   // 获取所有地区列表
@@ -228,9 +229,9 @@ class RegionController {
         .first();
       
       // 获取该地区活跃用户（最近7天在该地区绘制过像素的用户）
-      const activeUsers = await db('pixels')
+      const activeUsersRaw = await db('pixels')
         .join('users', 'pixels.user_id', 'users.id')
-        .select('users.id', 'users.username', 'users.avatar_url', 'users.avatar', 'users.total_pixels')
+        .select('users.id', 'users.username', 'users.display_name', 'users.avatar_url', 'users.avatar', 'users.account_status', 'users.total_pixels')
         .whereRaw(`
            ST_DWithin(
              ST_MakePoint(pixels.lng, pixels.lat)::geography,
@@ -239,9 +240,20 @@ class RegionController {
            )
          `, [region.center_lng, region.center_lat, parseFloat(region.radius)])
         .where('pixels.created_at', '>=', db.raw('NOW() - INTERVAL \'7 days\''))
-        .groupBy('users.id', 'users.username', 'users.avatar_url', 'users.total_pixels')
+        .groupBy('users.id', 'users.username', 'users.display_name', 'users.avatar_url', 'users.account_status', 'users.total_pixels')
         .orderBy('users.total_pixels', 'desc')
         .limit(10);
+
+      // Normalize user data to handle deleted accounts
+      const activeUsers = normalizeUsersForDisplay(activeUsersRaw, { includeStats: true }).map(user => ({
+        id: user.id,
+        username: user.display_name,
+        avatar_url: user.avatar_url,
+        avatar: null, // Exclude raw pixel data for performance
+        total_pixels: user.total_pixels || 0,
+        is_deleted: user.is_deleted,
+        clickable: user.clickable
+      }));
       
       // 获取该地区活跃联盟（最近7天有成员在该地区绘制过像素的联盟）
       const activeAlliances = await db('pixels')

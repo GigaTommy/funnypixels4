@@ -38,6 +38,7 @@ class ProfileViewModel: ObservableObject {
         let totalPixels: Int?
         let flagPatternId: String?
         let rankTier: RankTier?
+        let equippedCosmetics: EquippedCosmetics?
 
         var displayOrUsername: String {
             displayName ?? username
@@ -93,7 +94,8 @@ class ProfileViewModel: ObservableObject {
                     points: nil,
                     totalPixels: nil,
                     flagPatternId: user.alliance?.flagPatternId,
-                    rankTier: user.rankTier
+                    rankTier: user.rankTier,
+                    equippedCosmetics: user.equippedCosmetics
                 )
             }
             .store(in: &cancellables)
@@ -140,7 +142,8 @@ class ProfileViewModel: ObservableObject {
                     points: user.points,
                     totalPixels: user.total_pixels,
                     flagPatternId: user.alliance?.flag_pattern_id,
-                    rankTier: user.rankTier
+                    rankTier: user.rankTier,
+                    equippedCosmetics: user.equipped_cosmetics
                 )
 
                 // Social stats
@@ -272,7 +275,8 @@ class ProfileViewModel: ObservableObject {
                     points: user.points,
                     totalPixels: user.total_pixels,
                     flagPatternId: user.alliance?.flag_pattern_id,
-                    rankTier: user.rankTier
+                    rankTier: user.rankTier,
+                    equippedCosmetics: user.equipped_cosmetics
                 )
                 followersCount = response.followers_count ?? 0
                 followingCount = response.following_count ?? 0
@@ -377,7 +381,8 @@ class ProfileViewModel: ObservableObject {
                         points: nil,
                         totalPixels: nil,
                         flagPatternId: user.alliance?.flagPatternId,
-                        rankTier: user.rankTier
+                        rankTier: user.rankTier,
+                        equippedCosmetics: user.equippedCosmetics
                     )
                     Logger.info("✅ Profile refreshed successfully")
                 } catch {

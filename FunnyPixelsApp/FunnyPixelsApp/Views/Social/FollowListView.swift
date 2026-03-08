@@ -110,11 +110,10 @@ struct UserListRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // Avatar
-            AvatarView(
+            DecoratedAvatarView(
                 avatarUrl: user.avatarUrl,
                 avatar: user.avatar,
                 displayName: user.displayOrUsername,
-                flagPatternId: nil,
                 size: 40
             )
 

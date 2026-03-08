@@ -175,9 +175,8 @@ struct MemberRow: View {
     var body: some View {
         HStack {
             // Avatar
-            AvatarView(
+            DecoratedAvatarView(
                 avatarUrl: member.avatarUrl,
-                avatar: nil,
                 displayName: member.username,
                 size: 40
             )

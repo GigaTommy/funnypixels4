@@ -1,6 +1,7 @@
 const UserFollow = require('../models/UserFollow');
 const Leaderboard = require('../models/Leaderboard');
 const Conversation = require('../models/Conversation');
+const { normalizeUsersForDisplay, isUserDeleted } = require('../utils/userDisplayHelper');
 
 class SocialController {
   // 关注用户 - 支持自动创建私信会话
@@ -144,9 +145,28 @@ class SocialController {
         parseInt(offset)
       );
 
+      // Normalize user data to handle deleted accounts
+      const normalizedFollowing = following.map(f => {
+        const user = normalizeUsersForDisplay([{
+          id: f.following_id,
+          username: f.username,
+          avatar_url: f.avatar_url,
+          total_pixels: f.total_pixels,
+          current_pixels: f.current_pixels
+        }], { includeStats: true })[0];
+
+        return {
+          ...f,
+          username: user.display_name,
+          avatar_url: user.avatar_url,
+          is_deleted: user.is_deleted,
+          clickable: user.clickable
+        };
+      });
+
       res.json({
         success: true,
-        data: following
+        data: normalizedFollowing
       });
     } catch (error) {
       console.error('获取关注列表失败:', error);
@@ -170,9 +190,28 @@ class SocialController {
         parseInt(offset)
       );
 
+      // Normalize user data to handle deleted accounts
+      const normalizedFollowers = followers.map(f => {
+        const user = normalizeUsersForDisplay([{
+          id: f.follower_id,
+          username: f.username,
+          avatar_url: f.avatar_url,
+          total_pixels: f.total_pixels,
+          current_pixels: f.current_pixels
+        }], { includeStats: true })[0];
+
+        return {
+          ...f,
+          username: user.display_name,
+          avatar_url: user.avatar_url,
+          is_deleted: user.is_deleted,
+          clickable: user.clickable
+        };
+      });
+
       res.json({
         success: true,
-        data: followers
+        data: normalizedFollowers
       });
     } catch (error) {
       console.error('获取粉丝列表失败:', error);
@@ -196,9 +235,28 @@ class SocialController {
         parseInt(offset)
       );
 
+      // Normalize user data to handle deleted accounts
+      const normalizedMutual = mutual.map(m => {
+        const user = normalizeUsersForDisplay([{
+          id: m.following_id,
+          username: m.username,
+          avatar_url: m.avatar_url,
+          total_pixels: m.total_pixels,
+          current_pixels: m.current_pixels
+        }], { includeStats: true })[0];
+
+        return {
+          ...m,
+          username: user.display_name,
+          avatar_url: user.avatar_url,
+          is_deleted: user.is_deleted,
+          clickable: user.clickable
+        };
+      });
+
       res.json({
         success: true,
-        data: mutual
+        data: normalizedMutual
       });
     } catch (error) {
       console.error('获取互相关注列表失败:', error);
@@ -221,9 +279,28 @@ class SocialController {
         parseInt(limit)
       );
 
+      // Normalize user data to handle deleted accounts
+      const normalizedRecommended = recommended.map(r => {
+        const user = normalizeUsersForDisplay([{
+          id: r.following_id,
+          username: r.username,
+          avatar_url: r.avatar_url,
+          total_pixels: r.total_pixels,
+          current_pixels: r.current_pixels
+        }], { includeStats: true })[0];
+
+        return {
+          ...r,
+          username: user.display_name,
+          avatar_url: user.avatar_url,
+          is_deleted: user.is_deleted,
+          clickable: user.clickable
+        };
+      });
+
       res.json({
         success: true,
-        data: recommended
+        data: normalizedRecommended
       });
     } catch (error) {
       console.error('获取推荐关注失败:', error);

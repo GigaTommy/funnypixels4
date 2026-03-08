@@ -54,7 +54,9 @@ class UserFollow {
       .select(
         'user_follows.*',
         'users.username',
+        'users.display_name',
         'users.avatar_url',
+        'users.account_status',
         'users.total_pixels',
         'users.current_pixels'
       )
@@ -63,7 +65,7 @@ class UserFollow {
       .orderBy('user_follows.created_at', 'desc')
       .limit(limit)
       .offset(offset);
-    
+
     return following;
   }
 
@@ -73,7 +75,9 @@ class UserFollow {
       .select(
         'user_follows.*',
         'users.username',
+        'users.display_name',
         'users.avatar_url',
+        'users.account_status',
         'users.total_pixels',
         'users.current_pixels'
       )
@@ -82,7 +86,7 @@ class UserFollow {
       .orderBy('user_follows.created_at', 'desc')
       .limit(limit)
       .offset(offset);
-    
+
     return followers;
   }
 
@@ -112,7 +116,9 @@ class UserFollow {
       .select(
         'f1.following_id',
         'users.username',
+        'users.display_name',
         'users.avatar_url',
+        'users.account_status',
         'users.total_pixels',
         'users.current_pixels'
       )
@@ -125,7 +131,7 @@ class UserFollow {
       .orderBy('f1.created_at', 'desc')
       .limit(limit)
       .offset(offset);
-    
+
     return mutual;
   }
 
@@ -136,7 +142,9 @@ class UserFollow {
       .select(
         'f1.following_id',
         'users.username',
+        'users.display_name',
         'users.avatar_url',
+        'users.account_status',
         'users.total_pixels',
         'users.current_pixels',
         db.raw('COUNT(f2.follower_id) as mutual_count')
@@ -150,10 +158,10 @@ class UserFollow {
           .whereRaw('f3.follower_id = ? AND f3.following_id = f1.following_id', [userId]);
       })
       .whereNot('f1.following_id', userId)
-      .groupBy('f1.following_id', 'users.username', 'users.avatar_url', 'users.total_pixels', 'users.current_pixels')
+      .groupBy('f1.following_id', 'users.username', 'users.display_name', 'users.avatar_url', 'users.account_status', 'users.total_pixels', 'users.current_pixels')
       .orderBy('mutual_count', 'desc')
       .limit(limit);
-    
+
     return recommended;
   }
 }

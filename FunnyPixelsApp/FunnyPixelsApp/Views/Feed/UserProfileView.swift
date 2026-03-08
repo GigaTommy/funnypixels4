@@ -42,11 +42,12 @@ struct UserProfileView: View {
     private func userHeader(_ profile: FeedUserProfile) -> some View {
         VStack(spacing: FeedDesign.Spacing.m) {
             // 头像
-            AvatarView(
+            DecoratedAvatarView(
                 avatarUrl: profile.avatar_url,
                 avatar: profile.avatar,
                 displayName: profile.display_name ?? profile.username ?? "",
-                size: 80
+                size: 80,
+                equippedCosmetics: profile.equippedCosmetics
             )
 
             // 用户名
@@ -185,7 +186,8 @@ class UserProfileViewModel: ObservableObject {
                 followers_count: response.followers_count,
                 following_count: response.following_count,
                 is_following: response.is_following ?? false,
-                is_self: false // TODO: check if current user
+                is_self: false, // TODO: check if current user
+                equippedCosmetics: response.user.equipped_cosmetics
             )
         } catch {
             Logger.error("Failed to load user profile: \(error)")
@@ -231,4 +233,5 @@ struct FeedUserProfile {
     var following_count: Int?
     var is_following: Bool
     let is_self: Bool
+    let equippedCosmetics: EquippedCosmetics?
 }

@@ -102,12 +102,13 @@ struct AchievementShareView: View {
                 
                 // 用户信息
                 HStack(spacing: 12) {
-                    AvatarView(
+                    DecoratedAvatarView(
                         avatarUrl: userProfile?.avatarUrl,
                         avatar: userProfile?.avatar,
                         displayName: userProfile?.displayOrUsername ?? "PixelArtist",
                         flagPatternId: userProfile?.flagPatternId,
-                        size: 44
+                        size: 44,
+                        equippedCosmetics: userProfile?.equippedCosmetics
                     )
                     
                     VStack(alignment: .leading, spacing: 2) {

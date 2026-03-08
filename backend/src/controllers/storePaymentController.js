@@ -782,7 +782,15 @@ class StorePaymentController {
       }
 
       // 验证商品ID和积分数量映射
+      // 新版统一定价: $1 ≈ 100 积分, 大额递增赠送
       const validProductPoints = {
+        'com.funnypixels.points.100': 100,    // $0.99
+        'com.funnypixels.points.330': 330,    // $2.99 (+10%)
+        'com.funnypixels.points.580': 580,    // $4.99 (+16%)
+        'com.funnypixels.points.1200': 1200,  // $9.99 (+20%)
+        'com.funnypixels.points.3800': 3800,  // $29.99 (+27%)
+        'com.funnypixels.points.6500': 6500,  // $49.99 (+30%)
+        // 旧版兼容（处理未升级客户端的待完成交易）
         'com.funnypixels.points.60': 60,
         'com.funnypixels.points.300': 300,
         'com.funnypixels.points.680': 680,

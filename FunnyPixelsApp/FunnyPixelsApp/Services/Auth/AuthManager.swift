@@ -279,7 +279,10 @@ class AuthManager: ObservableObject {
                 name: response.alliance?.name ?? "",
                 flagPatternId: response.alliance?.flagPatternId
             ) : nil,
-            rankTier: response.rankTier
+            rankTier: response.rankTier,
+            equippedCosmetics: response.equippedCosmetics,
+            isDeleted: nil,
+            clickable: nil
         )
 
         // 更新当前用户信息
@@ -322,7 +325,10 @@ class AuthManager: ObservableObject {
                 name: response.alliance?.name ?? "",
                 flagPatternId: response.alliance?.flagPatternId
             ) : nil,
-            rankTier: response.rankTier
+            rankTier: response.rankTier,
+            equippedCosmetics: response.equippedCosmetics,
+            isDeleted: nil,
+            clickable: nil
         )
 
         await MainActor.run {
@@ -344,6 +350,69 @@ class AuthManager: ObservableObject {
             endpoint: .changePassword,
             parameters: parameters
         )
+    }
+
+    // MARK: - Account Deletion
+
+    /// 删除账户（软删除，30天内可恢复）
+    /// - Returns: 恢复令牌（用于30天内恢复账户）
+    @MainActor
+    func deleteAccount() async throws -> String {
+        Logger.userAction("Delete account initiated")
+
+        struct DeleteAccountResponse: Codable {
+            let success: Bool
+            let message: String
+            let recoveryToken: String?
+
+            enum CodingKeys: String, CodingKey {
+                case success, message
+                case recoveryToken = "recovery_token"
+            }
+        }
+
+        let response: DeleteAccountResponse = try await APIManager.shared.request(
+            endpoint: .deleteAccount
+        )
+
+        guard let recoveryToken = response.recoveryToken else {
+            throw NSError(
+                domain: "AuthManager",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "未收到恢复令牌"]
+            )
+        }
+
+        Logger.info("✅ Account deleted successfully, recovery token received")
+
+        // 清除本地认证数据（强制登出）
+        await clearAuthData()
+
+        return recoveryToken
+    }
+
+    /// 恢复已删除的账户
+    /// - Parameter recoveryToken: 删除时返回的恢复令牌
+    /// - Returns: 恢复的用户信息
+    @MainActor
+    func recoverAccount(recoveryToken: String) async throws -> User {
+        Logger.userAction("Recover account initiated")
+
+        let parameters = [
+            "token": recoveryToken
+        ]
+
+        let response: AuthResponse = try await APIManager.shared.request(
+            endpoint: .recoverAccount,
+            parameters: parameters
+        )
+
+        // 保存恢复后的认证信息
+        try saveAuthData(response, isGuest: false)
+
+        Logger.info("✅ Account recovered successfully")
+
+        return response.user
     }
 
     // MARK: - Private Methods
@@ -528,6 +597,7 @@ struct AuthUserProfileResponse: Codable {
     let lastActivity: String?
     let alliance: AllianceInfo?
     let rankTier: RankTier?
+    let equippedCosmetics: EquippedCosmetics?
 
     enum CodingKeys: String, CodingKey {
         case id, username, email, phone, role, points
@@ -540,6 +610,7 @@ struct AuthUserProfileResponse: Codable {
         case lastActivity = "last_activity"
         case alliance
         case rankTier
+        case equippedCosmetics = "equipped_cosmetics"
     }
 }
 

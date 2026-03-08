@@ -817,6 +817,7 @@
 "shop.empty.message" = "No hay objetos disponibles en la tienda";
 "shop.item.used" = "Usado %@";
 "shop.price_points" = "%d Puntos";
+"shop.best_value" = "Mejor Valor";
 "shop.category.all" = "Todo";
 "shop.category.consumable" = "Consumible";
 "shop.category.special" = "Especial";

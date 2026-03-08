@@ -843,6 +843,7 @@
 "shop.empty.message" = "Nenhum item disponivel na loja";
 "shop.item.used" = "Usado %@";
 "shop.price_points" = "%d Pontos";
+"shop.best_value" = "Melhor Valor";
 "shop.category.all" = "Todos";
 "shop.category.consumable" = "Consumivel";
 "shop.category.special" = "Especial";

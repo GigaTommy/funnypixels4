@@ -859,6 +859,7 @@
 "shop.insufficient_points.message" = "Pontos atuais: %d, necessarios: %d pontos";
 "shop.insufficient_points.recharge" = "Recarregar";
 "shop.insufficient_points.hint" = "Pontos insuficientes, recarregue primeiro";
+"shop.insufficient_points.contact_support" = "Pontos insuficientes. Entre em contato com o suporte para recarregar.";
 
 /* Approval Price Info */
 "approval.section.price_info" = "Informacoes de Preco";

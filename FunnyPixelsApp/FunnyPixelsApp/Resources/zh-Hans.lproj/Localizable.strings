@@ -41,6 +41,26 @@
 "auth.apple.sign_in" = "使用 Apple 登录";
 "auth.or_continue_with" = "或使用邮箱登录";
 "auth.validating" = "正在验证会话...";
+"auth.use_email" = "使用邮箱登录";
+"auth.hide_email_login" = "隐藏邮箱登录";
+"auth.terms.by_continuing" = "继续即表示您同意我们的";
+"auth.accessibility.apple_hint" = "使用 Apple ID 登录";
+"auth.accessibility.google_hint" = "使用 Google 账号登录";
+"auth.accessibility.terms_checkbox" = "同意服务条款和隐私政策";
+
+// MARK: - Animations
+"animation.pixel_drop.title" = "像素已放置！";
+"animation.cooldown.ready" = "准备绘制！";
+"animation.cooldown.wait" = "冷却中...";
+
+// MARK: - Achievements
+"achievement.unlock.dismiss" = "太棒了！";
+"achievement.first_pixel.title" = "第一个像素！";
+"achievement.first_pixel.description" = "你已在全球画布上绘制了第一个像素";
+"achievement.rarity.common" = "普通";
+"achievement.rarity.rare" = "稀有";
+"achievement.rarity.epic" = "史诗";
+"achievement.rarity.legendary" = "传说";
 
 /* Session */
 "session.validating" = "验证会话中...";
@@ -1052,6 +1072,7 @@
 "shop.insufficient_points.message" = "当前积分: %d，需要: %d 积分";
 "shop.insufficient_points.recharge" = "去充值";
 "shop.insufficient_points.hint" = "积分不足，请先充值";
+"shop.insufficient_points.contact_support" = "积分不足，请联系客服充值";
 
 /* Approval Price Info */
 "approval.section.price_info" = "费用信息";

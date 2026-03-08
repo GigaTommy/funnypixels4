@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./app";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 import ErrorBoundary from "./components/ErrorBoundary";
 import "./index.css";
 
@@ -65,9 +66,36 @@ setTimeout(() => {
 //   console.error('[Main] PWA initialization failed:', error);
 // });
 
-// 简化渲染，避免可能的组件问题
+// 🆕 使用新的路由系统（Landing + Game App）
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ErrorBoundary>
-    <App />
+    <Suspense fallback={
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: 'bold'
+      }}>
+        <div>
+          <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+            <div className="animate-spin" style={{
+              width: '48px',
+              height: '48px',
+              border: '4px solid rgba(255,255,255,0.3)',
+              borderTop: '4px solid white',
+              borderRadius: '50%',
+              margin: '0 auto'
+            }}></div>
+          </div>
+          Loading FunnyPixels...
+        </div>
+      </div>
+    }>
+      <RouterProvider router={router} />
+    </Suspense>
   </ErrorBoundary>,
 );

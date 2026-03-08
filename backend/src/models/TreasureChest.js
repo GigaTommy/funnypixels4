@@ -1,5 +1,6 @@
 const { db } = require('../config/database');
 const logger = require('../utils/logger');
+const UserPoints = require('./UserPoints');
 
 /**
  * Treasure Chest Model
@@ -168,15 +169,13 @@ class TreasureChest {
           chest_key: this.generateChestKey(chest.latitude, chest.longitude)
         });
 
-        // Award points
-        await trx('users')
-          .where('id', userId)
-          .increment('points', pointsAwarded);
-
         // Update daily task progress (collect_treasures)
         const DailyTaskController = require('../controllers/dailyTaskController');
         await DailyTaskController.updateTaskProgress(userId, 'collect_treasures', 1);
       });
+
+      // 通过 UserPoints 正确发放积分（写入 user_points + wallet_ledger）
+      await UserPoints.addPoints(userId, pointsAwarded, '宝箱奖励', `chest_${chestId}`);
 
       logger.info(`✅ User ${userId} picked up ${chest.rarity} chest, awarded ${pointsAwarded} points`);
 

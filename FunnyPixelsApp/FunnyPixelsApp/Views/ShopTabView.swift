@@ -45,23 +45,25 @@ struct ShopTabView: View {
             .navigationTitle(NSLocalizedString("shop.title", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .hideTabBar()
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        showRecharge = true
-                    }) {
-                        ShopWalletIcon(size: 28)
-                    }
-                }
-            }
+            // 支付模块待接入 Stripe 后开放
+            // .toolbar {
+            //     ToolbarItem(placement: .topBarTrailing) {
+            //         Button(action: {
+            //             showRecharge = true
+            //         }) {
+            //             ShopWalletIcon(size: 28)
+            //         }
+            //     }
+            // }
             .sheet(isPresented: $showInventory) {
                 InventoryView(viewModel: viewModel)
             }
-            .sheet(isPresented: $showRecharge) {
-                RechargeView { newPoints in
-                    viewModel.userPoints += newPoints
-                }
-            }
+            // 支付模块待接入 Stripe 后开放
+            // .sheet(isPresented: $showRecharge) {
+            //     RechargeView { newPoints in
+            //         viewModel.userPoints += newPoints
+            //     }
+            // }
             .sheet(isPresented: $showPurchaseApproval) {
                 if let item = selectedItem {
                     PurchaseApprovalView(item: item, userPoints: viewModel.userPoints) { title, desc, image, location, time in
@@ -128,12 +130,9 @@ struct ShopTabView: View {
                 isPresented: $showInsufficientPointsAlert,
                 presenting: selectedItem
             ) { item in
-                Button(NSLocalizedString("shop.insufficient_points.recharge", comment: "去充值")) {
-                    showRecharge = true
-                }
-                Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) { }
+                Button(NSLocalizedString("common.ok", comment: ""), role: .cancel) { }
             } message: { item in
-                Text(String(format: NSLocalizedString("shop.insufficient_points.message", comment: ""), viewModel.userPoints, item.pricePoints))
+                Text(NSLocalizedString("shop.insufficient_points.contact_support", comment: "积分不足，请联系客服充值"))
             }
             .onAppear {
                 Task {

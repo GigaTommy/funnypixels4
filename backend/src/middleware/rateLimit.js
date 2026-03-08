@@ -165,4 +165,10 @@ module.exports = {
   chatLimiter: createRateLimiter(10 * 1000, 10, '聊天消息发送过于频繁，请稍后再试', 'rl:chat'), // 10秒10次
   uploadLimiter: createRateLimiter(60 * 1000, 5, '文件上传过于频繁，请稍后再试', 'rl:upload'), // 1分钟5次
   adminLimiter: createRateLimiter(60 * 1000, 1000, '管理员操作过于频繁', 'rl:admin'), // 管理员限制较宽松
+  rewardClaimLimiter: createRateLimiter(60 * 1000, () => {
+    try {
+      const rewardConfigService = require('../services/rewardConfigService');
+      return rewardConfigService.get('rate_limit.reward_claim_max', 30);
+    } catch { return 30; }
+  }, '奖励领取过于频繁，请稍后再试', 'rl:reward'), // 动态配置，默认30次/分钟
 };

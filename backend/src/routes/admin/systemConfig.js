@@ -952,4 +952,69 @@ function generateErrorPage(title, message, strings = null) {
 </html>`;
 }
 
+// ============================================================
+// Reward Config: batch get + batch update + cache refresh
+// ============================================================
+
+/**
+ * GET /api/system-config/reward-config
+ * Return all reward/rate-limit/reconciliation configs.
+ */
+router.get('/reward-config', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const rows = await systemConfigService.getAllConfigs();
+    const filtered = (rows || []).filter(r =>
+      r.config_key.startsWith('reward_config.') ||
+      r.config_key.startsWith('rate_limit.') ||
+      r.config_key.startsWith('reconciliation.')
+    );
+    res.json({ success: true, data: filtered });
+  } catch (error) {
+    logger.error('获取奖励配置失败:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+/**
+ * PUT /api/system-config/reward-config
+ * Batch update reward configs.  Body: { configs: { key: value, ... } }
+ */
+router.put('/reward-config', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const { configs } = req.body;
+    if (!configs || typeof configs !== 'object') {
+      return res.status(400).json({ success: false, message: 'Missing configs object' });
+    }
+
+    for (const [key, value] of Object.entries(configs)) {
+      await systemConfigService.setConfig({
+        configKey: key,
+        configValue: String(value),
+        configType: 'text',
+        updatedBy: req.user.id,
+      });
+    }
+
+    res.json({ success: true, message: 'Configs updated' });
+  } catch (error) {
+    logger.error('更新奖励配置失败:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+/**
+ * POST /api/system-config/reward-config/refresh
+ * Force-refresh the in-memory rewardConfigService cache.
+ */
+router.post('/reward-config/refresh', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const rewardConfigService = require('../../services/rewardConfigService');
+    await rewardConfigService.refresh();
+    res.json({ success: true, message: 'Cache refreshed' });
+  } catch (error) {
+    logger.error('刷新奖励配置缓存失败:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 module.exports = router;

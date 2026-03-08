@@ -2,6 +2,7 @@ const { db } = require('../config/database');
 const logger = require('../utils/logger');
 const crypto = require('crypto');
 const geocodingService = require('../services/geocodingService');
+const UserPoints = require('./UserPoints');
 
 class QRTreasure {
   /**
@@ -716,14 +717,11 @@ class QRTreasure {
 
     const rewardPoints = rewardValue.amount || 50;
 
-    await db('user_points')
-      .where({ user_id: userId })
-      .increment('total_points', rewardPoints);
+    // 通过 UserPoints 正确发放积分（写入 user_points + wallet_ledger）
+    await UserPoints.addPoints(userId, rewardPoints, 'QR宝藏奖励', `qr_treasure_${treasureId}`);
 
     // 给藏宝者反馈奖励（5积分）
-    await db('user_points')
-      .where({ user_id: treasure.hider_id })
-      .increment('total_points', 5);
+    await UserPoints.addPoints(treasure.hider_id, 5, 'QR宝藏藏宝奖励', `qr_treasure_hider_${treasureId}`);
 
     // 记录日志
     const logDetails = {

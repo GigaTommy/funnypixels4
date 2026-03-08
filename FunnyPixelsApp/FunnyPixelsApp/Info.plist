@@ -33,12 +33,45 @@
 	<true/>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>我们需要访问您的本地网络以连接到开发服务器进行调试。</string>
+
+	<!-- ⚠️ 位置权限说明 - App Store 必需 -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>FunnyPixels 需要访问您的位置以记录您的移动轨迹并在地图上绘制像素艺术。您的位置数据将用于创建您的独特艺术作品。</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>FunnyPixels 需要持续访问您的位置以在后台自动记录移动轨迹并绘制像素。这让您在散步、跑步或骑行时无需打开应用即可创作艺术。您可以随时在设置中更改此权限。</string>
+
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>FunnyPixels 需要持续访问您的位置以在后台自动记录移动轨迹并绘制像素。</string>
+
+	<!-- 位置精度降级说明（iOS 14+）-->
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>PreciseLocationRequired</key>
+		<string>为了准确绘制像素地图，FunnyPixels 需要使用精确位置。如果您选择模糊位置，绘制的像素将不够精确。</string>
+	</dict>
+
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<!-- ⚠️ 仅在开发环境允许本地网络 -->
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
+		<!-- ❌ 生产环境应移除 NSAllowsArbitraryLoads -->
+		<!-- 仅在开发阶段保留，正式发布前必须删除 -->
+		<key>NSExceptionDomains</key>
+		<dict>
+			<!-- 只允许开发服务器例外 -->
+			<key>localhost</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>192.168.0.3</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>

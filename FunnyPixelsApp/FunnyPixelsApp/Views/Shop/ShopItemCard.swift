@@ -148,8 +148,6 @@ struct ShopItemCard: View {
                         .clipShape(Circle())
                         .shadow(color: (canAfford ? AppColors.primary : Color.gray).opacity(0.3), radius: 3, x: 0, y: 2)
                 }
-                .disabled(!canAfford)
-                .opacity(canAfford ? 1.0 : 0.6)
                 .layoutPriority(3)
             }
         }

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const AchievementController = require('../controllers/achievementController');
 const { authenticateToken } = require('../middleware/auth');
+const { rewardClaimLimiter } = require('../middleware/rateLimit');
 
 // 所有路由都需要认证
 router.use(authenticateToken);
@@ -12,7 +13,7 @@ router.get('/user/:userId/achievements', AchievementController.getUserAchievemen
 router.get('/user/:userId/rank', AchievementController.getUserRank);
 
 // 领取成就奖励
-router.post('/:id/claim', AchievementController.claimReward);
+router.post('/:id/claim', rewardClaimLimiter, AchievementController.claimReward);
 
 // 当前用户相关路由
 router.get('/my/overview', AchievementController.getMyAchievementOverview);

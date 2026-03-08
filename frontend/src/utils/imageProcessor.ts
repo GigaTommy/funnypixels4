@@ -3,7 +3,7 @@
  * 实现完整的像素化处理流程：块平均 -> 抖动 -> 颜色量化
  */
 
-import { quantizeColor, quantizeColorTo256, hexToRgb, rgbToHex, ColorRGB } from '../../../shared/constants/colorPalette';
+import { quantizeColor, quantizeColorTo256, hexToRgb, rgbToHex, ColorRGB } from '../shared/constants/colorPalette';
 import { logger } from './logger';
 
 export interface PixelData {

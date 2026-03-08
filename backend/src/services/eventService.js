@@ -4,6 +4,7 @@ const turf = require('@turf/turf');
 const logger = require('../utils/logger');
 const { getSocketManager } = require('./socketManagerInstance');
 const UserInventory = require('../models/UserInventory');
+const UserPoints = require('../models/UserPoints');
 const { validateEventBoundary } = require('../utils/geojsonValidator');
 const NotificationController = require('../controllers/notificationController');
 
@@ -750,9 +751,9 @@ class EventService {
     }
 
     async giveUserReward(userId, rewards, event, rank) {
-        // 1. Points
+        // 1. Points — 通过 UserPoints 正确发放（写入 user_points + wallet_ledger）
         if (rewards.points) {
-            await knex('users').where('id', userId).increment('points', rewards.points);
+            await UserPoints.addPoints(userId, rewards.points, '活动奖励', `event_${event.id}_rank_${rank}`);
         }
 
         // 2. Pixels

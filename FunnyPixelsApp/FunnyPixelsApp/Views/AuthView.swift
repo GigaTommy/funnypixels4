@@ -8,8 +8,9 @@ struct AuthView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showingAgreement = false
     @State private var showingPrivacy = false
-    @State private var hasAgreedToTerms = false
+    @State private var hasAgreedToTerms = true  // ✅ 默认勾选，减少friction
     @State private var animateBlobs = false
+    @State private var showEmailLogin = false   // ✅ 控制邮箱登录表单展开
 
     var body: some View {
         ZStack {
@@ -28,11 +29,13 @@ struct AuthView: View {
                             // MARK: - Social Login (Primary)
                             socialLoginSection
 
-                            // MARK: - Divider
-                            orDivider
+                            // MARK: - Email Login Toggle
+                            emailLoginToggle
 
-                            // MARK: - Form Card
-                            formCard
+                            // MARK: - Form Card (Conditional)
+                            if showEmailLogin {
+                                formCard
+                            }
 
                             // MARK: - Terms
                             termsSection
@@ -89,9 +92,40 @@ struct AuthView: View {
 
     private var socialLoginSection: some View {
         VStack(spacing: AppSpacing.m) {
-            // Google Sign In — PRIMARY action
+            // Apple Sign In — PRIMARY (iOS优先，符合HIG)
             Button {
-                guard hasAgreedToTerms else { return }
+                guard hasAgreedToTerms else {
+                    // 未勾选条款时的提示
+                    HapticManager.shared.notification(type: .warning)
+                    return
+                }
+                Task { await authViewModel.signInWithApple() }
+            } label: {
+                HStack(spacing: AppSpacing.m) {
+                    Image(systemName: "apple.logo")
+                        .responsiveFont(.headline, weight: .semibold)
+                        .foregroundColor(.white)
+                    Text(NSLocalizedString("auth.apple.sign_in", comment: ""))
+                        .responsiveFont(.body, weight: .semibold)
+                        .foregroundColor(.white)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 54)
+                .background(Color.black)
+                .clipShape(Capsule())
+                .shadow(color: Color.black.opacity(0.2), radius: 8, x: 0, y: 4)
+            }
+            .buttonStyle(FluidButtonStyle())
+            .disabled(authViewModel.isLoading)
+            .accessibilityLabel(NSLocalizedString("auth.apple.sign_in", comment: ""))
+            .accessibilityHint(NSLocalizedString("auth.accessibility.apple_hint", value: "Sign in using your Apple ID", comment: ""))
+
+            // Google Sign In — PRIMARY（与Apple同等重要）
+            Button {
+                guard hasAgreedToTerms else {
+                    HapticManager.shared.notification(type: .warning)
+                    return
+                }
                 Task { await authViewModel.signInWithGoogle() }
             } label: {
                 HStack(spacing: AppSpacing.m) {
@@ -100,69 +134,51 @@ struct AuthView: View {
                         .scaledToFit()
                         .frame(width: 22, height: 22)
                     Text(NSLocalizedString("auth.google.sign_in", comment: ""))
-                        .responsiveFont(.body)
-                        .foregroundColor(.white)
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 54)
-                .background(
-                    LinearGradient(
-                        colors: [AppColors.primary, AppColors.primary.opacity(0.85)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .clipShape(Capsule())
-                .shadow(color: AppColors.primary.opacity(0.3), radius: 8, x: 0, y: 4)
-            }
-            .buttonStyle(FluidButtonStyle())
-            .disabled(!hasAgreedToTerms || authViewModel.isLoading)
-            .opacity(hasAgreedToTerms ? 1.0 : 0.5)
-
-            // Apple Sign In — secondary / outline style
-            Button {
-                guard hasAgreedToTerms else { return }
-                Task { await authViewModel.signInWithApple() }
-            } label: {
-                HStack(spacing: AppSpacing.m) {
-                    Image(systemName: "apple.logo")
-                        .responsiveFont(.headline)
-                        .foregroundColor(AppColors.textPrimary)
-                    Text(NSLocalizedString("auth.apple.sign_in", comment: ""))
-                        .responsiveFont(.callout)
+                        .responsiveFont(.body, weight: .semibold)
                         .foregroundColor(AppColors.textPrimary)
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 54)
-                .background(.ultraThinMaterial)
+                .background(Color.white)
                 .clipShape(Capsule())
                 .overlay(
                     Capsule()
-                        .stroke(AppColors.border, lineWidth: 1)
+                        .stroke(AppColors.border, lineWidth: 1.5)
                 )
+                .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 4)
             }
             .buttonStyle(FluidButtonStyle())
-            .disabled(!hasAgreedToTerms || authViewModel.isLoading)
-            .opacity(hasAgreedToTerms ? 1.0 : 0.5)
+            .disabled(authViewModel.isLoading)
+            .accessibilityLabel(NSLocalizedString("auth.google.sign_in", comment: ""))
+            .accessibilityHint(NSLocalizedString("auth.accessibility.google_hint", value: "Sign in using your Google account", comment: ""))
         }
         .padding(.horizontal, AppSpacing.xl)
     }
 
-    // MARK: - Divider
+    // MARK: - Email Login Toggle
 
-    private var orDivider: some View {
-        HStack(spacing: AppSpacing.m) {
-            Capsule()
-                .fill(AppColors.border)
-                .frame(height: 1)
-            Text(NSLocalizedString("auth.or_continue_with", comment: ""))
-                .responsiveFont(.caption)
-                .foregroundColor(AppColors.textTertiary)
-                .layoutPriority(1)
-            Capsule()
-                .fill(AppColors.border)
-                .frame(height: 1)
+    private var emailLoginToggle: some View {
+        Button {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                showEmailLogin.toggle()
+            }
+            HapticManager.shared.selection()
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: showEmailLogin ? "chevron.up.circle.fill" : "envelope.circle.fill")
+                    .responsiveFont(.subheadline)
+                    .foregroundColor(AppColors.primary)
+                Text(showEmailLogin
+                     ? NSLocalizedString("auth.hide_email_login", value: "Hide email login", comment: "")
+                     : NSLocalizedString("auth.use_email", value: "Use email instead", comment: ""))
+                    .responsiveFont(.subheadline, weight: .medium)
+                    .foregroundColor(AppColors.primary)
+            }
+            .padding(.vertical, AppSpacing.s)
         }
+        .accessibilityLabel(showEmailLogin
+                           ? NSLocalizedString("auth.hide_email_login", value: "Hide email login", comment: "")
+                           : NSLocalizedString("auth.use_email", value: "Use email instead", comment: ""))
         .padding(.horizontal, AppSpacing.xl)
     }
 
@@ -241,7 +257,6 @@ struct AuthView: View {
             }
             .buttonStyle(FluidButtonStyle())
             .disabled(authViewModel.isLoading || !hasAgreedToTerms)
-            .opacity(hasAgreedToTerms ? 1.0 : 0.5)
         }
         .padding(AppSpacing.xl)
         .background(.ultraThinMaterial)
@@ -257,41 +272,46 @@ struct AuthView: View {
     // MARK: - Terms Section
 
     private var termsSection: some View {
-        HStack(alignment: .top, spacing: AppSpacing.s) {
+        VStack(spacing: AppSpacing.s) {
+            // 勾选框和主要文案
             Button {
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                     hasAgreedToTerms.toggle()
                 }
+                HapticManager.shared.selection()
             } label: {
-                Image(systemName: hasAgreedToTerms ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(hasAgreedToTerms ? AppColors.primary : AppColors.textTertiary)
-                    .responsiveFont(.headline)
-                    .symbolEffect(.bounce, value: hasAgreedToTerms)
-            }
+                HStack(alignment: .top, spacing: AppSpacing.s) {
+                    Image(systemName: hasAgreedToTerms ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(hasAgreedToTerms ? AppColors.primary : AppColors.textTertiary)
+                        .responsiveFont(.headline)
+                        .symbolEffect(.bounce, value: hasAgreedToTerms)
 
-            HStack(spacing: 4) {
-                Text(LocalizedStringKey("auth.terms.prefix"))
-                    .responsiveFont(.caption)
-                    .foregroundColor(AppColors.textSecondary)
-
-                Button { showingAgreement = true } label: {
-                    Text(LocalizedStringKey("auth.terms.link"))
-                        .responsiveFont(.caption)
-                        .foregroundColor(AppColors.primary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        // "By continuing, you agree to..."文案
+                        (Text(LocalizedStringKey("auth.terms.by_continuing"))
+                            .foregroundColor(AppColors.textSecondary) +
+                         Text(" ") +
+                         Text(LocalizedStringKey("auth.terms.link"))
+                            .foregroundColor(AppColors.primary)
+                            .underline() +
+                         Text(" ") +
+                         Text(LocalizedStringKey("auth.and"))
+                            .foregroundColor(AppColors.textSecondary) +
+                         Text(" ") +
+                         Text(LocalizedStringKey("auth.privacy.link"))
+                            .foregroundColor(AppColors.primary)
+                            .underline())
+                            .responsiveFont(.caption)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
-
-                Text(LocalizedStringKey("auth.and"))
-                    .responsiveFont(.caption)
-                    .foregroundColor(AppColors.textSecondary)
-
-                Button { showingPrivacy = true } label: {
-                    Text(LocalizedStringKey("auth.privacy.link"))
-                        .responsiveFont(.caption)
-                        .foregroundColor(AppColors.primary)
-                }
             }
+            .accessibilityLabel(NSLocalizedString("auth.accessibility.terms_checkbox", value: "Agree to Terms and Privacy Policy", comment: ""))
+            .accessibilityAddTraits(hasAgreedToTerms ? [.isSelected] : [])
         }
         .padding(.horizontal, AppSpacing.xl)
+        .padding(.top, AppSpacing.xs)
     }
 }
 

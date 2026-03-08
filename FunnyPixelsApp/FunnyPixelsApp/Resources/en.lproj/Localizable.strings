@@ -41,6 +41,26 @@
 "auth.apple.sign_in" = "Sign in with Apple";
 "auth.or_continue_with" = "or sign in with email";
 "auth.validating" = "Verifying session...";
+"auth.use_email" = "Use email instead";
+"auth.hide_email_login" = "Hide email login";
+"auth.terms.by_continuing" = "By continuing, you agree to our";
+"auth.accessibility.apple_hint" = "Sign in using your Apple ID";
+"auth.accessibility.google_hint" = "Sign in using your Google account";
+"auth.accessibility.terms_checkbox" = "Agree to Terms and Privacy Policy";
+
+// MARK: - Animations
+"animation.pixel_drop.title" = "Pixel Placed!";
+"animation.cooldown.ready" = "Ready to draw!";
+"animation.cooldown.wait" = "Cooling down...";
+
+// MARK: - Achievements
+"achievement.unlock.dismiss" = "Awesome!";
+"achievement.first_pixel.title" = "First Pixel!";
+"achievement.first_pixel.description" = "You've drawn your first pixel on the global canvas";
+"achievement.rarity.common" = "Common";
+"achievement.rarity.rare" = "Rare";
+"achievement.rarity.epic" = "Epic";
+"achievement.rarity.legendary" = "Legendary";
 
 /* Session */
 "session.validating" = "Verifying session...";
@@ -952,6 +972,7 @@
 "shop.insufficient_points.message" = "Current points: %d, required: %d points";
 "shop.insufficient_points.recharge" = "Recharge";
 "shop.insufficient_points.hint" = "Insufficient points, please recharge first";
+"shop.insufficient_points.contact_support" = "Insufficient points. Please contact support to recharge.";
 
 /* Approval Price Info */
 "approval.section.price_info" = "Price Info";

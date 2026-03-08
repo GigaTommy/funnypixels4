@@ -920,16 +920,33 @@ class ShareController {
         created_at: new Date()
       }).returning('*');
 
-      // 2. 发放分享奖励 (每次5积分)
-      const SHARE_REWARD = 5;
-      await UserPoints.addPoints(userId, SHARE_REWARD, '分享内容奖励', `share:${shareRecord.id}`);
+      // 2. 发放分享奖励（从配置读取，默认每次5积分，每日上限10次）
+      const rewardConfigService = require('../services/rewardConfigService');
+      const SHARE_REWARD = rewardConfigService.get('reward_config.share_points', 5);
+      const DAILY_SHARE_REWARD_CAP = rewardConfigService.get('reward_config.share_daily_cap', 10);
+
+      const today = new Date().toISOString().split('T')[0];
+      const todayShareCount = await db('share_tracking')
+        .where('user_id', userId)
+        .whereRaw("created_at::date = ?", [today])
+        .count('id as count')
+        .first();
+
+      const shareCountToday = parseInt(todayShareCount.count) || 0;
+      let rewardGiven = 0;
+
+      if (shareCountToday <= DAILY_SHARE_REWARD_CAP) {
+        await UserPoints.addPoints(userId, SHARE_REWARD, '分享内容奖励', `share:${shareRecord.id}`);
+        rewardGiven = SHARE_REWARD;
+      }
 
       // 3. 生成追踪链接（包含用户ID用于追踪）
       const trackingUrl = await ShareController.generateTrackingUrl(userId, shareType, sessionId);
 
       res.json({
         success: true,
-        reward: SHARE_REWARD,
+        reward: rewardGiven,
+        dailySharesRemaining: Math.max(0, DAILY_SHARE_REWARD_CAP - shareCountToday),
         trackingUrl,
         shareId: shareRecord.id
       });

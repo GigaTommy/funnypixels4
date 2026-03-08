@@ -1,6 +1,7 @@
 const { db } = require('../config/database');
 const Achievement = require('./Achievement');
 const CheckinRewardConfig = require('./CheckinRewardConfig');
+const UserPoints = require('./UserPoints');
 
 class DailyCheckin {
   constructor(data) {
@@ -91,11 +92,6 @@ class DailyCheckin {
         })
         .returning('*');
 
-      // 立即领取奖励
-      await trx('users')
-        .where('id', userId)
-        .increment('points', rewardPoints);
-
       // 添加奖励道具到用户库存
       for (const itemId of rewardItems) {
         const existingInventory = await trx('user_inventory')
@@ -130,6 +126,9 @@ class DailyCheckin {
 
       return [newCheckin];
     });
+
+    // 通过 UserPoints 正确发放积分（写入 user_points + wallet_ledger）
+    await UserPoints.addPoints(userId, rewardPoints, '每日签到奖励', `checkin_${checkin.id}`);
 
     return new DailyCheckin({
       ...checkin,

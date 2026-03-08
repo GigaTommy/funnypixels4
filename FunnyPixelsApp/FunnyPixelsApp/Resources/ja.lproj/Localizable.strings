@@ -893,6 +893,7 @@
 "shop.insufficient_points.message" = "現在のポイント: %d、必要ポイント: %d";
 "shop.insufficient_points.recharge" = "チャージ";
 "shop.insufficient_points.hint" = "ポイントが不足しています。先にチャージしてください";
+"shop.insufficient_points.contact_support" = "ポイントが不足しています。チャージについてはサポートまでお問い合わせください";
 
 /* Approval Price Info */
 "approval.section.price_info" = "価格情報";

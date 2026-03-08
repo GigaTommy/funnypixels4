@@ -3,6 +3,7 @@ const router = express.Router();
 const ShareController = require('../controllers/shareController');
 const { generateThumbnail } = require('../controllers/thumbnailController');
 const { authenticateToken } = require('../middleware/auth');
+const { rewardClaimLimiter } = require('../middleware/rateLimit');
 
 // 生成战果图
 router.post('/generate-battle-result', authenticateToken, ShareController.generateBattleResult);
@@ -16,8 +17,8 @@ router.get('/stats', authenticateToken, ShareController.getShareStats);
 // 记录分享行为
 router.post('/record', authenticateToken, ShareController.recordShare);
 
-// 🔥 新增：记录分享行为并奖励
-router.post('/record-action', authenticateToken, ShareController.recordShareAction);
+// 记录分享行为并奖励
+router.post('/record-action', authenticateToken, rewardClaimLimiter, ShareController.recordShareAction);
 
 // 🔥 新增：获取分享追踪统计
 router.get('/tracking-stats', authenticateToken, ShareController.getShareTrackingStats);

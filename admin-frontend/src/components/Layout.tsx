@@ -249,6 +249,18 @@ const Layout: React.FC = () => {
           icon: <CommentOutlined />,
           path: '/operations/feedback',
         },
+        {
+          key: 'system-alerts',
+          label: '系统告警',
+          icon: <ExclamationCircleOutlined />,
+          path: '/operations/system-alerts',
+        },
+        {
+          key: 'reward-config',
+          label: '奖励参数',
+          icon: <SettingOutlined />,
+          path: '/operations/reward-config',
+        },
       ],
     },
     {

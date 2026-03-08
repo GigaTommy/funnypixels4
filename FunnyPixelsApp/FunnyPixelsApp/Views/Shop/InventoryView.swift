@@ -196,15 +196,17 @@ struct InventoryItemRow: View {
     }
 
     private var itemIcon: String {
-        // Specific Item ID Mapping
+        // Specific Item ID Mapping (must match store_items.id in seed data)
         if let id = Int(item.itemId) {
             switch id {
-            case 43: return "IconItemFastRecovery"
-            case 44: return "IconItemSuperRecovery"
-            case 45: return "IconItemColorBomb"
-            case 46: return "IconItemGoldenFrame"
-            case 47: return "IconItemRainbowBubble"
-            case 48: return "IconItemPixelMaster"
+            case 25: return "IconItemFastRecovery"
+            case 26: return "IconItemSuperRecovery"
+            case 27: return "IconItemColorBomb"
+            case 28: return "IconItemEmojiBomb"
+            case 29: return "IconItemAllianceBomb"
+            case 30: return "IconItemGoldenFrame"
+            case 31: return "IconItemRainbowBubble"
+            case 32: return "IconItemPixelMaster"
             default: break
             }
         }

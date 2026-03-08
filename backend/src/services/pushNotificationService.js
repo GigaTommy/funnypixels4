@@ -225,8 +225,8 @@ class PushNotificationService {
 
   /**
    * Actually deliver a push notification to a single device.
-   * Currently a stub that logs to console. Replace with APNs/FCM
-   * integration when credentials are available.
+   * Delegates to notificationService (APNs via node-apn) for iOS.
+   * Falls back to console.log when APNs credentials are not configured.
    *
    * @param {string} deviceToken
    * @param {string} platform - 'ios' | 'android'
@@ -236,14 +236,19 @@ class PushNotificationService {
    * @returns {Promise<{success: boolean}>}
    */
   async _sendPush(deviceToken, platform, title, body, data) {
-    // TODO: Replace with real APNs / FCM calls
-    console.log(`[PushNotification] Sending to ${platform} device ${deviceToken.substring(0, 12)}...`);
-    console.log(`  Title: ${title}`);
-    console.log(`  Body:  ${body}`);
-    if (data) {
-      console.log(`  Data:  ${JSON.stringify(data)}`);
+    if (platform === 'ios') {
+      const notificationService = require('./notificationService');
+      if (notificationService.isConnected) {
+        return await notificationService.sendPushNotification(deviceToken, title, body, data);
+      }
     }
 
+    // Fallback: mock mode when APNs not configured or non-iOS platform
+    logger.debug('[PushNotification] Mock send', {
+      platform,
+      token: deviceToken.substring(0, 12) + '...',
+      title
+    });
     return { success: true, mock: true };
   }
 }

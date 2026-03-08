@@ -29,6 +29,11 @@ html, body, #root {
   -moz-osx-font-smoothing: grayscale;
   font-family: '思源黑体', 'Source Han Sans SC', 'Noto Sans SC', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei";
   color: var(--text);
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 /* 全局滚动条美化（细而现代） */

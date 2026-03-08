@@ -54,6 +54,8 @@ const ChallengeConfig = React.lazy(() => import('@/pages/Operations/ChallengeCon
 const CheckinConfig = React.lazy(() => import('@/pages/Operations/CheckinConfig'))
 const PaymentManagement = React.lazy(() => import('@/pages/Operations/PaymentManagement'))
 const FeedbackManagement = React.lazy(() => import('@/pages/Operations/FeedbackManagement'))
+const SystemAlerts = React.lazy(() => import('@/pages/Operations/SystemAlerts'))
+const RewardConfig = React.lazy(() => import('@/pages/Operations/RewardConfig'))
 
 // 系统审计页面
 const AuditLog = React.lazy(() => import('@/pages/System/AuditLog'))
@@ -322,6 +324,26 @@ const AppContent: React.FC = () => {
                 element={
                   <React.Suspense fallback={<div>加载中...</div>}>
                     <FeedbackManagement />
+                  </React.Suspense>
+                }
+              />
+
+              {/* 系统告警 */}
+              <Route
+                path="operations/system-alerts"
+                element={
+                  <React.Suspense fallback={<div>加载中...</div>}>
+                    <SystemAlerts />
+                  </React.Suspense>
+                }
+              />
+
+              {/* 奖励参数配置 */}
+              <Route
+                path="operations/reward-config"
+                element={
+                  <React.Suspense fallback={<div>加载中...</div>}>
+                    <RewardConfig />
                   </React.Suspense>
                 }
               />

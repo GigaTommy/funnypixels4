@@ -35,13 +35,11 @@ class StoreKitManager: ObservableObject {
     private var updateListenerTask: Task<Void, Error>?
 
     private init() {
-        // 启动交易监听器
-        updateListenerTask = listenForTransactions()
-
-        // 加载商品
-        Task {
-            await loadProducts()
-        }
+        // 支付模块待接入 Stripe 后开放，暂停 StoreKit 交易监听和商品加载
+        // updateListenerTask = listenForTransactions()
+        // Task {
+        //     await loadProducts()
+        // }
     }
 
     deinit {

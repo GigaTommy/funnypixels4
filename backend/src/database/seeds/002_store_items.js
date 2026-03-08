@@ -131,7 +131,7 @@ exports.seed = async function(knex) {
     "price": 1000,
     "currency_type": "points",
     "item_type": "cosmetic",
-    "is_available": true,
+    "is_available": false,
     "created_at": "2026-01-25T12:02:13.566Z",
     "updated_at": "2026-01-25T12:02:13.566Z",
     "image_url": null,
@@ -139,7 +139,7 @@ exports.seed = async function(knex) {
     "price_points": 1000,
     "require_cash": false,
     "metadata": null,
-    "active": true,
+    "active": false,
     "price_cny": null
   },
   {
@@ -149,7 +149,7 @@ exports.seed = async function(knex) {
     "price": 800,
     "currency_type": "points",
     "item_type": "cosmetic",
-    "is_available": true,
+    "is_available": false,
     "created_at": "2026-01-25T12:02:13.566Z",
     "updated_at": "2026-01-25T12:02:13.566Z",
     "image_url": null,
@@ -157,7 +157,7 @@ exports.seed = async function(knex) {
     "price_points": 800,
     "require_cash": false,
     "metadata": null,
-    "active": true,
+    "active": false,
     "price_cny": null
   },
   {
@@ -167,7 +167,7 @@ exports.seed = async function(knex) {
     "price": 2000,
     "currency_type": "points",
     "item_type": "cosmetic",
-    "is_available": true,
+    "is_available": false,
     "created_at": "2026-01-25T12:02:13.566Z",
     "updated_at": "2026-01-25T12:02:13.566Z",
     "image_url": null,
@@ -175,7 +175,7 @@ exports.seed = async function(knex) {
     "price_points": 2000,
     "require_cash": false,
     "metadata": null,
-    "active": true,
+    "active": false,
     "price_cny": null
   }
 ];

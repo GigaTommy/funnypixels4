@@ -2,10 +2,12 @@ const { db } = require('../config/database');
 const logger = require('../utils/logger');
 const pushNotificationService = require('../services/pushNotificationService');
 const mapTaskGenerationService = require('../services/mapTaskGenerationService');
+const UserPoints = require('../models/UserPoints');
 const {
   getTaskCompletedNotification,
   getAllTasksCompletedNotification
 } = require('../utils/notificationI18n');
+const rewardConfigService = require('../services/rewardConfigService');
 
 // 任务模板：每日从中随机选取5个（支持6种语言）
 const TASK_TEMPLATES = [
@@ -138,7 +140,7 @@ class DailyTaskController {
           all_completed: allCompleted,
           bonus_available: allCompleted && (!bonus || !bonus.is_claimed),
           bonus_claimed: bonus ? bonus.is_claimed : false,
-          bonus_points: 50
+          bonus_points: rewardConfigService.get('reward_config.daily_bonus_points', 50)
         }
       });
     } catch (error) {
@@ -172,15 +174,12 @@ class DailyTaskController {
         return res.status(400).json({ success: false, message: '奖励已领取' });
       }
 
-      await db.transaction(async trx => {
-        await trx('user_daily_tasks')
-          .where('id', id)
-          .update({ is_claimed: true, claimed_at: trx.fn.now() });
+      await db('user_daily_tasks')
+        .where('id', id)
+        .update({ is_claimed: true, claimed_at: db.fn.now() });
 
-        await trx('users')
-          .where('id', userId)
-          .increment('points', task.reward_points);
-      });
+      // 通过 UserPoints 正确发放积分（写入 user_points + wallet_ledger）
+      await UserPoints.addPoints(userId, task.reward_points, '每日任务奖励', `daily_task_${id}`);
 
       res.json({
         success: true,
@@ -201,7 +200,7 @@ class DailyTaskController {
     try {
       const userId = req.user.id;
       const today = new Date().toISOString().split('T')[0];
-      const bonusPoints = 50;
+      const bonusPoints = rewardConfigService.get('reward_config.daily_bonus_points', 50);
 
       // 检查是否所有任务已完成
       const tasks = await db('user_daily_tasks')
@@ -221,25 +220,22 @@ class DailyTaskController {
         return res.status(400).json({ success: false, message: '奖励已领取' });
       }
 
-      await db.transaction(async trx => {
-        if (existing) {
-          await trx('user_daily_task_bonus')
-            .where('id', existing.id)
-            .update({ is_claimed: true, claimed_at: trx.fn.now() });
-        } else {
-          await trx('user_daily_task_bonus').insert({
-            user_id: userId,
-            bonus_date: today,
-            bonus_points: bonusPoints,
-            is_claimed: true,
-            claimed_at: trx.fn.now()
-          });
-        }
+      if (existing) {
+        await db('user_daily_task_bonus')
+          .where('id', existing.id)
+          .update({ is_claimed: true, claimed_at: db.fn.now() });
+      } else {
+        await db('user_daily_task_bonus').insert({
+          user_id: userId,
+          bonus_date: today,
+          bonus_points: bonusPoints,
+          is_claimed: true,
+          claimed_at: db.fn.now()
+        });
+      }
 
-        await trx('users')
-          .where('id', userId)
-          .increment('points', bonusPoints);
-      });
+      // 通过 UserPoints 正确发放积分（写入 user_points + wallet_ledger）
+      await UserPoints.addPoints(userId, bonusPoints, '每日任务全勤奖励', `daily_bonus_${today}`);
 
       res.json({
         success: true,
@@ -470,7 +466,7 @@ class DailyTaskController {
                 'daily_task_all_completed',
                 {
                   completedCount: allTasksToday.length,
-                  bonusReward: 50
+                  bonusReward: rewardConfigService.get('reward_config.daily_bonus_points', 50)
                 }
               );
               logger.info(`📲 已发送全勤奖励通知: userId=${userId}`);

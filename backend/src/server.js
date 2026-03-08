@@ -419,6 +419,7 @@ app.use('/api/admin/checkin', require('./routes/admin/checkinRoutes'));
 app.use('/api/admin/payment', require('./routes/admin/paymentRoutes'));
 app.use('/api/admin/alliances-mod', require('./routes/admin/allianceRoutes'));
 app.use('/api/admin/feedback', require('./routes/admin/feedbackRoutes'));
+app.use('/api/admin/system-alerts', require('./routes/admin/systemAlertRoutes'));
 app.use('/api/admin/localization', require('./routes/admin/localizationRoutes'));
 // General admin routes (must be after specific routes)
 app.use('/api/admin', adminRoutes);
@@ -1206,6 +1207,14 @@ server.listen(PORT, HOST, async () => {
     logger.error('❌ pattern_assets 缓存初始化失败:', cacheError.message);
   }
 
+  // 初始化奖励参数配置缓存
+  try {
+    const rewardConfigService = require('./services/rewardConfigService');
+    await rewardConfigService.init();
+  } catch (rcError) {
+    logger.error('❌ 奖励参数配置缓存初始化失败:', rcError.message);
+  }
+
   // 初始化活动像素日志监听器（自动记录像素到活动）
   try {
     eventPixelLogListener.initialize();
@@ -1480,6 +1489,17 @@ server.listen(PORT, HOST, async () => {
       } catch (snapshotError) {
         logger.error('启动排名快照任务失败', {
           message: snapshotError.message
+        });
+      }
+
+      // 启动积分余额对账定时任务
+      try {
+        const { startPointsReconciliationTask } = require('./tasks/reconcilePointsBalance');
+        startPointsReconciliationTask();
+        logger.info('✅ 积分余额对账定时任务已启动');
+      } catch (reconcileError) {
+        logger.error('❌ 启动积分余额对账任务失败', {
+          message: reconcileError.message
         });
       }
 

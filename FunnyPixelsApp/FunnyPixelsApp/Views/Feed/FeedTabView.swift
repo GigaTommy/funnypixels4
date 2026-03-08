@@ -56,8 +56,26 @@ struct MyRecordsView: View {
     @State private var showFilters = false
     @State private var hasAppeared = false  // ⚡ 懒加载标志
 
+    // 下一个视图模式的图标
+    private var nextViewModeIcon: String {
+        switch viewModel.viewMode {
+        case .map:
+            return "square.grid.2x2"  // 当前地图，下一个是网格
+        case .grid:
+            return "list.bullet"       // 当前网格，下一个是列表
+        case .list:
+            return "map"               // 当前列表，下一个是地图
+        }
+    }
+
     var body: some View {
         VStack(spacing: 0) {
+            // 快捷筛选栏（始终显示，除非未登录）
+            if authViewModel.isAuthenticated {
+                quickFilterBar
+            }
+
+            // 操作栏（仅在有数据时显示）
             if authViewModel.isAuthenticated && !viewModel.sessions.isEmpty {
                 recordsActionBar
             }
@@ -71,10 +89,14 @@ struct MyRecordsView: View {
                     emptyStateView
                 } else {
                     Group {
-                        if viewModel.viewMode == .grid {
+                        switch viewModel.viewMode {
+                        case .map:
+                            galleryMapView
+                                .transition(.opacity)
+                        case .grid:
                             galleryGridView
                                 .transition(.opacity)
-                        } else {
+                        case .list:
                             galleryListView
                                 .transition(.opacity)
                         }
@@ -113,10 +135,12 @@ struct MyRecordsView: View {
             hasAppeared = true
             Task {
                 await viewModel.loadSessions(refresh: true)
+                viewModel.extractUserCities()  // 提取用户城市列表用于快捷筛选
             }
         }
         .refreshable {
             await viewModel.refresh()
+            viewModel.extractUserCities()  // 更新城市列表
         }
         .alert(NSLocalizedString("common.error", comment: "Error"), isPresented: $viewModel.showError) {
             Button(NSLocalizedString("common.confirm", comment: "OK")) {}
@@ -127,35 +151,86 @@ struct MyRecordsView: View {
         }
     }
 
+    // MARK: - Quick Filter Bar
+
+    private var quickFilterBar: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: AppSpacing.s) {
+                // 时间快捷筛选
+                ForEach(DrawingHistoryViewModel.QuickTimeFilter.allCases, id: \.self) { filter in
+                    FilterChip(
+                        title: filter.rawValue,
+                        isSelected: viewModel.quickTimeFilter == filter
+                    ) {
+                        viewModel.applyQuickTimeFilter(filter)
+                        Task { await viewModel.refresh() }
+                    }
+                }
+
+                // 城市筛选（从用户历史中提取）
+                ForEach(viewModel.userCities, id: \.self) { city in
+                    FilterChip(
+                        title: city,
+                        isSelected: viewModel.cityFilter == city
+                    ) {
+                        if viewModel.cityFilter == city {
+                            // 点击已选中的城市 = 取消筛选
+                            viewModel.cityFilter = ""
+                        } else {
+                            viewModel.cityFilter = city
+                        }
+                        Task { await viewModel.refresh() }
+                    }
+                }
+            }
+            .padding(.horizontal)
+            .padding(.vertical, AppSpacing.s)
+        }
+        .background(AppColors.background)
+    }
+
     // MARK: - Records Action Bar
 
     private var recordsActionBar: some View {
         HStack(spacing: AppSpacing.m) {
-            // 筛选按钮 - 激活时高亮
+            // "更多筛选"按钮（原"筛选"按钮）
             FilterChip(
-                title: NSLocalizedString("history.filter.title", comment: "Filter"),
-                isSelected: viewModel.useDateFilter,
+                title: NSLocalizedString("history.filter.more", comment: "More Filters"),
+                isSelected: viewModel.useDateFilter,  // 仅当使用自定义日期时高亮
                 action: { showFilters.toggle() }
             )
 
-            // 城市筛选 - 有值时显示城市名并高亮
-            if !viewModel.cityFilter.isEmpty {
-                FilterChip(
-                    title: viewModel.cityFilter,
-                    isSelected: true,
-                    action: { showFilters.toggle() }
-                )
+            // 清除筛选按钮（当有任何筛选条件时显示）
+            if viewModel.quickTimeFilter != .all || !viewModel.cityFilter.isEmpty || viewModel.useDateFilter {
+                Button(action: {
+                    viewModel.clearAllFilters()
+                    Task { await viewModel.refresh() }
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "xmark.circle.fill")
+                        Text(NSLocalizedString("history.filter.clear", comment: "Clear"))
+                    }
+                    .responsiveFont(.caption, weight: .medium)
+                    .foregroundColor(AppColors.textSecondary)
+                }
             }
 
             Spacer()
 
-            // 视图模式切换
+            // 视图模式切换（循环：地图 → 网格 → 列表）
             Button {
                 withAnimation {
-                    viewModel.viewMode = viewModel.viewMode == .grid ? .list : .grid
+                    switch viewModel.viewMode {
+                    case .map:
+                        viewModel.viewMode = .grid
+                    case .grid:
+                        viewModel.viewMode = .list
+                    case .list:
+                        viewModel.viewMode = .map
+                    }
                 }
             } label: {
-                Image(systemName: viewModel.viewMode == .grid ? "list.bullet" : "square.grid.2x2")
+                Image(systemName: nextViewModeIcon)
                     .responsiveFont(.callout, weight: .medium)
                     .foregroundColor(AppColors.textSecondary)
                     .frame(width: 32, height: 32)
@@ -169,6 +244,15 @@ struct MyRecordsView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, AppSpacing.s)
+    }
+
+    // MARK: - Gallery Map View
+
+    private var galleryMapView: some View {
+        FootprintMapView(
+            sessions: viewModel.sessions,
+            onSessionTap: nil  // NavigationLink会自动处理
+        )
     }
 
     // MARK: - Gallery Grid View

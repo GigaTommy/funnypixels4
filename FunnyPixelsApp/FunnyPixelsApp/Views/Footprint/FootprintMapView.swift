@@ -1,6 +1,5 @@
 import SwiftUI
 import MapLibre
-import MapLibreSwiftUI
 
 /// 足迹地图视图 - 显示所有绘制会话的地理分布
 struct FootprintMapView: View {
@@ -33,25 +32,21 @@ struct FootprintMapView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack(alignment: .top) {
             // 地图视图
-            MapView(
-                styleURL: MapStyleURL.outdoors,
+            FootprintMapWrapper(
                 markers: cityMarkers,
                 onMarkerTap: { marker in
                     selectedCity = marker.city
                     showCitySheet = true
                 }
             )
-            .ignoresSafeArea(edges: .all)
+            .ignoresSafeArea()
 
             // 顶部统计卡片
             if !sessions.isEmpty {
-                VStack {
-                    footprintSummaryCard
-                        .padding()
-                    Spacer()
-                }
+                footprintSummaryCard
+                    .padding()
             }
 
             // 空状态提示
@@ -159,25 +154,40 @@ struct CityMarker: Identifiable {
     let totalPixels: Int
 }
 
-// MARK: - MapView封装
+// MARK: - MapView封装（UIViewRepresentable）
 
-struct MapView: UIViewRepresentable {
-    let styleURL: URL
+struct FootprintMapWrapper: UIViewRepresentable {
     let markers: [CityMarker]
     let onMarkerTap: ((CityMarker) -> Void)?
 
     func makeUIView(context: Context) -> MLNMapView {
-        let mapView = MLNMapView(frame: .zero, styleURL: styleURL)
+        let mapView = MLNMapView(frame: .zero)
         mapView.delegate = context.coordinator
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.logoView.isHidden = true
         mapView.attributionButton.isHidden = true
 
-        // 设置初始视图（如果有标记）
+        // 基本配置
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.isRotateEnabled = false
+        mapView.isPitchEnabled = false
+
+        // 使用项目的地图样式
+        mapView.styleURL = URL(string: AppConfig.mapTileURL)
+
+        // 设置初始视图
         if let firstMarker = markers.first {
             mapView.setCenter(
                 firstMarker.coordinate,
                 zoomLevel: 4,
+                animated: false
+            )
+        } else {
+            // 默认中国中心点
+            mapView.setCenter(
+                CLLocationCoordinate2D(latitude: 35.0, longitude: 105.0),
+                zoomLevel: 3,
                 animated: false
             )
         }
@@ -191,18 +201,23 @@ struct MapView: UIViewRepresentable {
 
         // 如果有多个标记，调整视图以显示所有标记
         if markers.count > 1 {
-            let coordinates = markers.map { $0.coordinate }
-            mapView.showAnnotations(
-                mapView.annotations ?? [],
-                edgePadding: UIEdgeInsets(top: 100, left: 50, bottom: 200, right: 50),
-                animated: true
-            )
+            let annotations = mapView.annotations ?? []
+            if !annotations.isEmpty {
+                mapView.showAnnotations(
+                    annotations,
+                    edgePadding: UIEdgeInsets(top: 150, left: 50, bottom: 200, right: 50),
+                    animated: true,
+                    completionHandler: nil
+                )
+            }
         }
     }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(onMarkerTap: onMarkerTap)
     }
+
+    // MARK: - Coordinator
 
     class Coordinator: NSObject, MLNMapViewDelegate {
         let onMarkerTap: ((CityMarker) -> Void)?
@@ -262,13 +277,13 @@ struct MapView: UIViewRepresentable {
 
             return MLNAnnotationImage(image: image, reuseIdentifier: reuseIdentifier)
         }
+
+        // 地图样式加载失败时的回退处理
+        func mapViewDidFailLoadingMap(_ mapView: MLNMapView, withError error: Error) {
+            Logger.error("❌ 足迹地图加载失败: \(error.localizedDescription)")
+            // 可以尝试加载备用地图样式
+        }
     }
-}
-
-// MARK: - MapStyle URLs
-
-struct MapStyleURL {
-    static let outdoors = URL(string: "https://demotiles.maplibre.org/style.json")!
 }
 
 // MARK: - 城市坐标映射
@@ -286,6 +301,11 @@ struct CityCoordinates {
         "西安": CLLocationCoordinate2D(latitude: 34.3416, longitude: 108.9398),
         "武汉": CLLocationCoordinate2D(latitude: 30.5928, longitude: 114.3055),
         "南京": CLLocationCoordinate2D(latitude: 32.0603, longitude: 118.7969),
+        "天津": CLLocationCoordinate2D(latitude: 39.3434, longitude: 117.3616),
+        "苏州": CLLocationCoordinate2D(latitude: 31.2989, longitude: 120.5853),
+        "郑州": CLLocationCoordinate2D(latitude: 34.7466, longitude: 113.6253),
+        "长沙": CLLocationCoordinate2D(latitude: 28.2282, longitude: 112.9388),
+        "沈阳": CLLocationCoordinate2D(latitude: 41.8057, longitude: 123.4315),
 
         // 国际主要城市
         "New York": CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060),

@@ -298,6 +298,8 @@
 "history.filter.start_date" = "Data Inicial";
 "history.filter.end_date" = "Data Final";
 "history.filter.title" = "Filtro";
+"history.filter.more" = "Mais Filtros";
+"history.filter.clear" = "Limpar";
 "history.filter.done" = "Pronto";
 "history.filter.reset" = "Redefinir";
 "history.filter.city" = "Cidade";

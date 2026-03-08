@@ -318,6 +318,8 @@
 "history.filter.start_date" = "Start Date";
 "history.filter.end_date" = "End Date";
 "history.filter.title" = "Filter";
+"history.filter.more" = "More Filters";
+"history.filter.clear" = "Clear";
 "history.filter.done" = "Done";
 "history.filter.reset" = "Reset";
 "history.filter.city" = "City";

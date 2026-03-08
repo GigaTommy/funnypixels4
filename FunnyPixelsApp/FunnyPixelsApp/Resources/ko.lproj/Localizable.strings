@@ -282,6 +282,8 @@
 "history.filter.start_date" = "시작일";
 "history.filter.end_date" = "종료일";
 "history.filter.title" = "필터";
+"history.filter.more" = "상세 필터";
+"history.filter.clear" = "지우기";
 "history.filter.done" = "완료";
 "history.filter.reset" = "초기화";
 "history.filter.city" = "도시";

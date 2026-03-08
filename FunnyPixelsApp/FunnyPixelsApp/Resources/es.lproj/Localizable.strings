@@ -295,6 +295,8 @@
 "history.filter.start_date" = "Fecha de inicio";
 "history.filter.end_date" = "Fecha de fin";
 "history.filter.title" = "Filtrar";
+"history.filter.more" = "Más Filtros";
+"history.filter.clear" = "Borrar";
 "history.filter.done" = "Listo";
 "history.filter.reset" = "Restablecer";
 "history.filter.city" = "Ciudad";

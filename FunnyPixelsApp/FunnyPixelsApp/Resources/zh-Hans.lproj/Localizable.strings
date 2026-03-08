@@ -423,6 +423,8 @@
 "history.filter.start_date" = "开始日期";
 "history.filter.end_date" = "结束日期";
 "history.filter.title" = "筛选";
+"history.filter.more" = "更多筛选";
+"history.filter.clear" = "清除";
 "history.filter.done" = "完成";
 "history.filter.reset" = "重置";
 "history.filter.city" = "城市";

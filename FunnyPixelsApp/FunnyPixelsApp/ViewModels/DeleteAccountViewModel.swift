@@ -112,11 +112,14 @@ class DeleteAccountViewModel: ObservableObject {
                 return
             }
 
+            // 使用nonisolated(unsafe)避免Swift并发警告
+            nonisolated(unsafe) let capturedTimer = timer
+
             Task { @MainActor in
                 if self.countdown > 0 {
                     self.countdown -= 1
                 } else {
-                    timer.invalidate()
+                    capturedTimer.invalidate()
                 }
             }
         }

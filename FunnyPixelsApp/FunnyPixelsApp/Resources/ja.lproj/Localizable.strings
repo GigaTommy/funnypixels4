@@ -295,6 +295,8 @@
 "history.filter.start_date" = "開始日";
 "history.filter.end_date" = "終了日";
 "history.filter.title" = "フィルター";
+"history.filter.more" = "詳細フィルター";
+"history.filter.clear" = "クリア";
 "history.filter.done" = "完了";
 "history.filter.reset" = "リセット";
 "history.filter.city" = "都市";

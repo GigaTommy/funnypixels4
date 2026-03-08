@@ -7,6 +7,21 @@ struct DrawingHistoryView: View {
     @State private var showFilters = false
     @ObservedObject private var fontManager = FontSizeManager.shared
     
+    // 下一个视图模式的图标
+    private var nextViewModeIcon: String {
+        let icon: String
+        switch viewModel.viewMode {
+        case .map:
+            icon = "square.grid.2x2"  // 当前地图，下一个是网格
+        case .grid:
+            icon = "list.bullet"       // 当前网格，下一个是列表
+        case .list:
+            icon = "map"               // 当前列表，下一个是地图
+        }
+        Logger.debug("🎨 当前模式: \(viewModel.viewMode.rawValue), 按钮图标: \(icon)")
+        return icon
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -23,12 +38,21 @@ struct DrawingHistoryView: View {
                         case .map:
                             galleryMapView
                                 .transition(.opacity)
+                                .onAppear {
+                                    Logger.debug("🗺️ 地图视图已显示")
+                                }
                         case .grid:
                             galleryGridView
                                 .transition(.opacity)
+                                .onAppear {
+                                    Logger.debug("⊞ 网格视图已显示")
+                                }
                         case .list:
                             galleryListView
                                 .transition(.opacity)
+                                .onAppear {
+                                    Logger.debug("☰ 列表视图已显示")
+                                }
                         }
                     }
                     .animation(.easeInOut(duration: 0.2), value: viewModel.viewMode)
@@ -62,21 +86,33 @@ struct DrawingHistoryView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    // 筛选按钮
-                    Button(action: { showFilters.toggle() }) {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
-                    }
-                }
+                    HStack(spacing: 12) {
+                        // 视图模式切换按钮（循环切换：地图 → 网格 → 列表）
+                        Button(action: {
+                            Logger.debug("🔄 当前视图模式: \(viewModel.viewMode.rawValue)")
+                            withAnimation {
+                                switch viewModel.viewMode {
+                                case .map:
+                                    Logger.debug("➡️ 切换: 地图 → 网格")
+                                    viewModel.viewMode = .grid
+                                case .grid:
+                                    Logger.debug("➡️ 切换: 网格 → 列表")
+                                    viewModel.viewMode = .list
+                                case .list:
+                                    Logger.debug("➡️ 切换: 列表 → 地图")
+                                    viewModel.viewMode = .map
+                                }
+                            }
+                            Logger.debug("✅ 新视图模式: \(viewModel.viewMode.rawValue)")
+                        }) {
+                            Image(systemName: nextViewModeIcon)
+                        }
 
-                ToolbarItem(placement: .bottomBar) {
-                    // 视图模式切换 - Segmented Control
-                    Picker("View Mode", selection: $viewModel.viewMode) {
-                        ForEach(DrawingHistoryViewModel.ViewMode.allCases, id: \.self) { mode in
-                            Image(systemName: mode.rawValue)
-                                .tag(mode)
+                        // 筛选按钮
+                        Button(action: { showFilters.toggle() }) {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
                         }
                     }
-                    .pickerStyle(.segmented)
                 }
             }
             .sheet(isPresented: $showFilters) {

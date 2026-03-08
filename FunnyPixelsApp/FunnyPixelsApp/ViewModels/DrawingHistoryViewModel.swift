@@ -23,11 +23,31 @@ class DrawingHistoryViewModel: ObservableObject {
     // 城市筛选
     @Published var cityFilter: String = ""
 
+    // 快捷筛选
+    enum QuickTimeFilter: String, CaseIterable {
+        case all = "全部"
+        case today = "今天"
+        case thisWeek = "本周"
+        case thisMonth = "本月"
+    }
+
+    @Published var quickTimeFilter: QuickTimeFilter = .all
+    @Published var userCities: [String] = []  // 用户绘制过的城市列表
+
     // 视图模式
     enum ViewMode: String, CaseIterable {
         case map = "map"
-        case grid = "square.grid.2x2"
-        case list = "list.bullet"
+        case grid = "grid"
+        case list = "list"
+
+        // 对应的图标
+        var icon: String {
+            switch self {
+            case .map: return "map"
+            case .grid: return "square.grid.2x2"
+            case .list: return "list.bullet"
+            }
+        }
     }
 
     @Published var viewMode: ViewMode = .grid {
@@ -113,6 +133,47 @@ class DrawingHistoryViewModel: ObservableObject {
     }
 
     /// 加载会话列表
+    /// 应用快捷时间筛选
+    func applyQuickTimeFilter(_ filter: QuickTimeFilter) {
+        quickTimeFilter = filter
+        let calendar = Calendar.current
+        let now = Date()
+
+        switch filter {
+        case .all:
+            useDateFilter = false
+        case .today:
+            useDateFilter = true
+            startDate = calendar.startOfDay(for: now)
+            endDate = now
+        case .thisWeek:
+            useDateFilter = true
+            let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) ?? now
+            startDate = weekStart
+            endDate = now
+        case .thisMonth:
+            useDateFilter = true
+            let monthStart = calendar.date(from: calendar.dateComponents([.year, .month], from: now)) ?? now
+            startDate = monthStart
+            endDate = now
+        }
+    }
+
+    /// 提取用户绘制过的城市列表
+    func extractUserCities() {
+        let cities = Set(sessions.compactMap { $0.startCity })
+            .filter { !$0.isEmpty && $0 != "Unknown" }
+            .sorted()
+        userCities = Array(cities.prefix(10))  // 最多显示10个城市
+    }
+
+    /// 清除所有筛选
+    func clearAllFilters() {
+        quickTimeFilter = .all
+        useDateFilter = false
+        cityFilter = ""
+    }
+
     func loadSessions(refresh: Bool = false) async {
         if refresh {
             currentPage = 1

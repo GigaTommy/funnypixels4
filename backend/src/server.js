@@ -507,6 +507,8 @@ app.use('/api/test', require('../scripts/tests/testAmapRoute'));
 app.use('/api/battles', require('./routes/battleRoutes'));
 app.use('/api/v1/localization', require('./routes/localizationRoutes'));
 app.use('/api/rank-tiers', require('./routes/rankTierRoutes'));
+app.use('/api/pixels-3d', require('./routes/pixel3DRoutes'));
+app.use('/api/towers', require('./routes/towerRoutes')); // 🏗️  3D 像素塔 API
 
 // 初始化WebSocket管理器
 const socketManager = new SocketManager(io);

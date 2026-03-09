@@ -1454,3 +1454,37 @@
 
 // Common Actions
 "common.retry" = "Tentar novamente";
+
+/* 3D Pixel Towers */
+"loading_towers" = "Carregando torres...";
+"towers_visible" = "Torres";
+"back_to_2d" = "Mapa 2D";
+"pixel_tower" = "Torre de Pixels";
+"tower_info" = "Informações da Torre";
+"total_floors" = "Total de Andares";
+"your_contribution" = "Sua Contribuição";
+"your_floors" = "Seus Andares";
+"floor_range" = "Faixa de Andares";
+"recent_floors" = "Andares Recentes";
+"showing_recent_floors" = "Mostrando os últimos 50 andares";
+"unknown_user" = "Desconhecido";
+"done" = "Concluído";
+
+/* Share Card */
+"my_tower_contribution" = "Minha Contribuição à Torre";
+"share" = "Compartilhar";
+"i_built" = "Construí";
+"floors" = "Andares";
+"contribution" = "Contribuição";
+
+// Tower Empty State & Errors
+"no_towers_here" = "Nenhuma Torre Aqui";
+"draw_pixels_to_create" = "Desenhe pixels para criar a primeira torre!";
+"retry" = "Tentar Novamente";
+"network_error_check_connection" = "Erro de rede. Por favor, verifique sua conexão.";
+"error_loading_towers" = "Erro ao carregar torres. Por favor, tente novamente.";
+
+"floors_contributed" = "Andares Contribuídos";
+"all_floors" = "Todos os Andares";
+"my_floors" = "Meus Andares";
+"first_floor" = "Primeiro Andar";

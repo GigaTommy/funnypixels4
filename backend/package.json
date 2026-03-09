@@ -79,7 +79,7 @@
     "@turf/turf": "^7.2.0",
     "@types/qrcode": "^1.5.5",
     "@upstash/redis": "^1.28.4",
-    "apn": "^2.0.0",
+    "apn": "^2.2.0",
     "axios": "^1.12.2",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^2.4.3",

@@ -10,8 +10,11 @@
  * Date: 2026-03-08
  */
 
-exports.up = function(knex) {
-  return Promise.all([
+exports.up = async function(knex) {
+  // Check if pixel_comments table exists
+  const hasPixelComments = await knex.schema.hasTable('pixel_comments');
+
+  const migrations = [
     // 1. users 表 - 添加删除相关字段
     knex.schema.table('users', table => {
       // 账户状态
@@ -70,14 +73,20 @@ exports.up = function(knex) {
 
       // 索引
       table.index('is_anonymous');
-    }),
-
-    // 5. pixel_comments 表 - 添加匿名化标记和作者名称缓存
-    knex.schema.table('pixel_comments', table => {
-      table.boolean('is_anonymous').defaultTo(false).notNullable();
-      table.string('author_name').nullable();  // 缓存作者名称，用于显示"已删除用户"
     })
-  ]).then(() => {
+  ];
+
+  // 5. pixel_comments 表 - 添加匿名化标记和作者名称缓存（仅当表存在时）
+  if (hasPixelComments) {
+    migrations.push(
+      knex.schema.table('pixel_comments', table => {
+        table.boolean('is_anonymous').defaultTo(false).notNullable();
+        table.string('author_name').nullable();  // 缓存作者名称，用于显示"已删除用户"
+      })
+    );
+  }
+
+  return Promise.all(migrations).then(() => {
     // 创建部分唯一索引（PostgreSQL 特性）
     // 只对 active 状态的用户强制邮箱/用户名唯一
     return Promise.all([
@@ -95,8 +104,10 @@ exports.up = function(knex) {
   });
 };
 
-exports.down = function(knex) {
-  return Promise.all([
+exports.down = async function(knex) {
+  const hasPixelComments = await knex.schema.hasTable('pixel_comments');
+
+  const rollbacks = [
     // 删除部分唯一索引
     knex.raw('DROP INDEX IF EXISTS users_email_active_unique'),
     knex.raw('DROP INDEX IF EXISTS users_username_active_unique'),
@@ -125,12 +136,18 @@ exports.down = function(knex) {
     knex.schema.table('drawing_sessions', table => {
       table.dropColumn('is_anonymous');
       table.dropColumn('anonymized_at');
-    }),
-
-    // 删除 pixel_comments 表字段
-    knex.schema.table('pixel_comments', table => {
-      table.dropColumn('is_anonymous');
-      table.dropColumn('author_name');
     })
-  ]);
+  ];
+
+  // 删除 pixel_comments 表字段（仅当表存在时）
+  if (hasPixelComments) {
+    rollbacks.push(
+      knex.schema.table('pixel_comments', table => {
+        table.dropColumn('is_anonymous');
+        table.dropColumn('author_name');
+      })
+    );
+  }
+
+  return Promise.all(rollbacks);
 };

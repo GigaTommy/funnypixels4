@@ -17,21 +17,21 @@ struct EventSignupStatsView: View {
 
             // 统计卡片
             HStack(spacing: AppSpacing.m) {
-                StatCard(
+                SignupStatCard(
                     title: NSLocalizedString("alliances", comment: ""),
                     value: "\(stats.allianceCount)",
                     icon: "shield.fill",
                     color: .blue
                 )
 
-                StatCard(
+                SignupStatCard(
                     title: NSLocalizedString("solo_players", comment: ""),
                     value: "\(stats.userCount)",
                     icon: "person.fill",
                     color: .green
                 )
 
-                StatCard(
+                SignupStatCard(
                     title: NSLocalizedString("estimated_total", comment: ""),
                     value: "\(stats.estimatedParticipants)",
                     icon: "chart.bar.fill",
@@ -77,7 +77,7 @@ struct EventSignupStatsView: View {
 }
 
 /// 统计卡片组件
-private struct StatCard: View {
+private struct SignupStatCard: View {
     let title: String
     let value: String
     let icon: String

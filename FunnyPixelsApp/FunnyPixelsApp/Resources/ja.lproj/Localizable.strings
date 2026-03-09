@@ -1604,3 +1604,37 @@
 
 // Common Actions
 "common.retry" = "再試行";
+
+/* 3D Pixel Towers */
+"loading_towers" = "タワーを読み込み中...";
+"towers_visible" = "タワー";
+"back_to_2d" = "2Dマップ";
+"pixel_tower" = "ピクセルタワー";
+"tower_info" = "タワー情報";
+"total_floors" = "総階数";
+"your_contribution" = "あなたの貢献";
+"your_floors" = "あなたのフロア";
+"floor_range" = "階層範囲";
+"recent_floors" = "最近のフロア";
+"showing_recent_floors" = "最新50階を表示";
+"unknown_user" = "不明";
+"done" = "完了";
+
+/* Share Card */
+"my_tower_contribution" = "私のタワー貢献";
+"share" = "共有";
+"i_built" = "建設しました";
+"floors" = "階";
+"contribution" = "貢献";
+
+// Tower Empty State & Errors
+"no_towers_here" = "ここにはタワーがありません";
+"draw_pixels_to_create" = "ピクセルを描いて最初のタワーを作りましょう！";
+"retry" = "再試行";
+"network_error_check_connection" = "ネットワークエラー。接続を確認してください。";
+"error_loading_towers" = "タワーの読み込みエラー。再試行してください。";
+
+"floors_contributed" = "貢献フロア数";
+"all_floors" = "全フロア";
+"my_floors" = "マイフロア";
+"first_floor" = "初層";

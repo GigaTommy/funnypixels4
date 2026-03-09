@@ -1876,3 +1876,37 @@
 
 // Common Actions
 "common.retry" = "Retry";
+
+/* 3D Pixel Towers */
+"loading_towers" = "Loading towers...";
+"towers_visible" = "Towers";
+"back_to_2d" = "2D Map";
+"pixel_tower" = "Pixel Tower";
+"tower_info" = "Tower Info";
+"total_floors" = "Total Floors";
+"your_contribution" = "Your Contribution";
+"your_floors" = "Your Floors";
+"floor_range" = "Floor Range";
+"recent_floors" = "Recent Floors";
+"showing_recent_floors" = "Showing recent 50 floors";
+"unknown_user" = "Unknown";
+"done" = "Done";
+
+/* Share Card */
+"my_tower_contribution" = "My Tower Contribution";
+"share" = "Share";
+"i_built" = "I Built";
+"floors" = "Floors";
+"contribution" = "Contribution";
+
+// Tower Empty State & Errors
+"no_towers_here" = "No Towers Here";
+"draw_pixels_to_create" = "Draw pixels to create the first tower!";
+"retry" = "Retry";
+"network_error_check_connection" = "Network error. Please check your connection.";
+"error_loading_towers" = "Error loading towers. Please try again.";
+
+"floors_contributed" = "Floors Contributed";
+"all_floors" = "All Floors";
+"my_floors" = "My Floors";
+"first_floor" = "First Floor";

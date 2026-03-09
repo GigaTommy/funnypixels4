@@ -13,6 +13,7 @@ struct MapToolbarView: View {
     @Binding var isCentering: Bool
     @Binding var isMapDetached: Bool
     @Binding var isLeaderboardShowing: Bool
+    @Binding var is3DMode: Bool
 
     // Debug & Test State
     var isDebugMode: Bool
@@ -27,13 +28,14 @@ struct MapToolbarView: View {
     var onRoam: () -> Void
     var onLongPressRoam: (() -> Void)? = nil
     var onCenter: () -> Void
+    var on3DToggle: () -> Void
     var onTest: () -> Void
     var onLongPressTest: (() -> Void)? = nil
 
     var body: some View {
         VStack(spacing: 0) {
-            // 0. Leaderboard Button (Top) - Always visible when authenticated
-            if authViewModel.isAuthenticated && !isDrawingMode, let leaderboardAction = onLeaderboard {
+            // 0. Leaderboard Button (Top) - Hide in 3D mode and drawing mode
+            if authViewModel.isAuthenticated && !isDrawingMode && !is3DMode, let leaderboardAction = onLeaderboard {
                 Button(action: {
                     hapticFeedback()
                     leaderboardAction()
@@ -62,11 +64,34 @@ struct MapToolbarView: View {
                     .contentShape(Rectangle())
             }
 
-            // 2. Roaming Button (Middle) - Hide in Drawing Mode
+            // 2. 3D Mode Button - Hide in Drawing Mode
+            if !isDrawingMode {
+                toolbarDivider
+
+                Button(action: {
+                    HapticManager.shared.impact(style: .medium)
+                    on3DToggle()
+                }) {
+                    ZStack {
+                        if is3DMode {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.blue.opacity(0.15))
+                                .frame(width: 38, height: 38)
+                        }
+
+                        Image(systemName: is3DMode ? "cube.fill" : "cube")
+                            .font(DesignTokens.Typography.title3)
+                            .foregroundColor(is3DMode ? .blue : .blue.opacity(0.8))
+                            .frame(width: 44, height: 44)
+                    }
+                }
+                .scaleEffect(is3DMode ? 1.05 : 1.0)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: is3DMode)
+            }
+
+            // 3. Roaming Button - Hide in Drawing Mode
             if authViewModel.isAuthenticated && !isDrawingMode {
-                Divider()
-                    .frame(width: 24)
-                    .background(Color.secondary.opacity(0.2))
+                toolbarDivider
 
                 Button(action: {
                     hapticFeedback()
@@ -87,11 +112,9 @@ struct MapToolbarView: View {
                 )
             }
 
-            // 3. Test Button (Bottom) - Hide in Drawing Mode
-            if isDebugMode && authViewModel.isAuthenticated && !isDrawingMode {
-                Divider()
-                    .frame(width: 24)
-                    .background(Color.secondary.opacity(0.2))
+            // 4. Test Button (Bottom) - Hide in Drawing Mode and 3D Mode
+            if isDebugMode && authViewModel.isAuthenticated && !isDrawingMode && !is3DMode {
+                toolbarDivider
 
                 Button(action: {
                     hapticFeedback()
@@ -129,6 +152,12 @@ struct MapToolbarView: View {
         )
     }
     
+    private var toolbarDivider: some View {
+        Divider()
+            .frame(width: 24)
+            .background(Color.secondary.opacity(0.2))
+    }
+
     private func getIconName() -> String {
         if isMapDetached {
             return "location"
@@ -136,11 +165,11 @@ struct MapToolbarView: View {
             return "location.fill"
         }
     }
-    
+
     private func isActive() -> Bool {
         return isCentering || !isMapDetached
     }
-    
+
     private func hapticFeedback() {
         let generator = UIImpactFeedbackGenerator(style: .light)
         generator.impactOccurred()
@@ -155,12 +184,14 @@ struct MapToolbarView: View {
             isCentering: .constant(false),
             isMapDetached: .constant(true),
             isLeaderboardShowing: .constant(false),
+            is3DMode: .constant(false),
             isDebugMode: true,
             isRandomTesting: false,
             testBadgePattern: nil,
             onRoam: {},
             onLongPressRoam: {},
             onCenter: {},
+            on3DToggle: {},
             onTest: {}
         )
         .environmentObject(AuthViewModel())

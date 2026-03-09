@@ -4,6 +4,7 @@ const { PIXEL_TYPES } = require('../constants/pixelTypes');
 const pixelsHistoryService = require('../services/pixelsHistoryService');
 const tileChangeQueueService = require('../services/tileChangeQueueService');
 const geocodingQueue = require('../services/geocodingQueue');
+const TowerAggregationService = require('../services/towerAggregationService');
 
 class Pixel {
   static tableName = 'pixels';
@@ -191,6 +192,23 @@ class Pixel {
       } catch (error) {
         console.error('❌ 记录像素历史时发生错误:', error);
         // 不抛出错误，避免影响主流程
+      }
+
+      // 🏗️ 3D 塔聚合：更新 pixel_towers 和 user_tower_floors（异步，不阻塞主流程）
+      try {
+        TowerAggregationService.onPixelDrawn({
+          lat: pixel.latitude,
+          lng: pixel.longitude,
+          user_id: pixel.user_id,
+          color: pixel.color,
+          created_at: timestamp,
+          tile_id: pixel.tile_id  // 使用自动生成的 tile_id
+        }).catch(error => {
+          console.warn('⚠️  Tower聚合失败（不影响主流程）:', error.message);
+        });
+      } catch (error) {
+        // Tower聚合失败不应影响主流程
+        console.error('❌ Tower聚合调用失败:', error);
       }
 
       return pixel;

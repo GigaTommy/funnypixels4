@@ -1,6 +1,7 @@
 import SwiftUI
 import CoreLocation
 import AudioToolbox
+import SceneKit
 
 /// 地图Tab内容视图
 /// 包含地图、所有地图专属UI元素和交互逻辑
@@ -16,10 +17,17 @@ struct MapTabContent: View {
     @ObservedObject private var fontManager = FontSizeManager.shared
     @ObservedObject private var onboardingCoordinator = OnboardingCoordinator.shared
 
+    // 3D 视图管理
+    @StateObject private var pixel3DViewModel = Pixel3DViewModel()
+    @StateObject private var columnLayerViewModel = ColumnLayerViewModel()
+    @State private var selectedGridId: String? = nil
+    @State private var showColumnLayers = false
+
     // Map interaction states
     @State private var isRoaming = false
     @State private var isCentering = false
     @State private var isMapDetached = false
+    @State private var is3DMode = false
     @State private var roamingDestination: String? = nil
     @State private var showHotspotExplore = false
     @State private var roamingHotspots: [HotspotService.Hotspot] = []
@@ -66,11 +74,23 @@ struct MapTabContent: View {
 
     var body: some View {
         ZStack {
-            // 🔧 地图视图（基础层）
-            // 漂流瓶标记现在直接在MapLibreMapView内部使用GeoJSON图层渲染，不再使用overlay
+            // 🔧 地图视图（基础层 - 始终显示）
+            // 2D MapLibre 视图作为底图
             MapLibreMapView()
                 .id("persistentMapView") // 稳定ID确保视图持久化
                 .edgesIgnoringSafeArea(.all)
+
+            // 🏗️ 3D 像素塔叠加层（可选）
+            if is3DMode {
+                TowerSceneView()
+                    .environmentObject(locationManager)
+                    .edgesIgnoringSafeArea(.all)
+                    .onReceive(NotificationCenter.default.publisher(for: .switchTo2DMode)) { _ in
+                        // 从 3D 切换回 2D
+                        is3DMode = false
+                        Logger.info("🎮 Switched back to 2D mode")
+                    }
+            }
 
             // 🔧 地图专属UI层
             mapOverlayUI
@@ -178,6 +198,9 @@ struct MapTabContent: View {
             if let bottle = driftBottleManager.reunionEncounter {
                 DriftBottleReunionView(bottle: bottle)
             }
+        }
+        .sheet(isPresented: $showColumnLayers) {
+            columnLayerDetailSheet
         }
         .toast(isPresented: $driftBottleManager.showBottleEarnedToast, message: NSLocalizedString("drift_bottle.indicator.earned", comment: ""), style: .success)
         .onReceive(NotificationCenter.default.publisher(for: .mapTrackingStateChanged)) { notification in
@@ -323,6 +346,7 @@ struct MapTabContent: View {
                         isCentering: $isCentering,
                         isMapDetached: $isMapDetached,
                         isLeaderboardShowing: $showLeaderboard,
+                        is3DMode: $is3DMode,
                         isDebugMode: isDebugMode,
                         isRandomTesting: isRandomTesting,
                         testBadgePattern: patternProvider.currentDrawingPattern,
@@ -357,6 +381,10 @@ struct MapTabContent: View {
                                 try? await Task.sleep(nanoseconds: 500_000_000)
                                 isCentering = false
                             }
+                        },
+                        on3DToggle: {
+                            is3DMode.toggle()
+                            Logger.info("🎮 3D Mode: \(is3DMode ? "ON" : "OFF")")
                         },
                         onTest: {
                             if !isRandomTesting {
@@ -415,8 +443,8 @@ struct MapTabContent: View {
 
     private var mapInteractiveElements: some View {
         Group {
-            // FAB (浮动操作按钮) - GPS绘制快速启动
-            if !GPSDrawingService.shared.isGPSDrawingMode && authViewModel.isAuthenticated {
+            // FAB (浮动操作按钮) - GPS绘制快速启动（3D模式下隐藏）
+            if !GPSDrawingService.shared.isGPSDrawingMode && authViewModel.isAuthenticated && !is3DMode {
                 VStack {
                     Spacer()
                     HStack {
@@ -719,5 +747,139 @@ struct MapTabContent: View {
             await gpsService.stopGPSDrawing()
             isRandomTesting = false
         }
+    }
+
+    // MARK: - Column Layer Detail Sheet
+
+    /// 列层级详情弹窗视图（精简内联实现）
+    private var columnLayerDetailSheet: some View {
+        NavigationView {
+            VStack(spacing: 0) {
+                if columnLayerViewModel.isLoading && columnLayerViewModel.layers.isEmpty {
+                    ProgressView()
+                        .padding()
+                } else if let error = columnLayerViewModel.errorMessage {
+                    VStack(spacing: 16) {
+                        Image(systemName: "exclamationmark.triangle")
+                            .font(.system(size: 48))
+                            .foregroundColor(.secondary)
+                        Text(error)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding()
+                } else if columnLayerViewModel.layers.isEmpty {
+                    VStack(spacing: 16) {
+                        Image(systemName: "cube")
+                            .font(.system(size: 48))
+                            .foregroundColor(.secondary)
+                        Text(NSLocalizedString("3d.no_layers", comment: "No layers"))
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                } else {
+                    List {
+                        ForEach(columnLayerViewModel.layers) { layer in
+                            HStack(spacing: 12) {
+                                // 颜色方块
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color(hex: layer.color) ?? .gray)
+                                    .frame(width: 32, height: 32)
+
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        Text(layer.artist.name)
+                                            .font(.headline)
+                                        Spacer()
+                                        Text(layer.timeAgo)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Text(NSLocalizedString("3d.layer_index", comment: "Layer") + " #\(layer.layerIndex)")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding(.vertical, 4)
+                        }
+
+                        if columnLayerViewModel.hasMore {
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                Spacer()
+                            }
+                            .onAppear {
+                                if let gridId = selectedGridId {
+                                    Task {
+                                        await columnLayerViewModel.loadMore(gridId: gridId)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle(NSLocalizedString("3d.column_layers", comment: "Column Layers"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(NSLocalizedString("common.close", comment: "Close")) {
+                        showColumnLayers = false
+                        columnLayerViewModel.clear()
+                    }
+                }
+            }
+            .task {
+                if let gridId = selectedGridId {
+                    await columnLayerViewModel.loadLayers(gridId: gridId)
+                }
+            }
+        }
+    }
+
+    // MARK: - 3D Mode Helpers
+
+    /// 加载 3D 模式初始数据
+    private func loadInitial3DData() {
+        Logger.info("🎮 [3D Mode] Starting to load initial 3D data...")
+
+        // 基于当前位置或缓存的地图中心创建视口范围
+        let center: CLLocationCoordinate2D
+
+        if let cached = mapController.cachedCenter {
+            center = cached
+            Logger.info("🎮 [3D Mode] Using cached center: \(center.latitude), \(center.longitude)")
+        } else if let userLocation = locationManager.currentLocation {
+            center = userLocation.coordinate
+            Logger.info("🎮 [3D Mode] Using user location: \(center.latitude), \(center.longitude)")
+        } else {
+            // 默认中心（如果无法获取位置）
+            center = CLLocationCoordinate2D(latitude: 39.9042, longitude: 116.4074) // 北京
+            Logger.info("🎮 [3D Mode] Using default center (Beijing): \(center.latitude), \(center.longitude)")
+        }
+
+        // 使用默认缩放级别（中等缩放，适合城市尺度）
+        let zoom = 15.0
+        Logger.info("🎮 [3D Mode] Using zoom level: \(zoom)")
+
+        // 更新相机位置（基于地图中心和缩放级别）
+        pixel3DViewModel.updateCamera(center: center, zoom: zoom)
+
+        // 创建视口范围（约 1km x 1km 区域）
+        let delta = 0.01 // 约 1.1km
+        let bounds = ViewportBounds(
+            minLat: center.latitude - delta,
+            maxLat: center.latitude + delta,
+            minLng: center.longitude - delta,
+            maxLng: center.longitude + delta
+        )
+
+        Logger.info("🎮 [3D Mode] Viewport bounds: [\(bounds.minLat), \(bounds.maxLat)] x [\(bounds.minLng), \(bounds.maxLng)]")
+
+        // 加载可见瓦片（传递地图中心）
+        pixel3DViewModel.loadVisibleTiles(center: center, in: bounds)
+
+        Logger.info("🎮 [3D Mode] Initial data load triggered successfully")
     }
 }

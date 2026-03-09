@@ -55,7 +55,30 @@ function registerScheduledTasks() {
 
   logger.info('✅ 已注册：账户硬删除任务 (每周日 03:00)');
 
-  // 3. 可选：开发环境手动触发（用于测试）
+  // 3. 物化视图刷新任务 - 每小时执行 (Task #20)
+  cron.schedule('0 * * * *', async () => {
+    logger.info('⏰ 触发物化视图刷新任务');
+    try {
+      const { db } = require('../config/database');
+
+      // 刷新所有物化视图 (base + aggregations)
+      await db.raw('SELECT refresh_all_pixel_layer_stats()');
+
+      logger.info('✅ 物化视图刷新任务完成');
+    } catch (error) {
+      logger.error('❌ 物化视图刷新任务失败', {
+        error: error.message,
+        stack: error.stack
+      });
+    }
+  }, {
+    scheduled: true,
+    timezone: 'Asia/Shanghai'
+  });
+
+  logger.info('✅ 已注册：物化视图刷新任务 (每小时 :00)');
+
+  // 4. 可选：开发环境手动触发（用于测试）
   if (process.env.NODE_ENV === 'development') {
     logger.info('🔧 开发模式：可通过 API 手动触发定时任务');
   }
@@ -79,8 +102,20 @@ async function triggerHardDeleteManually() {
   return await hardDeleteAnonymizedAccounts();
 }
 
+/**
+ * 手动触发物化视图刷新任务（用于测试）
+ */
+async function triggerMaterializedViewRefreshManually() {
+  logger.info('🔧 手动触发物化视图刷新任务');
+  const { db } = require('../config/database');
+  await db.raw('SELECT refresh_all_pixel_layer_stats()');
+  logger.info('✅ 物化视图刷新完成');
+  return { success: true, message: '物化视图已刷新' };
+}
+
 module.exports = {
   registerScheduledTasks,
   triggerAnonymizationManually,
-  triggerHardDeleteManually
+  triggerHardDeleteManually,
+  triggerMaterializedViewRefreshManually
 };

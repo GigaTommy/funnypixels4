@@ -1874,3 +1874,37 @@
 
 // Common Actions
 "common.retry" = "重试";
+
+/* 3D Pixel Towers */
+"loading_towers" = "加载塔中...";
+"towers_visible" = "塔";
+"back_to_2d" = "2D 地图";
+"pixel_tower" = "像素塔";
+"tower_info" = "塔信息";
+"total_floors" = "总楼层";
+"your_contribution" = "你的贡献";
+"your_floors" = "你的楼层";
+"floor_range" = "楼层范围";
+"recent_floors" = "最近楼层";
+"showing_recent_floors" = "显示最近 50 层";
+"unknown_user" = "未知用户";
+"done" = "完成";
+
+/* Share Card */
+"my_tower_contribution" = "我的塔贡献";
+"share" = "分享";
+"i_built" = "我建造了";
+"floors" = "层";
+"contribution" = "贡献";
+
+// Tower Empty State & Errors
+"no_towers_here" = "这里还没有塔";
+"draw_pixels_to_create" = "画像素来创建第一座塔！";
+"retry" = "重试";
+"network_error_check_connection" = "网络错误，请检查您的连接。";
+"error_loading_towers" = "加载塔时出错，请重试。";
+
+"floors_contributed" = "已贡献楼层";
+"all_floors" = "全部楼层";
+"my_floors" = "我的楼层";
+"first_floor" = "首层";

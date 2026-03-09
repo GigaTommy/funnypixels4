@@ -1371,3 +1371,37 @@
 
 // Common Actions
 "common.retry" = "다시 시도";
+
+/* 3D Pixel Towers */
+"loading_towers" = "타워 로딩 중...";
+"towers_visible" = "타워";
+"back_to_2d" = "2D 지도";
+"pixel_tower" = "픽셀 타워";
+"tower_info" = "타워 정보";
+"total_floors" = "총 층수";
+"your_contribution" = "당신의 기여";
+"your_floors" = "당신의 층";
+"floor_range" = "층 범위";
+"recent_floors" = "최근 층";
+"showing_recent_floors" = "최근 50층 표시";
+"unknown_user" = "알 수 없음";
+"done" = "완료";
+
+/* Share Card */
+"my_tower_contribution" = "내 타워 기여";
+"share" = "공유";
+"i_built" = "건설했습니다";
+"floors" = "층";
+"contribution" = "기여";
+
+// Tower Empty State & Errors
+"no_towers_here" = "여기에는 타워가 없습니다";
+"draw_pixels_to_create" = "픽셀을 그려 첫 번째 타워를 만드세요!";
+"retry" = "다시 시도";
+"network_error_check_connection" = "네트워크 오류. 연결을 확인하세요.";
+"error_loading_towers" = "타워 로딩 오류. 다시 시도하세요.";
+
+"floors_contributed" = "기여한 층";
+"all_floors" = "전체 층";
+"my_floors" = "내 층";
+"first_floor" = "첫 층";

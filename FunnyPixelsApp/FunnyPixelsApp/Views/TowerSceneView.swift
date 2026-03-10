@@ -249,6 +249,10 @@ struct TowerSceneView: View {
         performanceStats.visibleCount = memoryStats.visibleCount
         performanceStats.hiddenCount = memoryStats.hiddenCount
 
+        // 🚀 GPU Instancing Stats (Task #58)
+        performanceStats.instanceGroups = memoryStats.instanceGroups
+        performanceStats.compressionRatio = memoryStats.compressionRatio
+
         // 获取内存使用（简化版）
         var taskInfo = mach_task_basic_info()
         var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size) / 4
@@ -286,6 +290,15 @@ struct PerformanceStats {
     var visibleCount: Int = 0
     var hiddenCount: Int = 0
     var memoryUsageMB: Double = 0
+
+    // 🚀 GPU Instancing Stats (Task #58)
+    var instanceGroups: Int = 0
+    var compressionRatio: Double = 1.0
+
+    var estimatedDrawCalls: Int {
+        // 每个实例组 ≈ 1 draw call
+        return instanceGroups
+    }
 }
 
 // MARK: - Performance HUD View
@@ -306,6 +319,14 @@ struct PerformanceHUDView: View {
             statRow(label: "Visible", value: "\(stats.visibleCount)", color: .green)
             statRow(label: "Hidden", value: "\(stats.hiddenCount)", color: .orange)
             statRow(label: "Memory", value: String(format: "%.1f MB", stats.memoryUsageMB))
+
+            Divider()
+                .background(Color.white.opacity(0.3))
+
+            // 🚀 GPU Instancing Stats (Task #58)
+            statRow(label: "Groups", value: "\(stats.instanceGroups)", color: .cyan)
+            statRow(label: "Draw Calls", value: "~\(stats.estimatedDrawCalls)", color: .cyan)
+            statRow(label: "Compression", value: String(format: "%.1f%%", stats.compressionRatio * 100), color: stats.compressionRatio < 0.3 ? .green : .yellow)
         }
         .padding(12)
         .background(Color.black.opacity(0.7))
@@ -325,6 +346,107 @@ struct PerformanceHUDView: View {
     }
 }
 
+// MARK: - Smart Camera Controller
+
+/// 智能相机控制器：在塔上拖拽时旋转3D视角，否则让手势穿透
+class SmartCameraController {
+    private var gestureInProgress = false
+    private var initialTouchPoint: CGPoint?
+    private var lastCameraEulerAngles: SCNVector3?
+
+    func handlePanGesture(_ gesture: UIPanGestureRecognizer, sceneView: SCNView) {
+        switch gesture.state {
+        case .began:
+            let location = gesture.location(in: sceneView)
+            let hitResults = sceneView.hitTest(location, options: [
+                .searchMode: SCNHitTestSearchMode.all.rawValue,
+                .ignoreHiddenNodes: true
+            ])
+
+            // 检查是否击中塔
+            let hitTower = hitResults.first { result in
+                var node: SCNNode? = result.node
+                while let currentNode = node {
+                    if currentNode.name?.starts(with: "tower_") == true {
+                        return true
+                    }
+                    node = currentNode.parent
+                }
+                return false
+            }
+
+            if hitTower != nil {
+                // 击中塔，启用3D相机旋转
+                gestureInProgress = true
+                initialTouchPoint = location
+                if let camera = sceneView.pointOfView {
+                    lastCameraEulerAngles = camera.eulerAngles
+                }
+            } else {
+                // 没有击中塔，取消手势让其穿透到地图
+                gesture.isEnabled = false
+                gesture.isEnabled = true
+            }
+
+        case .changed:
+            guard gestureInProgress, let camera = sceneView.pointOfView else { return }
+
+            let translation = gesture.translation(in: sceneView)
+
+            // 水平旋转（绕Y轴，360度无限制）
+            let rotationY = Float(translation.x) * 0.005
+            camera.eulerAngles.y -= rotationY
+
+            // 垂直旋转（限制角度在 -45° 到 0° 之间）
+            let rotationX = Float(translation.y) * 0.005
+            let newX = camera.eulerAngles.x + rotationX
+            // 限制垂直角度（-π/4 到 0）
+            camera.eulerAngles.x = max(-Float.pi / 4, min(0, newX))
+
+            gesture.setTranslation(.zero, in: sceneView)
+
+        case .ended, .cancelled:
+            gestureInProgress = false
+            initialTouchPoint = nil
+            lastCameraEulerAngles = nil
+
+        default:
+            break
+        }
+    }
+
+    func handlePinchGesture(_ gesture: UIPinchGestureRecognizer, sceneView: SCNView) {
+        guard let camera = sceneView.pointOfView else { return }
+
+        switch gesture.state {
+        case .changed:
+            let scale = Float(gesture.scale)
+            let currentPos = camera.position
+            let currentDistance = sqrt(currentPos.x * currentPos.x +
+                                      currentPos.y * currentPos.y +
+                                      currentPos.z * currentPos.z)
+
+            // 限制缩放范围（20-1000单位）
+            let newDistance = max(20, min(1000, currentDistance / scale))
+
+            // 保持相机看向原点，仅调整距离
+            if currentDistance > 0 {
+                let ratio = newDistance / currentDistance
+                camera.position = SCNVector3(
+                    currentPos.x * ratio,
+                    currentPos.y * ratio,
+                    currentPos.z * ratio
+                )
+            }
+
+            gesture.scale = 1.0
+
+        default:
+            break
+        }
+    }
+}
+
 // MARK: - SceneKit View Wrapper
 
 struct SceneKitView: UIViewRepresentable {
@@ -336,11 +458,10 @@ struct SceneKitView: UIViewRepresentable {
         let sceneView = TransparentSceneView()
         sceneView.scene = scene
         sceneView.autoenablesDefaultLighting = false  // 使用自定义光照
-        sceneView.allowsCameraControl = false  // 禁用相机控制，允许地图手势穿透
         sceneView.backgroundColor = .clear
         sceneView.antialiasingMode = .multisampling4X
         sceneView.delegate = context.coordinator
-        sceneView.isUserInteractionEnabled = true  // 仅允许点击检测
+        sceneView.isUserInteractionEnabled = true
 
         // 添加点击手势
         let tapGesture = UITapGestureRecognizer(
@@ -348,6 +469,20 @@ struct SceneKitView: UIViewRepresentable {
             action: #selector(Coordinator.handleTap(_:))
         )
         sceneView.addGestureRecognizer(tapGesture)
+
+        // 添加平移手势（旋转视角）
+        let panGesture = UIPanGestureRecognizer(
+            target: context.coordinator,
+            action: #selector(Coordinator.handlePan(_:))
+        )
+        sceneView.addGestureRecognizer(panGesture)
+
+        // 添加捏合手势（缩放）
+        let pinchGesture = UIPinchGestureRecognizer(
+            target: context.coordinator,
+            action: #selector(Coordinator.handlePinch(_:))
+        )
+        sceneView.addGestureRecognizer(pinchGesture)
 
         return sceneView
     }
@@ -366,6 +501,9 @@ struct SceneKitView: UIViewRepresentable {
         private var lastUpdateTime: TimeInterval = 0
         private let updateInterval: TimeInterval = 0.5  // 每 0.5 秒检查一次
 
+        // Smart camera controller
+        private let cameraController = SmartCameraController()
+
         init(onTap: @escaping (CGPoint, SCNView) -> Void,
              onCameraUpdate: @escaping () -> Void) {
             self.onTap = onTap
@@ -376,6 +514,16 @@ struct SceneKitView: UIViewRepresentable {
             guard let sceneView = gesture.view as? SCNView else { return }
             let location = gesture.location(in: sceneView)
             onTap(location, sceneView)
+        }
+
+        @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+            guard let sceneView = gesture.view as? SCNView else { return }
+            cameraController.handlePanGesture(gesture, sceneView: sceneView)
+        }
+
+        @objc func handlePinch(_ gesture: UIPinchGestureRecognizer) {
+            guard let sceneView = gesture.view as? SCNView else { return }
+            cameraController.handlePinchGesture(gesture, sceneView: sceneView)
         }
 
         // SCNSceneRendererDelegate - 在每一帧渲染后调用
@@ -748,9 +896,9 @@ struct EnhancedFloorRowView: View {
                         )
                 )
 
-            // Color Preview
+            // Color Preview (extracted from pattern_id)
             Circle()
-                .fill(Color(UIColor(hex: floor.color) ?? .gray))
+                .fill(Color(PatternColorExtractor.color(from: floor.patternId)))
                 .frame(width: 32, height: 32)
                 .overlay(
                     Circle()
@@ -909,14 +1057,30 @@ extension Notification.Name {
 /// 自定义SCNView，只在点击到塔时才拦截手势，其他手势穿透到地图
 class TransparentSceneView: SCNView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        // 检查是否点击到3D物体
-        let hitResults = self.hitTest(point, options: [:])
+        // 使用 SCNView 的 3D hitTest 方法（射线检测）
+        // 注意：这里调用的是 SCNView.hitTest(_:options:) 而不是 UIView.hitTest(_:with:)
+        let hitResults = self.hitTest(point, options: [
+            .searchMode: SCNHitTestSearchMode.all.rawValue,
+            .ignoreHiddenNodes: true
+        ])
 
-        if let firstHit = hitResults.first {
-            // 点击到塔了，拦截手势
-            return super.hitTest(point, with: event)
+        // 检查是否击中塔节点
+        let hitTower = hitResults.first { result in
+            var node: SCNNode? = result.node
+            while let currentNode = node {
+                if currentNode.name?.starts(with: "tower_") == true {
+                    return true
+                }
+                node = currentNode.parent
+            }
+            return false
+        }
+
+        if hitTower != nil {
+            // 击中塔，响应手势
+            return self
         } else {
-            // 没有点击到塔，让手势穿透到地图
+            // 未击中塔，穿透到底层地图
             return nil
         }
     }

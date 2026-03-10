@@ -23,19 +23,34 @@ class TowerAggregationService {
    * @param {number} pixelData.lat - 纬度
    * @param {number} pixelData.lng - 经度
    * @param {string} pixelData.user_id - 用户ID
-   * @param {string} pixelData.color - 颜色
+   * @param {string} pixelData.pattern_id - Pattern ID（支持 color/emoji/complex）
    * @param {Date} pixelData.created_at - 创建时间
    * @param {string} pixelData.tile_id - 瓦片ID（自动生成）
    */
   static async onPixelDrawn(pixelData) {
-    const { lat, lng, user_id, color, created_at, tile_id } = pixelData;
+    const { lat, lng, user_id, pattern_id, created_at, tile_id } = pixelData;
 
     // 如果没有 tile_id（老数据），自动计算
     const actualTileId = tile_id || await this.calculateTileId(lat, lng);
 
+    const redis = getRedis();
+
     try {
+      // ━━━━━ Redis 优先方案（实时增量更新）━━━━━
+      if (redis && redis.isOpen) {
+        await this.updateTowerStatsRedis(actualTileId, lat, lng, user_id, pattern_id, created_at);
+        logger.info(`[TowerAggregation] Updated tower ${actualTileId} (Redis)`, {
+          user_id,
+          tile_id: actualTileId
+        });
+        return;
+      }
+
+      // ━━━━━ Fallback：原批量方案（Redis 不可用时）━━━━━
+      logger.warn('[TowerAggregation] Redis unavailable, using fallback batch mode');
+
       // 1. 更新或创建 tower 记录（使用 UPSERT）
-      await this.updateTowerStats(actualTileId, lat, lng, user_id, color, created_at);
+      await this.updateTowerStats(actualTileId, lat, lng, user_id, pattern_id, created_at);
 
       // 2. 更新用户楼层索引
       await this.updateUserFloorIndex(user_id, actualTileId);
@@ -43,7 +58,7 @@ class TowerAggregationService {
       // 3. 清除 Redis 缓存
       await this.clearTowerCache(actualTileId);
 
-      logger.info(`[TowerAggregation] Updated tower ${actualTileId}`, {
+      logger.info(`[TowerAggregation] Updated tower ${actualTileId} (DB fallback)`, {
         user_id,
         tile_id: actualTileId
       });
@@ -60,10 +75,107 @@ class TowerAggregationService {
   }
 
   /**
-   * 更新塔的统计数据
+   * 更新塔的统计数据（Redis 增量更新）
    * @private
    */
-  static async updateTowerStats(tileId, lat, lng, userId, color, createdAt) {
+  static async updateTowerStatsRedis(tileId, lat, lng, userId, patternId, createdAt) {
+    const redis = getRedis();
+    const towerKey = `tower:${tileId}`;
+    const userKey = `${towerKey}:user:${userId}`;
+    const userFloorsKey = `${userKey}:floors`;
+    const timestamp = createdAt.getTime();
+
+    try {
+      // ━━━━━ Step 1: 获取新像素的楼层号（增量分配）━━━━━
+      const currentPixelCount = await redis.hGet(towerKey, 'pixel_count');
+      const floorIndex = parseInt(currentPixelCount || '0');
+
+      // ━━━━━ Step 2: 更新塔统计信息 ━━━━━
+      const towerUpdates = {
+        lat: lat.toString(),
+        lng: lng.toString(),
+        top_pattern_id: patternId || 'color_default',
+        top_user_id: userId,
+        last_pixel_time: timestamp.toString()
+      };
+
+      // 增量更新像素数
+      await redis.hIncrBy(towerKey, 'pixel_count', 1);
+
+      // 批量设置其他字段
+      await redis.hSet(towerKey, towerUpdates);
+
+      // 如果是第一个像素，记录 first_pixel_time
+      const hasFirstPixel = await redis.hExists(towerKey, 'first_pixel_time');
+      if (!hasFirstPixel) {
+        await redis.hSet(towerKey, 'first_pixel_time', timestamp.toString());
+      }
+
+      // ━━━━━ Step 3: 更新独立用户集合 ━━━━━
+      const userAdded = await redis.sAdd(`${towerKey}:users`, userId);
+
+      // 如果是新用户，更新 unique_users 计数
+      if (userAdded > 0) {
+        const uniqueUsers = await redis.sCard(`${towerKey}:users`);
+        await redis.hSet(towerKey, 'unique_users', uniqueUsers.toString());
+      }
+
+      // ━━━━━ Step 4: 计算塔高度（对数缩放）━━━━━
+      const newPixelCount = floorIndex + 1;
+      const height = Math.log(newPixelCount) * 8;
+      await redis.hSet(towerKey, 'height', height.toFixed(2));
+
+      // ━━━━━ Step 5: 更新用户楼层映射 ━━━━━
+      // 增量更新用户楼层数
+      await redis.hIncrBy(userKey, 'floor_count', 1);
+
+      // 更新最后一层楼层号
+      await redis.hSet(userKey, 'last_floor', floorIndex.toString());
+
+      // 如果是用户第一次在这个塔绘制，记录 first_floor
+      const hasFirstFloor = await redis.hExists(userKey, 'first_floor');
+      if (!hasFirstFloor) {
+        await redis.hSet(userKey, 'first_floor', floorIndex.toString());
+      }
+
+      // 添加楼层号到用户楼层列表（🎯 关键：存储具体楼层号）
+      await redis.rPush(userFloorsKey, floorIndex.toString());
+
+      // ━━━━━ Step 6: 计算用户贡献占比 ━━━━━
+      const userFloorCount = await redis.hGet(userKey, 'floor_count');
+      const contributionPct = (parseInt(userFloorCount) / newPixelCount) * 100;
+      await redis.hSet(userKey, 'contribution_pct', contributionPct.toFixed(2));
+
+      // ━━━━━ Step 7: 标记为脏数据（需要同步到 PostgreSQL）━━━━━
+      await redis.sAdd('tower:dirty', tileId);
+
+      logger.debug(`[TowerAggregation] Redis update success`, {
+        tile_id: tileId,
+        floor_index: floorIndex,
+        user_id: userId,
+        pixel_count: newPixelCount,
+        height: height.toFixed(2)
+      });
+
+    } catch (error) {
+      logger.error('[TowerAggregation] Redis update failed', {
+        error: error.message,
+        tile_id: tileId,
+        user_id: userId
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * 更新塔的统计数据（PostgreSQL 批量方案 - Fallback）
+   * @private
+   */
+  static async updateTowerStats(tileId, lat, lng, userId, patternId, createdAt) {
+    // 使用 pattern_id 代替 color（支持所有类型：color/emoji/complex）
+    // pattern_id 示例: color_magenta, emoji_cn, user_avatar_xxx, complex_flag_xxx
+    const topPatternId = patternId || 'color_default';
+
     // 使用 INSERT ... ON CONFLICT 实现 UPSERT
     await db.raw(`
       INSERT INTO pixel_towers (
@@ -75,7 +187,7 @@ class TowerAggregationService {
         unique_users,
         first_pixel_time,
         last_pixel_time,
-        top_color,
+        top_pattern_id,
         top_user_id,
         updated_at
       )
@@ -84,10 +196,10 @@ class TowerAggregationService {
         pixel_count = pixel_towers.pixel_count + 1,
         height = LOG(pixel_towers.pixel_count + 1) * 8,
         last_pixel_time = EXCLUDED.last_pixel_time,
-        top_color = EXCLUDED.top_color,
+        top_pattern_id = EXCLUDED.top_pattern_id,
         top_user_id = EXCLUDED.top_user_id,
         updated_at = NOW()
-    `, [tileId, lat, lng, createdAt, createdAt, color, userId]);
+    `, [tileId, lat, lng, createdAt, createdAt, topPatternId, userId]);
 
     // 更新 unique_users 统计（使用子查询）
     await db.raw(`
@@ -205,6 +317,74 @@ class TowerAggregationService {
   }
 
   /**
+   * 批量更新指定的塔（用于定时任务）
+   *
+   * @param {Array<string>} tileIds - 需要更新的 tile_id 列表
+   * @returns {Promise<Object>} - 更新结果统计
+   */
+  static async batchUpdateTowers(tileIds) {
+    if (!tileIds || tileIds.length === 0) {
+      return { success: true, updated: 0 };
+    }
+
+    logger.info(`[TowerAggregation] 开始批量更新 ${tileIds.length} 个塔...`);
+    const startTime = Date.now();
+    let successCount = 0;
+    let errorCount = 0;
+
+    for (const tileId of tileIds) {
+      try {
+        // 查询该 tile_id 的最新像素（用于获取坐标等信息）
+        const latestPixel = await db('pixels_history')
+          .where('tile_id', tileId)
+          .where('action_type', 'draw')
+          .orderBy('created_at', 'desc')
+          .first();
+
+        if (!latestPixel) {
+          logger.warn(`[TowerAggregation] Tile ${tileId} 没有像素数据，跳过`);
+          continue;
+        }
+
+        // 调用现有的 onPixelDrawn 方法（会自动处理 UPSERT）
+        await this.onPixelDrawn({
+          lat: latestPixel.latitude,
+          lng: latestPixel.longitude,
+          user_id: latestPixel.user_id,
+          pattern_id: latestPixel.pattern_id || 'color_default',
+          created_at: latestPixel.created_at,
+          tile_id: tileId
+        });
+
+        successCount++;
+
+      } catch (error) {
+        errorCount++;
+        logger.error(`[TowerAggregation] 更新塔失败: ${tileId}`, {
+          error: error.message
+        });
+        // 继续处理下一个塔，不中断批量更新
+      }
+    }
+
+    const duration = Date.now() - startTime;
+    logger.info(`[TowerAggregation] 批量更新完成`, {
+      total: tileIds.length,
+      success: successCount,
+      errors: errorCount,
+      duration: `${duration}ms`
+    });
+
+    return {
+      success: true,
+      total: tileIds.length,
+      updated: successCount,
+      errors: errorCount,
+      duration
+    };
+  }
+
+  /**
    * 批量重新聚合（用于数据修复或初始化）
    *
    * @param {Object} options - 选项
@@ -218,9 +398,10 @@ class TowerAggregationService {
     logger.info('[TowerAggregation] Starting batch rebuild...', options);
 
     try {
-      // 1. 清空现有聚合数据
-      await db('user_tower_floors').truncate();
-      await db('pixel_towers').truncate();
+      // 1. 清空现有聚合数据（注意顺序：先删除子表，再删除父表）
+      logger.info('[TowerAggregation] 清空现有聚合数据...');
+      await db('user_tower_floors').del(); // 使用 del() 代替 truncate() 避免外键问题
+      await db('pixel_towers').del();
 
       // 2. 重建 pixel_towers（按 tile_id 聚合）
       let query = db('pixels_history as ph')
@@ -234,16 +415,18 @@ class TowerAggregationService {
           db.raw('MIN(ph.created_at) as first_pixel_time'),
           db.raw('MAX(ph.created_at) as last_pixel_time'),
           db.raw(`(
-            SELECT color
+            SELECT COALESCE(pattern_id, 'color_default')
             FROM pixels_history
             WHERE tile_id = ph.tile_id
+              AND action_type = 'draw'
             ORDER BY created_at DESC
             LIMIT 1
-          ) as top_color`),
+          ) as top_pattern_id`),
           db.raw(`(
             SELECT user_id
             FROM pixels_history
             WHERE tile_id = ph.tile_id
+              AND action_type = 'draw'
             ORDER BY created_at DESC
             LIMIT 1
           ) as top_user_id`)
@@ -272,12 +455,12 @@ class TowerAggregationService {
       await db.raw(`
         INSERT INTO user_tower_floors (user_id, tile_id, floor_count, contribution_pct, first_floor_index, last_floor_index)
         SELECT
-          user_id,
-          tile_id,
-          floor_count,
-          ROUND((floor_count::DECIMAL / pt.pixel_count) * 100, 2) as contribution_pct,
-          first_floor,
-          last_floor
+          user_stats.user_id,
+          user_stats.tile_id,
+          user_stats.floor_count,
+          ROUND((user_stats.floor_count::DECIMAL / pt.pixel_count) * 100, 2) as contribution_pct,
+          user_stats.first_floor,
+          user_stats.last_floor
         FROM (
           SELECT
             user_id,

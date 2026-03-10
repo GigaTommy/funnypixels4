@@ -17,7 +17,7 @@ struct TowerSummary: Codable, Identifiable {
     let lng: Double
     let pixelCount: Int
     let height: Double
-    let topColor: String
+    let topPatternId: String  // ← 修复：改为 pattern_id（匹配后端）
     let uniqueUsers: Int
 
     var id: String { tileId }
@@ -27,7 +27,7 @@ struct TowerSummary: Codable, Identifiable {
         case lat, lng
         case pixelCount = "pixel_count"
         case height
-        case topColor = "top_color"
+        case topPatternId = "top_pattern_id"  // ← 修复：匹配后端字段名
         case uniqueUsers = "unique_users"
     }
 }
@@ -49,7 +49,7 @@ struct TowerViewportData: Codable {
 /// 楼层数据（单个楼层）
 struct FloorData: Codable, Identifiable {
     let floorIndex: Int
-    let color: String
+    let patternId: String  // ← 修复：改为 pattern_id
     let userId: String?
     let timestamp: Date
     let username: String?
@@ -59,7 +59,7 @@ struct FloorData: Codable, Identifiable {
 
     enum CodingKeys: String, CodingKey {
         case floorIndex = "floor_index"
-        case color
+        case patternId = "pattern_id"  // ← 修复：匹配后端字段名
         case userId = "user_id"
         case timestamp
         case username

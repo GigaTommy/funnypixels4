@@ -51,6 +51,12 @@ class TowerViewModel: ObservableObject {
     // LOD tracking
     private var towerLODLevels: [String: TowerLOD] = [:]  // tileId -> current LOD
 
+    // TowerSummary cache for LOD recovery
+    private var towerSummaryCache: [String: TowerSummary] = [:]
+
+    // GPU Instancing renderer (Task #58)
+    private var instancedRenderer = TowerInstancedRenderer()
+
     // MARK: - Initialization
 
     init() {
@@ -85,10 +91,31 @@ class TowerViewModel: ObservableObject {
         directionalLight.light?.intensity = 800
         directionalLight.position = SCNVector3(10, 50, 10)
         directionalLight.look(at: SCNVector3Zero)
+
+        // 启用阴影（P1-1: Shadow System）
+        directionalLight.light?.castsShadow = true
+        directionalLight.light?.shadowMode = .deferred
+        directionalLight.light?.shadowMapSize = CGSize(width: 2048, height: 2048)
+        directionalLight.light?.shadowSampleCount = 16  // 软阴影
+        directionalLight.light?.shadowRadius = 3.0
+
         scene.rootNode.addChildNode(directionalLight)
 
         // Background - 透明（显示下层2D地图）
         scene.background.contents = UIColor.clear
+
+        // 添加透明地面平面接收阴影（P1-1: Shadow System）
+        let ground = SCNPlane(width: 10000, height: 10000)
+        let groundMaterial = SCNMaterial()
+        groundMaterial.diffuse.contents = UIColor.clear  // 透明
+        groundMaterial.writesToDepthBuffer = true
+        ground.materials = [groundMaterial]
+
+        let groundNode = SCNNode(geometry: ground)
+        groundNode.position = SCNVector3(0, -0.1, 0)
+        groundNode.eulerAngles.x = -.pi / 2
+        groundNode.castsShadow = false
+        scene.rootNode.addChildNode(groundNode)
     }
 
     private func setupSharedGeometry() {
@@ -113,7 +140,7 @@ class TowerViewModel: ObservableObject {
 
     // MARK: - Loading Towers
 
-    /// 加载视口范围内的塔
+    /// 加载视口范围内的塔（流式加载）
     func loadTowers(center: CLLocationCoordinate2D, bounds: ViewportBounds) async {
         isLoading = true
         error = nil
@@ -126,13 +153,30 @@ class TowerViewModel: ObservableObject {
         do {
             let towers = try await fetchTowersInViewport(bounds: bounds)
 
-            // 渲染塔
-            await renderTowers(towers)
+            // 按距离排序（优先加载近的）
+            let sortedTowers = prioritizeTowers(towers, center: center)
+
+            // 分批渲染（每批50个）
+            let batchSize = 50
+            for i in stride(from: 0, to: sortedTowers.count, by: batchSize) {
+                let endIndex = min(i + batchSize, sortedTowers.count)
+                let batch = Array(sortedTowers[i..<endIndex])
+
+                await renderTowers(batch)
+
+                // 让UI保持响应（16ms = 1帧）
+                try? await Task.sleep(nanoseconds: 16_000_000)
+
+                // 更新加载计数
+                await MainActor.run {
+                    loadedTowerCount = endIndex
+                }
+            }
 
             loadedTowerCount = towers.count
             isLoading = false
 
-            Logger.info("[Tower] Loaded \(towers.count) towers")
+            Logger.info("[Tower] Loaded \(towers.count) towers in batches")
 
         } catch {
             self.error = error.localizedDescription
@@ -155,6 +199,26 @@ class TowerViewModel: ObservableObject {
         return response.data.towers
     }
 
+    /// 按距离相机远近排序塔
+    private func prioritizeTowers(_ towers: [TowerSummary], center: CLLocationCoordinate2D) -> [TowerSummary] {
+        return towers.sorted { tower1, tower2 in
+            let coord1 = CLLocationCoordinate2D(latitude: tower1.lat, longitude: tower1.lng)
+            let coord2 = CLLocationCoordinate2D(latitude: tower2.lat, longitude: tower2.lng)
+
+            let dist1 = distance(from: center, to: coord1)
+            let dist2 = distance(from: center, to: coord2)
+
+            return dist1 < dist2
+        }
+    }
+
+    /// 计算两点间距离（米）
+    private func distance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> Double {
+        let fromLocation = CLLocation(latitude: from.latitude, longitude: from.longitude)
+        let toLocation = CLLocation(latitude: to.latitude, longitude: to.longitude)
+        return fromLocation.distance(from: toLocation)
+    }
+
     // MARK: - Rendering
 
     private func renderTowers(_ towers: [TowerSummary]) async {
@@ -163,6 +227,9 @@ class TowerViewModel: ObservableObject {
         for tower in towers {
             // 跳过已加载的塔
             if loadedTiles.contains(tower.tileId) { continue }
+
+            // 缓存摘要信息（用于 LOD 降级恢复）
+            towerSummaryCache[tower.tileId] = tower
 
             // 创建塔节点
             let towerNode = createTowerNode(tower: tower, converter: converter)
@@ -196,30 +263,57 @@ class TowerViewModel: ObservableObject {
         )
         towerNode.position = basePosition
 
-        // 创建简化的柱体（初始 LOD）
-        let simplifiedGeometry = createSimplifiedTower(height: Float(tower.height), color: tower.topColor)
-        let geometryNode = SCNNode(geometry: simplifiedGeometry)
-        geometryNode.position = SCNVector3(0, Float(tower.height) / 2, 0)
-        towerNode.addChildNode(geometryNode)
+        // 🚀 使用 GPU Instancing 渲染器（Task #58）
+        // 自动分组并共享几何体和材质
+        _ = instancedRenderer.addTower(tower, towerNode: towerNode, converter: converter)
 
         // 存储元数据（用于交互）
         towerNode.setValue(tower.tileId, forKey: "tileId")
         towerNode.setValue(tower.pixelCount, forKey: "pixelCount")
 
+        // 启用塔投射阴影（P1-1: Shadow System）
+        towerNode.castsShadow = true
+        // 注意：SCNNode 没有 receiveShadow 属性，默认行为即可
+
         return towerNode
     }
 
-    private func createSimplifiedTower(height: Float, color: String) -> SCNGeometry {
-        let box = SCNBox(width: 0.9, height: CGFloat(height), length: 0.9, chamferRadius: 0.05)
+    /// ⚠️ DEPRECATED: 此方法已被 GPU Instancing 系统取代（Task #58）
+    /// 现在使用 TowerInstancedRenderer 自动分组和共享几何体/材质
+    @available(*, deprecated, message: "Use TowerInstancedRenderer instead")
+    private func createSimplifiedTower(tower: TowerSummary) -> SCNGeometry {
+        let box = SCNBox(width: 0.9, height: CGFloat(tower.height), length: 0.9, chamferRadius: 0.05)
 
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor(hex: color) ?? .gray
-        material.lightingModel = .physicallyBased
-        material.metalness.contents = 0.2
-        material.roughness.contents = 0.7
-
+        let material = createDynamicMaterial(tower: tower)
         box.materials = [material]
         return box
+    }
+
+    /// ⚠️ DEPRECATED: 此方法已被 GPU Instancing 系统取代（Task #58）
+    /// 现在使用 TowerInstancedRenderer 自动管理材质缓存池
+    @available(*, deprecated, message: "Use TowerInstancedRenderer instead")
+    private func createDynamicMaterial(tower: TowerSummary) -> SCNMaterial {
+        let material = SCNMaterial()
+
+        // 从 pattern_id 提取主颜色
+        let color = PatternColorExtractor.color(from: tower.topPatternId)
+        material.diffuse.contents = color
+
+        // 高度影响金属度（高塔更闪亮）
+        let metalness = min(0.8, Double(tower.height) / 50.0 * 0.5)
+        material.metalness.contents = metalness
+
+        // 像素数量影响粗糙度（热门塔更光滑）
+        let roughness = max(0.2, 1.0 - Double(tower.pixelCount) / 100.0 * 0.5)
+        material.roughness.contents = roughness
+
+        // 基础自发光（夜间模式更明显）
+        material.emission.contents = color.withAlphaComponent(0.1)
+
+        // PBR
+        material.lightingModel = .physicallyBased
+
+        return material
     }
 
     // MARK: - Detail Loading (按需加载详细楼层)
@@ -240,10 +334,8 @@ class TowerViewModel: ObservableObject {
                 selectedTower = response.data
                 showTowerDetails = true
 
-                // 替换简化模型为详细楼层
-                if let towerNode = towerNodes[tileId] {
-                    replaceWithDetailedFloors(towerNode: towerNode, details: response.data)
-                }
+                // 高亮塔（不改变几何体，只增强发光）
+                highlightTower(tileId)
             }
 
             Logger.info("[Tower] Loaded details for \(tileId): \(response.data.totalFloors) floors")
@@ -254,70 +346,26 @@ class TowerViewModel: ObservableObject {
         }
     }
 
-    private func replaceWithDetailedFloors(towerNode: SCNNode, details: TowerDetailsData) {
-        // 移除简化几何体
-        towerNode.childNodes.forEach { $0.removeFromParentNode() }
-
-        let floorHeight: Float = 0.15
-
-        // 渲染每一层（最多渲染 100 层以保持性能）
-        let floorsToRender = Array(details.floors.prefix(100))
-
-        for floor in floorsToRender {
-            let floorNode = SCNNode(geometry: sharedFloorGeometry)
-
-            // 材质（每层不同颜色）
-            let material = SCNMaterial()
-            material.diffuse.contents = UIColor(hex: floor.color) ?? .gray
-            material.lightingModel = .physicallyBased
-            material.metalness.contents = 0.1
-            material.roughness.contents = 0.8
-
-            // 高亮用户楼层
-            if let userFloors = details.userFloors,
-               floor.floorIndex >= userFloors.firstFloorIndex &&
-               floor.floorIndex <= userFloors.lastFloorIndex {
-                material.emission.contents = UIColor(white: 1.0, alpha: 0.3)  // 发光效果
-            }
-
-            floorNode.geometry?.materials = [material]
-
-            // 位置
-            floorNode.position = SCNVector3(
-                0,
-                Float(floor.floorIndex) * floorHeight + floorHeight / 2,
-                0
-            )
-
-            floorNode.name = "floor_\(floor.floorIndex)"
-            towerNode.addChildNode(floorNode)
+    /// 高亮塔（增强发光效果）
+    private func highlightTower(_ tileId: String) {
+        guard let towerNode = towerNodes[tileId],
+              let geometry = towerNode.childNodes.first?.geometry,
+              let material = geometry.materials.first else {
+            return
         }
 
-        // 如果总楼层 > 100，在顶部添加标记
-        if details.totalFloors > 100 {
-            let label = createFloorCountLabel(count: details.totalFloors - 100)
-            let labelNode = SCNNode(geometry: label)
-            labelNode.position = SCNVector3(0, Float(100) * floorHeight + 2, 0)
-            towerNode.addChildNode(labelNode)
+        // 增强发光（动画）
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 0.3
+
+        // 将发光强度从0.1提升到0.5
+        if let emissionColor = material.emission.contents as? UIColor {
+            material.emission.contents = emissionColor.withAlphaComponent(0.5)
         }
 
-        // 自动定位到用户楼层
-        if let userFloors = details.userFloors {
-            focusOnFloor(towerNode: towerNode, floorIndex: userFloors.lastFloorIndex)
-        }
+        SCNTransaction.commit()
     }
 
-    private func createFloorCountLabel(count: Int) -> SCNText {
-        let text = SCNText(string: "+\(count) more", extrusionDepth: 0.1)
-        text.font = UIFont.systemFont(ofSize: 2)
-        text.flatness = 0.1
-
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.white
-        text.materials = [material]
-
-        return text
-    }
 
     // MARK: - Camera Control
 
@@ -345,30 +393,6 @@ class TowerViewModel: ObservableObject {
         return 20.0 * pow(2.0, 18.0 - zoom)
     }
 
-    func focusOnFloor(towerNode: SCNNode, floorIndex: Int) {
-        let floorHeight: Float = 0.15
-        let targetY = Float(floorIndex) * floorHeight
-
-        let targetPosition = SCNVector3(
-            towerNode.position.x,
-            targetY + 5,  // 稍微偏上
-            towerNode.position.z + 10
-        )
-
-        let lookAtPosition = SCNVector3(
-            towerNode.position.x,
-            targetY,
-            towerNode.position.z
-        )
-
-        SCNTransaction.begin()
-        SCNTransaction.animationDuration = 1.0
-        cameraNode.position = targetPosition
-        cameraNode.look(at: lookAtPosition)
-        SCNTransaction.commit()
-
-        currentCameraPosition = targetPosition
-    }
 
     // MARK: - Interaction
 
@@ -415,8 +439,12 @@ class TowerViewModel: ObservableObject {
     /// 移除指定的塔（从场景和内存中）
     private func removeTowers(tileIds: [String]) {
         for tileId in tileIds {
+            // 🚀 通知 GPU Instancing 渲染器（Task #58）
+            instancedRenderer.removeTower(tileId: tileId)
+
             towerNodes[tileId]?.removeFromParentNode()
             towerNodes.removeValue(forKey: tileId)
+            towerSummaryCache.removeValue(forKey: tileId)
             loadedTiles.remove(tileId)
             towerLODLevels.removeValue(forKey: tileId)
         }
@@ -463,13 +491,17 @@ class TowerViewModel: ObservableObject {
         removeTowers(tileIds: toRemove)
     }
 
-    /// 获取内存使用统计
-    func getMemoryStats() -> (towerCount: Int, visibleCount: Int, hiddenCount: Int) {
+    /// 获取内存使用统计（包含 GPU Instancing 统计）
+    func getMemoryStats() -> (towerCount: Int, visibleCount: Int, hiddenCount: Int, instanceGroups: Int, compressionRatio: Double) {
         let visibleCount = towerNodes.values.filter { !$0.isHidden }.count
+        let renderStats = instancedRenderer.getRenderStats()
+
         return (
             towerCount: towerNodes.count,
             visibleCount: visibleCount,
-            hiddenCount: towerNodes.count - visibleCount
+            hiddenCount: towerNodes.count - visibleCount,
+            instanceGroups: renderStats.uniqueGroups,
+            compressionRatio: renderStats.compressionRatio
         )
     }
 
@@ -546,19 +578,16 @@ class TowerViewModel: ObservableObject {
 
         case .medium:
             // 简化为单一柱体（如果当前是详细模式）
-            if node.childNodes.count > 1 {
-                // 移除详细楼层，恢复简化柱体
+            if node.childNodes.count > 1 || node.childNodes.isEmpty {
+                // 移除详细楼层
                 node.childNodes.forEach { $0.removeFromParentNode() }
 
-                // 重新添加简化几何体
-                if let tower = getTowerSummary(for: tileId) {
-                    let simplifiedGeometry = createSimplifiedTower(
-                        height: Float(tower.height),
-                        color: tower.topColor
-                    )
-                    let geometryNode = SCNNode(geometry: simplifiedGeometry)
-                    geometryNode.position = SCNVector3(0, Float(tower.height) / 2, 0)
-                    node.addChildNode(geometryNode)
+                // 🚀 重新使用 GPU Instancing 渲染器（Task #58）
+                // 移除旧的实例引用并重新添加（确保使用最新的共享几何体）
+                if let tower = getTowerSummary(for: tileId),
+                   let converter = coordinateConverter {
+                    instancedRenderer.removeTower(tileId: tileId)
+                    _ = instancedRenderer.addTower(tower, towerNode: node, converter: converter)
                 }
             }
             node.isHidden = false
@@ -585,13 +614,7 @@ class TowerViewModel: ObservableObject {
 
     /// 获取塔的摘要信息（用于 LOD 降级）
     private func getTowerSummary(for tileId: String) -> TowerSummary? {
-        // 注意：这需要缓存塔的摘要信息
-        // 简化实现：从节点元数据中获取
-        guard towerNodes[tileId] != nil else { return nil }
-
-        // 从存储的值构建 TowerSummary
-        // （在实际应用中，应该在加载时缓存完整的 TowerSummary）
-        return nil  // 占位符，实际需要缓存机制
+        return towerSummaryCache[tileId]
     }
 
     // MARK: - Cleanup
@@ -599,9 +622,13 @@ class TowerViewModel: ObservableObject {
     func cleanup() {
         towerNodes.values.forEach { $0.removeFromParentNode() }
         towerNodes.removeAll()
+        towerSummaryCache.removeAll()
         loadedTiles.removeAll()
         towerLODLevels.removeAll()
         selectedTower = nil
+
+        // 🚀 清理 GPU Instancing 渲染器（Task #58）
+        instancedRenderer.cleanup()
     }
 }
 

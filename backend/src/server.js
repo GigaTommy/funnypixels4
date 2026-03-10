@@ -1234,6 +1234,42 @@ server.listen(PORT, HOST, async () => {
     } catch (scheduledTaskError) {
       logger.error('❌ 定时任务注册失败:', scheduledTaskError.message);
     }
+
+    // 🏗️ 启动 Tower 聚合任务
+    try {
+      // 1. Redis 预热：从 PostgreSQL 加载最近活跃的塔
+      const TowerRedisPersistence = require('./services/towerRedisPersistence');
+      logger.info('🔥 开始预热 Tower Redis 缓存...');
+
+      TowerRedisPersistence.warmupRedisFromDB({
+        towerLimit: 1000,      // 加载最近活跃的 1000 个塔
+        skipIfExists: true     // 如果 Redis 已有数据则跳过
+      }).then(result => {
+        if (result.success) {
+          if (result.skipped) {
+            logger.info(`✅ Tower Redis 已有数据（${result.existingKeys} 个键），跳过预热`);
+          } else {
+            logger.info(`✅ Tower Redis 预热完成`, {
+              loaded: result.loaded,
+              errors: result.errors,
+              duration: `${result.duration}ms`
+            });
+          }
+        } else {
+          logger.warn(`⚠️  Tower Redis 预热失败: ${result.reason || result.error}`);
+        }
+      }).catch(error => {
+        logger.error('❌ Tower Redis 预热失败:', error.message);
+      });
+
+      // 2. 启动定时同步任务（Redis → PostgreSQL，每5分钟）
+      const { startTowerAggregationTask } = require('./tasks/towerAggregationTask');
+      startTowerAggregationTask();
+      logger.info('✅ Tower 同步任务已启动（每5分钟同步 Redis → PostgreSQL）');
+
+    } catch (towerTaskError) {
+      logger.error('❌ Tower 任务启动失败:', towerTaskError.message);
+    }
   }
 
   // Background warmup: load all pixels into Redis GEO for GEOSEARCH-based BBOX queries

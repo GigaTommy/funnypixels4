@@ -200,7 +200,7 @@ class Pixel {
           lat: pixel.latitude,
           lng: pixel.longitude,
           user_id: pixel.user_id,
-          color: pixel.color,
+          pattern_id: pixel.pattern_id,  // 🔧 修复：使用 pattern_id 而不是 color
           created_at: timestamp,
           tile_id: pixel.tile_id  // 使用自动生成的 tile_id
         }).catch(error => {

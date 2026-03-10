@@ -37,10 +37,11 @@ class PushNotificationService: NSObject, ObservableObject {
 
     /// Called when APNs returns a device token
     func didRegisterForRemoteNotifications(deviceToken data: Data) {
-        let token = data.map { String(format: "%02.2hhx", $0) }.joined()
+        // ✅ FIXED: Changed from "%02.2hhx" to "%02x" (2026-03-10)
+        let token = data.map { String(format: "%02x", $0) }.joined()
         self.deviceToken = token
         self.isRegistered = true
-        Logger.info("Device token: \(token)")
+        Logger.info("✅ [NEW CODE] Device token (\(token.count) chars): \(token)")
 
         // Send to backend
         Task {
